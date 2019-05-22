@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function(spModal) {
+    /* widget controller */
+    var c = this;
+
+
+    c.data.knowledgeurl = "https://" + c.data.instancename + ".service-now.com/sp?id=form&table=kb_knowledge";
+    c.data.sectionurl = "https://" + c.data.instancename + ".service-now.com/sp?id=form&table=x_315700_lms_section";
+    c.data.activityurl = "https://" + c.data.instancename + ".service-now.com/sp?id=form&table=x_315700_lms_activitycmp";
+    (function (factory) {
+        /* global define */
+        if (typeof define === 'function' && define.amd) {
+            // AMD. Register as an anonymous module.
+            define(['jquery'], factory);
+        } else if (typeof module === 'object' && module.exports) {
+            // Node/CommonJS
+            module.exports = factory(require('jquery'));
+        } else {
+            // Browser globals
+            factory(window.jQuery);
+        }
+    }(function ($) {
+
+        // Extends plugins for adding hello.
+        //  - plugin is external module for customizing.
+        $.extend($.summernote.plugins, {
+            /**
+             * @param {Object} context - context object has status of editor.
+             */
+            'addclass': function (context) {
+                var self = this;
+                if (typeof context.options.addclass === 'undefined') {
+                    context.options.addclass = {};
+                }
+                if (typeof context.options.addclass.classTags === 'undefined') {
+                    context.options.addclass.classTags = ["jumbotron", "lead", "img-rounded", "img-circle", "img-responsive", "btn", "btn btn-success", "btn btn-danger", "text-muted", "text-primary", "text-warning", "text-danger", "text-success", "table-bordered", "table-responsive", "alert", "alert alert-success", "alert alert-info", "alert alert-warning", "alert alert-danger", "visible-sm", "hidden-xs", "hidden-md", "hidden-lg", "hidden-print"];
+                    //  console.log("Please define your summernote.options.addclass.classTags array");
+                }
+                // ui has renders to build ui elements.
+                //  - you can create a button with `ui.button`
+                var ui = $.summernote.ui;
+
+                addStyleString(".scrollable-menu {height: auto; max-height: 200px; max-width:300px; overflow-x: hidden;}");
+
+                context.memo('button.addclass', function () {
+                    return ui.buttonGroup([
+                        ui.button({
+                            className: 'dropdown-toggle',
+                            contents: '<i class="fa fa-css3"\/>' + ' ' + ui.icon(context.options.icons.caret, 'span'),
+                            //ui.icon(context.options.icons.magic) + ' ' + ui.icon(context.options.icons.caret, 'span'),
+                            tooltip: 'toggle CSS class', //lang.style.style,
+                            data: {
+                                toggle: 'dropdown'
+                            }
+                        }),
+                        ui.dropdown({
+                            className: 'dropdown-style scrollable-menu',
+                            items: context.options.addclass.classTags,
+                            template: function (item) {
+
+                                if (typeof item === 'string') {
+                                    item = { tag: "div", title: item, value: item };
+                                }
+
+                                var tag = item.tag;
+                                var title = item.title;
+                                var style = item.style ? ' style="' + item.style + '" ' : '';
+                                var cssclass = item.value ? ' class="' + item.value + '" ' : '';
+
+
+                                return '<' + tag + ' ' + style + cssclass + '>' + title + '</' + tag + '>';
+                            },
+                            click: function (event, namespace, value) {
+
+                                event.preventDefault();
+                                value = value || $(event.target).closest('[data-value]').data('value');
+
+
+
+                                var $node = $(context.invoke("restoreTarget"))
+                                if ($node.length == 0) {
+                                    $node = $(document.getSelection().focusNode.parentElement, ".note-editable");
+                                }
+
+                                if (typeof context.options.addclass !== 'undefined' && typeof context.options.addclass.debug !== 'undefined' && context.options.addclass.debug) {
+                                    console.debug(context.invoke("restoreTarget"), $node, "toggling class: " + value, window.getSelection());
+                                }
+
+
+                                $node.toggleClass(value);
+
+
+                            }
+                        })
+                    ]).render();
+                    return $optionList;
+                });
+
+                function addStyleString(str) {
+                    var node = document.createElement('style');
+                    node.innerHTML = str;
+                    document.body.appendChild(node);
+                }
+
+                // This events will be attached when editor is initialized.
+                this.events = {
+                    // This will be called after modules are initialized.
+                    'summernote.init': function (we, e) {
+                        //console.log('summernote initialized', we, e);
+                    },
+                    // This will be called when user releases a key on editable.
+                    'summernote.keyup': function (we, e) {
+                        //  console.log('summernote keyup', we, e);
+                    }
+                };
+
+                // This method will be called when editor is initialized by $('..').summernote();
+                // You can create elements for plugin
+                this.initialize = function () {
+
+                };
+
+                // This methods will be called when editor is destroyed by $('..').summernote('destroy');
+                // You should remove elements on `initialize`.
+                this.destroy = function () {
+                    /*  this.$panel.remove();
+                     this.$panel = null; */
+                };
+            }
+        });
+    }));
+
+
+
+
+
+
+
+
+
+
+
+
+    var KnowledgeButton = function (context) {
+        var ui = $.summernote.ui;
+        var shared = {};
+        var button = ui.button({
+            contents: '<img width="20" height="20" src="kbarticle.svg"> ',
+            tooltip: 'Add Kb Article',
+            click: function () {
+             spModal.open({
+                    title:'Knowledge Articles List',
+                    size:'lg',
+                    widget:'kbknowledgelist',
+                    //widgetInput:{table:'kb_knowledge',display_field:'short_description',maximum_entries:'10'}
+							      shared: shared
+							 
+                }).then(function(){
+							 c.data.selectedValue = shared.selection;
+							 var node = document.createElement('div');
+                    node.innerHTML = ' ' + c.data.selectedValue.text +'</div>' ;
+                    context.invoke('editor.insertNode', node);
+							     
+               
+							 
+                });
+								
+    }
+        });
+
+        return button.render();    // return button as jquery object
+    }
+	
+
+
+ var ActivityButton = function (context) {
+        var ui = $.summernote.ui;
+
+        // create button
+        var button = ui.button({
+            contents: '<img width="20" height="20" src="note.svg">',
+            tooltip: 'Add new Activity',
+            click: function () {
+                spModal.open({
+                    title:'Add new Activity',
+                    size:'lg',
+                    widget:'Activity'
+                }).then(function(){
+                    console.log('..... closed ......');
+                });
+            }
+        });
+
+        return button.render();   // return button as jquery object
+    }
+
+
+     var sectionButton = function (context) {
+        var ui = $.summernote.ui;
+        var shared={};
+        var button = ui.button({
+            contents: '<img width="20" height="20" src="flag.svg"></a>',
+            tooltip: 'Add new section',
+            click: function () {
+             spModal.open({
+                    title:'Sections List',
+                    size:'lg',
+                    widget:'sectionlist',
+				    shared: shared
+							 
+                }).then(function(){
+							 c.data.selectedValue = shared.selection;
+							 
+							 var node = document.createElement('div');
+                    node.innerHTML = ' ' + c.data.selectedValue.name +'</div>' ;
+                    context.invoke('editor.insertNode', node);
+                });
+								
+    }
+        });
+
+        return button.render();    // return button as jquery object
+    }
+
+    /*
+        var listButton = function (context) {
+var ui = $.summernote.ui;
+
+// create button
+var button = ui.dropdown({
+contents: '<sn-record-picker field="c.data.kb" table="kb_knowledge" display-field="short_description" value-field="sys_id" search-fields="short_description" page-size="100" ></sn-record-picker>',
+tooltip: 'Add new section',
+click: function () {
+ 
+}
+});
+
+return button.render();   // return button as jquery object
+}
+*/
+    //c.data.knowledge="kb_knowledge";
+
+   /* var testButton = function (context) {
+        var ui = $.summernote.ui;
+
+        // create button
+        var button = ui.button({
+            contents: '<img width="20" height="20" src="flag.svg"> ',
+            tooltip: 'Test Redirection',
+            click: function () {
+             spModal.open({
+                    title:'Knowledge Articles List',
+                    size:'lg',
+                    widget:'summernotelist',
+                    widgetInput:{table:'kb_knowledge',display_field:'short_description'}
+                }).then(function(){
+                    console.log('..... closed ......');
+                });
+    }
+        });
+
+        return button.render();   // return button as jquery object
+    }
+		*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    c.data.description = "short_description";
+    c.data.sys_id = "sys_id";
+    c.data.kb = "";
+    var chaine = "<ol>";
+
+    for (var i = 0; i < c.data.knowledge.length; i++) {
+        chaine += "<li value=" + c.data.knowledge[i].sys_id + ">" + c.data.knowledge[i].short_description + "</li>";
+
+    }
+
+    chaine += "</ol>";
+    console.log(chaine);
+    var listButton = function (context) {
+        var ui = $.summernote.ui;
+        var button = ui.buttonGroup([
+            ui.button({
+                className: 'dropdown-toggle',
+                contents: '<span class="fa fa-database"></span> Kb Articles <span class="caret"></span>',
+                tooltip: "Kb articles",
+                data: {
+                    toggle: 'dropdown'
+                }
+            }),
+            ui.dropdown({
+                className: 'drop-default summernote-list',
+
+                contents: chaine,
+                callback: function ($dropdown) {
+                    $dropdown.find('li').each(function () {
+                        $(this).click(function () {
+
+                            // $('#summernote').summernote('insertText', 'hit ');
+                        });
+                    });
+                }
+            })
+        ]);
+        return button.render();
+    }
+
+
+    $(document).ready(function () {
+        $('#summernote').summernote({
+            addclass: {
+                debug: false,
+                classTags: [{ title: "Button", "value": "btn btn-success" }, "jumbotron", "lead", "img-rounded", "img-circle", "img-responsive", "btn", "btn btn-success", "btn btn-danger", "text-muted", "text-primary", "text-warning", "text-danger", "text-success", "table-bordered", "table-responsive", "alert", "alert alert-success", "alert alert-info", "alert alert-warning", "alert alert-danger", "visible-sm", "hidden-xs", "hidden-md", "hidden-lg", "hidden-print"]
+            },
+            height: 300,
+
+            toolbar: [
+                // [groupName, [list of button]]
+                ['img', ['picture']],
+                ['style', ['style', 'addclass', 'clear']],
+                ['fontstyle', ['bold', 'italic', 'ul', 'ol', 'link', 'paragraph']],
+                ['fontstyleextra', ['strikethrough', 'underline', 'hr', 'color', 'superscript', 'subscript']],
+                ['extra', ['video', 'table', 'height']],
+                ['misc', ['undo', 'redo', 'codeview', 'help']],
+                ['mybutton', ['knowledge']],
+                ['mybutton1', ['activity']],
+                ['mybutton2', ['section']],
+                ['mybutton3', ['list']]
+
+
+
+            ],
+            buttons: {
+                knowledge: KnowledgeButton,
+                activity: ActivityButton,
+                section: sectionButton
+               
+            }
+        });
+    });
+
+
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>summernotetest</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>summernotetest</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+
+	 data.instancename = gs.getProperty('instance_name');
+	 data.knowledge=[];
+	 var knowledge=new GlideRecord("kb_knowledge");
+	knowledge.query();
+	while (knowledge.next()) {
+    knowledgeobj = {};
+    $sp.getRecordDisplayValues(knowledgeobj,knowledge,'short_description,sys_id');	
+
+		data.knowledge.push(knowledgeobj);
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-06 13:11:49</sys_created_on>
+        <sys_id>cf7996b02fd13300a4a2c886f699b6ba</sys_id>
+        <sys_mod_count>197</sys_mod_count>
+        <sys_name>summernotetest</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_cf7996b02fd13300a4a2c886f699b6ba</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-05-21 11:59:41</sys_updated_on>
+        <template><![CDATA[
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+
+<div id="summernote">Hello Summernote
+</div>
+
+ 
+   
+  
+
+  
+
+
+]]></template>
+    </sp_widget>
+</record_update>

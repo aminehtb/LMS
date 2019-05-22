@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_section caption="Mobile" section_id="c34ab2cbdb803300c1e8f53a29961914" sys_domain="global" table="x_315700_lms_course" version="3" view="advanced">
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>mobile_picture_type</element>
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-12 12:03:01</sys_created_on>
+            <sys_id>4f4ab2cbdb803300c1e8f53a29961914</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Mobile" display_value="Mobile" name="x_315700_lms_course" sys_domain="global" view="7966be310a0a0b8c00bd504090503227">c34ab2cbdb803300c1e8f53a29961914</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-12 12:03:01</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>mobile_picture</element>
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-12 12:03:01</sys_created_on>
+            <sys_id>cf4ab2cbdb803300c1e8f53a29961914</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Mobile" display_value="Mobile" name="x_315700_lms_course" sys_domain="global" view="7966be310a0a0b8c00bd504090503227">c34ab2cbdb803300c1e8f53a29961914</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-12 12:03:01</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>mobile_hide_price</element>
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-12 12:03:01</sys_created_on>
+            <sys_id>434ab2cbdb803300c1e8f53a29961915</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Mobile" display_value="Mobile" name="x_315700_lms_course" sys_domain="global" view="7966be310a0a0b8c00bd504090503227">c34ab2cbdb803300c1e8f53a29961914</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-12 12:03:01</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption>Mobile</caption>
+            <header>false</header>
+            <name>x_315700_lms_course</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-12 12:03:01</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>c34ab2cbdb803300c1e8f53a29961914</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Mobile</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+            <sys_update_name>sys_ui_section_c34ab2cbdb803300c1e8f53a29961914</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-12 12:03:01</sys_updated_on>
+            <sys_user/>
+            <title>false</title>
+            <view display_value="Advanced" name="advanced">7966be310a0a0b8c00bd504090503227</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>

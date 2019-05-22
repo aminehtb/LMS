@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element extends="x_315700_lms_component" label="TextCmp" max_length="40" name="x_315700_lms_textcmp" type="collection">
+        <element label="Text Body" mandatory="true" max_length="8000" name="text_body" type="html"/>
+    </element>
+</database>

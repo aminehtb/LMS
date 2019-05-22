@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element extends="x_315700_lms_component" label="ImageCmp" max_length="40" name="x_315700_lms_imagecmp" type="collection">
+        <element label="Link" max_length="40" name="link" type="user_image"/>
+        <element label="Title" mandatory="true" max_length="50" name="title" type="string"/>
+    </element>
+</database>

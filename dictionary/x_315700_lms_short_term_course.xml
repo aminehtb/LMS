@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="update_synch=true" extends="x_315700_lms_asynchronous_course" label="Short term course" max_length="40" name="x_315700_lms_short_term_course" type="collection">
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Duration Type" max_length="40" name="durationtype" type="string">
+            <choice>
+                <element inactive_on_update="false" label="Hours" sequence="0" value="h"/>
+                <element inactive_on_update="false" label="Days" sequence="1" value="d"/>
+                <element inactive_on_update="false" label="Weeks" sequence="2" value="w"/>
+                <element inactive_on_update="false" label="Months" sequence="3" value="m"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="New Choice" max_length="40" name="u_choice_1" type="string">
+            <choice>
+                <element inactive_on_update="false" label="beginner" sequence="0" value="beginner"/>
+                <element inactive_on_update="false" label="intermidate" sequence="1" value="intermidate"/>
+                <element inactive_on_update="false" label="advanced" sequence="2" value="advanced"/>
+            </choice>
+        </element>
+    </element>
+</database>

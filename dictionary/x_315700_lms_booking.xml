@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Booking" max_length="40" name="x_315700_lms_booking" type="collection">
+        <element label="Course" mandatory="true" max_length="32" name="course_id" reference="x_315700_lms_course" type="reference"/>
+        <element label="User" mandatory="true" max_length="32" name="user_id" reference="sys_user" type="reference"/>
+        <index name="index">
+            <element name="course_id"/>
+        </index>
+        <index name="index2">
+            <element name="user_id"/>
+        </index>
+    </element>
+</database>

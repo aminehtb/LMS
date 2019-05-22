@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_form_sections form_id="0b4ab2cbdb803300c1e8f53a29961915" sys_domain="global" table="x_315700_lms_course" version="3">
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-12 12:03:01</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>034a36cbdb803300c1e8f53a2996199f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_315700_lms_course" name="x_315700_lms_course" sys_domain="global" view="f5a795fceb3211003623666cd206fe19">0b4ab2cbdb803300c1e8f53a29961915</sys_ui_form>
+            <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_course" sys_domain="global" view="f5a795fceb3211003623666cd206fe19">4f4a36cbdb803300c1e8f53a2996199d</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-12 12:03:01</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-12 12:03:01</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>8f4a36cbdb803300c1e8f53a299619a0</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_315700_lms_course" name="x_315700_lms_course" sys_domain="global" view="f5a795fceb3211003623666cd206fe19">0b4ab2cbdb803300c1e8f53a29961915</sys_ui_form>
+            <sys_ui_section caption="Details" display_value="Details" name="x_315700_lms_course" sys_domain="global" view="f5a795fceb3211003623666cd206fe19">074a36cbdb803300c1e8f53a2996199f</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-12 12:03:01</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-12 12:03:01</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>0b4a36cbdb803300c1e8f53a299619a2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_315700_lms_course" name="x_315700_lms_course" sys_domain="global" view="f5a795fceb3211003623666cd206fe19">0b4ab2cbdb803300c1e8f53a29961915</sys_ui_form>
+            <sys_ui_section caption="Costs" display_value="Costs" name="x_315700_lms_course" sys_domain="global" view="f5a795fceb3211003623666cd206fe19">834a36cbdb803300c1e8f53a299619a1</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-12 12:03:01</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form action="INSERT_OR_UPDATE">
+            <name>x_315700_lms_course</name>
+            <roles/>
+            <sys_class_name>sys_ui_form</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-12 12:03:01</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>0b4ab2cbdb803300c1e8f53a29961915</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_315700_lms_course</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+            <sys_update_name>sys_ui_form_sections_0b4ab2cbdb803300c1e8f53a29961915</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-12 12:03:01</sys_updated_on>
+            <sys_user/>
+            <view display_value="Item Designer" name="sc_cat_item_designer">f5a795fceb3211003623666cd206fe19</view>
+            <view_name/>
+        </sys_ui_form>
+    </sys_ui_form_sections>
+</record_update>

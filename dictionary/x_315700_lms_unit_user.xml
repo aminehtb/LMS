@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Unit user" max_length="40" name="x_315700_lms_unit_user" type="collection">
+        <element label="Unit" mandatory="true" max_length="32" name="unit_id" reference="x_315700_lms_unit" type="reference"/>
+        <element label="User ID" mandatory="true" max_length="32" name="user_id" reference="sys_user" type="reference"/>
+        <index name="index">
+            <element name="user_id"/>
+        </index>
+        <index name="index2">
+            <element name="unit_id"/>
+        </index>
+    </element>
+</database>

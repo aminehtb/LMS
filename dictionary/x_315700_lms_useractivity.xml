@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="UserActivity" max_length="40" name="x_315700_lms_useractivity" type="collection">
+        <element label="activity" max_length="32" name="activity" reference="x_315700_lms_activitycmp" type="reference"/>
+        <element label="File" max_length="40" name="file" type="file_attachment"/>
+        <element label="User" max_length="32" name="user" reference="sys_user" type="reference"/>
+        <index name="index">
+            <element name="activity"/>
+        </index>
+        <index name="index2">
+            <element name="user"/>
+        </index>
+    </element>
+</database>

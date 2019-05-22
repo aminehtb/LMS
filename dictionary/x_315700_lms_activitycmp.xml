@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element extends="x_315700_lms_component" label="ActivityCmp" max_length="40" name="x_315700_lms_activitycmp" type="collection">
+        <element label="Description" max_length="5000" name="description" type="string"/>
+        <element label="Title" mandatory="true" max_length="50" name="title" type="string"/>
+    </element>
+</database>

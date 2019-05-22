@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element extends="x_315700_lms_component" label="ScormCmp" max_length="40" name="x_315700_lms_scormcmp" type="collection">
+        <element label="Description" max_length="50" name="description" type="string"/>
+        <element label="Name" mandatory="true" max_length="50" name="name" type="string"/>
+        <element label="package" max_length="40" name="u_package" type="file_attachment"/>
+    </element>
+</database>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element extends="x_315700_lms_component" label="ArticleCmp" max_length="40" name="x_315700_lms_articlecmp" type="collection">
+        <element label="Kb article" mandatory="true" max_length="32" name="kb_article" reference="kb_knowledge" type="reference"/>
+        <index name="index">
+            <element name="kb_article"/>
+        </index>
+    </element>
+</database>

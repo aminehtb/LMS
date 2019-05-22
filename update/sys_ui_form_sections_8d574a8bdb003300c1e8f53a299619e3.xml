@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_form_sections form_id="8d574a8bdb003300c1e8f53a299619e3" sys_domain="global" table="x_315700_lms_synchronous_course" version="3">
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-12 08:20:20</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>01574a8bdb003300c1e8f53a299619ea</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_315700_lms_synchronous_course" name="x_315700_lms_synchronous_course" sys_domain="global" view="Default view">8d574a8bdb003300c1e8f53a299619e3</sys_ui_form>
+            <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_synchronous_course" sys_domain="global" view="Default view">8d574a8bdb003300c1e8f53a299619e7</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-12 08:20:20</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-12 08:20:20</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>89574a8bdb003300c1e8f53a299619f1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_315700_lms_synchronous_course" name="x_315700_lms_synchronous_course" sys_domain="global" view="Default view">8d574a8bdb003300c1e8f53a299619e3</sys_ui_form>
+            <sys_ui_section caption="Item Details" display_value="Item Details" name="x_315700_lms_synchronous_course" sys_domain="global" view="Default view">85574a8bdb003300c1e8f53a299619f0</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-12 08:20:20</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-12 08:20:20</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>85574a8bdb003300c1e8f53a299619eb</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_315700_lms_synchronous_course" name="x_315700_lms_synchronous_course" sys_domain="global" view="Default view">8d574a8bdb003300c1e8f53a299619e3</sys_ui_form>
+            <sys_ui_section caption="Process Engine" display_value="Process Engine" name="x_315700_lms_synchronous_course" sys_domain="global" view="Default view">05574a8bdb003300c1e8f53a299619ea</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-12 08:20:20</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>3</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-12 08:20:20</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>01574a8bdb003300c1e8f53a299619ed</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_315700_lms_synchronous_course" name="x_315700_lms_synchronous_course" sys_domain="global" view="Default view">8d574a8bdb003300c1e8f53a299619e3</sys_ui_form>
+            <sys_ui_section caption="Picture" display_value="Picture" name="x_315700_lms_synchronous_course" sys_domain="global" view="Default view">89574a8bdb003300c1e8f53a299619eb</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-12 08:20:20</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>4</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-12 08:20:20</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>09574a8bdb003300c1e8f53a299619ee</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_315700_lms_synchronous_course" name="x_315700_lms_synchronous_course" sys_domain="global" view="Default view">8d574a8bdb003300c1e8f53a299619e3</sys_ui_form>
+            <sys_ui_section caption="Mobile" display_value="Mobile" name="x_315700_lms_synchronous_course" sys_domain="global" view="Default view">05574a8bdb003300c1e8f53a299619ed</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-12 08:20:20</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>5</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-12 08:20:20</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>81574a8bdb003300c1e8f53a299619f0</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_315700_lms_synchronous_course" name="x_315700_lms_synchronous_course" sys_domain="global" view="Default view">8d574a8bdb003300c1e8f53a299619e3</sys_ui_form>
+            <sys_ui_section caption="Pricing" display_value="Pricing" name="x_315700_lms_synchronous_course" sys_domain="global" view="Default view">0d574a8bdb003300c1e8f53a299619ee</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-12 08:20:20</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>6</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-12 08:20:20</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>89574a8bdb003300c1e8f53a299619e7</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_315700_lms_synchronous_course" name="x_315700_lms_synchronous_course" sys_domain="global" view="Default view">8d574a8bdb003300c1e8f53a299619e3</sys_ui_form>
+            <sys_ui_section caption="Portal Settings" display_value="Portal Settings" name="x_315700_lms_synchronous_course" sys_domain="global" view="Default view">09574a8bdb003300c1e8f53a299619e5</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-12 08:20:20</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form action="INSERT_OR_UPDATE">
+            <name>x_315700_lms_synchronous_course</name>
+            <roles/>
+            <sys_class_name>sys_ui_form</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-12 08:20:20</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>8d574a8bdb003300c1e8f53a299619e3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_315700_lms_synchronous_course</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+            <sys_update_name>sys_ui_form_sections_8d574a8bdb003300c1e8f53a299619e3</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-12 08:20:20</sys_updated_on>
+            <sys_user/>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_form>
+    </sys_ui_form_sections>
+</record_update>

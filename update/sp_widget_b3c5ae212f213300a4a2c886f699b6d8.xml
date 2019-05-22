@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope) {
+  /* widget controller */
+  var c = this;
+	
+	
+	
+	var shared = c.widget.options.shared;
+	c.selection = function selection(idx) {
+	var id = c.data.section[idx];
+		//console.log(id);
+		
+		return angular.isDefined(id) ? (shared.selection = id) : shared.selection;
+		
+	}
+	
+	
+	 $scope.Search=function(){
+	var input, filter, ul, li, a,txtValue;
+  input = document.getElementById('myinput');
+  filter = input.value.toUpperCase();
+  li = document.querySelectorAll('.list-group  li');
+  
+  
+  for (var i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+		console.log(a);
+    txtValue = a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+	 }
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.section {
+ width:465px;
+ margin: 0 auto;
+ text-align:center;
+}
+
+ul {
+ display:inline-block;
+ border:1px solid blue;
+ padding:5px;
+  text-align:center;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>sectionlist</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>sectionlist</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+	
+	
+	data.section=[];
+	 var section=new GlideRecord("x_315700_lms_section");
+	section.query();
+	while (section.next()) {
+    sectionobj = {};
+    $sp.getRecordDisplayValues(sectionobj,section,'name,sys_id');	
+
+		data.section.push(sectionobj);
+		gs.warn(data.knowledge);
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-21 08:16:48</sys_created_on>
+        <sys_id>b3c5ae212f213300a4a2c886f699b6d8</sys_id>
+        <sys_mod_count>22</sys_mod_count>
+        <sys_name>sectionlist</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_b3c5ae212f213300a4a2c886f699b6d8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-05-21 09:19:45</sys_updated_on>
+        <template><![CDATA[
+
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-3">
+            <form action="" class="search-form">
+                <div class="form-group has-feedback">
+            		<label for="search" class="sr-only">Search</label>
+            		<input type="text" onkeyup="angular.element(this).scope().Search()" class="form-control" name="search" id="myinput" placeholder="search">
+              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
+            	</div>
+            </form>
+        </div>
+    </div>
+  
+  
+  
+  <div class="section" style="display: inline-block;" >
+    
+  
+ <ul  class="list-group section-list">
+      <li  ng-click="c.selection($index)"  class="list-group-item" ng-repeat="item in data.section">
+        <a >{{item.name}}</a>
+      </li>
+    </ul>
+    </div>
+  </div>
+
+
+  
+  
+]]></template>
+    </sp_widget>
+</record_update>

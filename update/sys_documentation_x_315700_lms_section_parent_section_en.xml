@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_documentation element="parent_section" label="Parent Section" language="en" table="x_315700_lms_section">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>parent_section</element>
+            <help/>
+            <hint/>
+            <label>Parent Section</label>
+            <language>en</language>
+            <name>x_315700_lms_section</name>
+            <plural>Parent Sections</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-13 13:14:43</sys_created_on>
+            <sys_id>0744582fdbc03300c1e8f53a29961991</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Parent Section</sys_name>
+            <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+            <sys_update_name>sys_documentation_x_315700_lms_section_parent_section_en</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-13 13:14:43</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

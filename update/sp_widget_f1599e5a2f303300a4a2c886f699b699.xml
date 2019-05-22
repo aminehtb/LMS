@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[
+function($scope,$sce,nowAttachmentHandler,$timeout,spAriaUtil,spUtil,$http) {
+  
+    var c = this;
+      
+      
+      
+      
+      
+  
+       $scope.files = [];  
+			var activity_attch = [];
+    $scope.setFiles = function(element,id) {
+			console.log(id);
+			 var obj =  {'id':id,'list':[]}
+       for (var i = 0; i < element.files.length; i++) {
+      console.log(element.files[i].name);        
+   document.getElementsByName(id)[0].innerHTML+='<button class="btn btn-default btn-sm" id='+element.files[i].name+' onclick="removeFiles(\''+id+'\',this.id)">'+ element.files[i].name + element.files[i].size+'KB <i class="fas fa-trash-alt"></i>'+'</button>'+'</br>'; 
+
+        obj.list.push(element.files[i]);
+     }
+			activity_attch.push(obj);
+			
+   };
+  
+  /*$scope.setId = function(id){
+          document.getElementById(id).innerHTML=element.file.name;
+             console.log('files:', id);
+          
+          
+      }*/
+      
+      
+    
+    removeFiles = function(id,fname) {
+		console.log('removing '+fname);
+			document.getElementById(fname).remove();
+			activity_attch.forEach(function(item){
+				if(item.id == id ){
+					for(var i=0;i<item.list.length;i++){
+						
+							item.list.splice(i,1);
+						
+						
+					}
+					console.log("alaaaa"+item.list);
+				}
+			});
+      
+		}
+    $scope.uploadFiles = function() { 
+      $scope.fd = new FormData();
+			
+      $scope.files.forEach(function(file){
+        $scope.fd.set('files', file);
+				console.log(file);
+        var request = {
+          method: 'POST',
+          url: 'https://'+c.data.instanceName+'.service-now.com/api/now/attachment/file?table_name='+c.data.table+'&table_sys_id='+c.data.tableSys+'&file_name='+file.name,
+          data: $scope.fd.get('files'),
+          headers: {
+            'Content-Type': file.type,
+            'Accept':'application/json'         
+          }
+        };
+        console.log('HTTP request:',request);
+  
+        // SEND THE FILES.
+        $http(request)
+          .success(function (d) {
+         var json_data = JSON.stringify(d);
+        json_data = JSON.parse(json_data);
+         c.data.action = 'append_file';
+         c.data.rec_id = c.data.sysID;
+         c.data.attachment_id = json_data.result.sys_id;
+         c.server.update().then(function(){
+      c.data.action = undefined;
+      })
+              })
+          .error(function (err) {
+          // On error code here
+        });
+                              
+  
+                                   
+          });
+      }
+      $scope.submit_record=function(act_id) {
+      
+      
+          var index=-1;
+          for (var i=0;i<c.data.all_components.length;i++){
+          if (c.data.all_components[i].sys_id==act_id)
+              index=i;
+      
+          }
+      c.data.activity =c.data.all_components[index].sys_id;
+      
+			activity_attch.forEach(function(item){
+				if(item.id == act_id){
+					item.list.forEach(function(f){
+						$scope.files.push(f);
+					});
+					
+				}
+				
+			});
+			
+				//console.log($scope.files);
+      c.data.insert = 'insert';
+      c.server.update().then(function(){
+       c.data.table = 'x_315700_lms_useractivity';
+          c.data.tableSys = c.data.sysID;
+          $scope.uploadFiles();
+				console.log('success');
+  c.data.insert = undefined;
+      });
+      
+         
+  };
+  
+  
+  
+  
+  
+  
+      $rootScope.$on('selectunit', function(event,data){
+          c.data.textarticleHtml ="";
+      c.server.get({
+                  action: 'getunit',
+                  unitID: $rootScope.unitID
+              }).then(function(r) {
+                  console.log(r.data);
+                  c.data= r.data;
+              c.data.all_components=r.data.all_components;
+                  
+          
+              });
+      });
+  
+  }
+                                                   
+  
+  ]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.nbs-flexisel-nav-left, .nbs-flexisel-nav-right {
+    width: 20px;
+    height:25px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+    margin-top:2em;
+}
+.nbs-flexisel-nav-left {
+    right: 0;
+    background: none;
+}
+.nbs-flexisel-nav-right {
+ left: 0;
+  background: none;
+}
+li.nbs-flexisel-item {
+ width:370px;
+}
+.biseller-column  p {
+    font-size: 1em;
+    color: #fff;
+    margin: 0;
+    text-align:center;
+}
+.panel-title &gt; a, .panel-title &gt; small, .panel-title &gt; .small, .panel-title &gt; small &gt; a, .panel-title &gt; .small &gt; a {
+    color:#000;
+    text-decoration: none;
+}
+.panel-title {
+    font-size: 1.1em;
+}
+.panel-default &gt; .panel-heading {
+    background: none;
+    border: none;
+	cursor: pointer;
+}
+.panel-default {
+    border: none;
+}
+.panel-group .panel-heading + .panel-collapse &gt; .panel-body, .panel-group .panel-heading + .panel-collapse &gt; .list-group {
+    border: none;
+}
+.asd {
+    padding: 1em 0;
+	text-transform:capitalize;
+}
+.panel_text {
+    font-size: 14px;
+    color: black;
+    line-height: 1.8em;
+}
+.panel{
+	box-shadow:none;
+}
+.pa_italic span{
+	display:none;
+}
+.pa_italic i{
+	left: -1em;
+}
+.collapsed span{
+	display: inline-block;
+    left: -1em;
+}
+.collapsed i{
+	display:none;
+}
+.panel_text {
+    background:#fff;
+.img-fluid. max-width: 100%;
+  height:auto;
+}
+p{font-size: 1.3rem;
+  line-height: 1.625rem;
+ font-family: Verdana, Geneva, sans-serif;
+  
+}
+.responsive {
+  max-width: 90%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+.youtube-player{
+   margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 6px;
+    display: block;
+}
+h2 { text-align: center }
+
+
+
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>unitbody_clone</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>UnitBody_clone</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function($scope) {
+	if(input){
+		var unit = new GlideRecord('x_315700_lms_unit');
+		var section = new GlideRecord('x_315700_lms_section');
+
+		data.table='x_315700_lms_useractivity';
+		
+		data.instanceName = gs.getProperty('instance_name');
+		if (unit.get(input.unitID)) {			
+			if (input.action == 'getunit') {	
+				
+				
+				data.all_components = [];
+				data.unit={};
+				data.section={};
+				data.useractivity={};
+				
+				data.section= unit.getDisplayValue("section");
+					var componentGR = new GlideRecord('x_315700_lms_component');
+					componentGR.addQuery("parent_unit",input.unitID);
+				componentGR.orderBy('order');
+				 componentGR.query();
+					while(componentGR.next()){
+						var cmpClass =componentGR.getValue('sys_class_name')+""; 
+				
+						switch (cmpClass) {
+							case 'x_315700_lms_videocmp':	
+								var videocomponentGR = new GlideRecord("x_315700_lms_videocmp");
+								videocomponentGR.get(componentGR.sys_id);
+								videocomponentGR.query();
+								while(videocomponentGR.next()){
+									var videoobj={};
+								$sp.getRecordValues(videoobj,videocomponentGR,"link,sys_class_name,title,unit,order");
+									videoobj.c_type = 'video';
+									data.all_components.push(videoobj);
+								}
+								break;
+								
+							case 'x_315700_lms_textcmp': 
+								var textcomponentGR = new GlideRecord("x_315700_lms_textcmp");
+								  textcomponentGR.get(componentGR.sys_id);
+								textcomponentGR.query();
+								while(textcomponentGR.next()){
+									var textobj={};
+								$sp.getRecordValues(textobj,textcomponentGR,"text_body,sys_class_name");
+									textobj.c_type ='text';
+									data.all_components.push(textobj);
+								}
+								break;
+								
+							 case 'x_315700_lms_imagecmp':
+								
+								var imagecomponentGR = new GlideRecord("x_315700_lms_imagecmp");
+								imagecomponentGR.get(componentGR.sys_id);	  
+                imagecomponentGR.addQuery("sys_id",imagecomponentGR.getValue('sys_id'));
+                imagecomponentGR.query();
+                while (imagecomponentGR.next()) {
+								
+                var link = imagecomponentGR.link.getDisplayValue();
+									
+		
+								
+									var imageobj = {'src':link,'c_type':'image'};
+									data.all_components.push(imageobj);									
+                }
+	              break;			
+							
+							case 'x_315700_lms_articlecmp':
+								var articlecomponentGR=new GlideRecord("x_315700_lms_articlecmp");
+								articlecomponentGR.get(componentGR.sys_id);
+								articlecomponentGR.query();
+                var articleGR = new GlideRecord("kb_knowledge");
+								var kbarticle=articlecomponentGR.getValue("kb_article");
+                articleGR.get(kbarticle);
+								while(articlecomponentGR.next()){
+								var textarticle={};
+									
+								textarticle = new global.KBViewModel().getArticleContentBySysId(articleGR.getUniqueValue());
+							    var articleobj = {'textarticle':textarticle,'c_type':'article'};
+									data.all_components.push(articleobj);
+									
+								}
+								break;
+								
+							case 'x_315700_lms_activitycmp':
+						  
+								var activitycomponentGR=new GlideRecord("x_315700_lms_activitycmp");
+								activitycomponentGR.get(componentGR.sys_id);
+								activitycomponentGR.addQuery("sys_id",activitycomponentGR.getValue('sys_id'));
+                activitycomponentGR.query();
+                while (activitycomponentGR.next()) { 
+									 var activityobj={};
+									$sp.getRecordValues(activityobj,activitycomponentGR,"title,description,sys_id,sys_class_name");
+									activityobj.c_type='activity';
+			          data.all_components.push(activityobj);
+								}
+									
+			
+								break;						
+						
+						
+							default : gs.warn('notfound');
+					
+						}
+			
+						}
+						$sp.getRecordValues(data.unit,unit,"name,sys_id,section");
+			}
+			
+	}
+		
+			if(input.insert=='insert'){
+				
+				var useractivityGR = new GlideRecord(data.table);
+            
+            useractivityGR.activity = input.activity; 
+            useractivityGR.user=gs.getUserID(); 
+            var id = useractivityGR.insert();
+            data.sysID = id;
+				    
+			}
+					
+if(input && input.action=='append_file'){
+
+if(input.rec_id && input.attachment_id){
+
+var useractivityres = new GlideRecord(data.table);
+useractivityres.get(input.rec_id);
+useractivityres.file = input.attachment_id;
+var result = useractivityres.update();
+}
+}
+
+}})
+
+();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-04-16 08:30:40</sys_created_on>
+        <sys_id>f1599e5a2f303300a4a2c886f699b699</sys_id>
+        <sys_mod_count>155</sys_mod_count>
+        <sys_name>UnitBody_clone</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_f1599e5a2f303300a4a2c886f699b699</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-05-10 08:30:18</sys_updated_on>
+        <template><![CDATA[<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+
+<div class="panel panel-info" style="width: 100%" ng-if="c.data.unit.sys_id">
+    <div class="panel-heading clearfix">
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <h2>
+                    {{c.data.section}}
+                </h2>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-md-12">
+
+
+        <h3>
+            {{c.data.unit.name}}
+        </h3>
+    </div>
+
+    <div class="panel-body">
+
+        <div ng-repeat="cmp in c.data.all_components   ">
+            <div ng-if="cmp.c_type=='activity'">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title asd">
+                            <a class="pa_italic" role="button" data-toggle="collapse" data-parent="#accordion"
+                                href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <span class="lnr lnr-chevron-down"></span><i
+                                    class="lnr lnr-chevron-up"></i><label>{{cmp.title}}</label><i
+                                    class="fa fa-angle-down"></i>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                        aria-labelledby="headingOne">
+                        <div class="panel-body panel_text">
+                            {{cmp.description}}
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="att-group">
+                  
+
+                    <label class="btn btn-info btn-sm"> <span><i class="fas fa-cloud-upload-alt mr-2"
+                                aria-hidden="true"></i>Choose files</span>
+                        <input id={{cmp.sys_id}} style='opacity:0; width:0px; height:0px;' type="file" multiple
+                            onchange="angular.element(this).scope().setFiles(this,this.id)" />
+
+                    </label>
+                    <p name ="{{cmp.sys_id}}"></p>
+                    
+                    <br />
+                  <button class="btn btn-success btn-md" ng-click="submit_record(cmp.sys_id)">
+                    Add
+                  </button>
+                    <!-- <div ng-show="files.length">
+
+                        <div ng-repeat="file in files">
+
+                          
+                       <span class="glyphicon glyphicon-remove-circle" id="removeicon" ng-click="removeFiles(file)"></span>
+               		 <button  ng-click="submit_record(cmp.sys_id)">
+                     Add 
+								</button>
+                  </div>
+                            <span ng-switch="file.size > 1024*1024">
+                                <span ng-switch-when="true">{{file.size / 1024 / 1024 | number:2}} MB</span>
+                                <span ng-switch-default>{{file.size / 1024 | number:2}} kB</span>
+                            </span>
+
+                        </div>
+                    </div> -->
+
+                </div>
+            </div>
+
+            <videocomponent videoclass="cmp" ng-if="cmp.c_type=='video'">
+            </videocomponent>
+            <textcomponent textclass="cmp" ng-if="cmp.c_type=='text'">
+            </textcomponent>
+            <imagecomponent imageclass="cmp" ng-if="cmp.c_type=='image'">
+            </imagecomponent>
+            <articlecomponent articleclass="cmp" ng-if="cmp.c_type=='article'">
+            </articlecomponent>
+
+
+
+        </div>
+    </div>
+
+</div>]]></template>
+    </sp_widget>
+</record_update>

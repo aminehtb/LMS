@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="update_synch=true" extends="sc_cat_item" label="Course" max_length="40" name="x_315700_lms_course" type="collection">
+        <element label="Instructor" mandatory="true" max_length="32" name="instructor" reference="sys_user" type="reference"/>
+        <element choice="1" label="Languages" mandatory="true" max_length="32" name="languages" reference="sys_language" type="glide_list">
+            <choice/>
+        </element>
+        <element choice="1" label="Level" mandatory="true" max_length="50" name="level" type="choice">
+            <choice/>
+        </element>
+        <element label="Optional Objective" max_length="100" name="optional_objective" type="string"/>
+        <element label="Prior Knowledge" mandatory="true" max_length="6000" name="prior_knowledge" type="string"/>
+        <element label="Title" mandatory="true" max_length="50" name="title" type="string"/>
+        <index name="index">
+            <element name="instructor"/>
+        </index>
+        <index name="index2">
+            <element name="languages"/>
+        </index>
+    </element>
+</database>

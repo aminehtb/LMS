@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {
+  /* widget controller */
+  var c = this;
+	
+	
+	$rootScope.$on('selectcourse', function(event,data){
+      c.server.get({
+                  action: 'getcourse',
+                  courseID: $rootScope.courseID
+              }).then(function(r) {
+                  console.log(r.data);
+                  c.data= r.data;
+				          c.data.unitlist=r.data.unitlist;
+				
+				          c.data.subsection=r.data.unitlist[1].subsection.name;
+				          
+				          console.log(c.data.unitlist);
+				
+				
+				
+				
+				    
+				         
+             
+                  
+          
+              });
+      });
+  
+	
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.panel-default &gt; .panel-heading {
+    background: none;
+    border: none;
+	cursor: pointer;
+}
+.panel-default {
+    border: none;
+}
+.panel-group .panel-heading + .panel-collapse &gt; .panel-body, .panel-group .panel-heading + .panel-collapse &gt; .list-group {
+    border: none;
+}
+h2 { text-align: center }
+
+
+.star-rating {
+  line-height:32px;
+  font-size:1.25em;
+}
+
+.star-rating .fa-star{color: yellow;}
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+fieldset, label { margin: 0; padding: 0; }
+body{ margin: 20px; }
+h1 { font-size: 1.5em; margin: 10px; }
+
+/****** Style Star Rating Widget *****/
+
+.rating { 
+  border: none;
+  float: left;
+}
+
+.rating &gt; input { display: none; } 
+.rating &gt; label:before { 
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating &gt; .half:before { 
+  content: "\f089";
+  position: absolute;
+}
+
+.rating &gt; label { 
+  color: #ddd; 
+ float: right; 
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating &gt; input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) &gt; label:hover, /* hover current star */
+.rating:not(:checked) &gt; label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating &gt; input:checked + label:hover, /* hover current star when changing rating */
+.rating &gt; input:checked ~ label:hover,
+.rating &gt; label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating &gt; input:checked ~ label:hover ~ label { color: #FFED85;  }
+
+a{color:black;}
+.circle-icon {
+    background: white;
+    width: 100px;
+    height: 100px;
+    border-radius: 60%;
+    text-align: center;
+    line-height: 100px;
+    vertical-align: middle;
+    padding: 30px;
+}
+.greycolor{color:#A9A9A9;}
+  
+.prior{background-color:#CDCDCD;
+  border-radius:10px;
+  text-align:center;
+  margin:5px;
+  color:black;
+ }
+.gr_prior{
+  border-style: ridge;
+  border-width: medium;
+  
+}
+
+.course_program  {
+  margin-left: auto;
+    margin-right: auto;
+  width:40em;
+  counter-reset: section;
+counter-reset: subsection;
+ 
+}
+
+
+.course_program p{
+  counter-reset: unit;
+  
+}
+
+.course_program .subunit{
+  counter-reset: subunit;
+}
+
+
+
+
+.course_program h4{
+  margin:27px;
+}
+.course_program .subsection b::before{
+  counter-increment: subsection;
+  content: "SubSection " counter(subsection) " - ";
+}
+.course_program b::before {
+  counter-increment: section;
+  content: "Section " counter(section) " - ";
+}
+.course_program .subunit h4::before {
+  
+  counter-increment: subunit;
+  content: counter(subunit) ".  ";
+}
+
+.course_program .unit h4::before {
+  
+  counter-increment: unit;
+  content: counter(unit) ".  ";
+}
+.course_program .subsection p{
+  margin:3px;
+}
+
+
+
+  
+
+
+
+
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>coursebody</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>CourseBody</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function($scope) {
+  
+	if(input){
+		
+  var course = new GlideRecord("x_315700_lms_asynchronous_course");
+	var section = new GlideRecord("x_315700_lms_section");
+   
+	var unit = new GlideRecord("x_315700_lms_unit");
+    var unitsubsection=new GlideRecord("x_315700_lms_unit");
+		
+			data.course={};	
+		  data.section=[];
+		  data.unitlist=[];
+		  data.unitsubseclist=[];
+				data.prior=[];
+          data.subsection=[];
+		 
+		 
+		
+		if (course.get(input.courseID)) {			
+			if (input.action == 'getcourse') {	
+				
+		section.addQuery("course",input.courseID);
+				section.addNullQuery('parent_section');
+				
+				section.query();
+				while(section.next()){
+					
+					listeobj={};
+					subseclisteobj={};
+					var sectionobj={};
+					
+          
+					$sp.getRecordDisplayValues(sectionobj,section,"sys_id,name");
+                    
+					data.section.push(sectionobj);
+					 var subsection = new GlideRecord("x_315700_lms_section");	
+          subsection.addQuery("parent_section",sectionobj.sys_id);
+					subsection.query();
+					gs.warn("ahmed  : "+subsection.getRowCount());
+					data.subsectionlist=[];
+					while(subsection.next()){
+                        gs.warn("Hamidouuuuuuu");
+						var subsectionobj={};
+						$sp.getRecordDisplayValues(subsectionobj,subsection,"sys_id,name");
+						//data.subsectionlist.push(subsectionobj);
+						gs.warn("alaaaaaa"+JSON.stringify(subsectionobj));
+						  unitsubsection.addQuery("section",subsectionobj.sys_id);
+                unitsubsection.query();
+				gs.warn("SALMAAAAAAAAAAAAAAA UNIIIT"+unitsubsection.getRowCount());
+                data.unitsubsection=[];
+                while(unitsubsection.next()){
+                var unitsubsectionobj={};
+                $sp.getRecordDisplayValues(unitsubsectionobj,unitsubsection,"sys_id,name");
+                data.unitsubsection.push(unitsubsectionobj);
+								}
+						subseclisteobj={'subsection':subsectionobj,'subsecunit':data.unitsubsection};
+						data.unitsubseclist.push(subseclisteobj);
+					}
+					unit.addQuery("section",section.sys_id);
+				unit.query();
+					data.unit= [];
+				while(unit.next()){
+					var unitobj={};
+					$sp.getRecordDisplayValues(unitobj,unit,"sys_id,name");
+					
+					data.unit.push(unitobj);
+				  gs.warn(JSON.stringify(data.unit));
+					
+					
+					
+				}
+              
+
+
+					       
+					listeobj={'section':sectionobj,'arrayunit':data.unit};
+					data.unitlist.push(listeobj);
+				} 
+				}/*
+                subsection.addQuery("course",input.courseID);
+                subsection.query();
+                while(subsection.next()){
+                    var subsec = subsection.getValue("parent_section");
+
+                }
+                */
+				gs.warn(section.sys_id);
+				
+				$sp.getRecordDisplayValues(data.course,course,"name,sys_id,description,price,instructor,duration,suggested,level,languages");
+				  var list = course.prior_knowledge.getDisplayValue();
+
+         var array = list.toString().split(",");
+
+       for (var i=0; i < array.length; i++) {
+				 data.prior.push(array[i]);
+       }
+				
+				
+				
+				  
+				
+				
+				
+				
+				
+			
+	
+	
+	
+
+
+	
+	}}}
+)();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-04-17 09:32:59</sys_created_on>
+        <sys_id>dc313ba22f703300a4a2c886f699b643</sys_id>
+        <sys_mod_count>479</sys_mod_count>
+        <sys_name>CourseBody</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_dc313ba22f703300a4a2c886f699b643</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-05-15 08:38:24</sys_updated_on>
+        <template><![CDATA[
+<html>
+  
+<body>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
+
+<div class="panel panel-info" style="width: 100%" ng-if="c.data.course.sys_id">
+    <div class="panel-heading clearfix">
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <h2>
+                    {{c.data.course.name}}
+                </h2>
+            </div>
+
+        </div>
+
+    </div>
+  
+  
+   <div class="panel-body">
+    <div>
+      <h3>
+        About This Course 
+      </h3>
+     </div> 
+     
+     <div>
+      <fieldset class="rating">
+    <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+    <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+    <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+    <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+    <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+    <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+    <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+    <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+    <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+    <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+</fieldset>
+     </div> 
+    
+ 
+  <div class="pull-left" ng-bind-html="c.data.course.description" >
+    <p>
+     
+      {{c.data.course.description}} </p>  </div>   
+    <div class="pull-right" style="width:50%">
+      
+  
+							
+								
+									<div  href="#">
+                   <p >  <span class="fas fa-chalkboard-teacher fa-2x greycolor" ></span><b style="font-weight: bold;font-size:22px;">   Trainer’s Name	 {{c.data.course.instructor}} </b> </p>  
+									
+                  </div>
+								
+									<div  href="#">
+                    <p>	<span class="fas fa-dollar-sign fa-2x greycolor" ></span> <b style="font-weight: bold;font-size:22px;" >   Course Fee  {{c.data.course.price}} </b>
+                      
+                    </p>
+										
+									</div>
+							<!--
+									<div class="well well-sm" style="width:100%" href="#">
+										<p>Available Seats </p>
+										<span>15</span>
+									</div>
+               -->
+								
+									<div  href="#">
+										<p>
+                      
+                      <span class="fas fa-calendar-alt fa-2x greycolor" ></span><b style="font-weight: bold;font-size:22px;" >  Schedule  {{c.data.course.duration}}   Hours </b> </p>
+                    
+									</div>
+								
+                
+                <div>
+                  
+     
+                  <p> <span class="fas fa-chart-bar fa-2x greycolor"  ></span>
+                  <b style="font-weight: bold;font-size:22px;" >  {{c.data.course.level}}</b>
+                  </p>
+                
+                 </div>
+                   
+							
+      <div>
+       <p>
+         
+         <span  class="fas fa-globe fa-2x greycolor" ></span>
+     <b style="font-weight: bold;font-size:22px;">    {{c.data.course.languages}} </b> 
+        </p>
+     </div> 
+      <div class="gr_prior">
+       
+      
+      <div >
+        <b style="color:grey;" >  Prior Knowledges</b> <br>
+       <b ng-repeat="prior in c.data.prior" class="badge prior">
+         {{prior}} </b>
+         
+      </div>
+        
+      </div>
+       </div>
+     </div>
+        <div class="course_program" >
+          
+          <div  ng-repeat="sec in c.data.unitlist ">
+          
+            
+              
+            
+            
+              
+             
+            
+             <p> <span style="color:blue;" class="far fa-flag fa-2x "></span>
+            
+            
+              <b style="font-weight: bold;font-size:22px;"> {{sec.section.name}} </b>
+              
+            </p>
+            
+            <div class="unit" ng-repeat="unit in sec.arrayunit">
+              <h4>
+              {{unit.name}} </h4> 
+            </div>
+              </div>
+            
+             <div class="subsection" ng-repeat="subsec in c.data.unitsubseclist">
+               
+                       
+            <p>
+              
+                <span  style="color:#20B2AA;" class="far fa-bookmark fa-lg"></span> <b style="font-wieght: bold;font-size:19px;"> {{subsec.subsection.name}}
+               </b>
+               </p>
+               <div class="subunit" ng-repeat="unit in subsec.subsecunit">
+               <h4>
+                 
+                 {{unit.name}}</h4>
+               </div>
+               
+              </div>
+            </div>
+  
+           
+          
+          
+       
+      
+      
+      
+           
+  
+  <widget id="widget-simple-list" options="{'table':'x_315700_lms_unit'}"></widget>
+   
+     
+    
+      
+     
+    
+     
+</div>
+  </body>
+  </html>
+]]></template>
+    </sp_widget>
+</record_update>

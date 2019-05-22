@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_angular_provider">
+    <sp_angular_provider action="INSERT_OR_UPDATE">
+        <name>textcomponent</name>
+        <script><![CDATA[function(){
+		return{
+			
+			template:  ' <div ng-bind-html="textclass.text_body" >{{textclass.text_body}}</div>',
+			restrict: 'E',
+			scope: {
+			'textclass': '='
+			}
+			
+		};
+	}]]></script>
+        <sys_class_name>sp_angular_provider</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-03-25 08:23:33</sys_created_on>
+        <sys_id>94e3855bdb103300c1e8f53a2996198d</sys_id>
+        <sys_mod_count>17</sys_mod_count>
+        <sys_name>textcomponent</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_angular_provider_94e3855bdb103300c1e8f53a2996198d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-04-07 10:07:50</sys_updated_on>
+        <type>directive</type>
+    </sp_angular_provider>
+</record_update>

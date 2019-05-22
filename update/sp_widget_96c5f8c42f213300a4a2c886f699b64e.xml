@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope) {
+  /* widget controller */
+  var c = this;
+	
+	
+	
+	var shared = c.widget.options.shared;
+	c.selection = function selection(idx) {
+	var id = c.data.knowledge[idx];
+		//console.log(id);
+		
+		return angular.isDefined(id) ? (shared.selection = id) : shared.selection;
+		
+	}
+	
+	
+	 $scope.Search=function(){
+	var input, filter, ul, li, a,txtValue;
+  input = document.getElementById('myinput');
+  filter = input.value.toUpperCase();
+  li = document.querySelectorAll('.list-group  li');
+  
+  
+  for (var i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+		console.log(a);
+    txtValue = a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+	 }
+	
+
+}
+
+
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.search-form .form-group {
+  float: right !important;
+  transition: all 0.35s, border-radius 0s;
+  width: 32px;
+  height: 32px;
+  background-color: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+}
+.search-form .form-group input.form-control {
+  padding-right: 20px;
+  border: 0 none;
+  background: transparent;
+  box-shadow: none;
+  display:block;
+}
+.search-form .form-group input.form-control::-webkit-input-placeholder {
+  display: none;
+}
+.search-form .form-group input.form-control:-moz-placeholder {
+  /* Firefox 18- */
+  display: none;
+}
+.search-form .form-group input.form-control::-moz-placeholder {
+  /* Firefox 19+ */
+  display: none;
+}
+.search-form .form-group input.form-control:-ms-input-placeholder {
+  display: none;
+}
+.search-form .form-group:hover,
+.search-form .form-group.hover {
+  width: 100%;
+  border-radius: 4px 25px 25px 4px;
+}
+.search-form .form-group span.form-control-feedback {
+  position: absolute;
+  top: -1px;
+  right: -2px;
+  z-index: 2;
+  display: block;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  color: #3596e0;
+  left: initial;
+  font-size: 14px;</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>kbknowledgelist</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>kbknowledgelist</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+	
+	
+	if (input) {
+data.table = input.table;
+		data.display_field = input.display_field;
+		data.maximum_entries= input.maximum_entries;
+		
+		
+		
+	}
+	
+	data.knowledge=[];
+	 var knowledge=new GlideRecord("kb_knowledge");
+	knowledge.query();
+	while (knowledge.next()) {
+    knowledgeobj = {};
+    $sp.getRecordDisplayValues(knowledgeobj,knowledge,'short_description,sys_id,text');	
+
+		data.knowledge.push(knowledgeobj);
+		gs.warn(data.knowledge)
+	}
+	
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-16 08:16:29</sys_created_on>
+        <sys_id>96c5f8c42f213300a4a2c886f699b64e</sys_id>
+        <sys_mod_count>68</sys_mod_count>
+        <sys_name>kbknowledgelist</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_96c5f8c42f213300a4a2c886f699b64e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-05-22 08:58:27</sys_updated_on>
+        <template><![CDATA[<div>
+
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+<div class="container">
+    <div class="row">
+     
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-3">
+            <form action="" class="search-form">
+                <div class="form-group has-feedback">
+            		<label for="search" class="sr-only">Search</label>
+            		<input type="text" onkeyup="angular.element(this).scope().Search()" class="form-control" name="search" id="myinput" placeholder="search">
+              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
+            	</div>
+            </form>
+        </div>
+    </div>
+  
+  
+  
+  <div style="display: inline-block;">
+    
+  
+ <ul class="list-group">
+      <li  dir-paginate="item in data.knowledge | itemsPerPage: 10" pagination-id="size" ng-click="c.selection($index)"  class="list-group-item" ng-repeat="item in data.knowledge">
+        <a >{{item.short_description}}</a>
+      </li>
+    </ul>
+    </div>
+  </div>
+ <!-- <widget style="display:inline-block !important;" id="widget-simple-list" options="{'table':data.table,'display_field':data.display_field,maximum_entries:data.maximum_entries}" > </widget> -->
+</div>
+  
+  
+]]></template>
+    </sp_widget>
+</record_update>

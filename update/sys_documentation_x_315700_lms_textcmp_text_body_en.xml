@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_documentation element="text_body" label="Text Body" language="en" table="x_315700_lms_textcmp">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>text_body</element>
+            <help/>
+            <hint/>
+            <label>Text Body</label>
+            <language>en</language>
+            <name>x_315700_lms_textcmp</name>
+            <plural>Text Bodies</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-03-13 09:14:38</sys_created_on>
+            <sys_id>425d5757db403300c1e8f53a299619a9</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Text Body</sys_name>
+            <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+            <sys_update_name>sys_documentation_x_315700_lms_textcmp_text_body_en</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-03-13 09:14:38</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

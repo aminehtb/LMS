@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="update_synch=true" extends="x_315700_lms_course" label="Synchronous course" max_length="40" name="x_315700_lms_synchronous_course" type="collection">
+        <element label="Capacity" mandatory="true" max_length="40" name="capacity" type="integer"/>
+        <element label="End date" mandatory="true" max_length="40" name="end_date" type="glide_date_time"/>
+        <element label="Start date" mandatory="true" max_length="40" name="start_date" type="glide_date_time"/>
+    </element>
+</database>

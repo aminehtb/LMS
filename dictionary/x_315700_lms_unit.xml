@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Unit" max_length="40" name="x_315700_lms_unit" type="collection">
+        <element label="link" max_length="40" name="link" type="user_image"/>
+        <element label="Name" mandatory="true" max_length="50" name="name" type="string"/>
+        <element label="Section" mandatory="true" max_length="32" name="section" reference="x_315700_lms_section" type="reference"/>
+        <index name="index">
+            <element name="section"/>
+        </index>
+    </element>
+</database>

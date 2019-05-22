@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Course session" max_length="40" name="x_315700_lms_course_session" type="collection">
+        <element choice="3" label="Course" mandatory="true" max_length="32" name="course_id" reference="x_315700_lms_course" type="reference">
+            <choice/>
+        </element>
+        <element label="Date Session" mandatory="true" max_length="40" name="date_session" type="glide_date_time"/>
+        <element label="User" mandatory="true" max_length="32" name="user_id" reference="sys_user" type="reference"/>
+        <index name="index">
+            <element name="course_id"/>
+        </index>
+        <index name="index2">
+            <element name="user_id"/>
+        </index>
+    </element>
+</database>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Section" max_length="40" name="x_315700_lms_section" type="collection">
+        <element label="Course" mandatory="true" max_length="32" name="course" reference="x_315700_lms_asynchronous_course" type="reference"/>
+        <element label="Name" mandatory="true" max_length="50" name="name" type="string"/>
+        <element label="Onpage" max_length="40" name="onpage" type="boolean"/>
+        <element label="Parent Section" max_length="32" name="parent_section" reference="x_315700_lms_section" type="reference"/>
+        <index name="index">
+            <element name="parent_section"/>
+        </index>
+        <index name="index2">
+            <element name="course"/>
+        </index>
+    </element>
+</database>

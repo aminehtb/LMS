@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_script">
+    <sys_ui_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <description/>
+        <global>false</global>
+        <name>x_315700_lms.addclass</name>
+        <script><![CDATA[/**
+ * 
+ * copyright 2016 creativeprogramming.it di Stefano Gargiulo
+ * email: info@creativeprogramming.it
+ * accepting tips at https://www.paypal.me/creativedotit 
+ * license: MIT
+ * 
+ */
+(function (factory) {
+    /* global define */
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = factory(require('jquery'));
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function ($) {
+
+    // Extends plugins for adding hello.
+    //  - plugin is external module for customizing.
+    $.extend($.summernote.plugins, {
+        /**
+         * @param {Object} context - context object has status of editor.
+         */
+        'addclass': function (context) {
+            var self = this;
+            if (typeof context.options.addclass === 'undefined') {
+                context.options.addclass = {};
+            }
+            if (typeof context.options.addclass.classTags === 'undefined') {
+                context.options.addclass.classTags = ["jumbotron", "lead","img-rounded","img-circle", "img-responsive","btn", "btn btn-success","btn btn-danger","text-muted", "text-primary", "text-warning", "text-danger", "text-success", "table-bordered", "table-responsive", "alert", "alert alert-success", "alert alert-info", "alert alert-warning", "alert alert-danger", "visible-sm", "hidden-xs", "hidden-md", "hidden-lg", "hidden-print"];
+                //  console.log("Please define your summernote.options.addclass.classTags array");
+            }
+            // ui has renders to build ui elements.
+            //  - you can create a button with `ui.button`
+            var ui = $.summernote.ui;
+
+            addStyleString(".scrollable-menu {height: auto; max-height: 200px; max-width:300px; overflow-x: hidden;}");
+
+            context.memo('button.addclass', function () {
+                return ui.buttonGroup([
+                    ui.button({
+                        className: 'dropdown-toggle',
+                        contents: '<i class="fa fa-css3"\/>' + ' ' + ui.icon(context.options.icons.caret, 'span'),
+                        //ui.icon(context.options.icons.magic) + ' ' + ui.icon(context.options.icons.caret, 'span'),
+                        tooltip: 'toggle CSS class', //lang.style.style,
+                        data: {
+                            toggle: 'dropdown'
+                        }
+                    }),
+                    ui.dropdown({
+                        className: 'dropdown-style scrollable-menu',
+                        items: context.options.addclass.classTags,
+                        template: function (item) {
+
+                            if (typeof item === 'string') {
+                                item = {tag: "div", title: item, value: item};
+                            }
+
+                            var tag = item.tag;
+                            var title = item.title;
+                            var style = item.style ? ' style="' + item.style + '" ' : '';
+                            var cssclass = item.value ? ' class="' + item.value + '" ' : '';
+                   
+
+                            return '<' + tag + ' ' + style + cssclass + '>' + title + '</' + tag + '>';
+                        },
+                        click: function (event, namespace, value) {
+
+                            event.preventDefault();
+                            value = value || $(event.target).closest('[data-value]').data('value');
+
+
+
+                            var $node = $(context.invoke("restoreTarget"))
+                            if ($node.length==0){
+                                $node = $(document.getSelection().focusNode.parentElement, ".note-editable");
+                            }
+                            
+                            if (typeof context.options.addclass !== 'undefined' && typeof context.options.addclass.debug !== 'undefined' && context.options.addclass.debug) {
+                                console.debug(context.invoke("restoreTarget"), $node, "toggling class: " + value, window.getSelection());
+                            }
+
+
+                            $node.toggleClass(value)
+
+
+                        }
+                    })
+                ]).render();
+                return $optionList;
+            });
+
+            function addStyleString(str) {
+                var node = document.createElement('style');
+                node.innerHTML = str;
+                document.body.appendChild(node);
+            }
+
+            // This events will be attached when editor is initialized.
+            this.events = {
+                // This will be called after modules are initialized.
+                'summernote.init': function (we, e) {
+                    //console.log('summernote initialized', we, e);
+                },
+                // This will be called when user releases a key on editable.
+                'summernote.keyup': function (we, e) {
+                    //  console.log('summernote keyup', we, e);
+                }
+            };
+
+            // This method will be called when editor is initialized by $('..').summernote();
+            // You can create elements for plugin
+            this.initialize = function () {
+
+            };
+
+            // This methods will be called when editor is destroyed by $('..').summernote('destroy');
+            // You should remove elements on `initialize`.
+            this.destroy = function () {
+                /*  this.$panel.remove();
+                 this.$panel = null; */
+            };
+        }
+    });
+}));]]></script>
+        <script_name>addclass</script_name>
+        <sys_class_name>sys_ui_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-10 10:12:08</sys_created_on>
+        <sys_id>f6a6de422f9d3300a4a2c886f699b6ab</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>x_315700_lms.addclass</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sys_ui_script_f6a6de422f9d3300a4a2c886f699b6ab</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-05-10 10:12:56</sys_updated_on>
+        <ui_type>10</ui_type>
+        <use_scoped_format>false</use_scoped_format>
+    </sys_ui_script>
+</record_update>
