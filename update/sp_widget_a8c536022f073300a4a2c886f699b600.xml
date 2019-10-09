@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope,$rootScope) {
+  /* widget controller */
+  var c = this;
+	
+	
+		$scope.test=function(item){
+	var ok=false;
+		for(var i=0; i<c.data.list.length;i++ )
+			if(item==c.data.list[i].unit_id){
+				ok =true;
+				break;
+			}
+		return ok;
+		
+	}
+	
+ c.data.pos=0;
+	c.data.totallength=null;
+	
+			
+			c.data.totallength=100/(c.data.unitlist.length+c.data.list_course.length+c.data.subunit.length+c.data.subsection.length);
+
+	/*c.data.unitlist.forEach(function(sec){
+		sec.position = c.data.pos*c.data.totallength;
+		sec.arrayunit.forEach(function(unit){
+			c.data.pos=c.data.pos+1;
+			unit.position = c.data.pos*c.data.totallength;
+		});
+	});
+	console.log(JSON.stringify(c.data.unitlist));
+	*/
+	
+		for(var i=0;i<c.data.unitlist.length;i++){
+		c.data.unitlist[i].position=c.data.pos*c.data.totallength;
+		for(var j = 0 ; j<c.data.unitlist[i].arrayunit.length ; j++){
+			c.data.pos++;
+			c.data.unitlist[i].arrayunit[j].position=c.data.pos*c.data.totallength ;
+			c.data.unitlist[i].arrayunit[j].state=$scope.test(c.data.unitlist[i].arrayunit[j]);
+			console.log("state"+c.data.state);
+		}
+			
+			for(var k = 0 ; k<c.data.unitlist[i].subsection.length ; k++){
+				c.data.pos++;
+			c.data.unitlist[i].subsection[k].position=c.data.pos*c.data.totallength ;
+		  console.log("pos sec"+c.data.unitlist[i].subsection[k].position);
+			for(var d=0; d<c.data.unitlist[i].subsection[k].arraysubunit.length;d++){
+				c.data.pos++;
+				c.data.unitlist[i].subsection[k].arraysubunit[d].position=c.data.pos*c.data.totallength;
+				
+				console.log("position"+c.data.unitlist[i].subsection[k].arraysubunit[d].position);
+			}
+				
+				
+			}
+			c.data.pos++;
+		}
+	
+	
+	
+		
+	
+		
+		
+	
+	
+	console.log("total length"+c.data.totallength);
+	var progressBar = {
+  Next: function(){
+    $('#progress-bar li:not(.active):first').addClass('active');
+  }
+}
+	
+	
+	
+	
+
+
+	
+	
+	$scope.finish_section=function(section,item){
+		c.data.other_list=[];
+		for (var i=0; i<c.data.list.length;i++){
+			if(c.data.list[i].section_name==item){
+				c.data.other_list.push(c.data.list[i]);
+			}
+		}
+	
+		if(section.arrayunit.length==c.data.other_list.length){
+			return true;
+	}
+		
+		
+	}
+	$scope.change_color=function(item){
+	//console.log("item  "+item);
+		//for (var i=0;i<c.data.list.length;i++){
+		var i = 0 ;
+		var size = c.data.list.length;
+		var ok = false ;
+		while(i<size && ok==true){
+			if(item == c.data.list[i].section_name){
+				
+				ok = true ;
+			break;
+			}
+			i++;
+		}
+		return ok;
+		
+	}
+	
+
+	
+	
+		$scope.test_subunit=function(item){
+			var ok=false;
+		for(var i=0; i<c.data.sublist.length;i++ )
+			if(item==c.data.sublist[i].unit_id){
+				ok=true;
+				break;
+			}
+			return ok;
+		}
+	
+	/*	for(var i=0; i<c.data.list.length;i++ )
+			for(var k = 0 ; k<c.data.unitlist[i].subsection.length ; k++){
+			
+			for(var d=0; d<c.data.unitlist[i].subsection[k].arraysubunit.length;d++){
+			if (item==c.data.list[i].subsection[k].arraysubunit[d]){
+				return true;
+				break;
+			}
+			*/
+			
+			
+				
+	//		}
+//	}
+	
+	
+	
+	
+$scope.compare=function(section){
+	//console.log("************ "+section.name);
+	var result=null;
+	//console.log("boolean"+$scope.finish_section(section,section.name));
+		if($scope.finish_section(section,section.name)){
+			result= 'true';
+			
+			//console.log(result);
+		}
+	//console.log("boolean 2"+$scope.change_color(section.name));
+		if($scope.change_color(section.name)){
+			result= 'false';
+			//console.log(result);
+		}
+	return result;
+	
+		
+	}
+	
+	
+	$rootScope.$on('color', function (event, data) {
+   
+   document.getElementById('color').style.cssText = 'border:8px solid red';
+
+
+  
+});
+	
+}
+	
+
+
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>
+.progress-bar{
+
+height: 10% !important;
+-webkit-appearance: none;
+   appearance: none;
+
+
+}
+
+.progress{
+margin-top:20px;
+background-color: 
+transparent;
+  -webkit-appearance: none;
+   appearance: none;
+
+
+}
+.unit:hover .unitname{
+  visibility: visible;
+}
+.unit .unitname {
+    color: black;
+    visibility: hidden;
+    display: inline-block;
+    top: -16px;
+    position: absolute;
+    left: 0;                                                                                 n
+    right: 0;
+    text-align: center;
+    
+}
+.sec:hover .secname{
+  visibility:visible;
+}
+.subsec {
+  position: absolute;
+
+margin-top: -4px;
+
+z-index: 1;
+  width:13px;
+  height:13px;
+}
+.sec .secname {
+    color: black;
+    visibility: hidden;
+    display: inline-block;
+    top: -16px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    
+}
+
+
+
+
+.primary{
+
+position: absolute;
+
+margin-top: -4px;
+
+z-index: 1;
+
+height: 15px;
+
+width: 15px;
+
+border-radius: 25px;
+
+}
+
+.secondary{
+
+position: absolute;
+
+margin-top: -2px;
+
+z-index: 1;
+
+height: 10px;
+
+width: 10px;
+
+border-radius: 
+25px;
+
+}
+
+
+
+.zero{
+
+left:1%;
+
+}
+
+.one {
+
+left: 25%;
+
+}
+
+
+
+.two {
+
+left: 50%;
+
+}
+
+
+
+.three {
+
+left: 75%;
+
+}
+
+.end{
+
+left: 98%;
+
+}
+
+.info-color {
+
+background-color: #378476;
+
+}
+
+.no-color {
+
+background-color: gray;
+
+}
+
+.active_unit {
+  background-color:gray;
+}
+.red {
+  background-color: red !important;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>scrollbar</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>scrollbar</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+	
+	
+	
+	
+	
+data.unitlist = [];
+data.list =[];
+	data.sublist=[];
+	data.list_course=[];
+	data.subunit=[];
+	data.subsection=[];
+	data.section=[];
+	data.id=$sp.getParameter("sys_id");
+	
+  var section = new GlideRecord("x_315700_lms_section");
+ section.addQuery("course",$sp.getParameter("sys_id"));
+ section.orderBy("order");
+ section.addNullQuery("parent_section");
+ section.query();
+
+ while (section.next()) {
+	
+ 
+   var obj = {
+     'name': section.getDisplayValue("name"),
+     'sys_id': section.getDisplayValue("sys_id"),
+     'arrayunit': [],
+     'subsection': []
+   };
+	 data.section.push(obj);
+   var subsection = new GlideRecord("x_315700_lms_section");
+   gs.warn("section " + section.getDisplayValue("name"));
+   subsection.addQuery("parent_section", obj.sys_id);
+   subsection.query();
+   data.subunitlist = [];
+   while (subsection.next()) {
+     gs.warn("section " + section.getDisplayValue("name") + " subsection " + subsection.getDisplayValue("name"));
+     var subobj = {
+       'name': subsection.getDisplayValue("name"),
+       'sys_id': subsection.getDisplayValue("sys_id"),
+       'arraysubunit': []
+     };
+     obj.subsection.push(subobj);
+     data.subsection.push(subobj);
+		 var unitsubsection = new GlideRecord("x_315700_lms_unit");
+           unitsubsection.addQuery("section", subobj.sys_id);
+		       unitsubsection.orderBy('order');
+           unitsubsection.query();
+
+           while (unitsubsection.next()) {
+						  var unituserGR = new GlideRecord("x_315700_lms_unit_user");
+	  
+	 unituserGR.query();
+	 while(unituserGR.next()){
+	     if (unituserGR.unit_id==unitsubsection.sys_id && unituserGR.user_id==gs.getUserID()) {
+				 var  unituserobj = {};
+				// $sp.getRecordValues(unituserobj,unituserGR,"sys_id,unit_id");
+				 unituserobj={'sys_id':unituserGR.getValue("sys_id"),'unit_id':unituserGR.getValue("unit_id"),'subsection_name':unitsubsection.getDisplayValue("section")};
+				 
+				 data.sublist.push(unituserobj);
+			 }
+	 }
+               var unitsubobj = {
+                   'name': unitsubsection.getDisplayValue("name"),
+                   'sys_id': unitsubsection.getDisplayValue("sys_id"),
+								    'order': unitsubsection.getDisplayValue("order")
+               };
+               subobj.arraysubunit.push(unitsubobj);
+						  data.subunit.push(unitsubobj);
+						 
+						 
+           }
+
+       }
+       var unit = new GlideRecord("x_315700_lms_unit");
+       unit.addQuery("section", section.sys_id);
+	     unit.orderBy('order');
+       unit.query();
+	 	
+       while (unit.next()) {
+				 
+	 var unituserGR = new GlideRecord("x_315700_lms_unit_user");
+	  
+	 unituserGR.query();
+	 while(unituserGR.next()){
+	     if (unituserGR.unit_id==unit.sys_id && unituserGR.user_id==gs.getUserID()) {
+				 var  unituserobj = {};
+				// $sp.getRecordValues(unituserobj,unituserGR,"sys_id,unit_id");
+				 unituserobj={'sys_id':unituserGR.getValue("sys_id"),'unit_id':unituserGR.getValue("unit_id"),'section_name':unit.getDisplayValue("section")};
+				 
+				 data.list.push(unituserobj);
+			 }
+		
+		  gs.warn("liste des cours"+data.list);
+					 }
+           gs.warn("inside unit : " + unit.name);
+           var unitobj = { 'name': unit.getDisplayValue("name"), 'sys_id': unit.getDisplayValue("sys_id"),'order':unit.getDisplayValue("order") };
+           obj.arrayunit.push(unitobj);
+				 data.list_course.push(unitobj);
+       }
+
+
+ 
+ data.unitlist.push(obj);
+	 gs.warn("unitlist"+data.unitlist);
+ }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-08-05 12:17:39</sys_created_on>
+        <sys_id>a8c536022f073300a4a2c886f699b600</sys_id>
+        <sys_mod_count>726</sys_mod_count>
+        <sys_name>scrollbar</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_a8c536022f073300a4a2c886f699b600</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-09-15 11:39:58</sys_updated_on>
+        <template><![CDATA[<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+
+<div    class="progress">
+
+ 
+
+ 
+<div id="sec_{{sec.sys_id}}"    ng-repeat="sec in data.unitlist track by sec.sys_id " >
+   
+  
+<div ng-if="$first"  class="primary zero info-color"></div>
+<div ng-if="!$first"  class="primary  info-color" style="left:{{sec.position}}%"></div>
+ 
+<div id="unit_{{unit.sys_id}}"  class="unit"  ng-repeat="unit in sec.arrayunit track by unit.sys_id   ">
+  
+ 
+<progressbar class="progresss progress-striped" value="50"  min="0" max="100">
+              
+            </progressbar>     
+<div  id="from_{{unit.sys_id}}" role="progressbar" ng-class="{'true':'progress-bar red','false':'progress-bar no-color'}[test(unit.sys_id)]" style="width:{{c.data.totallength}}%" > <a href="?id=unit_body&unit_id={{unit.sys_id}}&course_id={{data.id}}"></a></div>
+  <div ng-class="{'true':'secondary info-color','false':'secondary no-color'}[test(unit.sys_id)]"  style="left:{{unit.position}}%"></div>
+  <span class="unitname"> {{unit.name}}  </span>  
+ </div>
+<div id="subsec_{{subsec.sys_id}}" ng-repeat="subsec in sec.subsection track by subsec.sys_id">
+  <div   class="subsec  info-color" style="left:{{subsec.position}}%"></div>
+  <div id="{{subunit.sys_id}}" ng-repeat="subunit in subsec.arraysubunit track by subunit.sys_id">
+    <div   ng-class="{'true':'progress-bar red','false':'progress-bar red'}[test_subunit(subunit.sys_id)]" style="width:{{c.data.totallength}}%" ></div>
+    <div ng-class="{'true':'secondary info-color','false':'secondary no-color'}[test_subunit(subunit.sys_id)]"   style="left:{{subunit.position}}%"></div>
+  </div>
+  
+  
+  </div>
+
+
+
+<div class="primary end info-color"  ng-if="$last" style="left:95%"></div>
+  </div>
+</div>
+
+ 
+   
+    
+  
+  
+
+   
+   </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+]]></template>
+    </sp_widget>
+</record_update>

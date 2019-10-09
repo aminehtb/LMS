@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_css_include">
+    <sp_css_include action="INSERT_OR_UPDATE">
+        <name>summernotetest2</name>
+        <source>local</source>
+        <sp_css display_value="summernotetest2">26e290d82ff53300a4a2c886f699b68c</sp_css>
+        <sys_class_name>sp_css_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-29 10:39:33</sys_created_on>
+        <sys_id>aa23181c2ff53300a4a2c886f699b662</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>summernotetest2</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_css_include_aa23181c2ff53300a4a2c886f699b662</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-05-29 10:39:33</sys_updated_on>
+        <url/>
+    </sp_css_include>
+</record_update>

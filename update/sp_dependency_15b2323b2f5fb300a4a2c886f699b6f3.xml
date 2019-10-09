@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_dependency">
+    <sp_dependency action="INSERT_OR_UPDATE">
+        <module/>
+        <name>progress-bar</name>
+        <page_load>false</page_load>
+        <sp_portals/>
+        <sys_class_name>sp_dependency</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-08-23 08:49:29</sys_created_on>
+        <sys_id>15b2323b2f5fb300a4a2c886f699b6f3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>progress-bar</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_dependency_15b2323b2f5fb300a4a2c886f699b6f3</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-08-23 08:49:29</sys_updated_on>
+    </sp_dependency>
+</record_update>

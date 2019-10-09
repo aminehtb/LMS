@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_section caption="c" section_id="c1f0a9f52faf3300a4a2c886f699b61a" sys_domain="global" table="x_315700_lms_asynchronous_course" version="3" view="course">
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>duration</element>
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-08-29 08:07:10</sys_created_on>
+            <sys_id>659265792faf3300a4a2c886f699b63f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="c" display_value="c" name="x_315700_lms_asynchronous_course" sys_domain="global" view="e6cf10152f273300a4a2c886f699b6a8">c1f0a9f52faf3300a4a2c886f699b61a</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-08-29 08:07:10</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption>c</caption>
+            <header>false</header>
+            <name>x_315700_lms_asynchronous_course</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-08-29 08:00:02</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>c1f0a9f52faf3300a4a2c886f699b61a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>c</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+            <sys_update_name>sys_ui_section_c1f0a9f52faf3300a4a2c886f699b61a</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-08-29 08:00:02</sys_updated_on>
+            <sys_user/>
+            <title>false</title>
+            <view display_value="course" name="course">e6cf10152f273300a4a2c886f699b6a8</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>

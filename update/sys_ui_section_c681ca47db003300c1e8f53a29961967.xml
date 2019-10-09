@@ -4,13 +4,13 @@
             <element>short_description</element>
             <position>0</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-03-12 07:55:00</sys_created_on>
-            <sys_id>0681ca47db003300c1e8f53a29961968</sys_id>
+            <sys_created_on>2019-08-30 13:55:40</sys_created_on>
+            <sys_id>90fbff0e2fef7300a4a2c886f699b639</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Item Details" display_value="Item Details" name="x_315700_lms_asynchronous_course" sys_domain="global" view="Default view">c681ca47db003300c1e8f53a29961967</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-03-12 07:55:00</sys_updated_on>
+            <sys_updated_on>2019-08-30 13:55:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -18,41 +18,13 @@
             <element>description</element>
             <position>1</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-03-12 07:55:00</sys_created_on>
-            <sys_id>8681ca47db003300c1e8f53a29961968</sys_id>
+            <sys_created_on>2019-08-30 13:55:40</sys_created_on>
+            <sys_id>18fbff0e2fef7300a4a2c886f699b639</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Item Details" display_value="Item Details" name="x_315700_lms_asynchronous_course" sys_domain="global" view="Default view">c681ca47db003300c1e8f53a29961967</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-03-12 07:55:00</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>54b43d24876a1300bcbf480688cb0bb4</element>
-            <position>2</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-03-12 07:55:00</sys_created_on>
-            <sys_id>0a81ca47db003300c1e8f53a29961968</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="Item Details" display_value="Item Details" name="x_315700_lms_asynchronous_course" sys_domain="global" view="Default view">c681ca47db003300c1e8f53a29961967</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-03-12 07:55:00</sys_updated_on>
-            <sys_user/>
-            <type>annotation</type>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>meta</element>
-            <position>3</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-03-12 07:55:00</sys_created_on>
-            <sys_id>8a81ca47db003300c1e8f53a29961968</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="Item Details" display_value="Item Details" name="x_315700_lms_asynchronous_course" sys_domain="global" view="Default view">c681ca47db003300c1e8f53a29961967</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-03-12 07:55:00</sys_updated_on>
+            <sys_updated_on>2019-08-30 13:55:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>

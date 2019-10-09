@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope) {
+  /* widget controller */
+  var c = this;
+	
+	
+	// Simple list
+//Sortable.create(simpleList, { /* options */ });
+$scope.items = [
+            {
+                name: 'item 1',
+                data: 'the data !'
+            },
+            {
+                name: 'item 2',
+                data: 'the data !'
+            },
+            {
+                name: 'item 3',
+                data: 'the data !'
+            },
+            {
+                name: 'item 4',
+                data: 'the data !'
+            }
+        ]
+        
+
+    $scope.menuOptions = 
+        [
+            {
+                label: 'Save',      // menu option label
+                onClick: menuSave   // on click handler
+            },
+            {
+                label: 'Edit',
+                onClick: menuEdit,
+                disabled: function (dataContext) {
+                    return dataContext.name === "item 2";
+                }
+            },
+            {
+                label: 'Details',
+                onClick: menuEdit
+            },
+            {
+                divider: true       // will render a divider
+            },
+            {
+                label: 'Remove',
+                onClick: menuRemove
+            }
+        ]
+        
+        $scope.anotherMenuOptions = 
+        [
+            {
+                label: 'Different Menu',      // menu option label
+                onClick: menuSave,   // on click handler
+                disabled: function(dataContext){
+                    return dataContext.name === "item 4";
+                }
+            }
+        ]
+
+        function menuSave($event) {
+            console.log($event);
+        }
+        function menuRemove($event) {
+            console.log($event);
+        }
+        function menuEdit($event) {
+            console.log($event);
+        }
+   
+
+   
+
+	
+	
+	
+	
+	
+	  
+
+	
+	
+var dragging = null;
+
+document.addEventListener('dragstart', function(event) {
+		dragging = event.target;
+    event.dataTransfer.setData('text/html', dragging);
+});
+
+document.addEventListener('dragover', function(event) {
+    event.preventDefault();
+});
+
+document.addEventListener('dragenter', function(event) {
+    event.target.style['border-bottom'] = 'solid 4px blue';
+});
+
+document.addEventListener('dragleave', function(event) {
+    event.target.style['border-bottom'] = '';
+});
+
+document.addEventListener('drop', function(event) {
+    event.preventDefault();
+    event.target.style['border-bottom'] = '';
+    event.target.parentNode.insertBefore(dragging, event.target.nextSibling);
+});
+	
+	
+	
+	
+	
+
+
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+
+#columns {
+  list-style-type: none;
+}
+
+.column {
+  width: 162px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  text-align: center;
+  cursor: move;
+}
+.column header {
+  height: 20px;
+  width: 150px;
+  color: black;
+  background-color: #ccc;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+  border-radius: 10px;
+  border: 2px solid #666666;
+}
+
+.column.dragElem {
+  opacity: 0.4;
+}
+.column.over {
+  //border: 2px dashed #000;
+  border-top: 2px solid blue;
+}
+
+
+
+
+
+
+
+
+#items{
+  list-style:none;
+  margin:0px;
+  margin-top:4px;
+  padding-left:10px;
+  padding-right:10px;
+  padding-bottom:3px;
+  font-size:17px;
+  color: #333333;
+  
+}
+hr { width: 85%; 
+  background-color:#E4E4E4;
+  border-color:#E4E4E4;
+    color:#E4E4E4;
+}
+#cntnr{
+  display:none;
+  position:fixed;
+  border:1px solid #B2B2B2;
+  width:150px;      background:#F9F9F9;
+  box-shadow: 3px 3px 2px #E9E9E9;
+  border-radius:4px;
+}
+
+li{
+  
+  padding: 3px;
+  padding-left:10px;
+}
+
+
+#items :hover{
+   color: white;
+  background:#284570;
+  border-radius:2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>testdrag</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>testDrag</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+	
+	
+	
+	data.drag=["item 1","item 2","item 3","item 4","item 5"];
+
+})();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-06-25 09:35:24</sys_created_on>
+        <sys_id>9c7787342f9e3300a4a2c886f699b6e8</sys_id>
+        <sys_mod_count>147</sys_mod_count>
+        <sys_name>testDrag</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_9c7787342f9e3300a4a2c886f699b6e8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-07-10 09:12:26</sys_updated_on>
+        <template><![CDATA[<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body >
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name (Right Click name fields)</th>
+                <th>Data (Right Click data fields)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in items">
+                <td sh-context-menu menu-options="anotherMenuOptions" context-data="item">{{item.name}}</td>
+                <td sh-context-menu menu-options="menuOptions" context-data="item">{{item.data}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>]]></template>
+    </sp_widget>
+</record_update>

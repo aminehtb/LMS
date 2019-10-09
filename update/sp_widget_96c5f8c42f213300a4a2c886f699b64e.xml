@@ -1,9 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[function($scope) {
+        <client_script><![CDATA[function($scope,$filter) {
   /* widget controller */
   var c = this;
+	
+	
+	
+	$scope.range = function (size,start, end) {
+    var ret = [];        
+    console.log(size,start, end);
+
+       if (size < end) {
+        end = size;
+        if(size<$scope.gap){
+             start = 0;
+        }else{
+             start = size-$scope.gap;
+        }
+
+    }
+    for (var i = start; i < end; i++) {
+        ret.push(i);
+    }        
+     console.log(ret);        
+    return ret;
+};
+
+	c.ctrlRead =function(data ) 
+{
+
+
+$scope.reverse = false;
+$scope.filteredItems = [];
+$scope.groupedItems = [];
+$scope.itemsPerPage = 5;
+$scope.pagedItems = [];
+$scope.currentPage = 0;
+$scope.items =JSON.parse(c.data.tableData);
+var searchMatch = function (haystack, needle) {
+if (!needle) {
+return true;
+}
+return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+};
+
+// init the filtered items
+$scope.search = function () {
+$scope.filteredItems = $filter('filter')($scope.items, function (item) {
+for(var attr in item) {
+if (searchMatch(item[attr], $scope.query))
+return true;
+}
+return false;
+});
+// take care of the sorting order
+if ($scope.sortingOrder !== '') {
+$scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sortingOrder, $scope.reverse);
+}
+$scope.currentPage = 0;
+// now group by pages
+$scope.groupToPages();
+};
+
+// calculate page in place
+$scope.groupToPages = function () {
+$scope.pagedItems = [];
+
+for (var i = 0; i < $scope.filteredItems.length; i++) {
+if (i % $scope.itemsPerPage === 0) {
+$scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [ $scope.filteredItems[i] ];
+} else {
+$scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.filteredItems[i]);
+}
+}
+};
+
+$scope.range = function (start, end) {
+var ret = [];
+if (!end) {
+end = start;
+start = 0;
+}
+for (var i = start; i < end; i++) {
+ret.push(i);
+}
+return ret;
+};
+
+$scope.prevPage = function () {
+if ($scope.currentPage > 0) {
+$scope.currentPage--;
+}
+};
+
+$scope.nextPage = function () {
+if ($scope.currentPage < $scope.pagedItems.length - 1) {
+$scope.currentPage++;
+}
+};
+
+$scope.setPage = function () {
+$scope.currentPage = this.n;
+};
+
+// functions have been describe process the data for display
+$scope.search();
+
+// change sorting order
+$scope.sort_by = function(newSortingOrder) {
+if ($scope.sortingOrder == newSortingOrder)
+$scope.reverse = !$scope.reverse;
+
+$scope.sortingOrder = newSortingOrder;
+
+// icon setup
+$('th i').each(function(){
+// icon reset
+$(this).removeClass().addClass('icon-sort');
+});
+if ($scope.reverse)
+$('th.'+$scope.sortingOrder+' i').removeClass().addClass('icon-chevron-up');
+else
+$('th.'+$scope.sortingOrder+' i').removeClass().addClass('icon-chevron-down');
+};
+}
+
+//c.getData();
+c.ctrlRead(c.data.tableData );
+	
 	
 	
 	
@@ -108,6 +233,7 @@
   /* populate the 'data' object */
   /* e.g., data.table = $sp.getValue('table'); */
 	
+	var json=new global.JSON();
 	
 	if (input) {
 data.table = input.table;
@@ -120,6 +246,7 @@ data.table = input.table;
 	
 	data.knowledge=[];
 	 var knowledge=new GlideRecord("kb_knowledge");
+		knowledge.addNotNullQuery("text");
 	knowledge.query();
 	while (knowledge.next()) {
     knowledgeobj = {};
@@ -128,7 +255,8 @@ data.table = input.table;
 		data.knowledge.push(knowledgeobj);
 		gs.warn(data.knowledge)
 	}
-	
+	data.tableData = null ; 
+data.tableData = json.encode(data.knowledge);
 	
 })();]]></script>
         <servicenow>false</servicenow>
@@ -136,15 +264,15 @@ data.table = input.table;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-05-16 08:16:29</sys_created_on>
         <sys_id>96c5f8c42f213300a4a2c886f699b64e</sys_id>
-        <sys_mod_count>68</sys_mod_count>
+        <sys_mod_count>90</sys_mod_count>
         <sys_name>kbknowledgelist</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sp_widget_96c5f8c42f213300a4a2c886f699b64e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-05-22 08:58:27</sys_updated_on>
-        <template><![CDATA[<div>
+        <sys_updated_on>2019-08-19 07:44:14</sys_updated_on>
+        <template><![CDATA[<div style="text-align:center;">
 
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -160,7 +288,7 @@ data.table = input.table;
             <form action="" class="search-form">
                 <div class="form-group has-feedback">
             		<label for="search" class="sr-only">Search</label>
-            		<input type="text" onkeyup="angular.element(this).scope().Search()" class="form-control" name="search" id="myinput" placeholder="search">
+            		<input type="text" ng-model="query" ng-change="search()" class="form-control" name="search" id="myinput" placeholder="search">
               		<span class="glyphicon glyphicon-search form-control-feedback"></span>
             	</div>
             </form>
@@ -169,19 +297,45 @@ data.table = input.table;
   
   
   
-  <div style="display: inline-block;">
+ 
     
-  
+   <div ng-controller="ctrlRead">
+     <div style="text-align:center;width:65%">
+       
+    
  <ul class="list-group">
-      <li  dir-paginate="item in data.knowledge | itemsPerPage: 10" pagination-id="size" ng-click="c.selection($index)"  class="list-group-item" ng-repeat="item in data.knowledge">
-        <a >{{item.short_description}}</a>
+      <li  ng-click="c.selection($index)"  class="list-group-item" ng-repeat="item in pagedItems[currentPage]   track by $index">
+        
+          
+        
+        <a>{{item.short_description}}</a>
       </li>
     </ul>
     </div>
+ 
   </div>
+  
  <!-- <widget style="display:inline-block !important;" id="widget-simple-list" options="{'table':data.table,'display_field':data.display_field,maximum_entries:data.maximum_entries}" > </widget> -->
 </div>
-  
+  <div style="text-align:center;">
+    
+ 
+  <ul class=" pagination  justify-content-center">
+
+      <li ng-class="{disabled: currentPage == 0}">
+        <a href ng-click="prevPage()">« Prev</a>
+      </li>
+      <li ng-repeat="n in range(pagedItems.length)"
+          ng-class="{active: n == currentPage}"
+          ng-click="setPage()">
+        <a href ng-bind="n + 1">1</a>
+      </li>
+      <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+        <a href ng-click="nextPage()">Next »</a>
+      </li>
+    </ul>
+     </div>
+</div>
   
 ]]></template>
     </sp_widget>

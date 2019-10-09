@@ -33,14 +33,14 @@
         <function_definition/>
         <function_field>false</function_field>
         <internal_type display_value="Reference">reference</internal_type>
-        <mandatory>true</mandatory>
+        <mandatory>false</mandatory>
         <max_length>32</max_length>
         <name>x_315700_lms_booking</name>
         <next_element/>
         <primary>false</primary>
         <read_only>false</read_only>
         <read_roles/>
-        <reference display_value="" name="x_315700_lms_course">x_315700_lms_course</reference>
+        <reference display_value="" name="x_315700_lms_synchronous_course">x_315700_lms_synchronous_course</reference>
         <reference_cascade_rule/>
         <reference_floats>false</reference_floats>
         <reference_key/>
@@ -52,8 +52,8 @@
         <staged>false</staged>
         <sys_class_name>sys_dictionary</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2019-03-11 15:42:53</sys_created_on>
-        <sys_id>74f26236db043300c1e8f53a2996199a</sys_id>
+        <sys_created_on>2019-10-01 09:15:36</sys_created_on>
+        <sys_id>0b8e271c2f100010a4a2c886f699b682</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>Course</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
@@ -61,7 +61,7 @@
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sys_dictionary_x_315700_lms_booking_course_id</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-03-11 15:42:53</sys_updated_on>
+        <sys_updated_on>2019-10-01 09:15:36</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>

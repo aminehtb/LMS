@@ -2,7 +2,7 @@
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
         <client_script><![CDATA[
-function($scope,$sce,nowAttachmentHandler,$timeout,spAriaUtil,spUtil,$http) {
+function($rootScope,$scope,$sce,nowAttachmentHandler,$timeout,spAriaUtil,spUtil,$http) {
   
   var c = this;
 	
@@ -390,14 +390,14 @@ var result = useractivityres.update();
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-03-21 10:06:57</sys_created_on>
         <sys_id>f606f882db18b300c1e8f53a29961968</sys_id>
-        <sys_mod_count>851</sys_mod_count>
+        <sys_mod_count>852</sys_mod_count>
         <sys_name>UnitBody</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sp_widget_f606f882db18b300c1e8f53a29961968</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-04-16 08:28:02</sys_updated_on>
+        <sys_updated_on>2019-06-02 10:42:35</sys_updated_on>
         <template><![CDATA[<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
 

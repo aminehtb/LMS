@@ -1,15 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[
-function($scope,$sce,nowAttachmentHandler,$timeout,spAriaUtil,spUtil,$http) {
+        <client_script><![CDATA[function($rootScope,$scope,$sce,nowAttachmentHandler,$timeout,spAriaUtil,spUtil,$http) {
   
     var c = this;
       
-      
-      
-      
-      
+      console.log("state"+c.data.state);
+	
+	console.log(c.data.test[0]);
+	
+	console.log("amine : "+c.data.listcurrentunit.length);
+	console.log("listcurrentunit order"+JSON.stringify(c.data.listcurrentunit));
+	console.log("section"+c.data.unitsectionid);
+	
+	
+      c.data.sys_id=c.data.id;
+	  console.log(c.data.sys_id);
+	
+	console.log("parentsection"+c.data.parent_section);
+	console.log("order"+c.data.order);
+	
+	console.log("current section"+c.data.currentsection);
+ console.log(c.data.listcurrentunit.length);
+	console.log("length"+c.data.test.length);
+
+c.data.unitlength=c.data.list_course.length+c.data.subunit.length;
+	  var ll = c.data.listcurrentunit.length;
+	  var length = c.data.test.length;
+  
+	for(var i=0;i<c.data.listcurrentunit.length;i++){
+		
+		console.log(i);
+	 console.log("ll : "+ll);
+		console.log("fst element : "+c.data.listcurrentunit[ll-1].order);
+		var testsubsection=has_section(c.data.currentsection);
+		if(c.data.order<c.data.listcurrentunit[ll-1].order){
+			
+			c.link ="?id=unit_body&unit_id="+c.data.nextid+"&sys_id="+c.data.courseid;
+			console.log("url"+c.link);
+		}
+		else if (testsubsection.has_sub){ 
+			c.link = "?id=unit_body&unit_id="+testsubsection.firstunit+"&sys_id="+c.data.courseid;
+		
+		}
+			else {
+			
+			c.link = "?id=unit_body&unit_id="+c.data.unitsectionid+"&sys_id="+c.data.courseid;
+			
+			}
+				 
+			if (c.data.last==true){
+			c.link="?id=user_dashboard";
+		}
+	}
+	
+		
+			
+		
+	
+
+
+		
+	
+    //document.getElementById("link").href = $scope.getNext();  
   
        $scope.files = [];  
 			var activity_attch = [];
@@ -122,26 +175,79 @@ function($scope,$sce,nowAttachmentHandler,$timeout,spAriaUtil,spUtil,$http) {
          
   };
   
-  
-  
-  
-  
-  
-      $rootScope.$on('selectunit', function(event,data){
+
+
+	
+		
+	
+	console.log("c.data.list"+c.data.last)
+	$scope.change_state= function(){
+		 	if ( c.data.last==true){
+			c.btnvalue="Passer au dashboard ";
+				return false;
+		}
+	else if(c.data.state==true){
+		c.btnvalue="chapitre terminée";
+		return true;
+		
+		
+	}
+	else if (c.data.state==false) { 
+		c.btnvalue="J'ai terminée ce chapitre";
+		return false;
+				}
+		console.log("state"+c.data.state+"last"+c.data.last);
+	
+	}
+	
+	
+	
+	
+	
+	
+	$scope.add_state=function(){		
+			
+  c.data.action='add_state';
+		
+	
+			 c.server.update().then(function(){
+
+c.data.action = 'undefined';
+});
+		
+}
+
           c.data.textarticleHtml ="";
       c.server.get({
-                  action: 'getunit',
-                  unitID: $rootScope.unitID
+                  action: 'getunit'
               }).then(function(r) {
                   console.log(r.data);
                   c.data= r.data;
               c.data.all_components=r.data.all_components;
-                  
+			});   
           
-              });
-      });
-  
-  }
+          
+		function has_section(id){ 
+		
+			var obj={};
+			obj.has_sub=false;
+		c.data.unitlist.forEach(function(item){
+			if(item.sys_id==id){
+				if(item.subsection.length>0){
+					
+					obj.has_sub=true;
+					obj.firstunit=item.subsection[0].arraysubunit[0].sys_id;
+				}
+			}
+		});
+		return obj;
+	}
+}
+	
+	
+	
+
+
                                                    
   
   ]]></client_script>
@@ -239,6 +345,123 @@ p{font-size: 1.3rem;
 }
 h2 { text-align: center }
 
+.section{
+  background-color:#00251a;
+}
+.greenbtn{
+  background-color:#39796b;
+  border: none;
+  color: white;
+  padding: 17px 35px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight:bold;
+  display: block;
+   margin : auto;
+  margin-top:15px;
+}
+.finish-btn{
+  background-color:grey;
+    border: none;
+  color: white;
+  padding: 17px 35px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight:bold;
+  display: block;
+   margin : auto;
+  margin-top:15px;
+}
+
+
+
+
+
+
+ .progressbar {
+      margin: 50px 0 50px 0;
+      counter-reset: step;
+  }
+
+  .progressbar li {
+      list-style-type: none;
+      width: 25%;
+      float: left;
+      font-size: 12px;
+      position: relative;
+      text-align: center;
+      text-transform: uppercase;
+      color: #7d7d7d;
+  }
+  .progressbar li:before {
+      width: 15px;
+      height: 15px;
+      content: '';
+      line-height: 30px;
+      border: 10px solid #7d7d7d;
+      background: #7d7d7d;
+      display: block;
+      text-align: center;
+      margin: 0 auto 10px auto;
+      border-radius: 10px;
+      transition: all .8s;
+  }
+  .progressbar li:after {
+      width: 100%;
+      height: 2px;
+      content: '';
+      position: absolute;
+      background-color: #7d7d7d;
+      top: 7px;
+      left: -50%;
+      z-index: 0;
+      transition: all .8s;
+  }
+  .progressbar li:first-child:after {
+      content: none;
+  }
+  .progressbar li.active:before {
+      border-color: #55b776;
+      background-color: #55b776;
+      transition: all .8s;
+  }
+  .progressbar li.active:after {
+      background-color: #55b776;
+      transition: all .8s;
+  }
+
+.btn {
+  background-color: #55b776;
+  margin: 5px;
+  width: 75px;
+  color: white;
+}
+.btn:hover {
+  color: white;
+}
+.btn:focus {
+  color: white;
+}
+.btn-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+.progressbar li:hover  {
+	cursor: pointer;
+  color: #48A4D2;
+}
+li:hover .description {
+  display: block;
+}
+
+
+
+
 
 
 </css>
@@ -247,23 +470,213 @@ h2 { text-align: center }
         <description/>
         <docs/>
         <field_list/>
-        <has_preview>true</has_preview>
-        <id>unitbody_clone</id>
+        <has_preview>false</has_preview>
+        <id>unit_content</id>
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
-        <name>UnitBody_clone</name>
+        <name>Unit_content</name>
         <option_schema/>
         <public>false</public>
         <roles/>
-        <script><![CDATA[(function($scope) {
+        <script><![CDATA[(function() {
+	
+	
+	data.section=[];
+	data.subsection=[];
+	 data.unitid=$sp.getParameter("unit_id");
+	 data.courseid=$sp.getParameter("sys_id");
+	data.subunit=[];
+	
+	var currentunit = new GlideRecord("x_315700_lms_unit");
+	currentunit.get(data.unitid);
+	data.unitbody=currentunit.getDisplayValue("unitbody");
+	
+	
+	gs.warn("dataunitbody"+data.unitbody);
+	var unituserGR = new GlideRecord("x_315700_lms_unit_user");
+	function exist(id){
+var val=false;
+			
+	  unituserGR.addQuery("unit_id",id);
+		unituserGR.query();
+	  var total = unituserGR.getRowCount();
+	  
+	  if(total == 1){
+			val=true;
+			
+		}
+		return val ;
+		}
+	
+	
+	data.list_course=[];
+	 var section = new GlideRecord('x_315700_lms_section');
+	 section.addQuery("course",data.courseid);
+	 section.orderByDesc("order");
+	 section.setLimit(1);
+	 section.query();
+	 while(section.next()){
+		var unitsection=new GlideRecord('x_315700_lms_unit');
+			 unitsection.addQuery("section",section.sys_id);
+			 unitsection.orderByDesc("order");
+			 unitsection.setLimit(1);
+			 unitsection.query();
+			 while (unitsection.next()){
+				 data.unit_last=unitsection.getDisplayValue("sys_id");
+	 }
+		 
+	 }
+		 data.last=false;
+		if(data.unitid==data.unit_last) {
+			data.last=true;
+		}
+		 
+		 
+		 
+	 data.state=false;
+	
+	 var unituserGR = new GlideRecord("x_315700_lms_unit_user");
+	  
+	 unituserGR.query();
+	 while(unituserGR.next()){
+	     if (unituserGR.unit_id==data.unitid && unituserGR.user_id==gs.getUserID()) {
+				 data.state=true;
+			 }
+	 }
+		 
+	data.firstunit=[];
+	var firstunit=new GlideRecord('x_315700_lms_unit');
+	firstunit.get(data.unitid);
+	
+	data.order=firstunit.getValue("order");
+	
+	gs.warn("firstunit"+JSON.stringify(data.order));
+	
+	 var section = new GlideRecord('x_315700_lms_section');
+	
+	
+	
+	  gs.warn("id"+data.unitid);
+	var parent_section = new GlideRecord('x_315700_lms_section');
+	var parentsection = new GlideRecord('x_315700_lms_section');
+	
+				var currentunit=new GlideRecord('x_315700_lms_unit');
+	 
+			var nextunit=new GlideRecord('x_315700_lms_unit');
+	
+	var currentsection = new GlideRecord('x_315700_lms_section');
+	
+	var nextsection=new GlideRecord('x_315700_lms_section');
+		 currentunit.get(data.unitid);
+	   data.currentsection=currentunit.getValue("section"); 
+	   currentsection.get(data.currentsection);
+	   currentsection.query();
+	   if (currentsection.getDisplayValue("parent_section")!=null){
+			 data.parent_section=currentsection.getDisplayValue("parent_section")
+		 }
+	   parent_section.get(data.parent_section);
+	 parentsection.addQuery("course",data.courseid);
+	   parentsection.addQuery("order",(parent_section.order)+100);
+	   parentsection.setLimit(1);
+	   parentsection.query();
+	
+	   while(parentsection.next()){
+			 data.nextsectionid=parentsection.getValue("sys_id");
+			 gs.warn("nextsection"+data.nextsectionid);
+			 var unitsection=new GlideRecord('x_315700_lms_unit');
+			 unitsection.addQuery("section",data.nextsectionid);
+			 unitsection.orderBy("order");
+			 unitsection.setLimit(1);
+			 unitsection.query();
+			 while (unitsection.next()){
+				
+				 data.unitparentsectionid=unitsection.getDisplayValue("sys_id");
+			 }
+		 }
+	
+	
+	   nextsection.addQuery("course",data.courseid);
+	   nextsection.addQuery("order",(currentsection.order)+100);
+	   nextsection.setLimit(1);
+	   nextsection.query();
+	
+	   while(nextsection.next()){
+			 data.nextsectionid=nextsection.getValue("sys_id");
+			 gs.warn("nextsection"+data.nextsectionid);
+			 var unitsection=new GlideRecord('x_315700_lms_unit');
+			 unitsection.addQuery("section",data.nextsectionid);
+			 unitsection.orderBy("order");
+			 unitsection.setLimit(1);
+			 unitsection.query();
+			 while (unitsection.next()){
+				
+				 data.unitsectionid=unitsection.getDisplayValue("sys_id");
+			 }
+		 }
+		gs.warn("order "+JSON.stringify(data.unitsectionid));
+	   gs.warn("current section"+currentunit.getValue("section"));
+	   nextunit.addQuery("section",currentunit.getValue("section"));
+	
+     nextunit.addQuery("order",(currentunit.order)+100);
+	   nextunit.query();
+	   gs.warn("nextunit "+JSON.stringify(nextunit));
+	while(nextunit.next()){
+		data.nextid=nextunit.getDisplayValue("sys_id");
+	}
+		gs.warn("nextunit id "+data.nextid);
+	data.test=[];
+	var subsection = new GlideRecord("x_315700_lms_section");
+	subsection.addQuery("parent_section",data.currentsection);
+	subsection.orderBy("order");
+	subsection.query();
+	
+	
+	while(subsection.next()){
+		var subunit = new GlideRecord('x_315700_lms_unit');
+		subunit.addQuery("section",subsection.sys_id);
+		subunit.orderBy("order");
+		subunit.query();
+		while(subunit.next()){
+			var subunitobj={};
+				$sp.getRecordDisplayValues(subunitobj,subunit,"sys_id,name,order");
+				data.test.push(subunitobj);
+			   data.nextsubid=subunit.getDisplayValue("sys_id");
+			gs.warn("nextsubid",data.nextsubid);
+			gs.warn("test"+JSON.stringify(data.test));
+		}
+		
+	}
+	
+	  //data.url="?id=unit_body&unit_id="+data.unitsectionid+"&course_id="+data.courseid;
+	data.listcurrentunit=[];
+	var listunitt=new GlideRecord('x_315700_lms_unit');
+		 listunitt.addQuery("section",data.currentsection);
+	
+			listunitt.orderBy("order");
+			listunitt.query();
+
+			while(listunitt.next()){
+				var unitobj={};
+				data.unit_id=listunitt.getDisplayValue("sys_id");
+				$sp.getRecordDisplayValues(unitobj,listunitt,"sys_id,name,order");
+				data.listcurrentunit.push(unitobj);
+			  
+			
+			}
+	
+		    gs.warn("listunit"+JSON.stringify(data.listcurrentunit));
+	  
+	
+	
 	if(input){
 		var unit = new GlideRecord('x_315700_lms_unit');
 		var section = new GlideRecord('x_315700_lms_section');
-
+   data.id=$sp.getParameter("unit_id");
+		gs.warn("unit id"+data.id);
 		data.table='x_315700_lms_useractivity';
 		
 		data.instanceName = gs.getProperty('instance_name');
-		if (unit.get(input.unitID)) {			
+		if (unit.get(data.id)) {			
 			if (input.action == 'getunit') {	
 				
 				
@@ -271,10 +684,11 @@ h2 { text-align: center }
 				data.unit={};
 				data.section={};
 				data.useractivity={};
-				
+				data.course={};
+				data.course=section.getDisplayValue("course");
 				data.section= unit.getDisplayValue("section");
 					var componentGR = new GlideRecord('x_315700_lms_component');
-					componentGR.addQuery("parent_unit",input.unitID);
+					componentGR.addQuery("parent_unit",data.id);
 				componentGR.orderBy('order');
 				 componentGR.query();
 					while(componentGR.next()){
@@ -371,7 +785,7 @@ h2 { text-align: center }
 				var useractivityGR = new GlideRecord(data.table);
             
             useractivityGR.activity = input.activity; 
-            useractivityGR.user=gs.getUserID(); 
+            useractivityGR.user=gs.getUserID();
             var id = useractivityGR.insert();
             data.sysID = id;
 				    
@@ -387,8 +801,132 @@ useractivityres.file = input.attachment_id;
 var result = useractivityres.update();
 }
 }
+		
+		
+	gs.warn("boolean"+exist(data.unitid));	
+if( input.action =='add_state'){
+	
+		var unituserGR = new GlideRecord("x_315700_lms_unit_user");
+	  gs.warn("boolean"+exist(data.unitid));
+	 if (exist(data.unitid)==false){
+		unituserGR.unit_id=data.unitid;
+		unituserGR.user_id=gs.getUserID();
+	  unituserGR.course=data.courseid;
+		 
+     
+   gs.warn("user"+JSON.stringify(unituserGR));
+		
+		
+		unituserGR.insert();
+	  
+		gs.warn("inserted");
+	 }
+		}
+	}
+	
+	data.unitlist = [];
+data.list =[];
+	data.id=$sp.getParameter("course_id");
+	
+  var section = new GlideRecord("x_315700_lms_section");
+ section.addQuery("course",$sp.getParameter("course_id"));
+ section.orderBy("order");
+ section.addNullQuery("parent_section");
+ section.query();
 
-}})
+ while (section.next()) {
+	
+ 
+   var obj = {
+     'name': section.getDisplayValue("name"),
+     'sys_id': section.getDisplayValue("sys_id"),
+     'arrayunit': [],
+     'subsection': []
+   };
+	 
+   var subsection = new GlideRecord("x_315700_lms_section");
+   gs.warn("section " + section.getDisplayValue("name"));
+   subsection.addQuery("parent_section", obj.sys_id);
+	 subsection.orderBy('order');
+   subsection.query();
+   data.subunitlist = [];
+   while (subsection.next()) {
+     gs.warn("section " + section.getDisplayValue("name") + " subsection " + subsection.getDisplayValue("name"));
+     var subobj = {
+       'name': subsection.getDisplayValue("name"),
+       'sys_id': subsection.getDisplayValue("sys_id"),
+			 'order':subsection.getDisplayValue("order"),
+       'arraysubunit': []
+     };
+     obj.subsection.push(subobj);
+     data.subsection.push(subobj);
+		 
+		 
+
+		       var subunit = new GlideRecord("x_315700_lms_unit");
+           subunit.addQuery("section", subobj.sys_id);
+		       subunit.orderBy('order');
+		      subunit.setLimit(1);
+		    subunit.query();
+		 while(subunit.next()){
+			 data.subunitid=subunit.getDisplayValue("sys_id");
+		 }
+		 if (data.subsection.length!=0){
+			data.link= "?id=unit_body&unit_id="+data.subunitid+"&course_id="+data.courseid;
+		 }
+		 
+		 
+		 
+		 
+      var unitsubsection = new GlideRecord("x_315700_lms_unit");
+           unitsubsection.addQuery("section", subobj.sys_id);
+		       unitsubsection.orderBy('order');
+           unitsubsection.query();
+
+           while (unitsubsection.next()) {
+               var unitsubobj = {
+                   'name': unitsubsection.getDisplayValue("name"),
+                   'sys_id': unitsubsection.getDisplayValue("sys_id"),
+								    'order': unitsubsection.getDisplayValue("order")
+               };
+               subobj.arraysubunit.push(unitsubobj);
+						 data.subunit.push(unitsubobj);
+           }
+		   
+
+       }
+       var unit = new GlideRecord("x_315700_lms_unit");
+       unit.addQuery("section", section.sys_id);
+	     unit.orderBy('order');
+       unit.query();
+	 	
+       while (unit.next()) {
+				 
+	 var unituserGR = new GlideRecord("x_315700_lms_unit_user");
+	  
+	 unituserGR.query();
+	 while(unituserGR.next()){
+	     if (unituserGR.unit_id==unit.sys_id && unituserGR.user_id==gs.getUserID()) {
+				 var  unituserobj = {};
+				 $sp.getRecordValues(unituserobj,unituserGR,"sys_id");
+				 
+				 data.list.push(unituserobj);
+			 }
+		
+		  gs.warn("liste des cours"+data.list);
+					 }
+           gs.warn("inside unit : " + unit.name);
+           var unitobj = { 'name': unit.getDisplayValue("name"), 'sys_id': unit.getDisplayValue("sys_id"),'order':unit.getDisplayValue("order") };
+           obj.arrayunit.push(unitobj);
+				 data.list_course.push(unitobj);
+       }
+
+
+ 
+ data.unitlist.push(obj);
+	 gs.warn("unitlist"+data.unitlist);
+ }
+})
 
 ();]]></script>
         <servicenow>false</servicenow>
@@ -396,23 +934,23 @@ var result = useractivityres.update();
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-04-16 08:30:40</sys_created_on>
         <sys_id>f1599e5a2f303300a4a2c886f699b699</sys_id>
-        <sys_mod_count>155</sys_mod_count>
-        <sys_name>UnitBody_clone</sys_name>
+        <sys_mod_count>627</sys_mod_count>
+        <sys_name>Unit_content</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sp_widget_f1599e5a2f303300a4a2c886f699b699</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-05-10 08:30:18</sys_updated_on>
+        <sys_updated_on>2019-09-12 08:59:07</sys_updated_on>
         <template><![CDATA[<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
 
 <div class="panel panel-info" style="width: 100%" ng-if="c.data.unit.sys_id">
-    <div class="panel-heading clearfix">
-        <div class="row">
+    <div class="panel-heading clearfix section">
+        <div class="row ">
 
-            <div class="col-md-12">
+            <div class="col-md-12 ">
 
                 <h2>
                     {{c.data.section}}
@@ -422,6 +960,21 @@ var result = useractivityres.update();
         </div>
 
     </div>
+  <!--
+  <div>
+   <div class="container">
+   <div class="row">
+     <div class="col">
+       <ul id="progress-bar" class="progressbar">
+         <li ng-repeat="sec in data.unitlist" >{{sec.name}}
+         </li>
+      </ul>
+     </div>
+  </div>
+</div>
+</div>
+-->
+  <widget id="scrollbar"> </widget>
     <div class="col-md-12">
 
 
@@ -432,6 +985,9 @@ var result = useractivityres.update();
 
     <div class="panel-body">
 
+      
+      
+      <div ng-bind-html="data.unitbody" >{{data.unitbody}}</div>
         <div ng-repeat="cmp in c.data.all_components   ">
             <div ng-if="cmp.c_type=='activity'">
                 <div class="panel panel-default">
@@ -490,7 +1046,7 @@ var result = useractivityres.update();
 
                 </div>
             </div>
-
+       
             <videocomponent videoclass="cmp" ng-if="cmp.c_type=='video'">
             </videocomponent>
             <textcomponent textclass="cmp" ng-if="cmp.c_type=='text'">
@@ -499,10 +1055,15 @@ var result = useractivityres.update();
             </imagecomponent>
             <articlecomponent articleclass="cmp" ng-if="cmp.c_type=='article'">
             </articlecomponent>
-
+         
 
 
         </div>
+        <div> 
+              <!--<a href="?id=unit_body&unit_id={{c.data.selectid}}&course_id={{c.data.courseid}}"  > -->  <a href="{{c.link}}" ><input  ng-class="{'true':'finish-btn','false':'greenbtn'}[change_state()]" id="Btn" ng-disabled="change_state()"   ng-click="add_state();"   type="button" value="{{c.btnvalue}}"> </a>
+                
+              
+            </div>
     </div>
 
 </div>]]></template>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="2">a06a27b32f13f300a4a2c886f699b61e</sp_column>
+        <sp_widget display_value="Typeahead Search">fa20ec02cb31020000f8d856634c9ce9</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-08-23 12:52:37</sys_created_on>
+        <sys_id>2c6a27b32f13f300a4a2c886f699b61f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_instance_2c6a27b32f13f300a4a2c886f699b61f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-08-23 12:52:37</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"title": {
+		"value": "",
+		"displayValue": ""
+	},
+	"color": {
+		"value": "",
+		"displayValue": ""
+	},
+	"glyph": {
+		"value": "",
+		"displayValue": ""
+	},
+	"size": {
+		"value": "",
+		"displayValue": ""
+	},
+	"limit": {
+		"value": null,
+		"displayValue": ""
+	},
+	"contextual_search_sources": {
+		"value": "c96eb1686721220023c82e08f585efff",
+		"displayValue": "Service Catalog"
+	}
+}]]></widget_parameters>
+    </sp_instance>
+    <sys_translated_text action="delete_multiple" query="documentkey=2c6a27b32f13f300a4a2c886f699b61f"/>
+</record_update>

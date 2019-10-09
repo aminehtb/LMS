@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($rootScope,$scope) {
+  /* widget controller */
+  var c = this;
+	
+	
+	
+	
+	
+c.data.name =$scope.data.name;
+console.log("name"+c.data.name);
+	
+	
+	
+	
+	
+ $rootScope.name = c.data.name;
+$rootScope.$emit('selectunit', c.data.name);
+
+
+		/*$scope.submit_record=function() {
+		
+
+console.log('started submit');
+		
+
+	
+c.data.action = 'insert';
+
+c.data.name =$scope.data.name;
+
+
+			
+
+		
+
+c.server.update().then(function(){
+
+
+
+c.data.action = undefined;
+});
+
+};
+	*/
+ 
+};
+	
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>unitform</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>unitform</name>
+        <option_schema>[{"name":"id","section":"other","label":"id","type":"string"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+data.id=input.id;
+	var section = new GlideRecord("x_315700_lms_section");
+	 section.get(data.id);
+	 data.section_name=section.getDisplayValue("name");
+ if(input){
+	 
+	if(input.action=='insert'){
+		
+				gs.warn("unitname"+input.name);
+				var unitGR = new GlideRecord("x_315700_lms_unit");
+            
+            unitGR.name = input.name;
+		        
+		        unitGR.section=data.id;
+		        gs.warn("unitname"+input.name+"   "+unitGR.section);
+            var id = unitGR.insert();
+            data.sysID = id;
+				    
+			}
+	 
+	
+	 
+	
+
+	
+	
+	 }
+	
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-30 09:09:33</sys_created_on>
+        <sys_id>183801a82ff17300a4a2c886f699b624</sys_id>
+        <sys_mod_count>60</sys_mod_count>
+        <sys_name>unitform</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_183801a82ff17300a4a2c886f699b624</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-06-24 09:56:12</sys_updated_on>
+        <template><![CDATA[
+
+<div style="text-align:center;">
+<!-- your widget template -->
+ <div >
+   
+  Unit Name :  <input type="text" ng-model="c.data.name"> 
+  </div>
+  
+  
+   Section Name :  <input type="text" ng-model="data.section_name"> 
+  <div>
+   
+  <button  ng-click="submit_record()">
+                     Add unit  
+								</button> </div>
+  
+  
+</div>]]></template>
+    </sp_widget>
+</record_update>

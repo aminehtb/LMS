@@ -39,8 +39,8 @@
         <no_quantity_v2>false</no_quantity_v2>
         <no_search>false</no_search>
         <no_wishlist_v2>false</no_wishlist_v2>
+        <objective/>
         <omit_price>false</omit_price>
-        <optional_objective/>
         <order>0</order>
         <ordered_item_link/>
         <picture/>

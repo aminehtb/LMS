@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="db_image">
+    <db_image action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category/>
+        <format>png</format>
+        <height>24</height>
+        <image>7371c2ff2f323300a4a2c886f699b60a</image>
+        <name>exam.png</name>
+        <size_bytes>785</size_bytes>
+        <sys_class_name>db_image</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-07-29 08:42:49</sys_created_on>
+        <sys_id>fc710e7f2f323300a4a2c886f699b6aa</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>exam.png</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>db_image_fc710e7f2f323300a4a2c886f699b6aa</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-07-29 08:42:58</sys_updated_on>
+        <thumbnail/>
+        <width>24</width>
+    </db_image>
+    <sys_attachment action="INSERT_OR_UPDATE">
+        <average_image_color>#0</average_image_color>
+        <chunk_size_bytes>734003</chunk_size_bytes>
+        <compressed>true</compressed>
+        <content_type>image/png</content_type>
+        <file_name>image</file_name>
+        <image_height>24</image_height>
+        <image_width>24</image_width>
+        <size_bytes>785</size_bytes>
+        <size_compressed>778</size_compressed>
+        <state>available</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-07-29 08:42:57</sys_created_on>
+        <sys_id>7371c2ff2f323300a4a2c886f699b60a</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_updated_by>system</sys_updated_by>
+        <sys_updated_on>2019-07-29 08:42:58</sys_updated_on>
+        <table_name>ZZ_YYdb_image</table_name>
+        <table_sys_id>fc710e7f2f323300a4a2c886f699b6aa</table_sys_id>
+    </sys_attachment>
+    <sys_attachment_doc action="INSERT_OR_UPDATE">
+        <data>H4sIAAAAAAAAAA==</data>
+        <length>16</length>
+        <position>0</position>
+        <sys_attachment display_value="image" sys_id="7371c2ff2f323300a4a2c886f699b60a">7371c2ff2f323300a4a2c886f699b60a</sys_attachment>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-07-29 08:42:57</sys_created_on>
+        <sys_id>b371c2ff2f323300a4a2c886f699b60a</sys_id>
+    </sys_attachment_doc>
+    <sys_attachment_doc action="INSERT_OR_UPDATE">
+        <data>6wzwc+flkuJiYGDg9fRwCQLSEiDMwQIkveq+FgMplnRHX0cGho393H8SWYF8hWSPIF8Ghio1BoaGFgaGX0ChhhcMDKUGDAyvEhgYrGYwMIgXzNkVaAOUYErydndhYFjVq2wE5HEWeEQCTeQ7AsKMU7X5pIGC7CWevq7sj9lleVR1XyQ+1WBgYLzv6eIYYnG69rK9x9VAiWMf++NWfpn1k11pq8phjUMGpxcodhwJ6jqhuGLlQQ6lNSyn29gyV7EpeujIbGmacIhnFpO2R0mADpOu9KKzXgaXdtzS1ZI+c3v96722tyvP/5z3fc/56jix1012bydpmObtdenby3cqRMtWcALTN2s9nk+8R75t+82y7/W1nQI+zjcy1UWbi3eZNuq9rHIxWHdywfXPDhytZisEtwU1GqkuWrTIK8dEMb4xeN6vl2/v83zeGvOVVXfa8Xkmr6VvSK5RPLs/6tml+bt2PLr7aNHjxo7Phs+XCe0UYcm6onurfomypYFUdvgNxsqg3ld/49tyXh+QrI0SnSFUFBtdlDA190Tp/SVpezeFZl1TUbc7HXX9zkRV3z6b2lVJ29NehSZGTPXtNArJ3uC0f7FU8rxSja8HpSe2Oh88/91rd/uy1Nk9R+1OmS6/1ufiENF33quXpWr38YIF3wsPZIWWrfxywDV64qMOpaObJu38ckSAa8uq8PUBJxpm3/JVZ15l2iCfV7HQ/UTe7N7I92uEOxs2HkhYF/hsdXpbyInr6wPn36xIyFzgKpjsMXHh5R3fo+6U3sgRuJF0rLg7NM9l6vGokpWm09s6Yra/meyzXXR1sf80HuPPh4siKw88WOF8S+Totf0+FsvOeTf/YfOdU/K+JijwNTD2VUtcI0pSEktSrZKLUoEUg5GBoaWugbmukWWIoYGVsbmViam2gZGVgQGvYm0riobc/JTMtErcGmpqjloCNUiCNATnp5WUJxalMpSXl+tl5mUXJycWpOrlF6XPfmcjBVTE4Onq57LOKaEJAFGa+scRAwAA</data>
+        <length>1024</length>
+        <position>1</position>
+        <sys_attachment display_value="image" sys_id="7371c2ff2f323300a4a2c886f699b60a">7371c2ff2f323300a4a2c886f699b60a</sys_attachment>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-07-29 08:42:57</sys_created_on>
+        <sys_id>3771c2ff2f323300a4a2c886f699b60a</sys_id>
+    </sys_attachment_doc>
+</record_update>

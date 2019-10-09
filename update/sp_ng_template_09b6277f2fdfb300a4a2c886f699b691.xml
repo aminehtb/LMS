@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_ng_template">
+    <sp_ng_template action="INSERT_OR_UPDATE">
+        <id>menuTemplatecustom</id>
+        <sp_widget display_value="FormationMenu">f85047b32f9fb300a4a2c886f699b65d</sp_widget>
+        <sys_class_name>sp_ng_template</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-08-23 12:36:33</sys_created_on>
+        <sys_id>09b6277f2fdfb300a4a2c886f699b691</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>menuTemplatecustom</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_ng_template_09b6277f2fdfb300a4a2c886f699b691</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-08-23 12:48:57</sys_updated_on>
+        <template><![CDATA[<a role="menuitem" ng-if="item.items.length == 0 && !item.scriptedItems" ng-href="{{::item.href}}" ng-click="collapse()" target="{{::item.url_target}}" title="{{::item.hint}}">
+  <fa ng-if="::item.glyph" name="{{::item.glyph}}"></fa>
+  <span ng-bind-html="::item.label"></span>
+</a>
+<a role="menuitem" aria-haspopup="true"  ng-if="item.items.length > 0" href class="dropdown-toggle sp-menu-has-items" data-toggle="dropdown" aria-controls="{{::item.label.split(' ').join('')}}" aria-haspopup="true" title="{{::item.hint}}">
+  <fa ng-if="::item.glyph" name="{{::item.glyph}}"></fa>
+  <span ng-bind-html="::item.label"></span> <span class="caret"></span>
+</a>
+<ul ng-if="item.items.length > 0" class="dropdown-menu" role="group" id="{{::item.label.split(' ').join('')}}">
+ <li ng-repeat="item in item.items" ng-include="'menuTemplatecustom'" />
+</ul>
+<a role="menuitem" aria-haspopup="true" ng-if="item.scriptedItems.count > 0" href data-toggle="dropdown" aria-label="{{::item.label}} : {{item.scriptedItems.count}}" title="{{::item.hint}}">
+  <fa ng-if="::item.glyph" name="{{::item.glyph}}"></fa>
+  <span ng-bind-html="::item.label"></span>
+  <span ng-if="::!item.scriptedItems.omitBadge" class="label label-as-badge label-primary sp-navbar-badge-count">{{item.scriptedItems.count}}</span>
+</a>
+<spDropdownTreeTemplateCustom role="menu" aria-label="{{::item.label}}" ng-if="item.scriptedItems.count > 0" items="item.scriptedItems.items" />]]></template>
+    </sp_ng_template>
+</record_update>

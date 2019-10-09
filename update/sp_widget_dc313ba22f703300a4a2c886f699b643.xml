@@ -15,7 +15,7 @@
                   c.data= r.data;
 				          c.data.unitlist=r.data.unitlist;
 				
-				          c.data.subsection=r.data.unitlist[1].subsection.name;
+				       
 				          
 				          console.log(c.data.unitlist);
 				
@@ -182,7 +182,7 @@ counter-reset: subsection;
         <description/>
         <docs/>
         <field_list/>
-        <has_preview>false</has_preview>
+        <has_preview>true</has_preview>
         <id>coursebody</id>
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
@@ -229,10 +229,9 @@ counter-reset: subsection;
 					 var subsection = new GlideRecord("x_315700_lms_section");	
           subsection.addQuery("parent_section",sectionobj.sys_id);
 					subsection.query();
-					gs.warn("ahmed  : "+subsection.getRowCount());
 					data.subsectionlist=[];
 					while(subsection.next()){
-                        gs.warn("Hamidouuuuuuu");
+                        
 						var subsectionobj={};
 						$sp.getRecordDisplayValues(subsectionobj,subsection,"sys_id,name");
 						//data.subsectionlist.push(subsectionobj);
@@ -249,7 +248,7 @@ counter-reset: subsection;
 						subseclisteobj={'subsection':subsectionobj,'subsecunit':data.unitsubsection};
 						data.unitsubseclist.push(subseclisteobj);
 					}
-					unit.addQuery("section",section.sys_id);
+					unit.addQuery("section",sectionobj.sys_id);
 				unit.query();
 					data.unit= [];
 				while(unit.next()){
@@ -258,7 +257,7 @@ counter-reset: subsection;
 					
 					data.unit.push(unitobj);
 				  gs.warn(JSON.stringify(data.unit));
-					
+					gs.warn(JSON.stringify(data.section));
 					
 					
 				}
@@ -269,14 +268,7 @@ counter-reset: subsection;
 					listeobj={'section':sectionobj,'arrayunit':data.unit};
 					data.unitlist.push(listeobj);
 				} 
-				}/*
-                subsection.addQuery("course",input.courseID);
-                subsection.query();
-                while(subsection.next()){
-                    var subsec = subsection.getValue("parent_section");
-
-                }
-                */
+				}
 				gs.warn(section.sys_id);
 				
 				$sp.getRecordDisplayValues(data.course,course,"name,sys_id,description,price,instructor,duration,suggested,level,languages");
@@ -310,14 +302,14 @@ counter-reset: subsection;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-04-17 09:32:59</sys_created_on>
         <sys_id>dc313ba22f703300a4a2c886f699b643</sys_id>
-        <sys_mod_count>479</sys_mod_count>
+        <sys_mod_count>485</sys_mod_count>
         <sys_name>CourseBody</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sp_widget_dc313ba22f703300a4a2c886f699b643</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-05-15 08:38:24</sys_updated_on>
+        <sys_updated_on>2019-06-19 09:19:18</sys_updated_on>
         <template><![CDATA[
 <html>
   
@@ -479,8 +471,7 @@ counter-reset: subsection;
       
            
   
-  <widget id="widget-simple-list" options="{'table':'x_315700_lms_unit'}"></widget>
-   
+
      
     
       

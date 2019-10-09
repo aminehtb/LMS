@@ -4,111 +4,83 @@
             <element>.begin_split</element>
             <position>0</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-03-12 07:56:38</sys_created_on>
-            <sys_id>c6e1c687db003300c1e8f53a299619ee</sys_id>
+            <sys_created_on>2019-08-14 09:40:40</sys_created_on>
+            <sys_id>8d28a8852f533300a4a2c886f699b6f9</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_component" sys_domain="global" view="Default view">0ae18687db003300c1e8f53a299619fc</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-03-12 07:56:38</sys_updated_on>
+            <sys_updated_on>2019-08-14 09:40:40</sys_updated_on>
             <sys_user/>
             <type>.begin_split</type>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>number</element>
+            <element>.split</element>
             <position>1</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-03-12 07:56:38</sys_created_on>
-            <sys_id>4ae1c687db003300c1e8f53a299619ee</sys_id>
+            <sys_created_on>2019-08-14 09:40:40</sys_created_on>
+            <sys_id>0528a8852f533300a4a2c886f699b6fa</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_component" sys_domain="global" view="Default view">0ae18687db003300c1e8f53a299619fc</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-03-12 07:56:38</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>.split</element>
-            <position>2</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-03-12 07:56:38</sys_created_on>
-            <sys_id>cae1c687db003300c1e8f53a299619ee</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_component" sys_domain="global" view="Default view">0ae18687db003300c1e8f53a299619fc</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-03-12 07:56:38</sys_updated_on>
+            <sys_updated_on>2019-08-14 09:40:40</sys_updated_on>
             <sys_user/>
             <type>.split</type>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>title</element>
-            <position>3</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-03-12 07:56:38</sys_created_on>
-            <sys_id>4ee1c687db003300c1e8f53a299619ee</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_component" sys_domain="global" view="Default view">0ae18687db003300c1e8f53a299619fc</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-03-12 07:56:38</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
             <element>.end_split</element>
-            <position>4</position>
+            <position>2</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-03-12 07:56:38</sys_created_on>
-            <sys_id>cee1c687db003300c1e8f53a299619ee</sys_id>
+            <sys_created_on>2019-08-14 09:40:40</sys_created_on>
+            <sys_id>8928a8852f533300a4a2c886f699b6fa</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_component" sys_domain="global" view="Default view">0ae18687db003300c1e8f53a299619fc</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-03-12 07:56:38</sys_updated_on>
+            <sys_updated_on>2019-08-14 09:40:40</sys_updated_on>
             <sys_user/>
             <type>.end_split</type>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>description</element>
-            <position>5</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-03-12 07:56:38</sys_created_on>
-            <sys_id>42e1c687db003300c1e8f53a299619ef</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_component" sys_domain="global" view="Default view">0ae18687db003300c1e8f53a299619fc</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-03-12 07:56:38</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
             <element>parent_unit</element>
-            <position>6</position>
+            <position>3</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-03-12 07:56:38</sys_created_on>
-            <sys_id>c2e1c687db003300c1e8f53a299619ef</sys_id>
+            <sys_created_on>2019-08-14 09:40:40</sys_created_on>
+            <sys_id>0128a8852f533300a4a2c886f699b6fb</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_component" sys_domain="global" view="Default view">0ae18687db003300c1e8f53a299619fc</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-03-12 07:56:38</sys_updated_on>
+            <sys_updated_on>2019-08-14 09:40:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>order</element>
-            <position>7</position>
+            <position>4</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-03-13 09:31:18</sys_created_on>
-            <sys_id>5a21231bdb403300c1e8f53a2996192c</sys_id>
+            <sys_created_on>2019-08-14 09:40:40</sys_created_on>
+            <sys_id>8528a8852f533300a4a2c886f699b6fb</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_component" sys_domain="global" view="Default view">0ae18687db003300c1e8f53a299619fc</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-03-13 09:31:18</sys_updated_on>
+            <sys_updated_on>2019-08-14 09:40:40</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>sys_class_name</element>
+            <position>5</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-08-14 09:40:40</sys_created_on>
+            <sys_id>0d28a8852f533300a4a2c886f699b6fb</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_component" sys_domain="global" view="Default view">0ae18687db003300c1e8f53a299619fc</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-08-14 09:40:40</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>

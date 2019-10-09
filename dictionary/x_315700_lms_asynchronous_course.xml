@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element attributes="update_synch=true" extends="x_315700_lms_course" label="Asynchronous course" max_length="40" name="x_315700_lms_asynchronous_course" type="collection">
-        <element label="Duration" mandatory="true" max_length="40" name="duration" type="integer"/>
+        <element label="Duration in hours" mandatory="true" max_length="40" name="duration" type="integer"/>
         <element label="Suggested" max_length="255" name="suggested" type="string"/>
         <element label="Syllabus" mandatory="true" max_length="6000" name="syllabus" type="string"/>
     </element>

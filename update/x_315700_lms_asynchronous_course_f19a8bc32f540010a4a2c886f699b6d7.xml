@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="x_315700_lms_asynchronous_course">
+    <x_315700_lms_asynchronous_course action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <availability>on_desktop</availability>
+        <billable>false</billable>
+        <category display_value="Développement Web">69b464592f273300a4a2c886f699b610</category>
+        <cost>0</cost>
+        <custom_cart/>
+        <delivery_plan display_value="DEFAULT">523da512c611228900811a37c97c2014</delivery_plan>
+        <delivery_plan_script/>
+        <delivery_time>1970-01-03 00:00:00</delivery_time>
+        <description/>
+        <duration>6</duration>
+        <entitlement_script/>
+        <group/>
+        <hide_sp>false</hide_sp>
+        <icon/>
+        <ignore_price>true</ignore_price>
+        <image/>
+        <instructor/>
+        <languages>4be8be2effb30000dada1c57f27f9d13</languages>
+        <level>beginner</level>
+        <list_price>0</list_price>
+        <location/>
+        <mandatory_attachment>false</mandatory_attachment>
+        <meta/>
+        <mobile_hide_price>false</mobile_hide_price>
+        <mobile_picture/>
+        <mobile_picture_type>use_desktop_picture</mobile_picture_type>
+        <model/>
+        <name>Spécialisation Java Programming and Software Engineering Fundamentals</name>
+        <no_attachment_v2>false</no_attachment_v2>
+        <no_cart>false</no_cart>
+        <no_cart_v2>false</no_cart_v2>
+        <no_delivery_time_v2>false</no_delivery_time_v2>
+        <no_order>false</no_order>
+        <no_order_now>false</no_order_now>
+        <no_proceed_checkout>false</no_proceed_checkout>
+        <no_quantity>false</no_quantity>
+        <no_quantity_v2>false</no_quantity_v2>
+        <no_search>false</no_search>
+        <no_wishlist_v2>false</no_wishlist_v2>
+        <objective>Apprendre les notions basiques de javascript</objective>
+        <omit_price>false</omit_price>
+        <order>0</order>
+        <ordered_item_link/>
+        <picture>18dac7c32f540010a4a2c886f699b610</picture>
+        <preview>JavaScript: popupOpenStandard("com.glideapp.servicecatalog_cat_item_view.do?v=1&amp;sysparm_id=f19a8bc32f540010a4a2c886f699b6d7&amp;sysparm_preview=true", "summary");</preview>
+        <price>0</price>
+        <prior_knowledge>Language orienté objet</prior_knowledge>
+        <recurring_frequency/>
+        <recurring_price>0</recurring_price>
+        <request_method/>
+        <roles/>
+        <sc_catalogs>5107e2762f723300a4a2c886f699b6c1</sc_catalogs>
+        <sc_ic_item_staging/>
+        <sc_ic_version/>
+        <short_description/>
+        <show_variable_help_on_load>false</show_variable_help_on_load>
+        <start_closed>false</start_closed>
+        <suggested/>
+        <syllabus/>
+        <sys_class_name>x_315700_lms_asynchronous_course</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-10-09 19:42:13</sys_created_on>
+        <sys_id>f19a8bc32f540010a4a2c886f699b6d7</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Spécialisation Java Programming and Software Engineering Fundamentals</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>x_315700_lms_asynchronous_course_f19a8bc32f540010a4a2c886f699b6d7</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-10-09 19:42:13</sys_updated_on>
+        <template/>
+        <title/>
+        <type>item</type>
+        <use_sc_layout>true</use_sc_layout>
+        <vendor/>
+        <visible_bundle>true</visible_bundle>
+        <visible_guide>true</visible_guide>
+        <visible_standalone>true</visible_standalone>
+        <workflow/>
+    </x_315700_lms_asynchronous_course>
+    <sys_translated_text action="delete_multiple" query="documentkey=f19a8bc32f540010a4a2c886f699b6d7"/>
+    <fx_price action="delete_multiple" query="id=f19a8bc32f540010a4a2c886f699b6d7"/>
+    <fx_price action="INSERT_OR_UPDATE">
+        <amount>0</amount>
+        <currency display_value="USD">USD</currency>
+        <field>price</field>
+        <id>f19a8bc32f540010a4a2c886f699b6d7</id>
+        <parent/>
+        <reference_amount>0</reference_amount>
+        <reference_currency display_value="USD">USD</reference_currency>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-10-09 19:42:02</sys_created_on>
+        <sys_id>98dac7c32f540010a4a2c886f699b613</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-10-09 19:42:02</sys_updated_on>
+        <table>x_315700_lms_asynchronous_course</table>
+        <type>calculated</type>
+    </fx_price>
+    <fx_price action="INSERT_OR_UPDATE">
+        <amount>0</amount>
+        <currency display_value="USD">USD</currency>
+        <field>recurring_price</field>
+        <id>f19a8bc32f540010a4a2c886f699b6d7</id>
+        <parent/>
+        <reference_amount>0</reference_amount>
+        <reference_currency display_value="USD">USD</reference_currency>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-10-09 19:42:02</sys_created_on>
+        <sys_id>d4dac7c32f540010a4a2c886f699b614</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-10-09 19:42:02</sys_updated_on>
+        <table>x_315700_lms_asynchronous_course</table>
+        <type>calculated</type>
+    </fx_price>
+    <sys_attachment action="INSERT_OR_UPDATE">
+        <average_image_color>#f1bf26</average_image_color>
+        <chunk_size_bytes>734003</chunk_size_bytes>
+        <compressed>true</compressed>
+        <content_type>image/png</content_type>
+        <file_name>picture</file_name>
+        <image_height>450</image_height>
+        <image_width>736</image_width>
+        <size_bytes>4839</size_bytes>
+        <size_compressed>4618</size_compressed>
+        <state>available</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-10-09 19:42:02</sys_created_on>
+        <sys_id>18dac7c32f540010a4a2c886f699b610</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_updated_by>system</sys_updated_by>
+        <sys_updated_on>2019-10-09 19:42:09</sys_updated_on>
+        <table_name>ZZ_YYx_315700_lms_asynchronous_course</table_name>
+        <table_sys_id>f19a8bc32f540010a4a2c886f699b6d7</table_sys_id>
+    </sys_attachment>
+    <sys_attachment_doc action="INSERT_OR_UPDATE">
+        <data>H4sIAAAAAAAAAA==</data>
+        <length>16</length>
+        <position>0</position>
+        <sys_attachment display_value="picture" sys_id="18dac7c32f540010a4a2c886f699b610">18dac7c32f540010a4a2c886f699b610</sys_attachment>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-10-09 19:42:02</sys_created_on>
+        <sys_id>58dac7c32f540010a4a2c886f699b610</sys_id>
+    </sys_attachment_doc>
+    <sys_attachment_doc action="INSERT_OR_UPDATE">
+        <data>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</data>
+        <length>6144</length>
+        <position>1</position>
+        <sys_attachment display_value="picture" sys_id="18dac7c32f540010a4a2c886f699b610">18dac7c32f540010a4a2c886f699b610</sys_attachment>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-10-09 19:42:02</sys_created_on>
+        <sys_id>d8dac7c32f540010a4a2c886f699b610</sys_id>
+    </sys_attachment_doc>
+</record_update>

@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function ($scope,spModal,$rootScope) {
+		  var c = this;
+
+			c.data.textarticle="";
+var id;
+$scope.checkbox = false;
+
+
+
+
+$rootScope.$on('selectunit', function(event,data) {
+			
+			id=data;
+		
+c.server.get({
+		
+	    
+                  action: 'getunit',
+                  unitid: data
+              }).then(function(r) {
+                 c.data.text=r.data.unitbody;
+			console.log(c.data.textarticle);
+              });
+
+	
+
+ 
+	});
+
+  c.data.unit=c.data.unitbody;
+
+
+		$scope.onInit = function () {
+		 $(".note-editable").on('click', '.close-icon', function (e) {
+					if (c.data.text) c.data.text = c.data.text.replace(this.parentNode.outerHTML, '');
+					});
+		 $('.dropdown-toggle').dropdown();
+		$rootScope.$on('selectunit', function(event,data) {
+			
+			id=data;
+		
+c.server.get({
+		
+	    
+                  action: 'getunit',
+                  unitid: data
+              }).then(function(r) {
+                 c.data.text=r.data.unitbody;
+		
+              });
+
+	
+
+ 
+	});
+
+			};
+	
+	
+		
+		
+	
+	
+	
+	
+			
+							
+
+	
+	
+	
+	
+	
+
+
+			
+			
+			
+	
+	
+		/*	$(function() {      
+    setInterval(function(){
+        localStorage.setItem("summernotedata", c.data.text);
+    }, 5000); 
+});
+
+*/
+	    /*custom unit button*/
+	
+
+	
+	var unitButton = function (context) {
+		  
+        var ui = $.summernote.ui;
+        var shared={};
+        var button = ui.button({
+            contents: '<img width="20" height="20" src="unit_pic.svg"></a>',
+            tooltip: 'Save Unit',
+            click:  function () {
+             
+							 
+			
+			c.data.content="";
+
+			
+console.log('started submit');
+		c.data.action='insert';
+
+		
+	    c.data.unitid=id;
+			c.data.content=c.data.text;
+							
+c.server.update().then(function(r){
+                  
+                c.data.action=undefined;
+            
+     
+		
+			         
+              });
+ 
+
+
+ 
+
+ 
+
+
+
+								
+    }
+				});
+
+          
+    
+				return button.render(); 
+}
+
+	/* custom Activity Button*/
+	var ActivityButton = function (context) {
+        var ui = $.summernote.ui;
+        var shared={};
+        // create button
+        var button = ui.button({
+            contents: '<img width="20" height="20" src="note.svg">',
+            tooltip: 'Add new Activity',
+            click: function () {
+									context.invoke('editor.saveRange');
+                 spModal.open({
+                    title:'Add new Activity',
+                    size:'lg',
+                    widget:'Activity',
+									  shared: shared
+                }).then(function(){
+								c.data.selectedValue = shared.selection;
+							/*	var s = c.widget.options.shared;
+	              var id = c.data.value;	
+		            return angular.isDefined(id) ? (s.value = id) : s.value;
+		
+	*/            console.log(context);
+							 //$rootScope.$emit("value",c.value);
+							 var node = document.createElement('div');
+									  
+                    node.innerHTML = '<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo"> ' + c.data.selectedValue.title +'</button> <div id="demo" class="collapse"> '+ c.data.selectedValue.description + '</div></div> ' ;
+									 context.invoke('editor.restoreRange');
+                    context.invoke('editor.focus');
+                    context.invoke('editor.insertNode', node);
+               	  
+                    console.log('..... closed ......');
+                });
+            }
+        });
+ 
+      return button.render();    // return button as jquery object
+    }
+
+	
+	
+	
+	
+	/* custom section button*/
+	  var sectionButton = function (context) {
+        var ui = $.summernote.ui;
+        var shared={};
+        var button = ui.button({
+            contents: '<img width="20" height="20" src="flag.svg"></a>',
+            tooltip: 'Add new section',
+            click: function () {
+							context.invoke('editor.saveRange');
+             spModal.open({
+                    title:'Sections List',
+                    size:'lg',
+                    widget:'sectionlist',
+				            shared: shared
+							 
+                }).then(function(){
+							 c.data.selectedValue = shared.selection;
+							 
+							 var node = document.createElement('div');
+					
+                       node.innerHTML = ' <div class="panel panel-info"> <div class="panel-heading "> <h2 style="text-align:center">   ' + c.data.selectedValue.name +' </h2></div></div></div>' ;
+							 context.invoke('editor.restoreRange');
+                    context.invoke('editor.focus');
+                    context.invoke('editor.insertNode', node);
+                });
+								
+    }
+        });
+
+        return button.render();    // return button as jquery object
+    }
+		
+			/* custom knowledge button*/
+					var QuizButton = function (context) {
+        var ui = $.summernote.ui;
+        var shared = {};
+        var button = ui.button({
+            contents: '<img width="20" height="20" src="kbarticle.svg"> ',
+            tooltip: 'Add Quiz',
+            click: function () {
+							context.invoke('editor.saveRange');
+             spModal.open({
+                    title:'QUIZ List',
+                    size:'lg',
+                    widget:'quizlist',
+                    //widgetInput:{table:'kb_knowledge',display_field:'short_description',maximum_entries:'10'}
+							      shared: shared
+							 
+                }).then(function(){
+							 c.data.selectedValue = shared.selection;
+							 
+							 var node = document.createElement('div');
+							
+                    node.innerHTML = c.data.selectedValue.href ;
+							      context.invoke('editor.restoreRange');
+                    context.invoke('editor.focus');
+                    context.invoke('editor.pasteHTML', node);
+		               
+							 
+
+							 
+                });
+								
+    }
+        });
+
+        return button.render();    // return button as jquery object
+    }
+		
+		
+			/* custom knowledge button*/
+					var KnowledgeButton = function (context) {
+        var ui = $.summernote.ui;
+        var shared = {};
+        var button = ui.button({
+            contents: '<img width="20" height="20" src="kbarticle.svg"> ',
+            tooltip: 'Add Kb Article',
+            click: function () {
+							context.invoke('editor.saveRange');
+             spModal.open({
+                    title:'Knowledge Articles List',
+                    size:'lg',
+                    widget:'kbknowledgelist',
+                    //widgetInput:{table:'kb_knowledge',display_field:'short_description',maximum_entries:'10'}
+							      shared: shared
+							 
+                }).then(function(){
+							 c.data.selectedValue = shared.selection;
+							 
+							 var node = document.createElement('div');
+							
+                    node.innerHTML = ' ' + c.data.selectedValue.text +'</div>' ;
+							      context.invoke('editor.restoreRange');
+                    context.invoke('editor.focus');
+                    context.invoke('editor.pasteHTML', node);
+		               
+							 
+
+							 
+                });
+								
+    }
+        });
+
+        return button.render();    // return button as jquery object
+    }
+					
+	
+					$scope.summernoteOptions = {
+							callbacks: {
+						 onInit:$scope.onInit,
+             onBlur: $scope.onBlur		
+							},
+							placeholder: 'Hello from the other side !  everything goes here',
+							tabsize: 2,
+							height: 700,
+							toolbar:[
+							['edit', ['undo', 'redo']],
+							['headline', ['style']],
+							['fontface', ['fontname']],
+							['textsize', ['fontsize']],
+							['fontclr', ['color']],
+							['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
+							['table', ['table']],
+							['insert', ['link', 'picture', 'hr']],
+							['dev', ['codeview', 'fullscreen']],
+							['mybutton',['knowledge']],
+							['mybutton2',['activity']],
+							['mybutton3',['section']],
+							['mybutton4',['unit']],
+							['mybutton5'],['quiz']
+							],
+							buttons: {
+								knowledge: KnowledgeButton,
+								activity: ActivityButton,
+								section: sectionButton,
+								unit: unitButton,
+								quiz: QuizButton
+							}
+						};
+			
+
+	
+	
+	
+console.log(c.data.checkbox);				
+				
+				
+}
+						
+					
+				]]></client_script>
+        <controller_as>c</controller_as>
+        <css>
+.panel-default &gt; .panel-heading {
+    background: none;
+    border: none;
+	cursor: pointer;
+}
+.panel-default {
+    border: none;
+}
+.panel-group .panel-heading + .panel-collapse &gt; .panel-body, .panel-group .panel-heading + .panel-collapse &gt; .list-group {
+    border: none;
+}
+
+.panel_text {
+    font-size: 14px;
+    color: black;
+    line-height: 1.8em;
+}
+.panel{
+	box-shadow:none;
+}
+
+.hide{display:none !important;
+}
+
+div.b {
+  position: absolute;
+  right: 0;
+ 
+
+}
+
+
+
+h2 { text-align: center }
+
+.panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}
+
+
+.onoffswitch {
+    position: relative; width: 90px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "Edit";
+    padding-left: 10px;
+    background-color: #34A7C1; color: #FFFFFF;
+  text-align: left;
+}
+.onoffswitch-inner:after {
+    content: "View";
+    padding-right: 10px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 18px; margin: 6px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 56px;
+    border: 2px solid #999999; border-radius: 20px;
+    transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
+
+
+
+
+
+
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>summernote_angular</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>summernote_angular</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	 data.body="";
+	 data.unitbody="";
+	data.unitid="";
+
+	 if(input){
+if(input.action=='getunit'){
+	  var unitGR = new GlideRecord("x_315700_lms_unit");
+	unitGR.get(input.unitid); 
+	data.unitbody=unitGR.getDisplayValue("unitbody");
+}
+		 if( input && input.action=='insert'){
+		 var unit = new GlideRecord("x_315700_lms_unit");
+		       unit.get(input.unitid);
+		       gs.warn(input.unitid);
+				 
+		 unit.unitbody=input.content;
+						
+			  unit.update();
+						gs.warn("unitbody"+unit.unitbody);
+					}
+		 }
+		 
+			
+	
+	
+	
+
+	
+	
+ 
+	 
+	
+  
+	
+	 
+ })
+();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-28 10:54:16</sys_created_on>
+        <sys_id>2afc43372f613300a4a2c886f699b6fe</sys_id>
+        <sys_mod_count>661</sys_mod_count>
+        <sys_name>summernote_angular</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_2afc43372f613300a4a2c886f699b6fe</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-10-03 09:35:57</sys_updated_on>
+        <template><![CDATA[
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+
+<div>
+  
+<div class="row ">
+    <div class=" col-xs-12">
+        <div class=" onoffswitch pull-right">
+           <input type="checkbox" ng-model="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" >
+    <label class="onoffswitch-label" for="myonoffswitch">
+        <span class="onoffswitch-inner"></span>
+        <span class="onoffswitch-switch"></span>
+    </label>
+        </div>
+    </div>
+</div>
+
+  
+
+<div ng-class="{true:'',false:'hide'}[checkbox==true]"  id="summernote"   >
+    
+  <summernote id="summernote" config="summernoteOptions"  ng-model="c.data.text" on-init="onInit()" editable="editable" editor="editor"
+     editable="editable" editor="editor"  on-blur="onBlur(evt)"  on-change="test()" ></summernote>
+  
+ 
+</div>
+<div ng-class="{true:'',false:'hide'}[checkbox==false]" id="unitcontent">
+  
+
+ <unitcontent unitcontent="c.data.text" ></unitcontent>
+  </div>
+  </div>]]></template>
+    </sp_widget>
+</record_update>

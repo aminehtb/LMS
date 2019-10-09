@@ -4,10 +4,10 @@
         <element choice="1" label="Languages" mandatory="true" max_length="32" name="languages" reference="sys_language" type="glide_list">
             <choice/>
         </element>
-        <element choice="1" label="Level" mandatory="true" max_length="50" name="level" type="choice">
+        <element choice="2" choice_field="level" choice_table="x_315700_lms_short_term_course" label="Level" max_length="50" name="level" type="choice">
             <choice/>
         </element>
-        <element label="Optional Objective" max_length="100" name="optional_objective" type="string"/>
+        <element label="Objective" max_length="300" name="objective" type="string"/>
         <element label="Prior Knowledge" mandatory="true" max_length="6000" name="prior_knowledge" type="string"/>
         <element label="Title" mandatory="true" max_length="50" name="title" type="string"/>
         <index name="index">

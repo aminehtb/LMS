@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_documentation element="user" label="User" language="en" table="x_315700_lms_booking">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>user</element>
+            <help/>
+            <hint/>
+            <label>User</label>
+            <language>en</language>
+            <name>x_315700_lms_booking</name>
+            <plural>Users</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2019-10-01 09:14:37</sys_created_on>
+            <sys_id>af7ee31c2f100010a4a2c886f699b615</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>User</sys_name>
+            <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+            <sys_update_name>sys_documentation_x_315700_lms_booking_user_en</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2019-10-01 09:14:37</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

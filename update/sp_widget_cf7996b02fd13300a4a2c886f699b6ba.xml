@@ -2,143 +2,152 @@
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
         <client_script><![CDATA[function(spModal) {
-    /* widget controller */
-    var c = this;
+
+ var c = this;
 
 
     c.data.knowledgeurl = "https://" + c.data.instancename + ".service-now.com/sp?id=form&table=kb_knowledge";
     c.data.sectionurl = "https://" + c.data.instancename + ".service-now.com/sp?id=form&table=x_315700_lms_section";
     c.data.activityurl = "https://" + c.data.instancename + ".service-now.com/sp?id=form&table=x_315700_lms_activitycmp";
-    (function (factory) {
-        /* global define */
-        if (typeof define === 'function' && define.amd) {
-            // AMD. Register as an anonymous module.
-            define(['jquery'], factory);
-        } else if (typeof module === 'object' && module.exports) {
-            // Node/CommonJS
-            module.exports = factory(require('jquery'));
-        } else {
-            // Browser globals
-            factory(window.jQuery);
-        }
-    }(function ($) {
-
-        // Extends plugins for adding hello.
-        //  - plugin is external module for customizing.
-        $.extend($.summernote.plugins, {
-            /**
-             * @param {Object} context - context object has status of editor.
-             */
-            'addclass': function (context) {
-                var self = this;
-                if (typeof context.options.addclass === 'undefined') {
-                    context.options.addclass = {};
-                }
-                if (typeof context.options.addclass.classTags === 'undefined') {
-                    context.options.addclass.classTags = ["jumbotron", "lead", "img-rounded", "img-circle", "img-responsive", "btn", "btn btn-success", "btn btn-danger", "text-muted", "text-primary", "text-warning", "text-danger", "text-success", "table-bordered", "table-responsive", "alert", "alert alert-success", "alert alert-info", "alert alert-warning", "alert alert-danger", "visible-sm", "hidden-xs", "hidden-md", "hidden-lg", "hidden-print"];
-                    //  console.log("Please define your summernote.options.addclass.classTags array");
-                }
-                // ui has renders to build ui elements.
-                //  - you can create a button with `ui.button`
-                var ui = $.summernote.ui;
-
-                addStyleString(".scrollable-menu {height: auto; max-height: 200px; max-width:300px; overflow-x: hidden;}");
-
-                context.memo('button.addclass', function () {
-                    return ui.buttonGroup([
-                        ui.button({
-                            className: 'dropdown-toggle',
-                            contents: '<i class="fa fa-css3"\/>' + ' ' + ui.icon(context.options.icons.caret, 'span'),
-                            //ui.icon(context.options.icons.magic) + ' ' + ui.icon(context.options.icons.caret, 'span'),
-                            tooltip: 'toggle CSS class', //lang.style.style,
-                            data: {
-                                toggle: 'dropdown'
-                            }
-                        }),
-                        ui.dropdown({
-                            className: 'dropdown-style scrollable-menu',
-                            items: context.options.addclass.classTags,
-                            template: function (item) {
-
-                                if (typeof item === 'string') {
-                                    item = { tag: "div", title: item, value: item };
-                                }
-
-                                var tag = item.tag;
-                                var title = item.title;
-                                var style = item.style ? ' style="' + item.style + '" ' : '';
-                                var cssclass = item.value ? ' class="' + item.value + '" ' : '';
-
-
-                                return '<' + tag + ' ' + style + cssclass + '>' + title + '</' + tag + '>';
-                            },
-                            click: function (event, namespace, value) {
-
-                                event.preventDefault();
-                                value = value || $(event.target).closest('[data-value]').data('value');
+  
 
 
 
-                                var $node = $(context.invoke("restoreTarget"))
-                                if ($node.length == 0) {
-                                    $node = $(document.getSelection().focusNode.parentElement, ".note-editable");
-                                }
-
-                                if (typeof context.options.addclass !== 'undefined' && typeof context.options.addclass.debug !== 'undefined' && context.options.addclass.debug) {
-                                    console.debug(context.invoke("restoreTarget"), $node, "toggling class: " + value, window.getSelection());
-                                }
 
 
-                                $node.toggleClass(value);
 
 
-                            }
-                        })
-                    ]).render();
-                    return $optionList;
-                });
 
-                function addStyleString(str) {
-                    var node = document.createElement('style');
-                    node.innerHTML = str;
-                    document.body.appendChild(node);
-                }
+/**
+ * 
+ * copyright 2016 creativeprogramming.it di Stefano Gargiulo
+ * email: info@creativeprogramming.it
+ * accepting tips at https://www.paypal.me/creativedotit 
+ * license: MIT
+ * 
+ */
+(function (factory) {
+    /* global define */
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = factory(require('jquery'));
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function ($) {
 
-                // This events will be attached when editor is initialized.
-                this.events = {
-                    // This will be called after modules are initialized.
-                    'summernote.init': function (we, e) {
-                        //console.log('summernote initialized', we, e);
-                    },
-                    // This will be called when user releases a key on editable.
-                    'summernote.keyup': function (we, e) {
-                        //  console.log('summernote keyup', we, e);
-                    }
-                };
-
-                // This method will be called when editor is initialized by $('..').summernote();
-                // You can create elements for plugin
-                this.initialize = function () {
-
-                };
-
-                // This methods will be called when editor is destroyed by $('..').summernote('destroy');
-                // You should remove elements on `initialize`.
-                this.destroy = function () {
-                    /*  this.$panel.remove();
-                     this.$panel = null; */
-                };
+    // Extends plugins for adding hello.
+    //  - plugin is external module for customizing.
+    $.extend($.summernote.plugins, {
+        /**
+         * @param {Object} context - context object has status of editor.
+         */
+        'addclass': function (context) {
+            var self = this;
+            if (typeof context.options.addclass === 'undefined') {
+                context.options.addclass = {};
             }
-        });
-    }));
+            if (typeof context.options.addclass.classTags === 'undefined') {
+                context.options.addclass.classTags = ["jumbotron", "lead","img-rounded","img-circle", "img-responsive","btn", "btn btn-success","btn btn-danger","text-muted", "text-primary", "text-warning", "text-danger", "text-success", "table-bordered", "table-responsive", "alert", "alert alert-success", "alert alert-info", "alert alert-warning", "alert alert-danger", "visible-sm", "hidden-xs", "hidden-md", "hidden-lg", "hidden-print"];
+                //  console.log("Please define your summernote.options.addclass.classTags array");
+            }
+            // ui has renders to build ui elements.
+            //  - you can create a button with `ui.button`
+            var ui = $.summernote.ui;
+
+            addStyleString(".scrollable-menu {height: auto; max-height: 200px; max-width:300px; overflow-x: hidden;}");
+
+            context.memo('button.addclass', function () {
+                return ui.buttonGroup([
+                    ui.button({
+                        className: 'dropdown-toggle',
+                        contents: '<i class="fa fa-css3"\/>' + ' ' + ui.icon(context.options.icons.caret, 'span'),
+                        //ui.icon(context.options.icons.magic) + ' ' + ui.icon(context.options.icons.caret, 'span'),
+                        tooltip: 'toggle CSS class', //lang.style.style,
+                        data: {
+                            toggle: 'dropdown'
+                        }
+                    }),
+                    ui.dropdown({
+                        className: 'dropdown-style scrollable-menu',
+                        items: context.options.addclass.classTags,
+                        template: function (item) {
+
+                            if (typeof item === 'string') {
+                                item = {tag: "div", title: item, value: item};
+                            }
+
+                            var tag = item.tag;
+                            var title = item.title;
+                            var style = item.style ? ' style="' + item.style + '" ' : '';
+                            var cssclass = item.value ? ' class="' + item.value + '" ' : '';
+                   
+
+                            return '<' + tag + ' ' + style + cssclass + '>' + title + '</' + tag + '>';
+                        },
+                        click: function (event, namespace, value) {
+
+                            event.preventDefault();
+                            value = value || $(event.target).closest('[data-value]').data('value');
 
 
 
+                            var $node = $(context.invoke("restoreTarget"))
+                            if ($node.length==0){
+                                $node = $(document.getSelection().focusNode.parentElement, ".note-editable");
+                            }
+                            
+                            if (typeof context.options.addclass !== 'undefined' && typeof context.options.addclass.debug !== 'undefined' && context.options.addclass.debug) {
+                                console.debug(context.invoke("restoreTarget"), $node, "toggling class: " + value, window.getSelection());
+                            }
 
 
+                            $node.toggleClass(value)
 
 
+                        }
+                    })
+                ]).render();
+                return $optionList;
+            });
 
+            function addStyleString(str) {
+                var node = document.createElement('style');
+                node.innerHTML = str;
+                document.body.appendChild(node);
+            }
+
+            // This events will be attached when editor is initialized.
+            this.events = {
+                // This will be called after modules are initialized.
+                'summernote.init': function (we, e) {
+                    //console.log('summernote initialized', we, e);
+                },
+                // This will be called when user releases a key on editable.
+                'summernote.keyup': function (we, e) {
+                    //  console.log('summernote keyup', we, e);
+                }
+            };
+
+            // This method will be called when editor is initialized by $('..').summernote();
+            // You can create elements for plugin
+            this.initialize = function () {
+
+            };
+
+            // This methods will be called when editor is destroyed by $('..').summernote('destroy');
+            // You should remove elements on `initialize`.
+            this.destroy = function () {
+                /*  this.$panel.remove();
+                 this.$panel = null; */
+            };
+        }
+    });
+}));
 
 
 
@@ -162,9 +171,8 @@
 							 var node = document.createElement('div');
                     node.innerHTML = ' ' + c.data.selectedValue.text +'</div>' ;
                     context.invoke('editor.insertNode', node);
-							     
-               
 							 
+				 
                 });
 								
     }
@@ -175,26 +183,45 @@
 	
 
 
+		
+		
+
+
  var ActivityButton = function (context) {
         var ui = $.summernote.ui;
-
+        var shared={};
         // create button
         var button = ui.button({
             contents: '<img width="20" height="20" src="note.svg">',
             tooltip: 'Add new Activity',
             click: function () {
-                spModal.open({
+                 spModal.open({
                     title:'Add new Activity',
                     size:'lg',
-                    widget:'Activity'
+                    widget:'Activity',
+									  shared: shared
                 }).then(function(){
+								c.data.selectedValue = shared.selection;
+							/*	var s = c.widget.options.shared;
+	              var id = c.data.value;	
+		            return angular.isDefined(id) ? (s.value = id) : s.value;
+		
+	*/
+							 //$rootScope.$emit("value",c.value);
+							 var node = document.createElement('div');
+									  node.classname="container";
+                    node.innerHTML = '<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo"> ' + c.data.selectedValue.title +'</button> <div id="demo" class="collapse"> '+ c.data.selectedValue.description + '</div></div> ' ;
+                    context.invoke('editor.insertNode', node);
+               	  
                     console.log('..... closed ......');
                 });
             }
         });
-
-        return button.render();   // return button as jquery object
+ 
+      return button.render();    // return button as jquery object
     }
+
+ 
 
 
      var sectionButton = function (context) {
@@ -208,13 +235,14 @@
                     title:'Sections List',
                     size:'lg',
                     widget:'sectionlist',
-				    shared: shared
+				            shared: shared
 							 
                 }).then(function(){
 							 c.data.selectedValue = shared.selection;
 							 
 							 var node = document.createElement('div');
-                    node.innerHTML = ' ' + c.data.selectedValue.name +'</div>' ;
+							      node.classname="section";
+                    node.innerHTML = '<div class="title"> <h2> Section 1   ' + c.data.selectedValue.name +' </h2></div></div>' ;
                     context.invoke('editor.insertNode', node);
                 });
 								
@@ -224,111 +252,80 @@
         return button.render();    // return button as jquery object
     }
 
-    /*
-        var listButton = function (context) {
-var ui = $.summernote.ui;
-
-// create button
-var button = ui.dropdown({
-contents: '<sn-record-picker field="c.data.kb" table="kb_knowledge" display-field="short_description" value-field="sys_id" search-fields="short_description" page-size="100" ></sn-record-picker>',
-tooltip: 'Add new section',
-click: function () {
- 
-}
-});
-
-return button.render();   // return button as jquery object
-}
-*/
-    //c.data.knowledge="kb_knowledge";
-
-   /* var testButton = function (context) {
+ var scormButton = function (context) {
         var ui = $.summernote.ui;
-
-        // create button
+        var shared={};
         var button = ui.button({
-            contents: '<img width="20" height="20" src="flag.svg"> ',
-            tooltip: 'Test Redirection',
+            contents: '<img width="20" height="20" src="package.svg"></a>',
+            tooltip: 'Add Scorm Package',
             click: function () {
              spModal.open({
-                    title:'Knowledge Articles List',
+                    title:'Add Scorm Package',
                     size:'lg',
-                    widget:'summernotelist',
-                    widgetInput:{table:'kb_knowledge',display_field:'short_description'}
+							      widget:'scormattachment'
+							 
                 }).then(function(){
-                    console.log('..... closed ......');
+							
                 });
+								
     }
         });
 
-        return button.render();   // return button as jquery object
+        return button.render();    // return button as jquery object
     }
-		*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    c.data.description = "short_description";
-    c.data.sys_id = "sys_id";
-    c.data.kb = "";
-    var chaine = "<ol>";
-
-    for (var i = 0; i < c.data.knowledge.length; i++) {
-        chaine += "<li value=" + c.data.knowledge[i].sys_id + ">" + c.data.knowledge[i].short_description + "</li>";
-
-    }
-
-    chaine += "</ol>";
-    console.log(chaine);
-    var listButton = function (context) {
+ var unitButton = function (context) {
         var ui = $.summernote.ui;
-        var button = ui.buttonGroup([
-            ui.button({
-                className: 'dropdown-toggle',
-                contents: '<span class="fa fa-database"></span> Kb Articles <span class="caret"></span>',
-                tooltip: "Kb articles",
-                data: {
-                    toggle: 'dropdown'
-                }
-            }),
-            ui.dropdown({
-                className: 'drop-default summernote-list',
-
-                contents: chaine,
-                callback: function ($dropdown) {
-                    $dropdown.find('li').each(function () {
-                        $(this).click(function () {
-
-                            // $('#summernote').summernote('insertText', 'hit ');
-                        });
-                    });
-                }
-            })
-        ]);
-        return button.render();
+        var shared={};
+        var button = ui.button({
+            contents: '<img width="20" height="20" src="unit_pic.svg"></a>',
+            tooltip: 'Add Unit',
+            click: function () {
+             spModal.open({
+                    title:'Add Unit',
+                    size:'lg',
+							      widget:'scormattachment'
+							 
+                }).then(function(){
+							  /*	var s = c.widget.options.shared;
+	              var id = c.data.value;	
+		            return angular.isDefined(id) ? (s.value = id) : s.value;
+		
+	*/
+							 //$rootScope.$emit("value",c.value);
+							
+                });
+								
     }
+        });
+
+        return button.render();    // return button as jquery object
+    }
+		 		 
+		 
+		 
+		 
+  
 
 
-    $(document).ready(function () {
+	/*$(function() {      
+    setInterval(function(){
+        localStorage.setItem("summernotedata", $("#summernote").summernote("code"));
+    }, 5000); 
+});
+*/
+    $(function() {
         $('#summernote').summernote({
             addclass: {
                 debug: false,
                 classTags: [{ title: "Button", "value": "btn btn-success" }, "jumbotron", "lead", "img-rounded", "img-circle", "img-responsive", "btn", "btn btn-success", "btn btn-danger", "text-muted", "text-primary", "text-warning", "text-danger", "text-success", "table-bordered", "table-responsive", "alert", "alert alert-success", "alert alert-info", "alert alert-warning", "alert alert-danger", "visible-sm", "hidden-xs", "hidden-md", "hidden-lg", "hidden-print"]
             },
+					  callbacks: {
+            onInit: function() {
+            $("#summernote").summernote("code", localStorage.getItem("summernotedata"));
+            }},
             height: 300,
-
             toolbar: [
-                // [groupName, [list of button]]
+               
                 ['img', ['picture']],
                 ['style', ['style', 'addclass', 'clear']],
                 ['fontstyle', ['bold', 'italic', 'ul', 'ol', 'link', 'paragraph']],
@@ -338,24 +335,126 @@ return button.render();   // return button as jquery object
                 ['mybutton', ['knowledge']],
                 ['mybutton1', ['activity']],
                 ['mybutton2', ['section']],
-                ['mybutton3', ['list']]
+                ['mybutton3', ['list']],
+							  ['mybutton4',['scorm']],
+							  ['mybutton5',['unit']]
+							
 
 
 
             ],
+					
             buttons: {
+							section: sectionButton,
                 knowledge: KnowledgeButton,
                 activity: ActivityButton,
-                section: sectionButton
+                
+							  scorm: scormButton,
+							  unit: unitButton
                
             }
         });
     });
-
-
 }]]></client_script>
         <controller_as>c</controller_as>
-        <css/>
+        <css>
+
+.nbs-flexisel-nav-left, .nbs-flexisel-nav-right {
+    width: 20px;
+    height:25px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+    margin-top:2em;
+}
+.nbs-flexisel-nav-left {
+    right: 0;
+    background: none;
+}
+.nbs-flexisel-nav-right {
+ left: 0;
+  background: none;
+}
+li.nbs-flexisel-item {
+ width:370px;
+}
+.biseller-column  p {
+    font-size: 1em;
+    color: #fff;
+    margin: 0;
+    text-align:center;
+}
+.panel-title &gt; a, .panel-title &gt; small, .panel-title &gt; .small, .panel-title &gt; small &gt; a, .panel-title &gt; .small &gt; a {
+    color:#000;
+    text-decoration: none;
+}
+.panel-title {
+    font-size: 1.1em;
+}
+.panel-default &gt; .panel-heading {
+    background: none;
+    border: none;
+	cursor: pointer;
+}
+.panel-default {
+    border: none;
+}
+.panel-group .panel-heading + .panel-collapse &gt; .panel-body, .panel-group .panel-heading + .panel-collapse &gt; .list-group {
+    border: none;
+}
+.asd {
+    padding: 1em 0;
+	text-transform:capitalize;
+}
+.panel_text {
+    font-size: 14px;
+    color: black;
+    line-height: 1.8em;
+}
+.panel{
+	box-shadow:none;
+}
+.pa_italic span{
+	display:none;
+}
+.pa_italic i{
+	left: -1em;
+}
+.collapsed span{
+	display: inline-block;
+    left: -1em;
+}
+.collapsed i{
+	display:none;
+}
+.panel_text {
+    background:#fff;
+.img-fluid. max-width: 100%;
+  height:auto;
+}
+p{font-size: 1.3rem;
+  line-height: 1.625rem;
+ font-family: Verdana, Geneva, sans-serif;
+  
+}
+.responsive {
+  max-width: 90%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+.youtube-player{
+   margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 6px;
+    display: block;
+}
+h2 { text-align: center }
+
+
+
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -390,21 +489,26 @@ return button.render();   // return button as jquery object
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-05-06 13:11:49</sys_created_on>
         <sys_id>cf7996b02fd13300a4a2c886f699b6ba</sys_id>
-        <sys_mod_count>197</sys_mod_count>
+        <sys_mod_count>285</sys_mod_count>
         <sys_name>summernotetest</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sp_widget_cf7996b02fd13300a4a2c886f699b6ba</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-05-21 11:59:41</sys_updated_on>
-        <template><![CDATA[
+        <sys_updated_on>2019-05-31 11:35:47</sys_updated_on>
+        <template><![CDATA[<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 
-<div id="summernote">Hello Summernote
+
+<div id="summernote"> 
+  
 </div>
 
  

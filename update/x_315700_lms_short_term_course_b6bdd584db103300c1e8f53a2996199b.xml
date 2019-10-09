@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="x_315700_lms_short_term_course">
     <x_315700_lms_short_term_course action="INSERT_OR_UPDATE">
         <active>true</active>
-        <availability>on_desktop</availability>
+        <availability>on_both</availability>
         <billable>false</billable>
-        <category display_value="Technologies">a3af5305db403300c1e8f53a2996199b</category>
+        <category display_value="Technologies">c5e762b62f723300a4a2c886f699b6a4</category>
         <cost>0</cost>
         <custom_cart/>
         <delivery_plan display_value="DEFAULT">523da512c611228900811a37c97c2014</delivery_plan>
@@ -41,8 +41,25 @@
         <no_quantity_v2>false</no_quantity_v2>
         <no_search>false</no_search>
         <no_wishlist_v2>false</no_wishlist_v2>
+        <objective>&#13;
+À la fin de ce cours, vous serez capable de :&#13;
+&#13;
+    Utiliser du code HTML&#13;
+&#13;
+    Structurer une page web en HTML&#13;
+&#13;
+    Utiliser du code CSS&#13;
+&#13;
+    Mettre en forme une page web en CSS&#13;
+&#13;
+   Organiser les éléments d'une page Web grâce au CSS&#13;
+&#13;
+   Modifier l'agencement d'une page HTML avec CSS&#13;
+&#13;
+   Intégrer des formules dans une page web&#13;
+&#13;
+   Adapter une page pour les petites résolutions en CSS</objective>
         <omit_price>false</omit_price>
-        <optional_objective/>
         <order>0</order>
         <ordered_item_link/>
         <picture>c34f61692f0d3300a4a2c886f699b634</picture>
@@ -53,7 +70,7 @@
         <recurring_price>0</recurring_price>
         <request_method/>
         <roles/>
-        <sc_catalogs>ad910124db003300c1e8f53a299619d2</sc_catalogs>
+        <sc_catalogs>5107e2762f723300a4a2c886f699b6c1</sc_catalogs>
         <sc_ic_item_staging/>
         <sc_ic_version/>
         <short_description/>
@@ -65,14 +82,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-03-15 07:54:27</sys_created_on>
         <sys_id>b6bdd584db103300c1e8f53a2996199b</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_name>Les clés pour devenir Community Manager</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>x_315700_lms_short_term_course_b6bdd584db103300c1e8f53a2996199b</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-04-26 07:47:15</sys_updated_on>
+        <sys_updated_on>2019-07-26 08:59:48</sys_updated_on>
         <template/>
         <title/>
         <type>item</type>

@@ -1,0 +1,1045 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope,spModal,$rootScope) {
+  /* widget controller */
+  var c = this;
+
+var dragging = null;
+	c.selectItem = function(idx) {
+		var id = idx;
+		
+		$scope.unitID = id;
+		$scope.$emit('selectunit', id);
+		
+	}
+	
+	
+	$scope.unitOptions=[
+		 
+            ['Delete Unit', function ($itemScope) {
+							
+               $scope.delete_unit($itemScope.unit.sys_id,$itemScope.unit.order,$itemScope.sec.sys_id);
+															
+            }]
+	];
+			
+	$scope.subunitOptions=[
+		 
+            ['Delete Subunit', function ($itemScope) {
+							
+               $scope.delete_subunit($itemScope.subunit.sys_id,$itemScope.subunit.order,$itemScope.subsec.sys_id);
+															
+            }]
+	];
+	 $scope.menuOptions = [
+            ['Add Subsection', function ($itemScope) {
+							
+               $scope.add_subsection($itemScope.sec.sys_id,$itemScope.sec.name);
+															
+            }],
+            ['Add Unit ', function ($itemScope) {
+               $scope.add_unitsection($itemScope.sec.sys_id,$itemScope.sec.name);
+            }],
+		   ['Delete section ', function ($itemScope) {
+               $scope.delete_section($itemScope.sec.sys_id);
+            }]
+        ];
+		     
+		 
+        
+	 $scope.subsectionmenuOptions = [
+            ['Add unit', function ($itemScope) {
+							
+               $scope.add_subunit($itemScope.subsec.sys_id,$itemScope.subsec.name);
+															
+            }],
+		   ['Delete Subsection ', function ($itemScope) {
+               $scope.delete_subsection($itemScope.subsec.sys_id);
+            }]
+        ];
+document.addEventListener('dragstart', function(event) {
+		dragging = event.target;
+    event.dataTransfer.setData('text/html', dragging);
+	
+});
+
+document.addEventListener('dragover', function(event) {
+    event.preventDefault();
+});
+
+document.addEventListener('dragenter', function(event) {
+    event.target.style['border-bottom'] = 'solid 4px blue';
+});
+
+document.addEventListener('dragleave', function(event) {
+    event.target.style['border-bottom'] = '';
+});
+
+	
+	c.change = function change(idx)  {
+		console.log(idx);
+		
+	 
+		
+	}
+document.addEventListener('drop', function(event) {
+	  event.preventDefault();
+    event.target.style['border-bottom'] = '';
+    event.target.parentNode.insertBefore(dragging, event.target.nextSibling);
+	  var elements = event.target.parentNode.getElementsByTagName("li");
+	  console.log(elements);
+	  var list =[];
+	  for (var i=0;i<elements.length;i++){
+			var order = (i+1)*100;
+			
+			var obj = {'order':order,'id':elements[i].id};
+			
+			list.push(obj);
+		}
+	  c.data.action='update';
+	  c.data.list=list;
+		c.server.update().then(function(){
+    
+    
+	
+	
+c.data.action = undefined;
+});
+	  
+   
+});
+	
+
+
+	
+	
+	
+	
+	
+	
+	//Sortable.create(simpleList, { /* options */ });
+	  $scope.add_unitsection=function(id,sectionname) {
+			var order=null;
+		c.data.name="";
+			
+			c.data.unitlist.forEach(function(item){
+			if(item.sys_id==id && item.arrayunit.length==0){
+					order=100;
+		
+				}
+				
+				if(item.sys_id==id && item.arrayunit.length!=0){
+					order=item.arrayunit[item.arrayunit.length-1].order;
+		
+				}
+				
+				
+				
+			});
+	spModal.open({
+                    title:'Add a unit  ',
+                    size:'sm',
+		                 input: true,
+                     value: c.data.name
+                }).then(function(name){	
+		          
+
+
+		
+c.data.action = 'insert';
+c.data.name = name;
+c.data.sectionid=id;
+c.data.order=order;
+
+c.server.update().then(function(){
+
+
+
+c.data.action = undefined;
+});
+		
+		      
+		
+	});
+	}
+	
+	
+	
+	
+	
+  $scope.add_unit=function(id,sectionname,order) {
+		var shared = {};
+		c.data.name="";
+	spModal.open({
+                    title:'Add a unit in '+sectionname ,
+                    size:'sm',
+		                 input: true,
+                     value: c.data.name
+                }).then(function(name){	
+		          
+console.log('started submit');
+		
+
+		
+c.data.action = 'insert';
+c.data.name = name;
+c.data.sectionid=id;
+c.data.order=order;
+
+c.server.update().then(function(){
+
+
+
+c.data.action = undefined;
+});
+		
+		      
+		
+	});
+	}
+	
+	
+	
+$scope.add_section=function(){
+	c.data.sectionname="";
+	var order=null;	
+	
+	
+	for (var i=0;i<c.data.sectionlist.length;i++){
+		order=c.data.sectionlist[c.data.sectionlist.length-1].order;
+		console.log(order);
+	}
+			/*c.data.sectionlist.forEach(function(item){
+			
+					order=item.order[item.length-1];
+				console.log(order);
+		      
+			});
+			*/
+			spModal.open({
+                    title:'Add new section  ',
+                    size:'sm',
+		              input: true,
+                     value: c.data.sectionname
+                }).then(function(name){	
+		
+		        c.data.sectionname = name;
+            c.data.sectionorder=order;
+		  c.data.action='insert_section';
+		      c.server.update().then(function(){
+
+
+
+c.data.action = undefined;
+});
+		
+		
+	});
+	}
+		
+	
+	$scope.add_subsection=function(id,sectionname){
+		 c.data.subsectionname="";
+
+			spModal.open({
+                    title:'Add new subsection ',
+                    size:'sm',
+		              input: true,
+                     value: c.data.subsectionname
+                }).then(function(name){	
+		
+		        c.data.subsectionname = name;
+c.data.sectionid=id; 
+		  c.data.action='insert_subsection';
+		      c.server.update().then(function(){
+   
+
+
+c.data.action = undefined;
+});
+		
+		
+	});
+	}
+		
+		
+$scope.move = function (current, dest) {
+            var item = c.data.unitlist[dest];
+            c.data.unitlist[dest] = c.data.unitlist[current];
+            c.data.unitlist[current] = item;
+			 var list =[];
+	  for (var i=0;i<c.data.unitlist.length;i++){
+			var order = (i+1)*100;
+			
+			var obj = {'order':order,'id':c.data.unitlist[i].sys_id};
+			
+			list.push(obj);
+		}
+					c.data.action='update_order';
+	  c.data.list_section=list;
+		c.server.update().then(function(){
+    
+    
+	
+	
+c.data.action = undefined;
+});
+        };
+
+        $scope.moveUp = function (index) {
+            $scope.move(index, index - 1);
+			
+					
+        };
+
+        $scope.moveDown = function (index) {
+            $scope.move(index, index + 1);
+        };
+
+	$scope.delete_subsection=function(id,order,sectionid){
+		
+		c.data.action='delete_subsection';
+		c.data.id=id;
+		c.data.sectionid=sectionid;
+		c.data.order=order;
+			 c.server.update().then(function(){
+
+c.data.action = 'undefined';
+	});
+	}
+	$scope.delete_subunit=function(id,order,subsectionid){
+		
+		c.data.action='delete_subunit';
+		c.data.id=id;
+		c.data.order=order;
+		c.data.subsectionid=subsectionid;
+			 c.server.update().then(function(){
+
+c.data.action = 'undefined';
+	});
+	}
+	$scope.delete_unit=function(id,order,sectionid){
+		
+		c.data.action='delete_unit';
+		c.data.id=id;
+		c.data.order=order;
+		c.data.sectionid=sectionid;
+			 c.server.update().then(function(){
+
+c.data.action = 'undefined';
+	});
+	}
+	$scope.delete_section=function(id,order){
+		
+		c.data.action='delete_section';
+		c.data.id=id;
+			 c.server.update().then(function(){
+
+c.data.action = 'undefined';
+	});
+	}
+	
+	$scope.add_subunit=function(id,sectionname) {
+ 
+		c.data.subunitname="";
+	
+			
+		
+		 
+	c.data.action='submit_order';	
+		c.data.id=id;
+		 c.server.update().then(function(){
+c.data.subunitorder=c.data.order;
+
+console.log(c.data.subunitorder);
+c.data.action = 'insert_subunit';
+			 
+			 
+	spModal.open({
+                    title:'Add new unit in '+sectionname,
+                    size:'sm',
+		                input: true,
+                     value: c.data.subunitname
+                }).then(function(name){	
+		c.data.action = 'insert_subunit';
+		        c.data.subunitname = name;
+c.data.subsectionid=id; 
+		console.log(id);
+		
+		
+		  
+		      c.server.update().then(function(){
+
+c.data.action = undefined;
+});
+		
+		
+	});		 
+});
+	
+	}
+	
+
+	
+	
+
+
+
+
+
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.collapse{
+  margin:20px;
+  
+}
+.course_program .unit li{
+  margin:8px;
+}
+.course_program .subunit li{
+  margin:15px;
+}
+.course_program .subsection {
+  margin:13px;
+}
+
+.course_program {
+  counter-reset: section;
+  
+}
+.course_program .section{
+  counter-reset: subsection;
+}
+.course_program ul {
+   counter-reset: unit;
+}
+.course_program  .unit ul{
+ 
+  margin:0;
+  padding:0;
+  
+}
+.course_program  .unit li{
+ cursor:move;
+  display:block;
+ ;
+  
+}
+.course_program b::before {
+  counter-increment: section;
+  content: "Section " counter(section) " - ";
+}
+.course_program .unit li::before {
+  
+  counter-increment: unit;
+  content: counter(unit) ".  ";
+}
+.course_program .subunit{
+  counter-reset: subunit;
+}
+.course_program .subunit h5::before {
+  
+  counter-increment: subunit;
+  content: counter(subunit) ".  ";
+}
+
+.course_program .subsection b::before{
+  counter-increment: subsection;
+  content: "SubSection " counter(subsection) " - ";
+}
+
+
+.btn-group a {
+   
+  color: black; /* White text */
+  padding: 0.1px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  width: 50%; /* Set a width if needed */
+  display: block; /* Make the buttons appear below each other */
+}
+
+
+
+
+
+
+
+
+#items{
+  list-style:none;
+  margin:0px;
+  margin-top:4px;
+  padding-left:10px;
+  padding-right:10px;
+  padding-bottom:3px;
+  font-size:17px;
+  color: #333333;
+  
+}
+#cntnr{
+  display:none;
+  position:fixed;
+  border:1px solid #B2B2B2;
+  width:150px;      background:#F9F9F9;
+  box-shadow: 3px 3px 2px #E9E9E9;
+  border-radius:4px;
+}
+
+li{
+  
+  padding: 3px;
+  padding-left:10px;
+}
+
+
+#items :hover{
+   color: white;
+  background:#284570;
+  border-radius:2px;
+}
+
+.btn-sm {
+  cursor: pointer;
+  margin: 5px;
+  border-radius: 3px;
+  text-decoration: none;
+  padding: 10px;
+  font-size: 15px;
+  text-align: center;
+  transition: .3s;
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  -o-transition: .3s;
+  display: inline-block;
+  height: 50%;
+  width: 50%;
+}
+
+.btn:hover {
+  cursor: url(http://cur.cursors-4u.net/symbols/sym-1/sym46.cur), auto;
+}
+.blue {
+  color: #55acee;
+  border: 2px #55acee solid;
+}
+
+.blue:hover {
+  background-color: #55acee;
+  color: #fff
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.icon-btn {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #cdcdcd;
+  background: white;
+  border-radius: 25px;
+  overflow: hidden;
+  position: relative;
+  transition: width 0.2s ease-in-out;
+}
+.add-btn:hover {
+  width: 120px;
+}
+.add-btn::before,
+.add-btn::after {
+  transition: width 0.2s ease-in-out, border-radius 0.2s ease-in-out;
+  content: "";
+  position: absolute;
+  height: 4px;
+  width: 10px;
+  top: calc(50% - 2px);
+  background: blue;
+}
+.add-btn::after {
+  right: 14px;
+  overflow: hidden;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+.add-btn::before {
+  left: 14px;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+.icon-btn:focus {
+  outline: none;
+}
+.btn-txt {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.add-btn:hover::before,
+.add-btn:hover::after {
+  width: 4px;
+  border-radius: 2px;
+}
+.add-btn:hover .btn-txt {
+  opacity: 1;
+}
+.add-icon::after,
+.add-icon::before {
+  transition: all 0.2s ease-in-out;
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 2px;
+  top: calc(50% - 10px);
+  background: blue;
+  overflow: hidden;
+}
+.add-icon::before {
+  left: 22px;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+.add-icon::after {
+  right: 22px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+.add-btn:hover .add-icon::before {
+  left: 15px;
+  height: 4px;
+  top: calc(50% - 2px);
+}
+.add-btn:hover .add-icon::after {
+  right: 15px;
+  height: 4px;
+  top: calc(50% - 2px);
+}
+
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>course_structure</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>course_structure</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function($scope) {
+
+ data.unitlist = [];
+	data.sectionlist= [];
+	data.course_id=$sp.getParameter("sys_id");
+ load();
+	
+ if(input){
+	 
+	 if(input.action=='submit_order'){
+		 data.subsectionid=input.id;
+		 var list_unit_update = new GlideRecord("x_315700_lms_unit");
+		        list_unit_update.addQuery("section",data.subsectionid);
+		        list_unit_update.orderByDesc("order");
+		        list_unit_update.setLimit(1);
+		        list_unit_update.query();
+		        gs.warn("GR order"+list_unit_update.sys_id);
+		       
+							if(list_unit_update.next()){
+						 /* var obj={};
+								$sp.getRecordValues(obj,list_unit_update,"order");
+								data.unit.push(obj);
+								*/
+								data.order=list_unit_update.getValue("order");
+								gs.warn("order list_unit"+list_unit_update.order);
+							}
+							else { data.order=0;
+							gs.warn("order"+data.order);
+									 }
+	 }
+	if(input.action=='insert_subunit'){
+		data.order={};
+		data.subsectionid=input.subsectionid;
+		
+							
+		var subsection = new GlideRecord("x_315700_lms_section");
+		subsection.get(data.subsectionid);
+		 
+		var unitGR = new GlideRecord("x_315700_lms_unit");
+	   unitGR.name = input.subunitname;
+		        unitGR.section=data.subsectionid;
+		         unitGR.order=parseInt(input.subunitorder)+100;
+		
+						
+							
+						
+            
+            var id = unitGR.insert();
+           
+		
+		
+	}
+	if(input.action=='insert' && input.name && input.order){
+		    data.id=input.sectionid;
+	var section = new GlideRecord("x_315700_lms_section");
+	 section.get(data.id);
+	 data.section_name=section.getDisplayValue("name");
+				
+				var unitGR = new GlideRecord("x_315700_lms_unit");
+            
+            unitGR.name = input.name;
+		        unitGR.section=data.id;
+		        unitGR.order=parseInt(input.order)+100;
+		     var list_unit_update = new GlideRecord("x_315700_lms_unit");
+		        list_unit_update.addQuery("section",data.id);
+		        list_unit_update.addQuery("order",">",input.order)
+		        list_unit_update.query();
+		        while(list_unit_update.next()){
+							var new_order=parseInt(list_unit_update.order)+100;
+							list_unit_update.order=new_order;
+							list_unit_update.update();
+							
+						}
+            
+		        gs.warn("unitname"+input.name+"   "+unitGR.section);
+            var id = unitGR.insert();
+            data.sysID = id;
+		     
+				    
+			}
+	 if (input.action=='update'&& input.list){
+		 input.list.forEach(function(item){
+			var gr = new GlideRecord("x_315700_lms_unit"); 
+			 gr.get(item.id);
+			 gr.order=item.order;
+			 gr.update();
+			
+			 
+			 
+		 });
+		 
+		 data.unitlist=[];
+		        load();
+	 }
+	 if(input.action=='update_order'&& input.list_section){
+		 input.list_section.forEach(function(item){
+				var gr = new GlideRecord("x_315700_lms_section");
+		   gr.get(item.id);
+			 gr.order=item.order;
+			 gr.update();
+		 
+		  
+															 
+	 });
+	 }
+	 if(input.action=='insert_section'){
+		 
+		 
+		 var section = new GlideRecord("x_315700_lms_section");
+	    section.course= data.course_id;    
+		 section.name = input.sectionname;
+		   section.order=parseInt(input.sectionorder)+100;    
+		       
+            var id = section.insert();
+            data.sysID = id;
+		 
+		 
+		 
+		 
+	 }
+	 if(input.action=='delete_subsection'){
+		   var list_subsection_update = new GlideRecord("x_315700_lms_section");
+		        list_subsection_update.addQuery("section",input.sectionid);
+		         list_subsection_update.addQuery("order",">",input.order)
+		         list_subsection_update.query();
+		        while( list_subsection_update.next()){
+							var new_order=parseInt( list_subsection_update.order)-100;
+							 list_subsection_update.order=new_order;
+							 list_subsection_update.update();
+						}
+		  var section = new GlideRecord("x_315700_lms_section");
+		  section.get(input.id);
+		 section.deleteRecord();
+	 }
+	 	 if(input.action=='delete_section'){
+			  var list_section_update = new GlideRecord("x_315700_lms_section");
+		        list_section_update.addQuery("course", data.course_id);
+		         list_section_update.addQuery("order",">",input.order)
+		         list_section_update.query();
+		        while( list_section_update.next()){
+							var new_order=parseInt( list_section_update.order)-100;
+							 list_section_update.order=new_order;
+							 list_section_update.update();
+						}
+		  var section = new GlideRecord("x_315700_lms_section");
+		  section.get(input.id);
+		 section.deleteRecord();
+	 }
+	 if(input.action=='delete_subunit'){
+		   var list_unit_update = new GlideRecord("x_315700_lms_unit");
+		        list_unit_update.addQuery("section",input.subsectionid);
+		        list_unit_update.addQuery("order",">",input.order)
+		        list_unit_update.query();
+		        while(list_unit_update.next()){
+							var new_order=parseInt(list_unit_update.order)-100;
+							list_unit_update.order=new_order;
+							list_unit_update.update();
+						}
+		  var unit = new GlideRecord("x_315700_lms_unit");
+		  unit.get(input.id);
+		 unit.deleteRecord();
+	 }
+	 if(input.action=='delete_unit'){
+		   var list_unit_update = new GlideRecord("x_315700_lms_unit");
+		        list_unit_update.addQuery("section",input.sectionid);
+		        list_unit_update.addQuery("order",">",input.order)
+		        list_unit_update.query();
+		        while(list_unit_update.next()){
+							var new_order=parseInt(list_unit_update.order)-100;
+							list_unit_update.order=new_order;
+							list_unit_update.update();
+						}
+		  var unit = new GlideRecord("x_315700_lms_unit");
+		  unit.get(input.id);
+		 unit.deleteRecord();
+	 }
+	 
+	 
+	if(input.action=='insert_subsection'){
+		data.subsectionlist=[];
+		 var subsection_list = new GlideRecord("x_315700_lms_section");
+ 
+   subsection_list.addQuery("parent_section", input.sectionid);
+		 subsection_list.orderByDesc("order");
+		        subsection_list.setLimit(1);
+		       subsection_list.query();
+		      
+							if(subsection_list.next()){
+					
+								data.order=subsection_list.getValue("order");
+								
+							}
+		
+	var subsection = new GlideRecord("x_315700_lms_section");
+	         subsection.name = input.subsectionname;
+		        subsection.parent_section=input.sectionid;
+		       subsection.order=parseInt(data.order)+100;
+            var id = subsection.insert();
+            data.sysID = id;
+				    
+			}
+	  data.unitlist=[];
+		        load();
+ }
+	
+	function load() {
+		 var section = new GlideRecord("x_315700_lms_section");
+ section.addQuery("course", data.course_id);
+ section.orderBy("order");
+ section.addNullQuery("parent_section");
+ section.query();
+
+ while (section.next()) {
+	 
+	 var sectionobj={};
+	 $sp.getRecordValues(sectionobj,section,"sys_id,name,order");
+	
+   var obj = {
+     'name': section.getDisplayValue("name"),
+     'sys_id': section.getDisplayValue("sys_id"),
+     'arrayunit': [],
+     'subsection': []
+   };
+	  data.sectionlist.push(sectionobj);
+   var subsection = new GlideRecord("x_315700_lms_section");
+   gs.warn("section " + section.getDisplayValue("name"));
+   subsection.addQuery("parent_section", obj.sys_id);
+   subsection.query();
+   data.subunitlist = [];
+   while (subsection.next()) {
+     gs.warn("section " + section.getDisplayValue("name") + " subsection " + subsection.getDisplayValue("name"));
+     var subobj = {
+       'name': subsection.getDisplayValue("name"),
+       'sys_id': subsection.getDisplayValue("sys_id"),
+       'arraysubunit': []
+     };
+     obj.subsection.push(subobj);
+
+
+      var unitsubsection = new GlideRecord("x_315700_lms_unit");
+           unitsubsection.addQuery("section", subobj.sys_id);
+		       unitsubsection.orderBy('order');
+           unitsubsection.query();
+
+           while (unitsubsection.next()) {
+               var unitsubobj = {
+                   'name': unitsubsection.getDisplayValue("name"),
+                   'sys_id': unitsubsection.getDisplayValue("sys_id"),
+								    'order': unitsubsection.getDisplayValue("order")
+               };
+               subobj.arraysubunit.push(unitsubobj);
+           }
+
+       }
+       var unit = new GlideRecord("x_315700_lms_unit");
+       unit.addQuery("section", section.sys_id);
+	     unit.orderBy('order');
+       unit.query();
+       while (unit.next()) {
+           gs.warn("inside unit : " + unit.name);
+           var unitobj = { 'name': unit.getDisplayValue("name"), 'sys_id': unit.getDisplayValue("sys_id"),'order':unit.getDisplayValue("order") };
+           obj.arrayunit.push(unitobj);
+       }
+
+
+   
+ data.unitlist.push(obj);
+	
+	}
+		
+ }
+		
+	
+ 
+	
+	
+	
+
+
+
+
+
+
+// gs.warn(JSON.stringify(data.unitlist));
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-06-13 14:03:10</sys_created_on>
+        <sys_id>b9a1de812f427300a4a2c886f699b621</sys_id>
+        <sys_mod_count>1006</sys_mod_count>
+        <sys_name>course_structure</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_b9a1de812f427300a4a2c886f699b621</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-09-02 13:53:48</sys_updated_on>
+        <template><![CDATA[<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+
+
+<div  class="course_program">
+  
+
+<div  ng-repeat="sec in data.unitlist track by $index  " >
+ 
+            
+    <div class="section">
+      
+      <div class="btn-group" >
+        
+        <a type="button" class="fas fa-caret-up fa-lg" ng-show="!$first" ng-click="moveUp($index)"></a>
+      <a type="button" class="fas fa-caret-down fa-lg" ng-show="!$last" ng-click="moveDown($index)"></a>
+    
+        </div>
+      
+        
+      
+       <a style="color:blue;" class="far fa-flag fa-lg "></a>
+            
+       
+      <b   ng-context-menu="menuOptions"  secid={{sec.sys_id}} style="font-weight: bold;font-size:18px;"   > {{sec.name}}   </b>
+     
+     
+    
+  </div>
+ 
+      
+
+        
+   
+     
+    
+         
+  
+    <ol>
+      
+ 
+      
+  
+    <li ng-context-menu="unitOptions"    ng-repeat="unit in sec.arrayunit " ng-click="c.selectItem(unit.sys_id)" id="{{unit.sys_id}}" draggable="true"  >                 
+             {{unit.name}} 
+          
+      </li>
+       </ol>
+ 
+ 
+  
+
+  
+       <div  ng-repeat="subsec in sec.subsection">
+               
+            <div class="subsection">
+              
+                   
+         
+              
+                <a   style="color:#20B2AA;" class="far fa-bookmark fa-lg"></a> <b ng-context-menu="subsectionmenuOptions" style="font-wieght: bold;font-size:19px;"> {{subsec.name}} 
+               </b> 
+              </div>  
+          <ul id="context2" class="dropdown-menu">
+      <li><a ng-click="add_subunit(subsec.sys_id,subsec.name,100)">Add Unit </a></li>
+    </ul>
+             <div class="subunit">
+               
+           <ol>
+      
+ 
+  
+        
+            
+    <li ng-context-menu="subunitOptions"    ng-repeat="subunit  in subsec.arraysubunit" ng-click="c.selectItem(subunit.sys_id)" id="{{subunit.sys_id}}" draggable="true"  >                 
+             {{subunit.name}}  
+      </li>
+       </ol>
+     
+        </div>
+  
+      </div>
+              </div>
+  
+  
+  <div class="" style="text-align: center;margin-top:5%">
+  <button class="icon-btn add-btn" ng-click="add_section()">
+    <div class="add-icon"></div>
+    <div class="btn-txt">Add Section</div>
+  </button>
+</div>
+
+
+     </div>
+
+
+]]></template>
+    </sp_widget>
+</record_update>

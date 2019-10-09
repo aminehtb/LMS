@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_script">
+    <sys_ui_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <description/>
+        <global>false</global>
+        <name>x_315700_lms.testcalendar</name>
+        <script><![CDATA[/*!
+FullCalendar Bootstrap Plugin v4.2.0
+Docs & License: https://fullcalendar.io/
+(c) 2019 Adam Shaw
+*/
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fullcalendar/core')) :
+    typeof define === 'function' && define.amd ? define(['exports', '@fullcalendar/core'], factory) :
+    (global = global || self, factory(global.FullCalendarBootstrap = {}, global.FullCalendar));
+}(this, function (exports, core) { 'use strict';
+
+    /*! *****************************************************************************
+    Copyright (c) Microsoft Corporation. All rights reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+    this file except in compliance with the License. You may obtain a copy of the
+    License at http://www.apache.org/licenses/LICENSE-2.0
+
+    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+    MERCHANTABLITY OR NON-INFRINGEMENT.
+
+    See the Apache Version 2.0 License for specific language governing permissions
+    and limitations under the License.
+    ***************************************************************************** */
+    /* global Reflect, Promise */
+
+    var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+
+    function __extends(d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    }
+
+    var BootstrapTheme = /** @class */ (function (_super) {
+        __extends(BootstrapTheme, _super);
+        function BootstrapTheme() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        return BootstrapTheme;
+    }(core.Theme));
+    BootstrapTheme.prototype.classes = {
+        widget: 'fc-bootstrap',
+        tableGrid: 'table-bordered',
+        tableList: 'table',
+        tableListHeading: 'table-active',
+        buttonGroup: 'btn-group',
+        button: 'btn btn-primary',
+        buttonActive: 'active',
+        today: 'alert alert-info',
+        popover: 'card card-primary',
+        popoverHeader: 'card-header',
+        popoverContent: 'card-body',
+        // day grid
+        // for left/right border color when border is inset from edges (all-day in timeGrid view)
+        // avoid `table` class b/c don't want margins/padding/structure. only border color.
+        headerRow: 'table-bordered',
+        dayRow: 'table-bordered',
+        // list view
+        listView: 'card card-primary'
+    };
+    BootstrapTheme.prototype.baseIconClass = 'fa';
+    BootstrapTheme.prototype.iconClasses = {
+        close: 'fa-times',
+        prev: 'fa-chevron-left',
+        next: 'fa-chevron-right',
+        prevYear: 'fa-angle-double-left',
+        nextYear: 'fa-angle-double-right'
+    };
+    BootstrapTheme.prototype.iconOverrideOption = 'bootstrapFontAwesome';
+    BootstrapTheme.prototype.iconOverrideCustomButtonOption = 'bootstrapFontAwesome';
+    BootstrapTheme.prototype.iconOverridePrefix = 'fa-';
+    var main = core.createPlugin({
+        themeClasses: {
+            bootstrap: BootstrapTheme
+        }
+    });
+
+    exports.BootstrapTheme = BootstrapTheme;
+    exports.default = main;
+
+    Object.defineProperty(exports, '__esModule', { value: true });
+
+}));
+
+]]></script>
+        <script_name>testcalendar</script_name>
+        <sys_class_name>sys_ui_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-10-07 22:15:16</sys_created_on>
+        <sys_id>089a516e2f940010a4a2c886f699b6ae</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_315700_lms.testcalendar</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sys_ui_script_089a516e2f940010a4a2c886f699b6ae</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-10-07 22:15:16</sys_updated_on>
+        <ui_type>0</ui_type>
+        <use_scoped_format>false</use_scoped_format>
+    </sys_ui_script>
+</record_update>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance_menu">
+    <sp_instance_menu action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">c1b5aad02f363300a4a2c886f699b658</sp_column>
+        <sp_widget/>
+        <sys_class_name>sp_instance_menu</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-07-18 14:22:29</sys_created_on>
+        <sys_id>02b56a542f363300a4a2c886f699b6c1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_instance_menu_02b56a542f363300a4a2c886f699b6c1</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-07-18 14:22:29</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance_menu>
+    <sys_translated_text action="delete_multiple" query="documentkey=02b56a542f363300a4a2c886f699b6c1"/>
+</record_update>
