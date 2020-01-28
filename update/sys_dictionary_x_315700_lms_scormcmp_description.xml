@@ -53,7 +53,7 @@
         <sys_class_name>sys_dictionary</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-03-15 14:37:45</sys_created_on>
-        <sys_id>636afa4cdbd03300c1e8f53a2996198c</sys_id>
+        <sys_id>b0834094db22001016939b81ca961941</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>Description</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
@@ -61,7 +61,7 @@
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sys_dictionary_x_315700_lms_scormcmp_description</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-03-15 14:37:45</sys_updated_on>
+        <sys_updated_on>2020-01-20 12:29:30</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>

@@ -10,6 +10,7 @@
         <delivery_plan_script/>
         <delivery_time>1970-01-03 00:00:00</delivery_time>
         <description><![CDATA[<p>Servicenow Beginner</p>]]></description>
+        <display_price_property>non_zero</display_price_property>
         <entitlement_script/>
         <group/>
         <hide_sp>false</hide_sp>
@@ -45,7 +46,7 @@
         <recurring_frequency/>
         <recurring_price>0</recurring_price>
         <request_method/>
-        <roles/>
+        <roles>snc_internal</roles>
         <sc_catalogs>5107e2762f723300a4a2c886f699b6c1</sc_catalogs>
         <sc_ic_item_staging/>
         <sc_ic_version/>
@@ -115,6 +116,7 @@
         <compressed>true</compressed>
         <content_type>image/png</content_type>
         <file_name>picture</file_name>
+        <hash/>
         <image_height>87</image_height>
         <image_width>580</image_width>
         <size_bytes>6152</size_bytes>

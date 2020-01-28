@@ -2,13 +2,17 @@
     <element attributes="update_synch=true" extends="sc_cat_item" label="Course" max_length="40" name="x_315700_lms_course" type="collection">
         <element label="Instructor" mandatory="true" max_length="32" name="instructor" reference="sys_user" type="reference"/>
         <element choice="1" label="Languages" mandatory="true" max_length="32" name="languages" reference="sys_language" type="glide_list">
-            <choice/>
+            <choice>
+                <element inactive_on_update="false" label="Deutch" value="de"/>
+                <element inactive_on_update="false" label="English" value="en"/>
+                <element inactive_on_update="false" label="Français" value="fr"/>
+            </choice>
         </element>
         <element choice="2" choice_field="level" choice_table="x_315700_lms_short_term_course" label="Level" max_length="50" name="level" type="choice">
             <choice/>
         </element>
         <element label="Objective" max_length="300" name="objective" type="string"/>
-        <element label="Prior Knowledge" mandatory="true" max_length="6000" name="prior_knowledge" type="string"/>
+        <element label="Prior Knowledge" max_length="6000" name="prior_knowledge" type="string"/>
         <element label="Title" mandatory="true" max_length="50" name="title" type="string"/>
         <index name="index">
             <element name="instructor"/>

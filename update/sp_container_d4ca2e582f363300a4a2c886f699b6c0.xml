@@ -31,6 +31,7 @@
         <compressed>true</compressed>
         <content_type>image/png</content_type>
         <file_name>background_image</file_name>
+        <hash/>
         <image_height>540</image_height>
         <image_width>1170</image_width>
         <size_bytes>271590</size_bytes>

@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update>
     <sys_ui_section caption="" section_id="c557028bdb003300c1e8f53a299619cd" sys_domain="global" table="x_315700_lms_synchronous_course" version="3" view="advanced">
+        <sys_ui_annotation action="INSERT_OR_UPDATE">
+            <is_plain_text>false</is_plain_text>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2014-04-01 21:13:48</sys_created_on>
+            <sys_id>6a111446d7731100f2d224837e610301</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2014-04-01 21:13:48</sys_updated_on>
+            <text>&lt;span style='color:#666666;'&gt;${gs.getMessage('SC Item Form Description')}&lt;/span&gt;</text>
+            <type display_value="Section Details">19756e5ec3313000bac1addbdfba8f18</type>
+        </sys_ui_annotation>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>6a111446d7731100f2d224837e610301</element>
             <position>0</position>

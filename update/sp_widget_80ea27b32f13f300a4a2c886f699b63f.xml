@@ -178,16 +178,15 @@
         <description/>
         <docs/>
         <field_list/>
-        <has_preview>false</has_preview>
+        <has_preview>true</has_preview>
         <id>sc_category_edit</id>
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
         <name>sc_category_edit</name>
-        <option_schema>[{"name":"click_event_name","default_value":"$sp.cat_item_list.click","section":"other","label":"Click event name","type":"string"},{"hint":"Number of items to display per page","name":"limit_item","default_value":"15","section":"other","label":"Number of items per page","type":"integer"},{"hint":"Show items from child categories along with the items of the present category","name":"show_items_from_child","section":"other","default_value":"false","label":"Show items from Child Categories","type":"boolean"},{"hint":"Popular Items that has been used","name":"popular_items_created","section":"Data","default_value":"6","label":"Popular Items used in","type":"choice","choices":[{"label":"Last 3 months","value":"3"},{"label":"Last 6 months","value":"6"},{"label":"Last 12 months","value":"12"},{"label":"Life time (Has performance implications)","value":"0"}]}]</option_schema>
+        <option_schema>[{"name":"click_event_name","default_value":"$sp.cat_item_list.click","section":"other","label":"Click event name","type":"string"},{"hint":"Number of items to display per page","name":"limit_item","default_value":"15","section":"other","label":"Number of items per page","type":"integer"},{"hint":"Show items from child categories along with the items of the present category","name":"show_items_from_child","section":"other","default_value":"false","label":"Show items from Child Categories","type":"boolean"},{"hint":"Popular Items that has been used","name":"popular_items_created","section":"Data","default_value":"6","label":"Popular Items used in","type":"choice","choices":[{"label":"3","value":"3"},{"label":"6","value":"6"},{"label":"12","value":"12"},{"label":"0","value":"0"}]}]</option_schema>
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
-	data.category_id = $sp.getParameter("sys_id");
 	data.catalog_id = $sp.getParameter("catalog_id") ? $sp.getParameter("catalog_id") + "" : "-1";
 	var catalogsInPortal = ($sp.getCatalogs().value + "").split(",");
 	var isCatalogAccessibleViaPortal = data.catalog_id == -1 ? true : false;
@@ -424,14 +423,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-08-23 12:54:46</sys_created_on>
         <sys_id>80ea27b32f13f300a4a2c886f699b63f</sys_id>
-        <sys_mod_count>13</sys_mod_count>
+        <sys_mod_count>18</sys_mod_count>
         <sys_name>sc_category_edit</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sp_widget_80ea27b32f13f300a4a2c886f699b63f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-08-29 07:52:41</sys_updated_on>
+        <sys_updated_on>2020-01-21 08:45:44</sys_updated_on>
         <template><![CDATA[<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 

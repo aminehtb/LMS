@@ -3,13 +3,14 @@
         <active>true</active>
         <availability>on_desktop</availability>
         <billable>false</billable>
-        <category display_value="Technologies">c5e762b62f723300a4a2c886f699b6a4</category>
+        <category/>
         <cost>0</cost>
         <custom_cart/>
         <delivery_plan display_value="DEFAULT">523da512c611228900811a37c97c2014</delivery_plan>
         <delivery_plan_script/>
         <delivery_time>1970-01-03 00:00:00</delivery_time>
         <description><![CDATA[<p>Servicenow Intermediate</p>]]></description>
+        <display_price_property>non_zero</display_price_property>
         <duration>8</duration>
         <duration_type/>
         <durationtype>h</durationtype>
@@ -19,7 +20,7 @@
         <icon/>
         <ignore_price>true</ignore_price>
         <image/>
-        <instructor display_value="alaa agrebi">5b835087dbff2300c1e8f53a29961917</instructor>
+        <instructor display_value="">5b835087dbff2300c1e8f53a29961917</instructor>
         <languages>fbe8be2effb30000dada1c57f27f9d2d</languages>
         <level>intermediate</level>
         <list_price>0</list_price>
@@ -53,7 +54,7 @@
         <recurring_frequency/>
         <recurring_price>0</recurring_price>
         <request_method/>
-        <roles/>
+        <roles>snc_internal</roles>
         <sc_catalogs>5107e2762f723300a4a2c886f699b6c1</sc_catalogs>
         <sc_ic_item_staging/>
         <sc_ic_version/>
@@ -66,14 +67,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-08-14 09:13:33</sys_created_on>
         <sys_id>6d31e8012f533300a4a2c886f699b64b</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>Servicenow Intermediate</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>x_315700_lms_long_term_course_6d31e8012f533300a4a2c886f699b64b</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-08-14 09:14:50</sys_updated_on>
+        <sys_updated_on>2020-01-27 14:39:48</sys_updated_on>
         <template/>
         <title/>
         <type>item</type>

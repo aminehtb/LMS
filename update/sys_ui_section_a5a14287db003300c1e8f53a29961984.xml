@@ -3,25 +3,25 @@
         <sys_ui_annotation action="INSERT_OR_UPDATE">
             <is_plain_text>false</is_plain_text>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>670268412f533300a4a2c886f699b68f</sys_id>
+            <sys_created_on>2020-01-27 09:01:57</sys_created_on>
+            <sys_id>d0375fdadb2e401016939b81ca961932</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:57</sys_updated_on>
             <text>${gs.getMessage('SC Item Form Description')}</text>
             <type display_value="Section Details">19756e5ec3313000bac1addbdfba8f18</type>
         </sys_ui_annotation>
         <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>670268412f533300a4a2c886f699b68f</element>
+            <element>d0375fdadb2e401016939b81ca961932</element>
             <position>0</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>6f0268412f533300a4a2c886f699b68f</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>a4375fdadb2e401016939b81ca96193d</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type>annotation</type>
         </sys_ui_element>
@@ -29,13 +29,13 @@
             <element>.begin_split</element>
             <position>1</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>2b0268412f533300a4a2c886f699b690</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>2c375fdadb2e401016939b81ca96193d</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type>.begin_split</type>
         </sys_ui_element>
@@ -43,13 +43,13 @@
             <element>name</element>
             <position>2</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>af0268412f533300a4a2c886f699b690</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>a0375fdadb2e401016939b81ca96193e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -57,13 +57,13 @@
             <element>sc_catalogs</element>
             <position>3</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>270268412f533300a4a2c886f699b691</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>28375fdadb2e401016939b81ca96193e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -71,13 +71,13 @@
             <element>category</element>
             <position>4</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>ab0268412f533300a4a2c886f699b691</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>ac375fdadb2e401016939b81ca96193e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -85,13 +85,13 @@
             <element>.split</element>
             <position>5</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>230268412f533300a4a2c886f699b692</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>24375fdadb2e401016939b81ca96193f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type>.split</type>
         </sys_ui_element>
@@ -99,13 +99,13 @@
             <element>sys_scope</element>
             <position>6</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>a70268412f533300a4a2c886f699b692</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>a8375fdadb2e401016939b81ca96193f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -113,13 +113,13 @@
             <element>active</element>
             <position>7</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>2f0268412f533300a4a2c886f699b692</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>20375fdadb2e401016939b81ca961940</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -127,13 +127,13 @@
             <element>availability</element>
             <position>8</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>a30268412f533300a4a2c886f699b693</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>a4375fdadb2e401016939b81ca961940</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -141,13 +141,13 @@
             <element>roles</element>
             <position>9</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>2b0268412f533300a4a2c886f699b693</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>2c375fdadb2e401016939b81ca961940</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -155,13 +155,13 @@
             <element>ordered_item_link</element>
             <position>10</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>af0268412f533300a4a2c886f699b693</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>a0375fdadb2e401016939b81ca961941</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -169,13 +169,13 @@
             <element>duration</element>
             <position>11</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>270268412f533300a4a2c886f699b694</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>28375fdadb2e401016939b81ca961941</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -183,13 +183,13 @@
             <element>suggested</element>
             <position>12</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>ab0268412f533300a4a2c886f699b694</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>ac375fdadb2e401016939b81ca961941</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -197,13 +197,13 @@
             <element>level</element>
             <position>13</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>230268412f533300a4a2c886f699b695</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>24375fdadb2e401016939b81ca961942</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -211,13 +211,13 @@
             <element>languages</element>
             <position>14</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>a70268412f533300a4a2c886f699b695</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>a8375fdadb2e401016939b81ca961942</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -225,13 +225,13 @@
             <element>.end_split</element>
             <position>15</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>2f0268412f533300a4a2c886f699b695</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>20375fdadb2e401016939b81ca961943</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type>.end_split</type>
         </sys_ui_element>
@@ -239,13 +239,13 @@
             <element>prior_knowledge</element>
             <position>16</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>a30268412f533300a4a2c886f699b696</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>a4375fdadb2e401016939b81ca961943</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -253,13 +253,13 @@
             <element>instructor</element>
             <position>17</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>2b0268412f533300a4a2c886f699b696</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>2c375fdadb2e401016939b81ca961943</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -267,13 +267,13 @@
             <element>objective</element>
             <position>18</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2019-08-14 09:14:04</sys_created_on>
-            <sys_id>af0268412f533300a4a2c886f699b696</sys_id>
+            <sys_created_on>2020-01-27 09:01:58</sys_created_on>
+            <sys_id>a0375fdadb2e401016939b81ca961944</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_315700_lms_long_term_course" sys_domain="global" view="Default view">a5a14287db003300c1e8f53a29961984</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2019-08-14 09:14:04</sys_updated_on>
+            <sys_updated_on>2020-01-27 09:01:58</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>

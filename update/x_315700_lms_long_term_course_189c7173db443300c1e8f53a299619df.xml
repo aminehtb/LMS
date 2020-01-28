@@ -10,6 +10,7 @@
         <delivery_plan_script/>
         <delivery_time>1970-01-03 00:00:00</delivery_time>
         <description><![CDATA[<p><span style="color: #373a3c; font-family: OpenSans, Arial, sans-serif; font-size: 14px;">This Specialization builds on the success of the Python for Everybody course and will introduce fundamental programming concepts including data structures, networked application program interfaces, and databases, using the Python programming language. In the Capstone Project, you’ll use the technologies learned throughout the Specialization to design and create your own applications for data retrieval, processing, and visualization.</span></p>]]></description>
+        <display_price_property>non_zero</display_price_property>
         <duration>4</duration>
         <duration_type/>
         <durationtype>m</durationtype>
@@ -17,10 +18,10 @@
         <group/>
         <hide_sp>false</hide_sp>
         <icon/>
-        <ignore_price>true</ignore_price>
+        <ignore_price>false</ignore_price>
         <image/>
-        <instructor display_value="alaa agrebi">5b835087dbff2300c1e8f53a29961917</instructor>
-        <languages>4be8be2effb30000dada1c57f27f9d13,b2e832eeff730000dada1c57f27f9db5</languages>
+        <instructor display_value="Hannah Facio">3a82abf03710200044e0bfc8bcbe5d19</instructor>
+        <languages>4be8be2effb30000dada1c57f27f9d13</languages>
         <level>beginner</level>
         <list_price>0</list_price>
         <location/>
@@ -48,12 +49,12 @@
         <ordered_item_link/>
         <picture>887ea9292f0d3300a4a2c886f699b676</picture>
         <preview>JavaScript: popupOpenStandard("com.glideapp.servicecatalog_cat_item_view.do?v=1&amp;sysparm_id=189c7173db443300c1e8f53a299619df&amp;sysparm_preview=true", "summary");</preview>
-        <price>0</price>
+        <price>20</price>
         <prior_knowledge>Python</prior_knowledge>
         <recurring_frequency/>
         <recurring_price>0</recurring_price>
         <request_method/>
-        <roles/>
+        <roles>snc_internal</roles>
         <sc_catalogs>5107e2762f723300a4a2c886f699b6c1</sc_catalogs>
         <sc_ic_item_staging/>
         <sc_ic_version/>
@@ -66,14 +67,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-03-14 15:34:02</sys_created_on>
         <sys_id>189c7173db443300c1e8f53a299619df</sys_id>
-        <sys_mod_count>5</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_name>Python for Everybody Specialization</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>x_315700_lms_long_term_course_189c7173db443300c1e8f53a299619df</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-07-26 09:00:35</sys_updated_on>
+        <sys_updated_on>2020-01-27 14:43:22</sys_updated_on>
         <template/>
         <title/>
         <type>item</type>
@@ -87,19 +88,19 @@
     <sys_translated_text action="delete_multiple" query="documentkey=189c7173db443300c1e8f53a299619df"/>
     <fx_price action="delete_multiple" query="id=189c7173db443300c1e8f53a299619df"/>
     <fx_price action="INSERT_OR_UPDATE">
-        <amount>0</amount>
+        <amount>20</amount>
         <currency display_value="USD">USD</currency>
         <field>price</field>
         <id>189c7173db443300c1e8f53a299619df</id>
         <parent/>
-        <reference_amount>0</reference_amount>
+        <reference_amount>20</reference_amount>
         <reference_currency display_value="USD">USD</reference_currency>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-03-14 15:34:02</sys_created_on>
         <sys_id>edcdbd73db443300c1e8f53a299619a6</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-03-14 15:34:02</sys_updated_on>
+        <sys_updated_on>2020-01-27 14:43:22</sys_updated_on>
         <table>x_315700_lms_long_term_course</table>
         <type>calculated</type>
     </fx_price>
@@ -126,6 +127,7 @@
         <compressed>true</compressed>
         <content_type>image/jpeg</content_type>
         <file_name>picture</file_name>
+        <hash/>
         <image_height>260</image_height>
         <image_width>499</image_width>
         <size_bytes>16583</size_bytes>

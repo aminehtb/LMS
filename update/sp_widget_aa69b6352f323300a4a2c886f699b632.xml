@@ -181,7 +181,7 @@
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
         <name>sc_category_page_clone</name>
-        <option_schema>[{"name":"click_event_name","default_value":"$sp.cat_item_list.click","section":"other","label":"Click event name","type":"string"},{"hint":"Number of items to display per page","name":"limit_item","default_value":"15","section":"other","label":"Number of items per page","type":"integer"},{"hint":"Show items from child categories along with the items of the present category","name":"show_items_from_child","section":"other","default_value":"false","label":"Show items from Child Categories","type":"boolean"},{"hint":"Popular Items that has been used","name":"popular_items_created","section":"Data","default_value":"6","label":"Popular Items used in","type":"choice","choices":[{"label":"Last 3 months","value":"3"},{"label":"Last 6 months","value":"6"},{"label":"Last 12 months","value":"12"},{"label":"Life time (Has performance implications)","value":"0"}]}]</option_schema>
+        <option_schema>[{"name":"click_event_name","default_value":"$sp.cat_item_list.click","section":"other","label":"Click event name","type":"string"},{"hint":"Number of items to display per page","name":"limit_item","default_value":"15","section":"other","label":"Number of items per page","type":"integer"},{"hint":"Show items from child categories along with the items of the present category","name":"show_items_from_child","section":"other","default_value":"false","label":"Show items from Child Categories","type":"boolean"},{"hint":"Popular Items that has been used","name":"popular_items_created","section":"Data","default_value":"6","label":"Popular Items used in","type":"choice","choices":[{"label":"3","value":"3"},{"label":"6","value":"6"},{"label":"12","value":"12"},{"label":"0","value":"0"}]}]</option_schema>
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
@@ -422,14 +422,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-07-23 07:39:25</sys_created_on>
         <sys_id>aa69b6352f323300a4a2c886f699b632</sys_id>
-        <sys_mod_count>8</sys_mod_count>
+        <sys_mod_count>12</sys_mod_count>
         <sys_name>sc_category_page_clone</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sp_widget_aa69b6352f323300a4a2c886f699b632</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-09-13 08:16:47</sys_updated_on>
+        <sys_updated_on>2020-01-21 14:09:23</sys_updated_on>
         <template><![CDATA[<div class="m-t-sm " ng-class="{'hidden-xs' : hideItemWidget, 'm-l-sm': !isMobile}">
   <h4 ng-if="data.error">{{data.error}}</h4>
   <div ng-init="spSearch.targetCatalog()">
