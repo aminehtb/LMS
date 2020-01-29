@@ -3,7 +3,7 @@
         <active>true</active>
         <availability>on_desktop</availability>
         <billable>false</billable>
-        <category display_value="Marketing">a5d86a4a2feb7300a4a2c886f699b68c</category>
+        <category display_value="Social media marketing">a9dc193adb66001016939b81ca9619ff</category>
         <cost>0</cost>
         <custom_cart/>
         <delivery_plan display_value="DEFAULT">523da512c611228900811a37c97c2014</delivery_plan>
@@ -77,14 +77,14 @@ Break into marketing world by discovering how marketing professionals use market
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-01-27 10:57:59</sys_created_on>
         <sys_id>5e807b5edb6e401016939b81ca961948</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_name>Marketing: Fundamental</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>x_315700_lms_long_term_course_5e807b5edb6e401016939b81ca961948</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2020-01-27 14:19:41</sys_updated_on>
+        <sys_updated_on>2020-01-28 13:55:22</sys_updated_on>
         <template/>
         <title/>
         <type>item</type>

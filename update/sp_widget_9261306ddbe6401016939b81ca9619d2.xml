@@ -808,17 +808,17 @@ padding:15px 35px;
 .prior-knowledge {
   margin: 15px;
   padding: 15px;
-  background: #4d0000;
+  background: lightgray;
   border-radius: 7px;
   -webkit-box-shadow: 0 7px 15px gray;
           box-shadow: 0 7px 15px gray;
-  color: white;
+  color: black;
    font-family: Montserrat;
     line-height: 1.5;
 }
 
 .prior-knowledge i {
-  color: white;
+  color: black;
   padding: 15px;
 }
 /*
@@ -879,12 +879,12 @@ padding:15px 35px;
     .cours-content li {
       text-transform: capitalize;
       font-family: Montserrat;
-      	font-size:20px;
+      cursor:pointer;
+      	font-size:17px;
         position: relative;
-        padding-left: 7rem;
-        margin-bottom: 1.5em;
+        padding-left: 4rem;
         list-style: none;
-        line-height: 50px;
+        line-height: 40px;
         -webkit-transition: all 0.2s ease-in-out;
         transition: all 0.2s ease-in-out;
     }
@@ -893,12 +893,12 @@ padding:15px 35px;
         content: counter(myCounter);
         counter-increment: myCounter;
         position: absolute;
-      	font-size:18px
+      	font-size:15px
         top: 0;
         left: 0;
-        width: 50px;
-        height: 50px;
-        line-height: 50px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
         padding: 0px;
         color: #fff;
         background: #293e40;
@@ -918,7 +918,7 @@ padding:15px 35px;
 }
   
    .cours-content li li {
-        font-size: 18px;
+        font-size: 15px;
     }</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -1482,14 +1482,14 @@ gs.warn("unit start 2");
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-01-24 13:02:11</sys_created_on>
         <sys_id>9261306ddbe6401016939b81ca9619d2</sys_id>
-        <sys_mod_count>112</sys_mod_count>
+        <sys_mod_count>126</sys_mod_count>
         <sys_name>cours_detail</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sp_widget_9261306ddbe6401016939b81ca9619d2</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2020-01-27 10:19:26</sys_updated_on>
+        <sys_updated_on>2020-01-28 15:42:50</sys_updated_on>
         <template><![CDATA[<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
@@ -1508,25 +1508,25 @@ gs.warn("unit start 2");
 </div>
 <div class="container" style="padding:15px">
   <div ng-if="data.sc_cat_item.description" class="description">
-        <h2>Description:</h2>
+        <h3>Description:</h3>
         <p ng-bind-html="::data.sc_cat_item.description">{{::data.sc_cat_item.description}}</p>
     </div>
   <div ng-if="data.objective && !c.data.no_objectives" class="objective">
-    		<h2>Objectives:</h2>
-        <p ng-repeat="objective in data.objective"><i class="fas fa-check fa-2x"></i> {{::objective}}</p>
+    		<h3>Objectives:</h3>
+        <p ng-repeat="objective in data.objective"><i class="fas fa-check fa-lg"></i> {{::objective}}</p>
   </div>
   <div ng-if="data.prior_knowledge && !c.data.no_p_knowledges" class="prior-knowledge">
-        <h2>Prior knowledge</h2>
+        <h3>Prior knowledge</h3>
         <p ng-repeat="p_knowledge in data.prior_knowledge"><i class="fas fa-info fa-lg"></i> {{p_knowledge}}</p>
     </div>
   <div class="cours-content" ng-if="data.unitlist && data.unitlist.length>0">
-    <h2>
+    <h3>
       Content
-    </h2>
+    </h3>
         <ol>
-           <li ng-repeat="sec in data.unitlist track by $index">
+           <li ng-repeat="sec in data.unitlist track by $index" data-toggle="collapse" href="#{{$index}}">
              {{sec.name}}
-             <ol ng-if="sec.arrayunit.length>0">
+             <ol class="collapse" id="{{$index}}" ng-if="sec.arrayunit.length>0" ng-class="{true:'in',false:''}[$first]">
                 <li ng-repeat="unit in sec.arrayunit"> {{ unit.name }} </li>
             </ol>
           </li>

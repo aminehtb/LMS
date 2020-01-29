@@ -256,7 +256,12 @@
 }
 
 .vertical-menu a:hover {
-  background-color: #ccc; 
+  background-color: #ccc;
+  i{
+    transition:all .3s ease-in-out;
+    transform:scale(1.2) translateX(-5px);
+    
+  }
 }
 
 .vertical-menu a.active {
@@ -497,14 +502,14 @@ var catalog_id = $sp.getParameter("catalog_id") ? $sp.getParameter("catalog_id")
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-01-21 15:45:22</sys_created_on>
         <sys_id>2bf9b16cdba6001016939b81ca9619b5</sys_id>
-        <sys_mod_count>67</sys_mod_count>
+        <sys_mod_count>69</sys_mod_count>
         <sys_name>category_list</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sp_widget_2bf9b16cdba6001016939b81ca9619b5</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2020-01-24 07:57:53</sys_updated_on>
+        <sys_updated_on>2020-01-28 15:04:20</sys_updated_on>
         <template><![CDATA[<link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel='stylesheet'>
 <div class="vertical-menu">
     <a href="#" class="active" ng-click="clickBack()"><i class="fa fa-chevron-left"></i>{{::category_nav_title}}</a>
