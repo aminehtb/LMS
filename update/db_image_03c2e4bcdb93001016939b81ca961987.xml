@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="db_image">
+    <db_image action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category/>
+        <format>png</format>
+        <height>96</height>
+        <image>78132cbcdb93001016939b81ca961932</image>
+        <name>arrow.png</name>
+        <size_bytes>861</size_bytes>
+        <sys_class_name>db_image</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-28 10:50:24</sys_created_on>
+        <sys_id>03c2e4bcdb93001016939b81ca961987</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>arrow.png</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>db_image_03c2e4bcdb93001016939b81ca961987</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-28 10:51:13</sys_updated_on>
+        <thumbnail/>
+        <width>96</width>
+    </db_image>
+    <sys_attachment action="INSERT_OR_UPDATE">
+        <average_image_color>#90a4ae</average_image_color>
+        <chunk_size_bytes>700000</chunk_size_bytes>
+        <compressed>true</compressed>
+        <content_type>image/png</content_type>
+        <file_name>image</file_name>
+        <hash>9baa1a08c5191b3049a6c6de6ca0b4803f6e1deb1d6faed3d09ec6dc17a10930</hash>
+        <image_height>96</image_height>
+        <image_width>96</image_width>
+        <size_bytes>861</size_bytes>
+        <size_compressed>884</size_compressed>
+        <state>available</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-28 10:51:12</sys_created_on>
+        <sys_id>78132cbcdb93001016939b81ca961932</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_updated_by>system</sys_updated_by>
+        <sys_updated_on>2020-02-28 10:51:13</sys_updated_on>
+        <table_name>ZZ_YYdb_image</table_name>
+        <table_sys_id>03c2e4bcdb93001016939b81ca961987</table_sys_id>
+    </sys_attachment>
+    <sys_attachment_doc action="INSERT_OR_UPDATE">
+        <data>H4sIAAAAAAAAAA==</data>
+        <length>16</length>
+        <position>0</position>
+        <sys_attachment display_value="image" sys_id="78132cbcdb93001016939b81ca961932">78132cbcdb93001016939b81ca961932</sys_attachment>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-28 10:51:12</sys_created_on>
+        <sys_id>b8132cbcdb93001016939b81ca961932</sys_id>
+    </sys_attachment_doc>
+    <sys_attachment_doc action="INSERT_OR_UPDATE">
+        <data>AV0DovyJUE5HDQoaCgAAAA1JSERSAAAAYAAAAGAIBgAAAOKYdzgAAAAJcEhZcwAALiMAAC4jAXilP3YAAAMPSURBVHja7dfNVdtAFMXxazUAJbgESkgJ1lpFqIUpAfcQb7FLMB2YDigBKhAbk3OSGJA07+M+6c0uyUYz9//jhM0wDACA/eF4D2AHYIs8mucVwKnv2jcA2AzDgP3h+ADgDOAu38fkvAP41XftZfP4++n+uko+vv0I2+b6Yycf3/7cAdg1+TPf9WybfAPf0wA45TO4nVPTd+0FwHO+hfl57rv28vkjqOR7mJ/y+SMIfdeeU4F5/ec/A6QCn/r/GiAV2Nf/r4BUYFz/fwOkAtv6bwlIBYb13xwgFdjV/5WAVGBU/5cDpAKb+r8TkAoM6v92gFSgX/9PAlKBcv0/DpAKdOsfIyAVKNY/aoBUoFf/WAGpQKn+0QOkAp36pwhIBQr1TxogFcjXP1VAKlB4o0kDpALZ+ucISAXCbzN5gFQgV/9cAalA8E1mDZAKZOqvEZAKhN5i9gCpoL7+WgGpQOANqgZIBXX1SwhYu4Lqu1cPsGIF1fVLCVirApE7iwywQgUi9UsKWJsCsbuKDbAiBWL1SwtYiwLRO4oOsAIFovVrCFi6AvG7iQ+wYAXi9WsJWKoClTupDLBABSr1awpYmgK1u6gNsCAFavVrC1iKAtU7qA6wAAWq9VsIiK5A/dvVBwisQL1+KwFRFZh8s8kAARWY1G8pIJoCs281GyCQArP6rQVEUWD6jaYDBFBgWr+HAHYF5t9mPgCxAvP6vQSwKnD5JpcBCBW41O8pgE2B27e4DUCkwK1+bwEsCly/wXUAAgWu9TMI8C7QXaD7AI4K3OtnEeBVIsX/wigGcFBAUT+TAOsiaX4HoRnAUAFN/WwCrMpk+g2cawADBVT1MwrQLrSwXZZuAEUFdPWzCtAqtTBelHIABQWU9TMLkC62sF6SdgBBBbT1swuQKrcwX5B6AAEF1PVHEFBbcGG/HP0AFQro648iYG7JJcLFQgwwQ0GI+iMJmFp0iXKpMANMUBCm/mgCxpZdIl0o1AAjFISqP6IAANgBeLnx9y/Xfwt1NsMwIOLZH447AA/XP176rj1FvMcHYdc0FUtCq2sAAAAASUVORK5CYIJ3TdOEXQMAAA==</data>
+        <length>1168</length>
+        <position>1</position>
+        <sys_attachment display_value="image" sys_id="78132cbcdb93001016939b81ca961932">78132cbcdb93001016939b81ca961932</sys_attachment>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-28 10:51:12</sys_created_on>
+        <sys_id>3c132cbcdb93001016939b81ca961932</sys_id>
+    </sys_attachment_doc>
+</record_update>

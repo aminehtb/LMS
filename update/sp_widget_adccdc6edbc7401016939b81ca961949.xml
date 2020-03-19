@@ -6,70 +6,24 @@
   var c = this;
 }]]></client_script>
         <controller_as>c</controller_as>
-        <css>  .grid-container {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (1fr)[4];
-      grid-template-columns: repeat(4, 1fr);
-  grid-gap: 1em;
+        <css>.column{
+  text-align:center;
 }
-
-.grid-container .grid-item {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-          box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  position:relative;
-}
-
-.grid-container .grid-item .title {
-  font-size: 1.5em;
-  font-weight: 520;
-  padding: 0 1em 1em;
-}
-.grid-container .grid-item {
-  text-decoration:none;
-}
-.grid-container .grid-item img {
-  width: 100%;
-}
-
-.grid-container .grid-item progress {
-  position:absolute;
-  bottom:10px;
-  width: 100%;
-  height: .3em;
-  background: white;
-  padding: 0 .2em;
-  border-radius: 15px;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  border: none;
-}
-
-
-progress::-webkit-progress-bar {
-  background: lightgrey;
-  border-radius: 50px;
-  -webkit-box-shadow: 0 1px 0px 0 rgba(255, 255, 255, 0.2);
-          box-shadow: 0 1px 0px 0 rgba(255, 255, 255, 0.2);
-}
-
-progress::-webkit-progress-value {
-  border-radius: 50px;
-  -webkit-box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
-          box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
-  background: #01c584;
-}</css>
+.table-bordered {
+  th,
+  td {
+    border: 1px solid grey !important;
+  }</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
         <docs/>
         <field_list/>
         <has_preview>true</has_preview>
-        <id>user_dashboard</id>
+        <id>fm_dashboard</id>
         <internal>false</internal>
         <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
-        <name>user_dashboard</name>
+        <name>fm_dashboard</name>
         <option_schema/>
         <public>false</public>
         <roles/>
@@ -210,16 +164,10 @@ course.query();
 				if(unit.length==length){
 					link="?id=sc_cat_item_course&sys_id="+course.sys_id;
 				}
-				else
-					link="?id=unit_body&unit_id="+value+"&sys_id="+course.sys_id; 
+				else 	link="?id=unit_body&unit_id="+value+"&sys_id="+course.sys_id; 
 				gs.warn("unit"+unit);
 			
-				var courseobj={"name":course.getDisplayValue("name"),
-											 "percentage":perc,
-											 "unit":link,
-											 "id":course.getValue("sys_id"),
-											 'img':course.getDisplayValue('picture')
-											};
+				var courseobj={"name":course.getDisplayValue("name"),"percentage":perc,"unit":link,"id":course.getValue("sys_id")};
 		
 						data.course.push(courseobj);
 				break;
@@ -229,33 +177,49 @@ course.query();
 
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	gs.warn("formations"+JSON.stringify(data.course));
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2019-08-26 09:19:50</sys_created_on>
-        <sys_id>c976dab82f233300a4a2c886f699b62f</sys_id>
-        <sys_mod_count>123</sys_mod_count>
-        <sys_name>user_dashboard</sys_name>
+        <sys_created_on>2020-02-21 10:37:21</sys_created_on>
+        <sys_id>adccdc6edbc7401016939b81ca961949</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>fm_dashboard</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
-        <sys_update_name>sp_widget_c976dab82f233300a4a2c886f699b62f</sys_update_name>
+        <sys_update_name>sp_widget_adccdc6edbc7401016939b81ca961949</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2020-02-21 12:17:00</sys_updated_on>
-        <template><![CDATA[<div class="grid-container">
-        <div class="grid-item" ng-repeat="course in data.course">
-            <a href="{{course.unit}}">
-              <div class="image">
-                <img ng-src="{{course.img}}" alt="" srcset="">
-            </div>
-            <div class="title">{{course.name}}</div>
-             
-          <progress value="{{course.percentage}}" max="100"></progress>
-            </a>
-        </div>
-
-</div>
-]]></template>
+        <sys_updated_on>2020-02-21 10:37:21</sys_updated_on>
+        <template><![CDATA[<table class="table table-bordered">
+  <thead>
+    <tr class="success ">
+      <th class="column" >Formations</th>
+      <th class="column">Progression</th>
+    </tr>
+  </thead>
+  
+  <tbody >
+    <tr ng-repeat="course in data.course" >
+      <th class="column"  ><a href="{{course.unit}}"> {{course.name}} </a></th>
+      <th class="column"> <div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="course.percentage"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{course.percentage}}%">
+    {{course.percentage}}%
+  </div>
+</div></th>
+    </tr>
+  </tbody>
+</table>]]></template>
     </sp_widget>
 </record_update>

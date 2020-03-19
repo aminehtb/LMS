@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, $sce) {
+    var height = $('#course_title').outerHeight();
+    console.log(height);
+    $('#title').css('height', height + 'px');
+    $('.action_btn').css('margin-top', (height - 40) / 2);
+    $('.action_btn').css('margin-bottom', (height - 40) / 2);
+    //custom alert boxes
+    var Inline = Quill.import('blots/inline');
+
+    class SpanBlock extends Inline {
+        static create(value) {
+            var node = super.create();
+            node.setAttribute('class', 'spanblock');
+            return node;
+        }
+    }
+
+    //alert danger
+    class AlertDanger extends Inline {
+        static create(value) {
+            var node = super.create();
+            node.setAttribute('class', 'alert alert-danger');
+            return node;
+        }
+    }
+
+    //alert info
+    class AlertInfo extends Inline {
+        static create(value) {
+            var node = super.create();
+            node.setAttribute('class', 'alert alert-info');
+            return node;
+        }
+    }
+
+    //alert success
+    class AlertSuccess extends Inline {
+        static create(value) {
+            var node = super.create();
+            node.setAttribute('class', 'alert alert-success');
+            return node;
+        }
+    }
+
+    //alert warning
+    class AlertWarning extends Inline {
+        static create(value) {
+            var node = super.create();
+            node.setAttribute('class', 'alert alert-warning');
+            return node;
+        }
+    }
+
+
+    SpanBlock.blotName = 'spanblock';
+    SpanBlock.tagName = 'div';
+    Quill.register(SpanBlock);
+
+    AlertDanger.blotName = 'alertdanger';
+    AlertDanger.tagName = 'div';
+    Quill.register(AlertDanger);
+
+    AlertInfo.blotName = 'alertinfo';
+    AlertInfo.tagName = 'div';
+    Quill.register(AlertInfo);
+
+    AlertSuccess.blotName = 'alertsuccess';
+    AlertSuccess.tagName = 'div';
+    Quill.register(AlertSuccess);
+
+    AlertWarning.blotName = 'alertwarning';
+    AlertWarning.tagName = 'div';
+    Quill.register(AlertWarning);
+
+
+    var c = this;
+    c.data.edit = false;
+    c.data.unit_name = "";
+    var toolbarOptions = [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['blockquote', 'code-block'],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],     // superscript/subscript
+        [{ 'indent': '-1' }, { 'indent': '+1' }],             // text direction
+
+        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'align': [] }],
+        ["link", "image", "video"],
+        ['spanblock'],
+        ['alertdanger', 'alertinfo', 'alertsuccess', 'alertwarning']
+    ];
+    var quill = new Quill('#editor', {
+        modules: {
+            toolbar: toolbarOptions
+        },
+        theme: 'snow'
+    });
+    quill.keyboard.addBinding({
+        key: 's',
+        shortKey: true
+    }, function (range, context) {
+        c.data.action = 'insert';
+        c.data.content = this.quill.getContents();
+        c.data.u_body = quill.root.innerHTML;
+        c.data.unitid = c.data.id;
+        c.server.update().then(function (r) {
+            c.data.action = undefined;
+        });
+    });
+
+    //custom button actions
+    var spanBlockButton = document.querySelector('.ql-spanblock');
+    spanBlockButton.addEventListener('click', function () {
+        console.log('function called');
+        var range = quill.getSelection();
+        if (range)
+            quill.formatText(range, 'spanblock');
+        else
+            console.log('it it invalid');
+    });
+
+    var alertDangerButton = document.querySelector('.ql-alertdanger');
+    alertDangerButton.addEventListener('click', function () {
+        var range = quill.getSelection();
+        if (range)
+            quill.formatText(range, 'alertdanger');
+        else
+            console.log('it it invalid');
+    });
+
+    var alertInfoButton = document.querySelector('.ql-alertinfo');
+    alertInfoButton.addEventListener('click', function () {
+        var range = quill.getSelection();
+        if (range)
+            quill.formatText(range, 'alertinfo');
+        else
+            console.log('it it invalid');
+    });
+
+    var alertSuccessButton = document.querySelector('.ql-alertsuccess');
+    alertSuccessButton.addEventListener('click', function () {
+        var range = quill.getSelection();
+        if (range)
+            quill.formatText(range, 'alertsuccess');
+        else
+            console.log('it it invalid');
+    });
+
+    var alertWarningButton = document.querySelector('.ql-alertwarning');
+    alertWarningButton.addEventListener('click', function () {
+        var range = quill.getSelection();
+        if (range)
+            quill.formatText(range, 'alertwarning');
+        else
+            console.log('it it invalid');
+    });
+
+    c.data.course_id = "course";
+    c.data.unit_content = false;
+    c.data.update_info = false;
+    c.data.selected_obj = false;
+    c.data.selected_all = [];
+    c.data.positions = ['At the beginning', 'Before', 'After', 'At the end'];
+    c.data.selected_position = c.data.positions[0];
+    $scope.changePosition = function (i) {
+        c.data.selected_position = c.data.positions[i];
+        c.data.disable_select_option = c.data.selected_position == c.data.positions[0] || c.data.selected_position == c.data.positions[3] ? true : null;
+    }
+    c.data.disable_select_option = c.data.selected_position == c.data.positions[0] || c.data.selected_position == c.data.positions[3] ? true : null;
+
+    $rootScope.$on('selectItem', function (event, data) {
+        c.data.selected_all = [];
+        c.data.selected_obj = true;
+        c.data.selected_name = data.obj.name;
+        c.data.type = data.type;
+        c.data.selected_id = data.obj.sys_id;
+        c.data.selected_all = data.listAll;
+        c.data.list = data.all_data;
+        if (data.hasOwnProperty('list_sec_sub')) {
+            c.data.list_sec_sub = data.list_sec_sub;
+            c.data.inside = data.parent;
+        }
+        console.log(data);
+        if (c.data.type == 'unt') {
+            c.data.update_info = false;
+            c.data.id = data.obj.sys_id;
+            c.server.get({
+                action: 'getunit',
+                unitid: c.data.id
+            }).then(function (r) {
+                c.data.unit_content = true;
+                quill.setContents(r.data.unitbody);
+                document.getElementById("view-mode").innerHTML = quill.root.innerHTML;
+            });
+        } else {
+            c.data.unit_content = false;
+            c.data.update_info = true;
+        }
+    });
+    c.data.edit = false;
+
+    $scope.update = function () {
+        //update object details
+        //need type sub unt sec
+        //need name
+        //need parent if sec course id else parent sub sec or sec
+        //need order
+        //need position
+        c.data.action = "update";
+        c.data.name = c.data.selected_name;
+        switch (c.data.selected_position) {
+            case 'At the beginning': c.data.position = 'begin'; c.data.order = getOrder('first'); break;
+            case 'Before': c.data.position = 'before'; c.data.order = getSelectedObject(c.data.list, c.data.selected_object).obj.order; break;
+            case 'After': c.data.position = 'after'; c.data.order = getSelectedObject(c.data.list, c.data.selected_object).obj.order; break;
+            case 'At the end': c.data.position = 'end'; c.data.order = parseInt(getOrder('last')) + 100; break;
+        }
+        c.data.parent = c.data.type == 'sec' ? c.data.course_id : c.data.inside;
+        console.log('amine order '+c.data.order);
+
+        c.server.update().then(function (r) {
+            console.log(r.added);
+        });
+    }
+    $scope.delete = function () {
+        //delete object
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#e3e3e3',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function (result) {
+            if (result.value) {
+                Swal.fire({
+                    title: 'Deleted!',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                }
+                )
+            }
+        });
+    }
+    $scope.update_info = function () {
+        //update button clicked
+        c.data.update_info = !c.data.update_info;
+        if (c.data.type == 'unt')
+            c.data.unit_content = !c.data.update_info;
+    }
+    $scope.edit = function () {
+        //edit button clicked in unit only
+        c.data.edit = !c.data.edit;
+        c.data.update_info = false;
+        if (!c.data.edit) {
+            $('#quill-change').removeClass("fa-eye").addClass("fa-pencil");
+        } else {
+            $('#quill-change').removeClass("fa-pencil").addClass("fa-eye");
+        }
+
+    }
+    $scope.loadAfter = function () {
+        c.data.inside_error = null;
+        var selected_obj = getSelectedObject(c.data.list, c.data.inside);
+        getListObjects(selected_obj.obj.list_obj);
+    }
+
+    function getListObjects(list) {
+        c.data.selected_all = [];
+        list.forEach(function (item) {
+            var obj = { 'name': item.name, 'id': item.sys_id, 'order': item.order };
+            c.data.selected_all.push(obj);
+        });
+    }
+
+    function getSelectedObject(list, id) {
+			console.log(list);
+			console.log(id);
+        var obj = {};
+        list.forEach(function (item) {
+            if (item.sys_id == id) {
+                obj = { 'type': 'sec', 'obj': item };
+            } else if (item.hasOwnProperty('list_obj') && item.list_obj.length > 0) {
+                item.list_obj.forEach(function (sub) {
+                    if (sub.sys_id == id) {
+                        obj = { 'type': sub.type == 'subsection' ? 'sub' : 'unt', 'obj': sub };
+                    } else if (sub.type == 'subsection') {
+                        sub.list_obj.forEach(function (sub_unit) {
+                            if (sub_unit.sys_id == id) {
+                                obj = { 'type': "sub unit", 'obj': sub_unit };
+                            }
+                        });
+                    }
+
+                });
+            }
+        });
+			console.log(obj);
+        return obj;
+    }
+    function getOrder(param) {
+        if (c.data.selected_all) {
+            c.data.selected_all.sort(function (a, b) {
+                if (a.order > b.order)
+                    return 1;
+                else if (a.order < b.order)
+                    return -1;
+                return 0;
+            });
+            if (param == 'last') {
+                return c.data.selected_all[c.data.selected_all.length - 1].order;
+            } else if (param == 'first') {
+                c.data.selected_all.reverse();
+                return c.data.selected_all[c.data.selected_all.length - 1].order;
+            }
+        } else {
+            return 0;
+        }
+    }
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>$light=#16dec7;
+$dark = #293e40;
+$dark2 = #5a7f71;
+
+
+.ql-spanblock:after {
+    content: "&lt;sb/&gt;";
+  }
+.ql-alertdanger,.ql-alertinfo,.ql-alertsuccess,.ql-alertwarning{
+  font-family: FontAwesome;
+  display: inline-block;
+  padding-right: 6px;
+  font-weight:900;
+  vertical-align: middle;
+}
+.ql-alertdanger:after {
+  content: "\f057";
+  color:#a94442;
+  }
+.ql-alertinfo:after {
+  content: "\f05a";
+  color:#31708f;
+  }
+.ql-alertsuccess:before {
+  content: "\f058";
+  color:#3c763d;
+  }
+.ql-alertwarning:after {
+  content: "\f071";
+  color:#8a6d3b;
+  }
+
+  
+  .spanblock {
+      background-color: #F8F8F8;
+      border: 1px solid #CCC;
+      line-height: 19px;
+      padding: 6px 10px;
+      border-radius: 3px;
+      margin: 15px 0;
+  }
+.alert{
+	position:relative;
+}
+.alert-danger::before{
+  font-family: FontAwesome;
+  display: inline-block;
+  padding-right: 6px;
+  font-weight:900;
+  vertical-align: middle;
+  content: "\f057";
+  position:absolute;
+  top:-10px;
+  left:-5px;
+}
+.alert-info::before{
+  font-family: FontAwesome;
+  display: inline-block;
+  padding-right: 6px;
+  font-weight:900;
+  vertical-align: middle;
+  content: "\f05a";
+  position:absolute;
+  top:-10px;
+  left:-5px;
+}
+
+.alert-success::before{
+  font-family: FontAwesome;
+  display: inline-block;
+  padding-right: 6px;
+  font-weight:900;
+  vertical-align: middle;
+  content: "\f058";
+  position:absolute;
+  top:-10px;
+  left:-5px;
+}
+.alert-warning::before{
+  font-family: FontAwesome;
+  display: inline-block;
+  padding-right: 6px;
+  font-weight:900;
+  vertical-align: middle;
+  content: "\f071";
+  position:absolute;
+  top:-10px;
+  left:-5px;
+}
+.header{
+    background: #596a68;
+  	width:100%;
+}
+#title{
+    margin: 0;
+    padding: 1em;
+  	color:white;
+  	display: table-cell;
+  	vertical-align: middle;
+  	width: 100%
+
+}
+.action_btn{
+ 		border: none;
+    outline: none;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+  	color:#596a68;
+  background:white;
+  &amp;:hover{
+  box-shadow: 0 0 10px #16dec7;
+    color:#16dec7;
+}
+}
+.content{
+  padding-top:10px;
+}
+.modal-footer {
+  border-top:none !important;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>fm_quill_editor</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>fm_quill_editor</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function () {
+    data.body = "";
+    data.unitbody = "";
+    data.unitid = "";
+    data.unit_name = "";
+    data.course_id = $sp.getParameter("sys_id");
+
+    if (input && input.action == 'getunit') {
+        var unitGR = new GlideRecord("x_315700_lms_unit");
+        unitGR.get(input.unitid);
+        var unit_content = unitGR.getDisplayValue("content");
+        data.unit_name = unitGR.getDisplayValue("name");
+        data.unitbody = unit_content.length == 0 ? {} : JSON.parse(unit_content);
+    } else if (input && input.action == 'insert') {
+        var unit = new GlideRecord("x_315700_lms_unit");
+        unit.get(input.unitid);
+        unit.content = input.content.length == 0 ? '{}' : JSON.stringify(input.content);
+        unit.unitbody = input.u_body;
+
+        unit.update();
+    } else if (input && input.action == 'update') {
+        var order = input.order;
+        var strict = null;
+        switch (input.position) {
+            case 'before': strict = false; break;
+            case 'after': strict = true; break;
+        }
+        var parent = input.parent ? input.parent : null;
+        shift(input.type, order, strict, parent);
+        if (input.type == 'unt' || input.type=='sub unit') {
+
+            var gr = new GlideRecord("x_315700_lms_unit");
+            gr.get(input.id);
+            gr.name = input.name;
+            gr.order = strict ? parseInt(order) + 100 : order;
+            gr.section = input.parent;
+            var id = gr.update();
+            if (id)
+                data.added = 'unit';
+        } else if (input.type == 'sub') {
+            var gr = new GlideRecord('x_315700_lms_section');
+            gr.get(input.id);
+            gr.order = strict ? parseInt(order) + 100 : order;
+            gr.name = input.name;
+            if (parent)
+                gr.parent_section = parent;
+            var id = gr.update();
+            if (id)
+                data.added = 'sub section';
+        } else if (input.type == 'sec') {
+            var gr = new GlideRecord('x_315700_lms_section');
+            gr.get(input.id);
+            gr.order = strict ? parseInt(order) + 100 : order;
+            gr.name = input.name;
+            if (parent)
+                gr.course = parent;
+            var id = gr.update();
+            if (id)
+                data.added = 'section';
+        }
+    }
+
+        //helper function
+        function shift(type, order, strict, parent) {
+            if (type == 'unt' || type == 'sub') {
+                //shift all unit
+                var q = strict ? '>' : '>=';
+                var gr = new GlideRecord('x_315700_lms_unit');
+                gr.addQuery('order', q, order);
+                if (parent) {
+                    gr.addQuery('section', parent);
+                }
+                gr.query();
+                while (gr.next()) {
+                    gr.order = parseInt(gr.order) + 100;
+                    gr.update();
+                }
+                //shit all sub section
+                var sub = new GlideRecord('x_315700_lms_section');
+                sub.addQuery('order', q, order);
+                if (parent) {
+                    sub.addQuery('parent_section', parent)
+                }
+                sub.query();
+                while (sub.next()) {
+                    sub.order = parseInt(sub.order) + 100;
+                    sub.update();
+                }
+            } else if (type == 'sec') {
+                //shit all  section
+                var q = strict ? '>' : '>=';
+                var sec = new GlideRecord('x_315700_lms_section');
+                sec.addQuery('order', q, order);
+                if (parent) {
+                    sec.addQuery('course', parent)
+                }
+                sec.query();
+                while (sec.next()) {
+                    sec.order = parseInt(sec.order) + 100;
+                    sec.update();
+                }
+            }
+        }
+    }) ();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-17 10:36:48</sys_created_on>
+        <sys_id>2e467b09db83001016939b81ca9619c9</sys_id>
+        <sys_mod_count>354</sys_mod_count>
+        <sys_name>fm_quill_editor</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_2e467b09db83001016939b81ca9619c9</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-03-06 15:47:17</sys_updated_on>
+        <template><![CDATA[<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<div ng-show="c.data.selected_obj" class="row header">
+  <div class="col-sm-9">
+    <h3 id="title">
+        {{c.data.selected_name}}
+    </h3>
+  </div>
+  <div class="col-sm-1">
+   <button ng-show="c.data.type == 'unt'" class="action_btn" ng-click="edit()">
+     <i id="quill-change" class="fa fa-pencil fa-lg"></i>
+    </button>
+  </div>
+  <div class="col-sm-1">
+   <button class="action_btn" ng-click="update_info()">
+     <i class="fa fa-cog fa-lg"></i>
+    </button>
+  </div>
+  <div class="col-sm-1">
+   <button class="action_btn" ng-click="delete()">
+     <i class="fa fa-trash-o fa-lg"></i>
+    </button>
+  </div>
+  
+</div>
+<div ng-show="c.data.unit_content" class="row">
+        <div ng-show="c.data.edit">
+            <div id="editor"></div>
+        </div>
+    
+        <div ng-show="!c.data.edit" id="view-mode"></div>
+</div>
+
+<div ng-if="c.data.update_info && c.data.selected_obj" class="row modal-body content">
+    <div class="form-group" ng-if="c.data.type!='sec'">
+    <label for="type">Inside</label>
+    <select class="form-control" id="inside" ng-model="c.data.inside" ng-change="loadAfter()">
+        <option value="" disabled>Select your option</option>
+        <option value="{{obj.id}}" ng-repeat="obj in c.data.list_sec_sub">{{obj.name}}</option>
+    </select>
+    <small ng-if="c.data.inside_error" class="text-danger">
+        {{c.data.inside_error}}
+    </small>
+</div>
+    <div class="form-group">
+        <label for="after">Position</label>
+        <div class="input-group">
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">{{c.data.selected_position}} <span
+                        class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="pos in c.data.positions track by $index"><a href="#"
+                            ng-class="{true:'disabled_action',false:''}[c.data.selected_all.length==0 && (pos=='Before' || pos=='After')]"
+                            ng-click="changePosition($index)">{{pos}}</a></li>
+                </ul>
+            </div>
+            <select class="form-control" id="after" ng-model="c.data.selected_object"
+                ng-disabled='c.data.disable_select_option' ng-change="objectChange()">
+                <option value="" disabled selected>Select your option</option>
+                <option ng-disabled="c.data.selected_id == obj_after.id" ng-if="c.data.selected_all.length>0"
+                    ng-repeat="obj_after in c.data.selected_all | orderBy:'order'" value="{{obj_after.id}}">
+                    {{obj_after.name}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div ng-class="{true:'has-error',false:''}[c.data.name_error && c.data.name_error !='']" class="form-group">
+        <label for="name">Name</label>
+        <input type="name" class="form-control" id="name" ng-model="c.data.selected_name">
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="delete()">delete</button>
+        <button type="button" class="btn btn-primary" ng-click="update()">update</button>
+    </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>
