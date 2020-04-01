@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_315700_lms.CourseOrganizer</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Utility to help arrange and move the course sections, sub-sections and units.</description>
+        <name>CourseOrganizer</name>
+        <script><![CDATA[var CourseOrganizer = Class.create();
+CourseOrganizer.prototype = {
+  initialize: function () {
+  },
+  shift: function (type, start_order, end_order, factor, parent) {
+    if (type == 'sec') {
+      var gr = new GlideRecord('x_315700_lms_section');
+      gr.addQuery('course', parent);
+      gr.addQuery('order', '>', start_order);
+      gr.addQuery('order', '<', end_order);
+      gr.query();
+      while (gr.next()) {
+        //shift by factor * 100
+        gr.order = parseInt(gr.order) + (factor * 100);
+        gr.update();
+      }
+    } else if (type == 'sub' || type == 'unt') {
+      //loop over all subsection in the parent
+      var sub = new GlideRecord('x_315700_lms_section');
+      sub.addQuery('parent_section', parent);
+      sub.addQuery('order', '>', start_order);
+      sub.query();
+      while (sub.next()) {
+        sub.order = parseInt(sub.order) + (factor * 100);
+        sub.update();
+      }
+      //loop over all direct unit in the section
+      var unt = new GlideRecord('x_315700_lms_unit');
+      unt.addQuery('section', parent);
+      unt.addQuery('order', '>', start_order);
+      unt.query();
+      while (unt.next()) {
+        unt.order = parseInt(unt.order) + (factor * 100);
+        unt.update();
+      }
+    }
+  },
+  //update at the begining
+  updateSectionAtBegin: function (type, parent, order) {
+    var gr = new GlideRecord('x_315700_lms_section');
+    gr.addQuery('course', parent);
+    gr.addQuery('order', '>=', 0);
+    gr.addQuery('order', '<', order);
+    gr.query();
+    while (gr.next()) {
+      gr.order = parseInt(gr.order) + 100;
+      gr.update();
+    }
+
+  },
+  //update at the end
+  updateSectionAtEnd: function (type, parent, order) {
+    var gr = new GlideRecord('x_315700_lms_section');
+    gr.addQuery('course', parent);
+    gr.addQuery('order', '>', order);
+    gr.query();
+    while (gr.next()) {
+      gr.order = parseInt(gr.order) - 100;
+      gr.update();
+    }
+
+  },
+  //shift all object back after deleting an object
+  shiftAfterDelete: function (type, order, parent) {
+    if (type == 'sec') {
+      var gr = new GlideRecord('x_315700_lms_section');
+      gr.addQuery('course', parent);
+      gr.addQuery('order', '>', order);
+      gr.query();
+      while (gr.next()) {
+        gr.order = parseInt(gr.order) - 100;
+        gr.update();
+      }
+    } else if (type == 'sub' || type == 'unt') {
+      // shift back all sub section
+      var sub = new GlideRecord('x_315700_lms_section');
+      sub.addQuery('parent_section', parent);
+      sub.addQuery('order', '>', order);
+      sub.query();
+      while (sub.next()) {
+        sub.order = parseInt(sub.order) - 100;
+        sub.update();
+      }
+
+      // shift back all unit 
+      var unt = new GlideRecord('x_315700_lms_unit');
+      unt.addQuery('section', parent);
+      unt.addQuery('order', '>', order);
+      unt.query();
+      while (unt.next()) {
+        unt.order = parseInt(unt.order) - 100;
+        unt.update();
+      }
+    }
+
+  },
+  deleteObject: function (table, selected_id, parent, type) {
+    var gr = new GlideRecord(table);
+    gr.get(selected_id);
+    var order = parseInt(gr.order);
+    gr.deleteRecord();
+    //this.shiftAfterDelete(type, order, parent);
+  },
+  type: 'CourseOrganizer'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-03-25 08:47:45</sys_created_on>
+        <sys_id>95deb9c507b70810e53ef03c7c1ed0de</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>CourseOrganizer</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sys_script_include_95deb9c507b70810e53ef03c7c1ed0de</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-03-25 10:33:03</sys_updated_on>
+    </sys_script_include>
+</record_update>

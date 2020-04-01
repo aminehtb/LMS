@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_query_parameter_map">
+    <sys_ws_query_parameter_map action="INSERT_OR_UPDATE">
+        <sys_class_name>sys_ws_query_parameter_map</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-03-25 14:21:22</sys_created_on>
+        <sys_id>426c4f0507fb0810e53ef03c7c1ed0ce</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>a76cc30507fb0810e53ef03c7c1ed059</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sys_ws_query_parameter_map_426c4f0507fb0810e53ef03c7c1ed0ce</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-03-25 14:21:22</sys_updated_on>
+        <web_service_operation display_value="getUnit">846b0b0507fb0810e53ef03c7c1ed06c</web_service_operation>
+        <web_service_query_parameter display_value="unit_id">a76cc30507fb0810e53ef03c7c1ed059</web_service_query_parameter>
+    </sys_ws_query_parameter_map>
+</record_update>

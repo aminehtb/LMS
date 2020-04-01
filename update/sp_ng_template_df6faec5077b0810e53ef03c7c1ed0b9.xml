@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_ng_template">
+    <sp_ng_template action="INSERT_OR_UPDATE">
+        <id>quill_editor.html</id>
+        <sp_widget display_value="fm_quill_editor">2e467b09db83001016939b81ca9619c9</sp_widget>
+        <sys_class_name>sp_ng_template</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-03-25 12:40:30</sys_created_on>
+        <sys_id>df6faec5077b0810e53ef03c7c1ed0b9</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>quill_editor.html</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_ng_template_df6faec5077b0810e53ef03c7c1ed0b9</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-03-25 13:27:20</sys_updated_on>
+        <template><![CDATA[
+<div>
+  <div id="editor"></div>
+<style>
+  .ql-spanblock:after{content:"<sb/>"}.ql-alertdanger,.ql-alertinfo,.ql-alertsuccess,.ql-alertwarning{font-family:FontAwesome;display:inline-block;padding-right:6px;font-weight:900;vertical-align:middle}.ql-alertdanger:after{content:"\f057";color:#a94442}.ql-alertinfo:after{content:"\f05a";color:#31708f}.ql-alertsuccess:before{content:"\f058";color:#3c763d}.ql-alertwarning:after{content:"\f071";color:#8a6d3b}.spanblock{background-color:#f8f8f8;border:1px solid #ccc;line-height:19px;padding:6px 10px;border-radius:3px;margin:15px 0}.alert{position:relative}.alert-danger::before{font-family:FontAwesome;display:inline-block;padding-right:6px;font-weight:900;vertical-align:middle;content:"\f057";position:absolute;top:-10px;left:-5px}.alert-info::before{font-family:FontAwesome;display:inline-block;padding-right:6px;font-weight:900;vertical-align:middle;content:"\f05a";position:absolute;top:-10px;left:-5px}.alert-success::before{font-family:FontAwesome;display:inline-block;padding-right:6px;font-weight:900;vertical-align:middle;content:"\f058";position:absolute;top:-10px;left:-5px}.alert-warning::before{font-family:FontAwesome;display:inline-block;padding-right:6px;font-weight:900;vertical-align:middle;content:"\f071";position:absolute;top:-10px;left:-5px}
+</style>
+</div>]]></template>
+    </sp_ng_template>
+</record_update>

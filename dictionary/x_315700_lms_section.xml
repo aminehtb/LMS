@@ -4,7 +4,7 @@
         <element label="Name" mandatory="true" max_length="50" name="name" type="string"/>
         <element label="Onpage" max_length="40" name="onpage" type="boolean"/>
         <element label="Order" max_length="40" name="order" type="integer"/>
-        <element label="Parent Section" max_length="32" name="parent_section" reference="x_315700_lms_section" type="reference"/>
+        <element label="Parent Section" max_length="32" name="parent_section" reference="x_315700_lms_section" reference_cascade_rule="delete" type="reference"/>
         <index name="index">
             <element name="parent_section"/>
         </index>

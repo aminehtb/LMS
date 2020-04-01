@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_angular_provider">
+    <sp_angular_provider action="INSERT_OR_UPDATE">
+        <name>CourseData</name>
+        <script><![CDATA[function CourseData() {
+  this.dataHolder = {};
+  this.setSectionList = function (list) {
+    this.dataHolder.sectionList = list;
+  }
+  this.getSectionList = function (){
+    return this.dataHolder.sectionList;
+  }
+  this.setCurrent = function (current_id) {
+    this.dataHolder.current_id = current_id;
+  }
+  this.getCurrent = function () {
+    return this.dataHolder.current_id;
+  }
+  this.isViewMode = function(){
+    return this.dataHolder.view_mode;
+  }
+  this.setViewMode = function(view_mode){
+    this.dataHolder.view_mode = view_mode;
+  }
+  /**
+   * retruns all sections and sub-sections of the course.
+   * output should be an array of items that contains name id and order properties.
+   * name of a sub-section : 'parent section -- sub section'.
+   */
+  this.getListSectionSub = function (sectionlist) {
+    var list_sec_sub = [];
+    sectionlist.forEach(function (item) {
+      var obj = { 'name': item.name, 'id': item.sys_id, 'order': item.order };
+      list_sec_sub.push(obj);
+      if (item.list_obj.length > 0) {
+        item.list_obj.forEach(function (sub) {
+          if (sub.type == "subsection") {
+            var obj = { 'name': item.name + ' -- ' + sub.name, 'id': sub.sys_id, 'order': sub.order };
+            list_sec_sub.push(obj);
+          }
+        });
+      }
+    });
+    return list_sec_sub;
+  }
+  /**
+   * retruns all sections of the course.
+   * output should be an array of items that contains name id and order properties.
+   */
+  this.getAllSections = function (sectionlist) {
+    var list = [];
+    sectionlist.forEach(function (item) {
+      var obj = { 'name': item.name, 'id': item.sys_id, 'order': item.order };
+      list.push(obj);
+    });
+    return list;
+  }
+  /**
+   * format list data for the before and after choice select.
+   * list of data to be formatted.
+   * output format should be an array of items that have name, id and order properties.
+   */
+
+  this.getListObjects = function (list) {
+    var list_after = [];
+    list.forEach(function (item) {
+      var obj = { 'name': item.name, 'id': item.sys_id, 'order': item.order };
+      list_after.push(obj);
+    });
+    return list_after
+  }
+  /**
+   * sectionlist represent the sections and its content of the course
+   * id of the object to get
+   * returns object and type in format {type,obj}
+   */
+  this.getSelectedObject = function (sectionlist, id) {
+    var obj = {};
+    sectionlist.forEach(function (item) {
+      if (item.sys_id == id) {
+        obj = { 'type': 'sec', 'obj': item };
+      } else if (item.list_obj.length > 0) {
+        item.list_obj.forEach(function (sub) {
+          if (sub.sys_id == id) {
+            obj = { 'type': sub.type == 'subsection' ? 'sub' : 'unt', 'parent': item.sys_id, 'obj': sub };
+          } else if (sub.type == 'subsection') {
+            sub.list_obj.forEach(function (sub_unit) {
+              if (sub_unit.sys_id == id) {
+                obj = { 'type': "sub unit", 'parent': sub.sys_id, 'obj': sub_unit };
+              }
+            });
+          }
+
+        });
+      }
+    });
+    return obj;
+  }
+
+  /**
+   * get order of the first or last elements
+   * list : the array of items
+   * param can be 'first' or 'last'
+   */
+  this.getOrder = function (list, param) {
+    if (list && list.length > 0) {
+      list.sort(function (a, b) {
+        if (a.order > b.order)
+          return 1;
+        else if (a.order < b.order)
+          return -1;
+        return 0;
+      });
+      if (param == 'last') {
+        return list[list.length - 1].order;
+      } else if (param == 'first') {
+        list.reverse();
+        return list[list.length - 1].order;
+      }
+    } else {
+      return 0;
+    }
+  }
+}]]></script>
+        <sys_class_name>sp_angular_provider</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-03-27 10:18:00</sys_created_on>
+        <sys_id>35e7e0b907ff8810e53ef03c7c1ed00d</sys_id>
+        <sys_mod_count>18</sys_mod_count>
+        <sys_name>CourseData</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_angular_provider_35e7e0b907ff8810e53ef03c7c1ed00d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-03-31 15:44:18</sys_updated_on>
+        <type>service</type>
+    </sp_angular_provider>
+</record_update>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_angular_provider">
+    <sp_angular_provider action="INSERT_OR_UPDATE">
+        <name>quillEditor</name>
+        <script><![CDATA[function quillEditor() {
+    return {
+        restrict: 'E',
+        replace: true,
+        scope: {
+            'draw': '='
+        },
+        templateUrl: 'quill_editor.html',
+        controller: function ($scope, $rootScope, $http) {
+
+            var Inline = Quill.import('blots/inline');
+
+            class SpanBlock extends Inline {
+                static create(value) {
+                    var node = super.create();
+                    node.setAttribute('class', 'spanblock');
+                    return node;
+                }
+            }
+
+            //alert danger
+            class AlertDanger extends Inline {
+                static create(value) {
+                    var node = super.create();
+                    node.setAttribute('class', 'alert alert-danger');
+                    return node;
+                }
+            }
+
+            //alert info
+            class AlertInfo extends Inline {
+                static create(value) {
+                    var node = super.create();
+                    node.setAttribute('class', 'alert alert-info');
+                    return node;
+                }
+            }
+
+            //alert success
+            class AlertSuccess extends Inline {
+                static create(value) {
+                    var node = super.create();
+                    node.setAttribute('class', 'alert alert-success');
+                    return node;
+                }
+            }
+
+            //alert warning
+            class AlertWarning extends Inline {
+                static create(value) {
+                    var node = super.create();
+                    node.setAttribute('class', 'alert alert-warning');
+                    return node;
+                }
+            }
+
+
+            SpanBlock.blotName = 'spanblock';
+            SpanBlock.tagName = 'div';
+            Quill.register(SpanBlock);
+
+            AlertDanger.blotName = 'alertdanger';
+            AlertDanger.tagName = 'div';
+            Quill.register(AlertDanger);
+
+            AlertInfo.blotName = 'alertinfo';
+            AlertInfo.tagName = 'div';
+            Quill.register(AlertInfo);
+
+            AlertSuccess.blotName = 'alertsuccess';
+            AlertSuccess.tagName = 'div';
+            Quill.register(AlertSuccess);
+
+            AlertWarning.blotName = 'alertwarning';
+            AlertWarning.tagName = 'div';
+            Quill.register(AlertWarning);
+
+            var toolbarOptions = [
+                ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                ['blockquote', 'code-block'],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],     // superscript/subscript
+                [{ 'indent': '-1' }, { 'indent': '+1' }],             // text direction
+
+                [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+                [{ 'color': [] }, { 'background': [] }],
+                [{ 'align': [] }],
+                ["link", "image", "video"],
+                ['spanblock'],
+                ['alertdanger', 'alertinfo', 'alertsuccess', 'alertwarning']
+            ];
+            var quill = new Quill('#editor', {
+                modules: {
+                    toolbar: toolbarOptions
+                },
+                theme: 'snow'
+            });
+            quill.keyboard.addBinding({
+                key: 's',
+                shortKey: true
+            }, function (range, context) {
+                $http.post("/api/x_315700_lms/quill_unit/saveUnit", {
+                    'unit_id':$scope.unit_id,
+                    'content':this.quill.getContents(),
+                    'html':quill.root.innerHTML
+                    }).then(function (response) {
+                        if(response.data.result.status == 'success'){
+                            $scope.draw(quill.root.innerHTML);
+                        }
+    
+                });
+
+
+            });
+            //get unit content when selected
+
+            $rootScope.$on('unit_selected', function (event,data) {
+                $scope.unit_id = data;
+                $http.get('/api/x_315700_lms/quill_unit/getUnit', { params: {unit_id: data}}).then(function (response) {
+                    if (!response.data.result.unit_content) {
+                        console.log('not content associetd with the unit ');
+                     }else{
+                         //set content
+                         var content = JSON.parse(response.data.result.unit_content);
+                         quill.setContents(content);
+                         $scope.draw(quill.root.innerHTML);
+                     }
+                });
+            });
+            // $scope.$watch($scope.content,function(){
+            //     console.log('changing body ...');
+            //     quill.setContents($scope.content);
+            // });
+
+
+            //custom button actions
+            var spanBlockButton = document.querySelector('.ql-spanblock');
+            spanBlockButton.addEventListener('click', function () {
+                var range = quill.getSelection();
+                if (range)
+                    quill.formatText(range, 'spanblock');
+                else
+                    console.log('it it invalid');
+            });
+
+            var alertDangerButton = document.querySelector('.ql-alertdanger');
+            alertDangerButton.addEventListener('click', function () {
+                var range = quill.getSelection();
+                if (range)
+                    quill.formatText(range, 'alertdanger');
+                else
+                    console.log('it it invalid');
+            });
+
+            var alertInfoButton = document.querySelector('.ql-alertinfo');
+            alertInfoButton.addEventListener('click', function () {
+                var range = quill.getSelection();
+                if (range)
+                    quill.formatText(range, 'alertinfo');
+                else
+                    console.log('it it invalid');
+            });
+
+            var alertSuccessButton = document.querySelector('.ql-alertsuccess');
+            alertSuccessButton.addEventListener('click', function () {
+                var range = quill.getSelection();
+                if (range)
+                    quill.formatText(range, 'alertsuccess');
+                else
+                    console.log('it it invalid');
+            });
+
+            var alertWarningButton = document.querySelector('.ql-alertwarning');
+            alertWarningButton.addEventListener('click', function () {
+                var range = quill.getSelection();
+                if (range)
+                    quill.formatText(range, 'alertwarning');
+                else
+                    console.log('it it invalid');
+            });
+        }
+    }
+}]]></script>
+        <sys_class_name>sp_angular_provider</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-03-25 12:41:06</sys_created_on>
+        <sys_id>cf75760d077b0810e53ef03c7c1ed053</sys_id>
+        <sys_mod_count>13</sys_mod_count>
+        <sys_name>quillEditor</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_angular_provider_cf75760d077b0810e53ef03c7c1ed053</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-03-25 15:34:56</sys_updated_on>
+        <type>directive</type>
+    </sp_angular_provider>
+</record_update>
