@@ -78,7 +78,7 @@
         <update_guid_history>d393c8944e220010467e65a0010d6fa0:2094440892</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="LMS Portal - Container 3">a5c450ecdb22001016939b81ca96198a</sys_audit_delete>
+        <sys_audit_delete display_value="">a5c450ecdb22001016939b81ca96198a</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-01-21 08:23:08</sys_created_on>

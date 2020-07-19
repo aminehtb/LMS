@@ -1,329 +1,408 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[function($scope, $sce, CourseData) {
-
-  var height = $('#course_title').outerHeight();
-  $('#title').css('height', height + 'px');
-  $('.action_btn').css('margin-top', (height - 40) / 2);
-  $('.action_btn').css('margin-bottom', (height - 40) / 2);
-
-
-  //custom alert boxes
-  var c = this;
-  c.data.reading_mode = true;
-  c.data.edit = false;
-  c.data.unit_name = "";
-  //draw unit html on view mode ( gets result from quill directive )
-  $scope.draw = function (html) {
-    document.getElementById("view-mode").innerHTML = html;
-  }
-
-  //c.data.course_id = "course";
-  c.data.unit_content = false;
-  c.data.update_info = false;
-  c.data.selected_obj = false;
-  c.data.selected_all = [];
-  c.data.positions = ['At the beginning', 'Before', 'After', 'At the end'];
-  c.data.selected_position = "Select an option";
-
-  $scope.changePosition = function (i) {
-    c.data.selected_position = c.data.positions[i];
-    c.data.disable_select_option = c.data.selected_position == c.data.positions[0] || c.data.selected_position == c.data.positions[3] ? true : null;
-    c.data.position_error = null;
-  }
-  // $scope.objectChange = function () {
-  //   c.data.position_error = null;
-  // }
-  c.data.disable_select_option = c.data.selected_position == c.data.positions[0] || c.data.selected_position == c.data.positions[3] ? true : null;
-
-  $scope.$watch(function () { return CourseData.getCurrent() }, function (new_val) {
-    var current_id = CourseData.getCurrent();
-    var sectionlist = CourseData.getSectionList();
-
-    if (current_id) {
-      var current_object = CourseData.getSelectedObject(sectionlist, current_id);
-
-      if (current_object.type == "sec") {
-        current_object.listAll = CourseData.getAllSections(sectionlist);
-      } else {
-        current_object.listAll = CourseData.getSelectedObject(sectionlist, current_object.parent).obj.list_obj;
-        if (current_object.type == "sub") {
-          current_object.list_sec_sub = CourseData.getAllSections(sectionlist);
-        } else {
-          current_object.list_sec_sub = CourseData.getListSectionSub(sectionlist);
-        }
-      }
-      if (current_object) {
-        //rest error messages 
-        c.data.position_error = null;
-        c.data.name_error = null;
-        //reset data holders
-        c.data.selected_position = "Select an option";
-        c.data.selected_all = [];
-        c.data.selected_obj = true;
-        c.data.selected_name = current_object.obj.name;
-        if (current_object.type == 'sub unit')
-          c.data.type = 'unt';
-        else
-          c.data.type = current_object.type;
-        c.data.selected_id = current_object.obj.sys_id;
-        c.data.selected_all = current_object.listAll;
-        c.data.list = sectionlist;
-        if (current_object.list_sec_sub) {
-          c.data.list_sec_sub = current_object.list_sec_sub;
-          c.data.inside = current_object.parent;
-          //appel
-          $scope.loadAfter();
-          c.data.old_parent = current_object.parent;
-        }
-        if (c.data.type == 'unt') {
-          //emmit to quill directive
-          $scope.$emit('unit_selected', current_object.obj.sys_id);
-          c.data.unit_content = true;
-          c.data.update_info = false;
-        } else {
-          c.data.unit_content = false;
-          c.data.update_info = true;
-        }
-      }
-    }
-  }, true);
-  // if(c.data.current_state && c.data.current_state !=''){
-  // 	console.log(CourseData.dataHolder);
-  // }
-  $scope.update = function () {
-    c.data.action = "update";
-    c.data.name = c.data.selected_name;
-    switch (c.data.selected_position) {
-      case 'At the beginning': c.data.position = 'begin'; c.data.order = CourseData.getOrder(c.data.selected_all, 'first'); break;
-      case 'Before': c.data.position = 'before'; c.data.order = CourseData.getSelectedObject(c.data.list, c.data.selected_object) ? CourseData.getSelectedObject(c.data.list, c.data.selected_object).obj.order : null; break;
-      case 'After': c.data.position = 'after'; c.data.order = CourseData.getSelectedObject(c.data.list, c.data.selected_object) ? CourseData.getSelectedObject(c.data.list, c.data.selected_object).obj.order + 100 : null; break;
-      case 'At the end': c.data.position = 'end'; c.data.order = parseInt(CourseData.getOrder(c.data.selected_all, 'last')); break;
-      default: c.data.position = null; break;
-    }
-
-    c.data.parent = c.data.type == 'sec' ? c.data.course_id : c.data.inside;
-    var test = test_input();
-    if (test) {
-      c.server.update().then(function (r) {
-        c.data.selected_position = "Select an option";
-        $scope.$emit('reload');
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Update to ' + c.data.name + ' has been saved',
-          showConfirmButton: false,
-          timer: 1500
-        });
-
-      });
-    }
-
-  }
-  $scope.delete = function () {
-    //delete object
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#e3e3e3',
-      confirmButtonText: 'Yes, delete it!'
-    }).then(function (result) {
-      if (result.value) {
-        c.data.action = 'delete';
-        c.data.parent = c.data.course_id;
-        c.server.update().then(function (r) {
-          if (r.deleted) {
-            $scope.$emit('reload');
-            Swal.fire({
-              position: 'top-end',
-              title: 'Deleted!',
-              icon: 'success',
-              showConfirmButton: false,
-              timer: 1500
-            });
-          }
-        });
-
-      }
-    });
-  }
-  $scope.update_info = function () {
-    //update button clicked
-    c.data.update_info = !c.data.update_info;
-    if (c.data.type == 'unt')
-      c.data.unit_content = !c.data.update_info;
-  }
-  $scope.edit = function () {
-    //edit button clicked in unit only
-    c.data.edit = !c.data.edit;
-    c.data.update_info = false;
-    if (!c.data.edit) {
-      $('#quill-change').removeClass("fa-eye").addClass("fa-pencil");
-    } else {
-      $('#quill-change').removeClass("fa-pencil").addClass("fa-eye");
-    }
-
-  }
-  $scope.loadAfter = function () {
-    c.data.inside_error = null;
-    var selected_obj = CourseData.getSelectedObject(c.data.list, c.data.inside);
-    c.data.selected_all = CourseData.getListObjects(selected_obj.obj.list_obj);
-  }
-  $scope.expand = function(){
-    $('#expand-icon').toggleClass('fa-expand',true);
-    $('#expand-icon').toggleClass('fa-compress',true);
-  }
-
-  function test_input() {
-    var res = true;
-    if (c.data.type != 'sec' && !c.data.position && c.data.old_parent != c.data.parent) {
-      res = false;
-      c.data.position_error = "Please select a position";
-    }
-    if (c.data.order == null && c.data.position) {
-      res = false;
-      c.data.position_error = "Please select a position";
-    }
-    if (!c.data.name) {
-      c.data.name_error = "Name must be provided";
-      res = false;
-    }
-    return res;
-  }
-}]]></client_script>
-        <controller_as>c</controller_as>
-        <css>$light=#16dec7;
-$dark = #293e40;
-$dark2 = #5a7f71;
-
-
-.ql-spanblock:after {
-    content: "&lt;sb/&gt;";
-  }
-.ql-alertdanger,.ql-alertinfo,.ql-alertsuccess,.ql-alertwarning{
-  font-family: FontAwesome;
-  display: inline-block;
-  padding-right: 6px;
-  font-weight:900;
-  vertical-align: middle;
-}
-.ql-alertdanger:after {
-  content: "\f057";
-  color:#a94442;
-  }
-.ql-alertinfo:after {
-  content: "\f05a";
-  color:#31708f;
-  }
-.ql-alertsuccess:before {
-  content: "\f058";
-  color:#3c763d;
-  }
-.ql-alertwarning:after {
-  content: "\f071";
-  color:#8a6d3b;
-  }
-
+        <client_script><![CDATA[function($scope, $timeout, CourseData,$location,$window) {
+    //custom alert boxes
+    var c = this;
   
-  .spanblock {
-      background-color: #F8F8F8;
-      border: 1px solid #CCC;
-      line-height: 19px;
-      padding: 6px 10px;
-      border-radius: 3px;
-      margin: 15px 0;
-  }
-.alert{
-	position:relative;
-}
-.alert-danger::before{
-  font-family: FontAwesome;
-  display: inline-block;
-  padding-right: 6px;
-  font-weight:900;
-  vertical-align: middle;
-  content: "\f057";
-  position:absolute;
-  top:-10px;
-  left:-5px;
-}
-.alert-info::before{
-  font-family: FontAwesome;
-  display: inline-block;
-  padding-right: 6px;
-  font-weight:900;
-  vertical-align: middle;
-  content: "\f05a";
-  position:absolute;
-  top:-10px;
-  left:-5px;
-}
-
-.alert-success::before{
-  font-family: FontAwesome;
-  display: inline-block;
-  padding-right: 6px;
-  font-weight:900;
-  vertical-align: middle;
-  content: "\f058";
-  position:absolute;
-  top:-10px;
-  left:-5px;
-}
-.alert-warning::before{
-  font-family: FontAwesome;
-  display: inline-block;
-  padding-right: 6px;
-  font-weight:900;
-  vertical-align: middle;
-  content: "\f071";
-  position:absolute;
-  top:-10px;
-  left:-5px;
-}
-.header{
-    background: #596a68;
-  	width:100%;
-}
-#title{
-    margin: 0;
-    padding: 1em;
-  	color:white;
-  	display: table-cell;
-  	vertical-align: middle;
-  	width: 100%
-
-}
-.action_btn{
- 		border: none;
-    outline: none;
-    border-radius: 50%;
-    height: 40px;
-    width: 40px;
-  	color:#596a68;
-  background:white;
-  &amp;:hover{
-  box-shadow: 0 0 10px #16dec7;
-    color:#16dec7;
-}
-}
-.content{
-  padding-top:10px;
-}
-.modal-footer {
-  border-top:none !important;
-}
-.disabled_action{
-background:#f1f1f1 !important;
-  &amp;:hover{
-    background : #f1f1f1 !important;
-    color : black !important;
-    pointer-events:none;
-  }
+    c.data.edit = false;
+    c.data.unit_name = "";
+    //draw unit html on view mode ( gets result from quill directive )
+    $scope.draw = function (html) {
+        document.getElementById("view-mode").innerHTML = html;
+    }
+  
+    //quiz record picker
+  c.data.quiz_query = 'evaluation_method=quiz^active=true';
+  $scope.quiz = { displayValue: "", value: "", name: 'quiz' };
+  $scope.$on("field.change", function (evt, parms) {
+    if (parms.field.name == 'quiz')
+      $scope.quiz = parms.field;
+    });
+    
+    //c.data.course_id = "course";
+    c.data.unit_content = false;
+    c.data.update_info = false;
+    c.data.selected_obj = false;
+    c.data.selected_all = [];
+    c.data.positions = ['At the beginning', 'Before', 'After', 'At the end'];
+    c.data.selected_position = "Select an option";
+  
+    $scope.changePosition = function (i) {
+        c.data.selected_position = c.data.positions[i];
+        c.data.disable_select_option = c.data.selected_position == c.data.positions[0] || c.data.selected_position == c.data.positions[3] ? true : null;
+        c.data.position_error = null;
+    }
+    // $scope.objectChange = function () {
+    //   c.data.position_error = null;
+    // }
+    c.data.disable_select_option = c.data.selected_position == c.data.positions[0] || c.data.selected_position == c.data.positions[3] ? true : null;
+  
+    $scope.$watch(function () { return CourseData.getCurrent() }, function (new_val) {
+        if (c.data.reading_mode) {
+            var error = CourseData.no_first_unit();
+            if (error) {
+                c.data.no_unit_found = true;
+                return;
+            } else
+                c.data.no_unit_found = false
+        }
+  
+        var current_id = CourseData.getCurrent();
+        var sectionlist = CourseData.getSectionList();
+  
+        if (current_id) {
+            var current_object = CourseData.getSelectedObject(sectionlist, current_id);
+  
+            if (current_object.type == "sec") {
+                current_object.listAll = CourseData.getAllSections(sectionlist);
+            } else {
+                current_object.listAll = CourseData.getSelectedObject(sectionlist, current_object.parent).obj.list_obj;
+                if (current_object.type == "sub") {
+                    current_object.list_sec_sub = CourseData.getAllSections(sectionlist);
+                } else {
+                    current_object.list_sec_sub = CourseData.getListSectionSub(sectionlist);
+                    console.log(current_object);
+                }
+            }
+            if (current_object) {
+                //rest error messages 
+                c.data.position_error = null;
+                c.data.name_error = null;
+                //reset data holders
+                c.data.selected_position = "Select an option";
+                c.data.selected_all = [];
+                c.data.selected_obj = true;
+                c.data.selected_name = current_object.obj.name;
+                if (current_object.type == 'sub unit')
+                    c.data.type = 'unt';
+                else
+                    c.data.type = current_object.type;
+                c.data.selected_id = current_object.obj.sys_id;
+                c.data.selected_all = current_object.listAll;
+                c.data.list = sectionlist;
+                if (current_object.list_sec_sub) {
+                    c.data.list_sec_sub = current_object.list_sec_sub;
+                    c.data.inside = current_object.parent;
+                    //appel
+                    $scope.loadAfter();
+                    c.data.old_parent = current_object.parent;
+                }
+                if (c.data.type == 'unt') {
+                    //emmit to quill directive
+                    $scope.$emit('unit_selected', current_object.obj.sys_id);
+                    c.data.unit_content = true;
+                    c.data.update_info = false;
+                } else if (c.data.type == 'quiz') {
+                    //get the quiz instance or associate a new instance to the user 
+                    c.data.action = "get_quiz_instance";
+                    c.data.quiz = current_object.obj.quiz_id;
+                    $scope.quiz.value = current_object.obj.quiz_id;
+                    $scope.quiz.displayValue = current_object.obj.quiz_name;
+                    c.data.min_to_pass = current_object.obj.min_to_pass;
+                    c.data.unit_content = false;
+                    c.data.update_info = false;
+                }
+            }
+        }
+  
+        $timeout(function () {
+            var height = $('#course_title').outerHeight();
+  
+            $('#title').css('height', height + 'px');
+            $('.action_btn').css('margin-top', (height - 40) / 2);
+            $('.action_btn').css('margin-bottom', (height - 40) / 2);
+        }, 500);
+  
+    }, true);
+    // if(c.data.current_state && c.data.current_state !=''){
+    // 	console.log(CourseData.dataHolder);
+    // }
+    $scope.minToPassChange = function(){
+        if(c.data.min_to_pass <0 || c.data.min_to_pass >100){
+            c.data.min_error = "value should be between 0 and 100 %";
+        }else{
+            c.data.min_error = null;
+        }
+    }
+  
+    $scope.update = function () {
+        c.data.action = "update";
+        c.data.name = c.data.selected_name;
+        switch (c.data.selected_position) {
+            case 'At the beginning': c.data.position = 'begin'; c.data.order = CourseData.getOrder(c.data.selected_all, 'first'); break;
+            case 'Before': c.data.position = 'before'; c.data.order = CourseData.getSelectedObject(c.data.list, c.data.selected_object) ? CourseData.getSelectedObject(c.data.list, c.data.selected_object).obj.order : null; break;
+            case 'After': c.data.position = 'after'; c.data.order = CourseData.getSelectedObject(c.data.list, c.data.selected_object) ? CourseData.getSelectedObject(c.data.list, c.data.selected_object).obj.order + 100 : null; break;
+            case 'At the end': c.data.position = 'end'; c.data.order = parseInt(CourseData.getOrder(c.data.selected_all, 'last')); break;
+            default: c.data.position = null; break;
+        }
+  
+        c.data.parent = c.data.type == 'sec' ? c.data.course_id : c.data.inside;
+        var test = test_input();
+        if (test) {
+          c.data.quiz_id = $scope.quiz.value;
+            c.server.update().then(function (r) {
+                c.data.selected_position = "Select an option";
+                $scope.$emit('reload');
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Update to ' + c.data.name + ' has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+  
+            });
+        }
+  
+    }
+    $scope.delete_object = function () {
+        //delete object
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#e3e3e3',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function (result) {
+            if (result.value) {
+                c.data.action = 'delete';
+                c.data.parent = c.data.course_id;
+                c.server.update().then(function (r) {
+                    if (r.deleted) {
+                        $scope.$emit('reload');
+                        Swal.fire({
+                            position: 'top-end',
+                            title: 'Deleted!',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
+  
+            }
+        });
+    }
+    $scope.update_info = function () {
+        //update button clicked
+        c.data.update_info = !c.data.update_info;
+        if (c.data.type == 'unt')
+            c.data.unit_content = !c.data.update_info;
+    }
+    $scope.edit = function () {
+        //edit button clicked in unit only
+        c.data.edit = !c.data.edit;
+        c.data.update_info = false;
+        if (!c.data.edit) {
+            $('#quill-change').removeClass("fa-eye").addClass("fa-pencil");
+        } else {
+            $('#quill-change').removeClass("fa-pencil").addClass("fa-eye");
+        }
+  
+    }
+    $scope.loadAfter = function () {
+        c.data.inside_error = null;
+        var selected_obj = CourseData.getSelectedObject(c.data.list, c.data.inside);
+        c.data.selected_all = CourseData.getListObjects(selected_obj.obj.list_obj);
+    }
+    $scope.expand = function () {
+        if ($('#expand-icon').hasClass('fa-compress')) {
+            $('#expand-icon').addClass('fa-expand').removeClass('fa-compress');
+            CourseData.setFullScreenMode(false);
+        } else {
+            $('#expand-icon').addClass('fa-compress').removeClass('fa-expand');
+            CourseData.setFullScreenMode(true);
+        }
+    }
+    $scope.next = function () {
+        c.data.action = 'mark_unit_complete';
+        c.data.unit_id = CourseData.getCurrent();
+        c.server.update().then(function (r) {
+      var next_is_quiz = CourseData.nextIsQuiz(CourseData.getCurrent());
+      if(next_is_quiz){
+        $location.search('current',next_is_quiz);
+      }
+            CourseData.nextUnit(CourseData.getCurrent());
+        });
+    }
+    $scope.previous = function () {
+        CourseData.prevUnit(CourseData.getCurrent());
+    }
+    $scope.preview = function(){
+        var url = "https://"+$location.host()+"/fm?id=summernote_angular&sys_id="+c.data.course_id+"&mode=read";
+        console.log(url);
+        $window.open(url,'_blank');
+    }
+  
+    function test_input() {
+        var res = true;
+        if (c.data.type != 'sec' && !c.data.position && c.data.old_parent != c.data.parent) {
+            res = false;
+            c.data.position_error = "Please select a position";
+        }
+        if (c.data.order == null && c.data.position) {
+            res = false;
+            c.data.position_error = "Please select a position";
+        }
+        if (!c.data.name) {
+            c.data.name_error = "Name must be provided";
+            res = false;
+        }
+        if (!c.data.min_to_pass || (c.data.min_to_pass<0 || c.data.min_to_pass>100)) {
+            c.data.min_error = "unvalid min to pass value ";
+            res = false;
+        }
+        if (!$scope.quiz || (!$scope.quiz.value || !$scope.quiz.displayValue)) {
+            c.data.quiz_error = "Please select a quiz";
+            res = false;
+        }
+        return res;
+    }
+  }]]></client_script>
+        <controller_as>c</controller_as>
+        <css>$light=#16dec7;&#13;
+$dark = #293e40;&#13;
+$dark2 = #5a7f71;&#13;
+&#13;
+&#13;
+.ql-spanblock:after {&#13;
+    content: "&lt;sb/&gt;";&#13;
+  }&#13;
+.ql-alertdanger,.ql-alertinfo,.ql-alertsuccess,.ql-alertwarning{&#13;
+  font-family: FontAwesome;&#13;
+  display: inline-block;&#13;
+  padding-right: 6px;&#13;
+  font-weight:900;&#13;
+  vertical-align: middle;&#13;
+}&#13;
+.ql-alertdanger:after {&#13;
+  content: "\f057";&#13;
+  color:#a94442;&#13;
+  }&#13;
+.ql-alertinfo:after {&#13;
+  content: "\f05a";&#13;
+  color:#31708f;&#13;
+  }&#13;
+.ql-alertsuccess:before {&#13;
+  content: "\f058";&#13;
+  color:#3c763d;&#13;
+  }&#13;
+.ql-alertwarning:after {&#13;
+  content: "\f071";&#13;
+  color:#8a6d3b;&#13;
+  }&#13;
+&#13;
+  &#13;
+  .spanblock {&#13;
+      background-color: #F8F8F8;&#13;
+      border: 1px solid #CCC;&#13;
+      line-height: 19px;&#13;
+      padding: 6px 10px;&#13;
+      border-radius: 3px;&#13;
+      margin: 15px 0;&#13;
+  }&#13;
+.alert{&#13;
+	position:relative;&#13;
+}&#13;
+.alert-danger::before{&#13;
+  font-family: FontAwesome;&#13;
+  display: inline-block;&#13;
+  padding-right: 6px;&#13;
+  font-weight:900;&#13;
+  vertical-align: middle;&#13;
+  content: "\f057";&#13;
+  position:absolute;&#13;
+  top:-10px;&#13;
+  left:-5px;&#13;
+}&#13;
+.alert-info::before{&#13;
+  font-family: FontAwesome;&#13;
+  display: inline-block;&#13;
+  padding-right: 6px;&#13;
+  font-weight:900;&#13;
+  vertical-align: middle;&#13;
+  content: "\f05a";&#13;
+  position:absolute;&#13;
+  top:-10px;&#13;
+  left:-5px;&#13;
+}&#13;
+&#13;
+.alert-success::before{&#13;
+  font-family: FontAwesome;&#13;
+  display: inline-block;&#13;
+  padding-right: 6px;&#13;
+  font-weight:900;&#13;
+  vertical-align: middle;&#13;
+  content: "\f058";&#13;
+  position:absolute;&#13;
+  top:-10px;&#13;
+  left:-5px;&#13;
+}&#13;
+.alert-warning::before{&#13;
+  font-family: FontAwesome;&#13;
+  display: inline-block;&#13;
+  padding-right: 6px;&#13;
+  font-weight:900;&#13;
+  vertical-align: middle;&#13;
+  content: "\f071";&#13;
+  position:absolute;&#13;
+  top:-10px;&#13;
+  left:-5px;&#13;
+}&#13;
+.header{&#13;
+    background: #596a68;&#13;
+  	width:100%;&#13;
+}&#13;
+#title{&#13;
+    margin: 0;&#13;
+    padding: 1em;&#13;
+  	color:white;&#13;
+  	display: table-cell;&#13;
+  	vertical-align: middle;&#13;
+  	width: 100%&#13;
+&#13;
+}&#13;
+.action_btn{&#13;
+ 		border: none;&#13;
+    outline: none;&#13;
+    border-radius: 50%;&#13;
+    height: 40px;&#13;
+    width: 40px;&#13;
+  	color:#596a68;&#13;
+  background:white;&#13;
+  &amp;:hover{&#13;
+  box-shadow: 0 0 10px #16dec7;&#13;
+    color:#16dec7;&#13;
+}&#13;
+}&#13;
+.content{&#13;
+  padding-top:10px;&#13;
+}&#13;
+.modal-footer {&#13;
+  border-top:none !important;&#13;
+}&#13;
+.disabled_action{&#13;
+background:#f1f1f1 !important;&#13;
+  &amp;:hover{&#13;
+    background : #f1f1f1 !important;&#13;
+    color : black !important;&#13;
+    pointer-events:none;&#13;
+  }&#13;
+}&#13;
+.center_vertical{&#13;
+  display:flex;&#13;
+  justify-content:center;&#13;
+  align-items:center;&#13;
+}&#13;
+.no-first-unit{&#13;
+  display:flex;&#13;
+  width:100%;&#13;
+  min-height:200px;&#13;
+  justify-content:center;&#13;
+  align-items:center;&#13;
 }</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -344,9 +423,20 @@ background:#f1f1f1 !important;
     data.unitid = "";
     data.unit_name = "";
     data.course_id = $sp.getParameter("sys_id");
-	data.current_state = $sp.getParameter("current");
+    data.current_state = $sp.getParameter("current");
+    data.mode = $sp.getParameter("mode");
+    data.can_edit = gs.hasRole('x_315700_lms.admin') || gs.hasRole('x_315700_lms.instructor');
+    if (data.can_edit && data.mode && data.mode == 'edit') {
+        data.reading_mode = false;
+    } else {
+        data.reading_mode = true;
+    }
     var course_organizer = new x_315700_lms.CourseOrganizer();
 
+    if (data.current_state) {
+        data.quiz_instance_id = new quizUtil().getOrCreateInstance(data.current_state);
+        data.quiz_widget = $sp.getWidget("fm_quiz", { instance_id: data.quiz_instance_id });
+    }
     if (input && input.action == 'update') {
         var new_order = input.order;
         var parent = input.parent ? input.parent : null;
@@ -428,6 +518,33 @@ background:#f1f1f1 !important;
 
             gr.name = input.name;
             gr.update();
+        } else if (input.type == 'quiz') {
+            var gr = new GlideRecord('x_315700_lms_quiz_ref');
+            gr.get(input.selected_id);
+
+            var old_parent = gr.section;
+            var old_order = parseInt(gr.order);
+
+
+            var new_parent = input.parent;
+            var new_order = input.order;
+            if (input.position) {
+                //shift back all object after its old position in the old section
+                course_organizer.shift(input.type, old_order, null, -1, old_parent);
+                if (input.position && input.position != 'end')
+                    new_order = new_order - 100;
+                //shift forth all object after its new position in the new section
+                course_organizer.shift(input.type, new_order, null, 1, new_parent);
+
+                //if(input.position && input.position == 'before')
+                gr.order = new_order + 100;
+                gr.section = new_parent;
+            }
+
+            gr.min_to_pass = input.min_to_pass;
+            gr.quiz = input.quiz_id;
+            gr.name = input.name;
+            gr.update();
         }
     } else if (input && input.action == 'delete') {
         data.deleted = false;
@@ -436,7 +553,23 @@ background:#f1f1f1 !important;
             course_organizer.deleteObject('x_315700_lms_section', input.selected_id, parent, input.type);
         else if (input.type == 'unt')
             course_organizer.deleteObject('x_315700_lms_unit', input.selected_id, parent, input.type);
+        else if (input.type == 'quiz')
+            course_organizer.deleteObject('x_315700_lms_quiz_ref', input.selected_id, parent, input.type);
         data.deleted = true;
+    } else if (input && input.action == 'mark_unit_complete' && input.unit_id) {
+        var test_gr = new GlideRecord('x_315700_lms_unit_user');
+        test_gr.addQuery('user_id', gs.getUserID());
+        test_gr.addQuery('unit_id', input.unit_id);
+        test_gr.query();
+
+        if (test_gr.getRowCount() == 0) {
+            var gr = new GlideRecord('x_315700_lms_unit_user');
+            gr.user_id = gs.getUserID();
+            gr.course = data.course_id;
+            gr.unit_id = input.unit_id;
+            gr.insert();
+        }
+
     }
 })();]]></script>
         <servicenow>false</servicenow>
@@ -444,78 +577,88 @@ background:#f1f1f1 !important;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-02-17 10:36:48</sys_created_on>
         <sys_id>2e467b09db83001016939b81ca9619c9</sys_id>
-        <sys_mod_count>451</sys_mod_count>
+        <sys_mod_count>558</sys_mod_count>
         <sys_name>fm_quill_editor</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sp_widget_2e467b09db83001016939b81ca9619c9</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2020-03-31 16:17:31</sys_updated_on>
+        <sys_updated_on>2020-07-16 12:30:15</sys_updated_on>
         <template><![CDATA[<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <div ng-show="c.data.selected_obj" class="row header">
-  <div class="col-sm-9">
-    <h3 id="title">
-        {{c.data.selected_name}}
-    </h3>
-  </div>
-  <div class="col-sm-3" ng-if="!c.data.reading_mode">
-    <div class="col-sm-4">
-        <button ng-show="c.data.type == 'unt'" class="action_btn" ng-click="edit()">
-          <i id="quill-change" class="fa fa-pencil fa-lg"></i>
-         </button>
-       </div>
-       <div class="col-sm-4">
-        <button class="action_btn" ng-click="update_info()">
-          <i class="fa fa-cog fa-lg"></i>
-         </button>
-       </div>
-       <div class="col-sm-4">
-        <button class="action_btn" ng-click="delete()">
-          <i class="fa fa-trash-o fa-lg"></i>
-         </button>
-       </div>
-  </div>
-  <div class="col-sm-3" ng-if="c.data.reading_mode">
-    <div class="col-sm-4">
-        <button class="action_btn" ng-click="expand()">
-            <i id="expand-icon" class="fa fa-expand fa-lg"></i>
-         </button>
-       </div>
-       <div class="col-sm-4">
-        <button class="action_btn" >
-          <i class="fa fa-step-backward fa-lg"></i>
-         </button>
-       </div>
-       <div class="col-sm-4">
-        <button class="action_btn">
-          <i class="fa fa-step-forward fa-lg"></i>
-         </button>
-       </div>
-  </div>
-  
-  
+    <div class="col-sm-9">
+        <h3 id="title">
+            {{c.data.selected_name}}
+        </h3>
+    </div>
+    <div class="col-sm-3 center_vertical" ng-if="!c.data.reading_mode">
+        <div>
+            <div class="col-sm-3">
+                <button ng-show="c.data.type == 'unt'" class="action_btn" ng-click="edit()">
+                    <i id="quill-change" class="fa fa-pencil fa-lg"></i>
+                </button>
+            </div>
+            <div class="col-sm-3">
+                <button class="action_btn" ng-click="update_info()">
+                    <i class="fa fa-cog fa-lg"></i>
+                </button>
+            </div>
+            <div class="col-sm-3">
+                <button class="action_btn" ng-click="delete_object()">
+                    <i class="fa fa-trash-o fa-lg"></i>
+                </button>
+            </div>
+            <div class="col-sm-3">
+                <button class="action_btn" ng-click="preview()">
+                    <i class="fa fa-external-link fa-lg"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-3 center_vertical" ng-if="c.data.reading_mode">
+        <div>
+            <div class="col-sm-4">
+                <button class="action_btn" ng-click="expand()">
+                    <i id="expand-icon" class="fa fa-expand fa-lg"></i>
+                </button>
+            </div>
+            <div class="col-sm-4">
+                <button ng-click="previous()" class="action_btn">
+                    <i class="fa fa-chevron-left fa-lg"></i>
+                </button>
+            </div>
+            <div class="col-sm-4">
+                <button ng-click="next()" class="action_btn">
+                    <i class="fa fa-chevron-right fa-lg"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 <div ng-show="c.data.unit_content" class="row">
-        <div ng-show="c.data.edit">
-            <quill-editor draw="draw"></quill-editor>
-        </div>
-    
-        <div ng-show="!c.data.edit" id="view-mode"></div>
+    <div ng-show="c.data.edit">
+        <quill-editor draw="draw"></quill-editor>
+    </div>
+
+    <div ng-class="{true:'hide',false:'show'}[c.data.reading_mode && c.data.no_unit_found]" ng-show="!c.data.edit" id="view-mode"></div>
 </div>
 
-<div ng-if="c.data.update_info && c.data.selected_obj"  class="row modal-body content">
+<div ng-if="!c.data.reading_mode && c.data.update_info && c.data.selected_obj" class="row modal-body content">
     <div class="form-group" ng-if="c.data.type!='sec'">
-    <label for="type">Inside</label>
-    <select class="form-control" id="inside" ng-model="c.data.inside" ng-change="loadAfter()">
-        <option value="" disabled>Select your option</option>
-        <option value="{{obj.id}}" ng-repeat="obj in c.data.list_sec_sub">{{obj.name}}</option>
-    </select>
-    <small ng-if="c.data.inside_error" class="text-danger">
-        {{c.data.inside_error}}
-    </small>
-</div>
+        <label for="type">Inside</label>
+        <select class="form-control" id="inside" ng-model="c.data.inside" ng-change="loadAfter()">
+            <option value="" disabled>Select your option</option>
+            <option value="{{obj.id}}" ng-repeat="obj in c.data.list_sec_sub">{{obj.name}}</option>
+        </select>
+        <small ng-if="c.data.inside_error" class="text-danger">
+            {{c.data.inside_error}}
+        </small>
+    </div>
     <div class="form-group" ng-class="{true:'has-error',false:''}[c.data.position_error && c.data.position_error !='']">
         <label for="after">Position</label>
         <div class="input-group">
@@ -524,7 +667,7 @@ background:#f1f1f1 !important;
                     aria-haspopup="true" aria-expanded="false">{{c.data.selected_position}} <span
                         class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li ng-repeat="pos in c.data.positions track by $index"><a href="#"
+                    <li ng-repeat="pos in c.data.positions track by $index"><a href="javascript:void(0)"
                             ng-class="{true:'disabled_action',false:''}[c.data.selected_all.length==0 && (pos=='Before' || pos=='After')]"
                             ng-click="changePosition($index)">{{pos}}</a></li>
                 </ul>
@@ -549,11 +692,40 @@ background:#f1f1f1 !important;
             {{c.data.name_error}}
         </small>
     </div>
+    <div ng-if="c.data.type == 'quiz'" ng-class="{true:'has-error',false:''}[c.data.quiz_error && c.data.quiz_error !='']"
+                        class="form-group">
+        <label for="name">Quiz</label>
+        <sn-record-picker field="quiz" table="'asmt_metric_type'" display-field="'name'"
+            value-field="'sys_id'" search-fields="'name'" default-query="c.data.quiz_query" page-size="100" on-change="quizChange()"></sn-record-picker>
+        
+        <small ng-if="c.data.quiz_error" id="name-error" class="text-danger">
+            {{c.data.quiz_error}}
+        </small>
+    </div>
+    <div ng-if="c.data.type == 'quiz'" ng-class="{true:'has-error',false:''}[c.data.min_error && c.data.min_error !='']"class="form-group">
+        <label for="name">Min to pass</label>
+            <div class="input-group">
+                <input type="name" class="form-control" id="min" ng-model="c.data.min_to_pass"
+                aria-describedby="name-error" ng-change="minToPassChange()">
+                <span class="input-group-addon" ><i class="fa fa-percent" aria-hidden="true"></i></span>
+                </div>
+        
+        <small ng-if="c.data.min_error" id="name-error" class="text-danger">
+            {{c.data.min_error}}
+        </small>
+    </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="delete()">delete</button>
+        <button type="button" class="btn btn-default" ng-click="delete_object()">delete</button>
         <button type="button" class="btn btn-primary" ng-click="update()">update</button>
     </div>
 </div>
+<div ng-if="c.data.reading_mode && c.data.no_unit_found" class="no-first-unit">
+    <h2>No unit found in this section</h2>
+</div>
+<div ng-if="c.data.type=='quiz'  && !c.data.update_info ">
+    <sp-widget widget="c.data.quiz_widget"></sp-widget>
+</div>
+
 ]]></template>
     </sp_widget>
 </record_update>

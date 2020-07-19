@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, CourseData, $timeout) {
+    /* widget controller */
+    var c = this;
+    //watch fullscreen mode 
+		if(!c.data.reading_mode){
+			$('#nav').removeClass('scale-1');
+		}
+    $scope.$watch(function () { return CourseData.isFullScreenMode() }, function (new_val) {
+        if (new_val) {
+            //$('#nav').css('height', ( $('#nav').outerHeight()+10) + 'px')
+            $('#nav').addClass('shrink');
+            $('#main').addClass('grow');
+					//$('#nav').addClass('collapsed');
+        } else {
+            $('#nav').removeClass('shrink');
+            $('#main').removeClass('grow');
+					//$('#nav').removeClass('collapsed');
+        }
+    });
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.col-md-3,
+        .col-md-9 {
+            transition: width .3s ease-in-out, transform .3s ease-in-out ;
+        }
+
+        .shrink {
+            width: 0%;
+            transform: scaleY(0) !important;
+            height: 0 !important;
+        }
+
+        .grow {
+            width: 95%
+        }
+
+        .scale-1 {
+          	transform-origin:top;
+            transform: scaleY(1);
+            height: auto;
+        }</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>fm_couse_edit_read</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>fm_couse_edit_read</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+	data.mode = $sp.getParameter("mode");
+	data.can_edit = gs.hasRole('x_315700_lms.admin') || gs.hasRole('x_315700_lms.instructor');
+	if(data.can_edit && data.mode && data.mode=='edit'){
+		data.reading_mode = false;
+	}else{
+		data.reading_mode = true;	
+	}
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-06-30 15:06:48</sys_created_on>
+        <sys_id>4829be5807715010288ff16c7c1ed033</sys_id>
+        <sys_mod_count>67</sys_mod_count>
+        <sys_name>fm_couse_edit_read</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_4829be5807715010288ff16c7c1ed033</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-02 09:14:10</sys_updated_on>
+        <template><![CDATA[<div class="row">
+	<div id="nav" class="col-md-3 scale-1" >
+    <widget id="fm_cours_structure"></widget>
+  </div>
+  <div id="main" class="col-md-9">
+    <widget id="fm_quill_editor"></widget>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

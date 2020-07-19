@@ -150,7 +150,7 @@
         <update_guid_history>60a30c94d3220010d3626d6fdcfffced:-1552411389</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="My Open Incidents">65c454ecdb22001016939b81ca961934</sys_audit_delete>
+        <sys_audit_delete display_value="">65c454ecdb22001016939b81ca961934</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-01-21 08:23:09</sys_created_on>

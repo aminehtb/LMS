@@ -18,7 +18,7 @@
         <provider_class/>
         <read_access>true</read_access>
         <scriptable_table>false</scriptable_table>
-        <super_class display_value="Catalog Item" name="sc_cat_item">3e24e689dbc2001016939b81ca961934</super_class>
+        <super_class display_value="Catalog Item" name="sc_cat_item">4dcf7bce07f01010288ff16c7c1ed063</super_class>
         <sys_class_code/>
         <sys_class_name>sys_db_object</sys_class_name>
         <sys_class_path/>

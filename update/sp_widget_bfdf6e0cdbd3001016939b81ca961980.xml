@@ -1,305 +1,330 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[function($scope, CourseData, $rootScope,$timeout) {
-    /* widget controller */
-    var c = this;
+        <client_script><![CDATA[function($scope, CourseData, $rootScope, $timeout,$location) {
+	/* widget controller */
+	var c = this;
 
-    //reload if someting changes
-    $rootScope.$on('reload', function (event, data) {
-        c.data.action = 'reload';
-        c.server.update().then(function (r) {
-            console.log('reloaded');
-        });
+	if (c.data.reading_mode)
+		CourseData.setReadingMode(true);
+	else
+		CourseData.setReadingMode(false);
 
-    });
-    CourseData.setSectionList(c.data.sectionlist);
-    if (c.data.current_state && c.data.current_state != '') {
-        highlight(c.data.current_state);
-        //var obj = prepCurrent(c.data.current_state);
-        CourseData.setCurrent(c.data.current_state);
-        
-        // $( document ).ready(function() {
-            
-        // });
 
-        // angular.element(document).ready(function () {
-        //     c.data.highlight.forEach(function(item){
-        //     console.log($('#'+item).first());});
-        // });
-       
-        
-    }
+	//reload if someting changes
+	$rootScope.$on('reload', function (event, data) {
+		c.data.action = 'reload';
+		c.server.update().then(function (r) {
+			console.log('reloaded');
+		});
 
-    //amine code
-    c.data.positions = ['At the beginning', 'Before', 'After', 'At the end'];
-    c.data.selected_position = c.data.positions[0];
-    $scope.changePosition = function (i) {
-        c.data.selected_position = c.data.positions[i];
-        c.data.disable_select_option = c.data.selected_position == c.data.positions[0] || c.data.selected_position == c.data.positions[3] ? true : null;
-    }
-    c.data.disable_select_option = c.data.selected_position == c.data.positions[0] || c.data.selected_position == c.data.positions[3] ? true : null;
-    c.data.list_after = [];
-    c.data.list_sec_sub = [];
+	});
 
-    $scope.objectChange = function () {
-        if (c.data.selected_object)
-            c.data.position_error = null;
-    }
-    $scope.nameChange = function () {
-        if (c.data.modal_name && c.data.modal_name != "")
-            c.data.name_error = null;
-    }
-    $scope.loadInside = function () {
-        c.data.type_error = null;
-        switch ($scope.type) {
-            case 'sec': c.data.list_after = []; c.data.list_after = CourseData.getAllSections( c.data.sectionlist); break;
-            case 'sub': c.data.list_sec_sub = []; c.data.list_sec_sub = CourseData.getAllSections( c.data.sectionlist); break;
-            case 'unt': c.data.list_sec_sub = CourseData.getListSectionSub(c.data.sectionlist); break;
+	//quiz record picker
+	c.data.quiz_query = 'evaluation_method=quiz^active=true';
+	$scope.quiz = { displayValue: "", value: "", name: 'quiz' };
+	$scope.$on("field.change", function (evt, parms) {
+		if (parms.field.name == 'quiz')
+			$scope.quiz = parms.field;
+	});
+	CourseData.setSectionList(c.data.sectionlist);
+	if (c.data.current_state && c.data.current_state != '') {
+		if (c.data.reading_mode && c.data.move_next) {
+			console.log("moving to next");
+			CourseData.nextUnit(c.data.current_state);
+			c.data.current_state = CourseData.getCurrent();
+			highlight(c.data.current_state);
+		} else {
+			highlight(c.data.current_state);
+			CourseData.setCurrent(c.data.current_state);
+		}
+
+	}
+
+	//watch changement in reading mode to highlight
+	if (c.data.reading_mode) {
+		$scope.$watch(function () { return CourseData.getCurrent() }, function (new_value) {
+			highlight(new_value);
+		})
+	}
+
+	c.data.positions = ['At the beginning', 'Before', 'After', 'At the end'];
+	c.data.selected_position = c.data.positions[0];
+	$scope.changePosition = function (i) {
+		c.data.selected_position = c.data.positions[i];
+		c.data.disable_select_option = c.data.selected_position == c.data.positions[0] || c.data.selected_position == c.data.positions[3] ? true : null;
+
+	}
+	c.data.disable_select_option = c.data.selected_position == c.data.positions[0] || c.data.selected_position == c.data.positions[3] ? true : null;
+	c.data.list_after = [];
+	c.data.list_sec_sub = [];
+
+    $scope.minToPassChange = function(){
+        if(c.data.min_to_pass <0 || c.data.min_to_pass >100){
+            c.data.min_error = "value should be between 0 and 100 %";
+        }else{
+            c.data.min_error = null;
         }
     }
-    $scope.loadAfter = function () {
-        c.data.inside_error = null;
-        var selected_obj = CourseData.getSelectedObject(c.data.sectionlist,c.data.inside);
-        c.data.list_after = CourseData.getListObjects(selected_obj.obj.list_obj);
-    }
-    $scope.add = function () {
-        if (!$scope.type) {
-            c.data.type_error = "Please select a type.";
-        } else if (!c.data.disable_select_option && !c.data.selected_object) {
-            c.data.position_error = "Please select an option."
-        } else if (!c.data.modal_name) {
-            c.data.name_error = "Name is required.";
-        } else if ($scope.type && $scope.type != 'sec' && !c.data.inside) {
-            c.data.inside_error = 'Please select an option';
+	$scope.objectChange = function () {
+		if (c.data.selected_object)
+			c.data.position_error = null;
+	}
+	$scope.nameChange = function () {
+		if (c.data.modal_name && c.data.modal_name != "")
+			c.data.name_error = null;
+	}
+	$scope.loadInside = function () {
+		c.data.type_error = null;
+		switch ($scope.type) {
+			case 'sec': c.data.list_after = []; c.data.list_after = CourseData.getAllSections(c.data.sectionlist); break;
+			case 'sub': c.data.list_sec_sub = []; c.data.list_sec_sub = CourseData.getAllSections(c.data.sectionlist); break;
+			case 'unt': c.data.list_sec_sub = CourseData.getListSectionSub(c.data.sectionlist); break;
+			case 'quiz': c.data.list_sec_sub = CourseData.getListSectionSub(c.data.sectionlist); break;
+		}
+	}
+	$scope.loadAfter = function () {
+		c.data.inside_error = null;
+		var selected_obj = CourseData.getSelectedObject(c.data.sectionlist, c.data.inside);
+		c.data.list_after = CourseData.getListObjects(selected_obj.obj.list_obj);
+	}
+	$scope.add = function () {
+		if (!$scope.type) {
+			c.data.type_error = "Please select a type.";
+		} else if (!c.data.disable_select_option && !c.data.selected_object) {
+			c.data.position_error = "Please select an option."
+		} else if ($scope.type && $scope.type != 'quiz' && !c.data.modal_name) {
+			c.data.name_error = "Name is required.";
+		} else if ($scope.type && $scope.type != 'sec' && !c.data.inside) {
+			c.data.inside_error = 'Please select an option';
+		} else if ($scope.type && $scope.type == 'quiz' && $scope.quiz.value == "" ) {
+			c.data.quiz_error = "Please select a quiz";
+		}else if(c.data.min_to_pass <0 || c.data.min_to_pass>100){
+            c.data.min_error = "value should be between 0 and 100 %";
         } else {
-            c.data.action = 'add';
-            c.data.type = $scope.type;
-            c.data.name = c.data.modal_name;
-            switch (c.data.selected_position) {
-                case 'At the beginning': c.data.position = 'begin'; c.data.order = CourseData.getOrder(c.data.list_after,'first'); break;
-                case 'Before': c.data.position = 'before'; c.data.order = CourseData.getSelectedObject(c.data.sectionlist,c.data.selected_object).obj.order; break;
-                case 'After': c.data.position = 'after'; c.data.order = CourseData.getSelectedObject(c.data.sectionlist,c.data.selected_object).obj.order; break;
-                case 'At the end': c.data.position = 'end'; c.data.order = parseInt(CourseData.getOrder(c.data.list_after,'last')) + 100; break;
-            }
-            c.data.parent = $scope.type == 'sec' ? c.data.course_id : c.data.inside;
+			console.log('adding ...');
+			c.data.action = 'add';
+			c.data.type = $scope.type;
+			c.data.name = c.data.modal_name;
+			c.data.quiz = $scope.quiz.value;
+			switch (c.data.selected_position) {
+				case 'At the beginning': c.data.position = 'begin'; c.data.order = CourseData.getOrder(c.data.list_after, 'first'); break;
+				case 'Before': c.data.position = 'before'; c.data.order = CourseData.getSelectedObject(c.data.sectionlist, c.data.selected_object).obj.order; break;
+				case 'After': c.data.position = 'after'; c.data.order = CourseData.getSelectedObject(c.data.sectionlist, c.data.selected_object).obj.order; break;
+				case 'At the end': c.data.position = 'end'; c.data.order = parseInt(CourseData.getOrder(c.data.list_after, 'last')) + 100; break;
+			}
+			c.data.parent = $scope.type == 'sec' ? c.data.course_id : c.data.inside;
 
-            c.server.update().then(function (r) {
-                c.data.action = undefined;
-                c.data.type = undefined;
-                $scope.type = undefined;
-                c.data.parent = undefined;
-                c.data.position = undefined;
-                c.data.order = undefined;
-                c.data.selected_position = c.data.positions[0];
+			c.server.update().then(function (r) {
+				CourseData.setSectionList(c.data.sectionlist);
+				c.data.action = undefined;
+				c.data.type = undefined;
+				$scope.type = undefined;
+				c.data.parent = undefined;
+				c.data.position = undefined;
+				c.data.order = undefined;
+				c.data.selected_position = c.data.positions[0];
 
-                c.data.list_sec_sub = [];
-                c.data.list_after = [];
-                c.data.modal_name = "";
-                if (r.added)
-                    $('#myModal').modal('hide');
-                $("#myModal").on("hidden.bs.modal", function () {
-                    $('form')[0].reset();
-                });
+				c.data.list_sec_sub = [];
+				c.data.list_after = [];
+				c.data.modal_name = "";
+				if (r.added)
+					$('#myModal').modal('hide');
+				$("#myModal").on("hidden.bs.modal", function () {
+					$('form')[0].reset();
+				});
 
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'New ' + r.added + ' has been created',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            });
-        }
+				Swal.fire({
+					position: 'top-end',
+					icon: 'success',
+					title: 'New ' + r.added + ' has been created',
+					showConfirmButton: false,
+					timer: 1500
+				});
+			});
+		}
 
-    }
-    $scope.selectItem = function (id, parent_id) {
-        //check by js 
-        //document.getElementById("" + id).checked = !document.getElementById("" + id).checked ;
-        highlight(id);
-        //var obj = prepCurrent(id, parent_id);
-        CourseData.setCurrent(id);
-        
-        //$scope.$emit('selectItem', obj);
-    }
-    
-    function prepCurrent(id) {
-        var obj = CourseData.getSelectedObject(c.data.sectionlist,id);
-        obj.all_data = c.data.sectionlist;
-        if (obj.type == "sec") {
-            obj.listAll = CourseData.getAllSections( c.data.sectionlist);
-        } else {
-            obj.listAll = CourseData.getSelectedObject(c.data.sectionlist,obj.parent).obj.list_obj;
-            if (obj.type == "sub") {
-                obj.list_sec_sub = CourseData.getAllSections( c.data.sectionlist);
-            } else {
-                obj.list_sec_sub = CourseData.getListSectionSub(c.data.sectionlist);
-            }
-        }
-        return obj;
-    }
-    function highlight(object_id) {
+	}
+	$scope.selectItem = function (id) {
+		if (c.data.reading_mode) {
+			//set the current 
+			//get the actual current and highlight it
+			CourseData.setCurrent(id);
+			var actual_current = CourseData.getCurrent();
 
-        c.data.highlight = [];
-        //get selected object
-        var obj = CourseData.getSelectedObject(c.data.sectionlist,object_id);
+			highlight(actual_current);
+		} else {
+			highlight(id);
+			CourseData.setCurrent(id);
+		}
+		var current_object = CourseData.getSelectedObject(c.data.sectionlist, id);
+		if (current_object && current_object.type == 'quiz') {
+			//console.log(current_object);
+			$location.search('current', id);
+		}
+	}
 
-        //highlight the object and its parents
-        c.data.highlight.push(object_id);
-        c.data.highlight.push(obj.parent);
+	function highlight(object_id) {
+		c.data.highlight = [];
+		//get selected object
+		var obj = CourseData.getSelectedObject(c.data.sectionlist, object_id);
 
-        while (obj.type != 'sec') {
-            obj = CourseData.getSelectedObject(c.data.sectionlist,obj.parent);
-            if (obj.parent)
-                c.data.highlight.push(obj.parent);
-        }
-        
-        $timeout(function () { 
-            c.data.sectionlist.forEach(function(sec){
-                if(c.data.highlight.indexOf(sec.sys_id) != -1){
-                    $('#'+sec.sys_id).first().prop('checked',true);
-                }else{
-                    $('#'+sec.sys_id).first().prop('checked',false);
-                }
-                sec.list_obj.forEach(function(obj){
-                    if(c.data.highlight.indexOf(obj.sys_id) != -1){
-                        $('#'+obj.sys_id).first().prop('checked',true);
-                    }else{
-                        $('#'+obj.sys_id).first().prop('checked',false);
-                    }
-                })
-            });
-        }, 0, false);
-        
-    }
+		//highlight the object and its parents
+		c.data.highlight.push(object_id);
+		c.data.highlight.push(obj.parent);
+
+		while (obj.type != 'sec') {
+			obj = CourseData.getSelectedObject(c.data.sectionlist, obj.parent);
+			if (obj.parent)
+				c.data.highlight.push(obj.parent);
+		}
+
+		$timeout(function () {
+			c.data.sectionlist.forEach(function (sec) {
+				if (c.data.highlight.indexOf(sec.sys_id) != -1) {
+					$('#' + sec.sys_id).first().prop('checked', true);
+				} else {
+					$('#' + sec.sys_id).first().prop('checked', false);
+				}
+				sec.list_obj.forEach(function (obj) {
+					if (c.data.highlight.indexOf(obj.sys_id) != -1) {
+						$('#' + obj.sys_id).first().prop('checked', true);
+					} else {
+						$('#' + obj.sys_id).first().prop('checked', false);
+					}
+				})
+			});
+		}, 0, false);
+	}
 }]]></client_script>
         <controller_as>c</controller_as>
-        <css>h3{
-  margin: 0;
-  padding: 1em 1em 1em 40px;
-  background: #596a68;
-  color:white;
-}
-/*Func*/
-
-.item ul, .nav input[type="checkbox"] {
-  display: none;
-}
-.multi-level, .item input:checked ~ ul {
-  display: block;
-}
-.show{
- display:block !important; 
-}
-.hide{
-  display: none !important;
-}
-
-/*Arrow*/
-
-.arrow {
-  width: 12px;
-  height: 12px;
-  vertical-align: middle;
-  float: left;
-  z-index: 0;
-  margin: 17px 1em 0 2em;
-}
-.item input + .arrow {
-  transform: rotate(-90deg);
-  transition: 0.1s;
-}
-.item input:checked + .arrow {
-  transform: rotate(0deg);
-  transition: 0.1s;
-}
-
-
-
-
-
-/*Styles*/
-
-label:hover {
-  cursor: pointer;
-}
-label {
-  width: 100%;
-  display: block;
-  z-index: 3;
-  position: relative;
-}
-.nav {
-  width: 100%;
-  min-height:120px;
-  margin-bottom:10px;
-  background-color: #e3e3e3;
-  overflow-x: hidden;
-  position:relative;
-}
-
-#nav-icon {
-  font-size: 28px;
-  line-height: 50px;
-  padding-left: 1em;
-  color: white;
-  background-color: #F44336;
-}
-
-.nav ul, .nav li, label {
-  line-height: 50px;
-  font-family: 'Quicksand','sans-serif';
-  margin: 0;
-  padding: 0 2em;
-  list-style: none;
-  text-decoration: none;
-  font-weight: 100;
-  width: 100%;
-}
-.item ul {
-  padding: 0 0.25em;
-}
-.nav li a {
-  line-height: 50px;
-  margin: 0;
-  padding: 0 4em;
-  list-style: none;
-  color:black;
-  text-decoration: none;
-  font-weight: 100;
-}
-.active{
-  font-weight: bold !important;
-}
-
-.add{
-    position: absolute;
-    right: 20px;
-    width: 40px;
-      height: 40px;
-      z-index: 10;
-    transform: translateY(-20px);
-    border: none;
-    outline: none;
-    border-radius: 50%;
-    background:white;
-    color:#596a68;
-}
-.add:hover{
-box-shadow: 0 0 10px #16dec7;
-color:#16dec7;
-}
-.modal-content label {
-padding:0 !important;
-}
-
-.disabled_action{
-background:#f1f1f1 !important;
-&amp;:hover{
-  background : #f1f1f1 !important;
-  color : black !important;
-  pointer-events:none;
-}
+        <css>h3{&#13;
+  margin: 0;&#13;
+  padding: 1em 1em 1em 40px;&#13;
+  background: #596a68;&#13;
+  color:white;&#13;
+}&#13;
+/*Func*/&#13;
+&#13;
+.item ul, .nav input[type="checkbox"] {&#13;
+  display: none;&#13;
+}&#13;
+.multi-level, .item input:checked ~ ul {&#13;
+  display: block;&#13;
+}&#13;
+.show{&#13;
+ display:block !important; &#13;
+}&#13;
+.hide{&#13;
+  display: none !important;&#13;
+}&#13;
+&#13;
+/*Arrow*/&#13;
+&#13;
+.arrow {&#13;
+  width: 12px;&#13;
+  height: 12px;&#13;
+  vertical-align: middle;&#13;
+  float: left;&#13;
+  z-index: 0;&#13;
+  margin: 17px 1em 0 2em;&#13;
+}&#13;
+.item input + .arrow {&#13;
+  transform: rotate(-90deg);&#13;
+  transition: 0.1s;&#13;
+}&#13;
+.item input:checked + .arrow {&#13;
+  transform: rotate(0deg);&#13;
+  transition: 0.1s;&#13;
+}&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+/*Styles*/&#13;
+&#13;
+label:hover {&#13;
+  cursor: pointer;&#13;
+}&#13;
+label {&#13;
+  width: 100%;&#13;
+  display: block;&#13;
+  z-index: 3;&#13;
+  position: relative;&#13;
+}&#13;
+.nav {&#13;
+  width: 100%;&#13;
+  min-height:120px;&#13;
+  margin-bottom:10px;&#13;
+  background-color: #e3e3e3;&#13;
+  overflow-x: hidden;&#13;
+  position:relative;&#13;
+}&#13;
+&#13;
+&#13;
+#nav-icon {&#13;
+  font-size: 28px;&#13;
+  line-height: 50px;&#13;
+  padding-left: 1em;&#13;
+  color: white;&#13;
+  background-color: #F44336;&#13;
+}&#13;
+&#13;
+.nav ul, .nav li, label {&#13;
+  line-height: 50px;&#13;
+  font-family: 'Quicksand','sans-serif';&#13;
+  margin: 0;&#13;
+  padding: 0 2em;&#13;
+  list-style: none;&#13;
+  text-decoration: none;&#13;
+  font-weight: 100;&#13;
+  width: 100%;&#13;
+}&#13;
+.item ul {&#13;
+  padding: 0 0.25em;&#13;
+}&#13;
+.nav li a {&#13;
+  line-height: 50px;&#13;
+  margin: 0;&#13;
+  padding: 0 2em;&#13;
+  list-style: none;&#13;
+  color:black;&#13;
+  text-decoration: none;&#13;
+  font-weight: 100;&#13;
+}&#13;
+.active{&#13;
+  font-weight: bold !important;&#13;
+}&#13;
+&#13;
+.add{&#13;
+    position: absolute;&#13;
+    right: 20px;&#13;
+    width: 40px;&#13;
+      height: 40px;&#13;
+      z-index: 10;&#13;
+    transform: translateY(-20px);&#13;
+    border: none;&#13;
+    outline: none;&#13;
+    border-radius: 50%;&#13;
+    background:white;&#13;
+    color:#596a68;&#13;
+}&#13;
+.add:hover{&#13;
+box-shadow: 0 0 10px #16dec7;&#13;
+color:#16dec7;&#13;
+}&#13;
+.modal-content label {&#13;
+padding:0 !important;&#13;
+}&#13;
+&#13;
+.disabled_action{&#13;
+background:#f1f1f1 !important;&#13;
+&amp;:hover{&#13;
+  background : #f1f1f1 !important;&#13;
+  color : black !important;&#13;
+  pointer-events:none;&#13;
+}&#13;
 }</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -314,214 +339,285 @@ background:#f1f1f1 !important;
         <option_schema/>
         <public>false</public>
         <roles/>
-        <script><![CDATA[(function ($scope) {
+        <script><![CDATA[(function () {
 
-    data.unitlist = [];
-    data.sectionlist = [];
-    data.cours_name = "";
-    data.course_id = $sp.getParameter("sys_id");
-    data.current_state = $sp.getParameter("current");
-    var gr = new GlideRecord('x_315700_lms_course');
-    gr.get(data.course_id);
-    data.cours_name = gr.getDisplayValue('name');
+  data.unitlist = [];
+  data.sectionlist = [];
+  data.cours_name = "";
+  data.course_id = $sp.getParameter("sys_id");
+  data.current_state = $sp.getParameter("current");
+  data.mode = $sp.getParameter("mode");
+  data.move_next = $sp.getParameter("next");
+  if (data.move_next && data.move_next == 1) {
+    data.move_next = true;
+  } else
+    data.move_next = false;
+  data.can_edit = gs.hasRole('x_315700_lms.admin') || gs.hasRole('x_315700_lms.instructor');
+
+  var gr = new GlideRecord('x_315700_lms_course');
+  gr.get(data.course_id);
+  data.cours_name = gr.getDisplayValue('name');
+  load();
+  //if no current make first item of first section current
+  if (!data.current_state)
+    data.current_state = data.sectionlist[0].list_obj[0].sys_id;
+  if (data.can_edit && data.mode && data.mode == 'edit') {
+    data.reading_mode = false;
+  } else {
+    data.reading_mode = true;
+  }
+
+  if (input && input.action == 'add') {
+    var order = input.order;
+    var strict = null;
+    switch (input.position) {
+      case 'before': strict = false; break;
+      case 'after': strict = true; break;
+    }
+    var parent = input.parent ? input.parent : null;
+    shift(input.type, order, strict, parent);
+    if (input.type == 'unt') {
+
+      var gr = new GlideRecord("x_315700_lms_unit");
+      gr.name = input.name;
+      gr.order = strict ? parseInt(order) + 100 : order;
+      gr.section = input.parent;
+      var id = gr.insert();
+      if (id)
+        data.added = 'unit';
+    } else if (input.type == 'sub') {
+      var gr = new GlideRecord('x_315700_lms_section');
+      gr.order = strict ? parseInt(order) + 100 : order;
+      gr.name = input.name;
+      if (parent)
+        gr.parent_section = parent;
+      var id = gr.insert();
+      if (id)
+        data.added = 'sub section';
+    } else if (input.type == 'sec') {
+      var gr = new GlideRecord('x_315700_lms_section');
+      gr.order = strict ? parseInt(order) + 100 : order;
+      gr.name = input.name;
+      if (parent)
+        gr.course = parent;
+      var id = gr.insert();
+      if (id)
+        data.added = 'section';
+    } else if (input.type == 'quiz' && input.quiz && input.min_to_pass) {
+      var gr = new GlideRecord("x_315700_lms_quiz_ref");
+      gr.order = strict ? parseInt(order) + 100 : order;
+      gr.section = input.parent;
+      gr.min_to_pass = parseInt(input.min_to_pass);
+      gr.quiz = input.quiz;
+      var id = gr.insert();
+      if (id)
+        data.added = 'quiz';
+    }
     load();
-    //amine code
-    if (input && input.action == 'add') {
-        var order = input.order;
-            var strict = null;
-            switch (input.position) {
-                case 'before': strict = false; break;
-                case 'after': strict = true; break;
-            }
-            var parent = input.parent ? input.parent : null;
-            shift(input.type, order, strict, parent);
-        if (input.type == 'unt') {
-            
-            var gr = new GlideRecord("x_315700_lms_unit");
-            gr.name = input.name;
-            gr.order = strict ? parseInt(order) + 100 : order;
-            gr.section = input.parent;
-            var id = gr.insert();
-            if(id)
-                data.added = 'unit';
-        } else if (input.type == 'sub') {
-            var gr = new GlideRecord('x_315700_lms_section');
-            gr.order = strict ? parseInt(order) + 100 : order;
-            gr.name = input.name;
-            if (parent)
-                gr.parent_section = parent;
-            var id  = gr.insert();
-            if(id)
-                data.added = 'sub section';
-        }else if(input.type == 'sec'){
-            var gr = new GlideRecord('x_315700_lms_section');
-            gr.order = strict ? parseInt(order) + 100 : order;
-            gr.name = input.name;
-            if (parent)
-                gr.course = parent;
-            var id  = gr.insert();
-            if(id)
-                data.added = 'section';
-        }
-        load();
-    }else if(input && input.action == 'reload'){
-        load();
-    }
+  } else if (input && input.action == 'reload') {
+    load();
+  }
 
-    function load() {
-        var section_list = [];
-        var sec = new GlideRecord('x_315700_lms_section');
-        sec.addQuery("course", data.course_id);
-        sec.orderBy("order");
-        sec.addNullQuery("parent_section");
-        sec.query();
-        while (sec.next()) {
-            var sec_obj = {
-                'sys_id': sec.getDisplayValue('sys_id'),
-                'name': sec.getDisplayValue('name'),
-                'order': parseInt(sec.getValue('order')),
-                'checked':false,
-                'list_obj': []
-            };
-            //loop to all unit of this section
-            var list_units = [];
-            var unit = new GlideRecord("x_315700_lms_unit");
-            unit.addQuery("section", sec.sys_id);
-            unit.orderBy('order');
-            unit.query();
-            while (unit.next()) {
-                var unit_obj = {
-                    'name': unit.getDisplayValue('name'),
-                    'sys_id': unit.getDisplayValue('sys_id'),
-                    'order': parseInt(unit.getValue('order')),
-                    'checked':false,
-                    'type': 'unit'
-                };
-                list_units.push(unit_obj);
-            }
+  function load() {
+    var section_list = [];
+    var sec = new GlideRecord('x_315700_lms_section');
+    sec.addQuery("course", data.course_id);
+    sec.orderBy("order");
+    sec.addNullQuery("parent_section");
+    sec.query();
+    while (sec.next()) {
+      var sec_obj = {
+        'sys_id': sec.getDisplayValue('sys_id'),
+        'name': sec.getDisplayValue('name'),
+        'order': parseInt(sec.getValue('order')),
+        'checked': false,
+        'list_obj': []
+      };
+      //loop to all unit of this section
+      var list_units = [];
+      var unit = new GlideRecord("x_315700_lms_unit");
+      unit.addQuery("section", sec.sys_id);
+      unit.orderBy('order');
+      unit.query();
+      while (unit.next()) {
+        var unit_obj = {
+          'name': unit.getDisplayValue('name'),
+          'sys_id': unit.getDisplayValue('sys_id'),
+          'order': parseInt(unit.getValue('order')),
+          'checked': false,
+          'type': 'unit'
+        };
+        list_units.push(unit_obj);
+      }
 
-            //get the sub sections
-            var list_sub_sections = [];
-            var sub_section = new GlideRecord("x_315700_lms_section");
-            sub_section.addQuery("parent_section", sec.sys_id);
-            sub_section.query();
-            while (sub_section.next()) {
-                var sub_sec_obj = {
-                    'sys_id': sub_section.getDisplayValue('sys_id'),
-                    'name': sub_section.getDisplayValue('name'),
-                    'order': parseInt(sub_section.getValue('order')),
-                    'type': 'subsection',
-                    'checked':false,
-                    'list_obj': []
-                };
-                //get all unit of the sub section
-                var list_sub_units = [];
-                var unit = new GlideRecord("x_315700_lms_unit");
-                unit.addQuery("section", sub_section.sys_id);
-                unit.orderBy('order');
-                unit.query();
-                while (unit.next()) {
-                    var unit_obj = {
-                        'name': unit.getDisplayValue('name'),
-                        'sys_id': unit.getDisplayValue('sys_id'),
-                        'order': parseInt(unit.getValue('order')),
-                        'checked':false,
-                        'type': 'unit'
-                    };
-                    list_sub_units.push(unit_obj);
-                }
-                //put the units in the sub section object
-                sub_sec_obj.list_obj = list_sub_units;
-                list_sub_sections.push(sub_sec_obj);
-            }
+      //loop on the section quizes
+      var list_quizs = [];
+      var quiz = new GlideRecord("x_315700_lms_quiz_ref");
+      quiz.addQuery("section", sec.sys_id);
+      quiz.orderBy('order');
+      quiz.query();
+      while (quiz.next()) {
+        var quiz_obj = {
+          'name': quiz.quiz.name + '',
+          'sys_id': quiz.getDisplayValue('sys_id'),
+          'quiz_id': quiz.getValue('quiz'),
+          'quiz_name': quiz.getDisplayValue('quiz'),
+          'order': parseInt(quiz.getValue('order')),
+          'min_to_pass': parseInt(quiz.getValue('min_to_pass')),
+          'checked': false,
+          'type': 'quiz'
+        };
+        list_quizs.push(quiz_obj);
+      }
 
-            var list_obj = list_sub_sections.concat(list_units);
-            sec_obj.list_obj = list_obj;
-            section_list.push(sec_obj);
-        }
-        data.sectionlist = section_list;
-    }
+      //get the sub sections
+      var list_sub_sections = [];
+      var sub_section = new GlideRecord("x_315700_lms_section");
+      sub_section.addQuery("parent_section", sec.sys_id);
+      sub_section.query();
+      while (sub_section.next()) {
+        var sub_sec_obj = {
+          'sys_id': sub_section.getDisplayValue('sys_id'),
+          'name': sub_section.getDisplayValue('name'),
+          'order': parseInt(sub_section.getValue('order')),
+          'type': 'subsection',
+          'checked': false,
+          'list_obj': []
+        };
 
-    function shift(type, order, strict, parent) {
-        if (type == 'unt' || type == 'sub') {
-            //shift all unit
-            var q = strict ? '>' : '>=';
-            var gr = new GlideRecord('x_315700_lms_unit');
-            gr.addQuery('order', q, order);
-            if (parent) {
-                gr.addQuery('section', parent);
-            }
-            gr.query();
-            while (gr.next()) {
-                gr.order = parseInt(gr.order) + 100;
-                gr.update();
-            }
-            //shit all sub section
-            var sub = new GlideRecord('x_315700_lms_section');
-            sub.addQuery('order', q, order);
-            if (parent) {
-                sub.addQuery('parent_section', parent)
-            }
-            sub.query();
-            while (sub.next()) {
-                sub.order = parseInt(sub.order) + 100;
-                sub.update();
-            }
-        }else if( type == 'sec'){
-            //shit all  section
-					var q = strict ? '>' : '>=';
-            var sec = new GlideRecord('x_315700_lms_section');
-            sec.addQuery('order', q, order);
-            if (parent) {
-                sec.addQuery('course', parent)
-            }
-            sec.query();
-            while (sec.next()) {
-                sec.order = parseInt(sec.order) + 100;
-                sec.update();
-            }
+        //get all quizes of the sub section
+        var list_sub_quizs = [];
+        var quiz1 = new GlideRecord("x_315700_lms_quiz_ref");
+        quiz1.addQuery("section", sub_section.sys_id);
+        quiz1.orderBy('order');
+        quiz1.query();
+        while (quiz1.next()) {
+          var quiz1_obj = {
+            'name': quiz1.quiz.name + '',
+            'sys_id': quiz1.getDisplayValue('sys_id'),
+            'quiz_id': quiz.getValue('quiz'),
+            'quiz_name': quiz.getDisplayValue('quiz'),
+            'order': parseInt(quiz1.getValue('order')),
+            'min_to_pass': parseInt(quiz1.getValue('min_to_pass')),
+            'checked': false,
+            'type': 'quiz'
+          };
+          list_sub_quizs.push(quiz1_obj);
         }
 
+        //get all unit of the sub section
+        var list_sub_units = [];
+        var unit = new GlideRecord("x_315700_lms_unit");
+        unit.addQuery("section", sub_section.sys_id);
+        unit.orderBy('order');
+        unit.query();
+        while (unit.next()) {
+          var unit_obj = {
+            'name': unit.getDisplayValue('name'),
+            'sys_id': unit.getDisplayValue('sys_id'),
+            'order': parseInt(unit.getValue('order')),
+            'checked': false,
+            'type': 'unit'
+          };
+          list_sub_units.push(unit_obj);
+        }
+
+        //put the units and quizes in the sub section object
+        sub_sec_obj.list_obj = list_sub_units.concat(list_sub_quizs);
+        list_sub_sections.push(sub_sec_obj);
+      }
+
+      var list_obj = list_sub_sections.concat(list_units).concat(list_quizs);
+      sec_obj.list_obj = list_obj;
+      section_list.push(sec_obj);
     }
+    data.sectionlist = section_list;
+  }
+
+  function shift(type, order, strict, parent) {
+    if (type == 'unt' || type == 'sub' || type == 'quiz') {
+      //shift all unit
+      var q = strict ? '>' : '>=';
+      var gr = new GlideRecord('x_315700_lms_unit');
+      gr.addQuery('order', q, order);
+      if (parent) {
+        gr.addQuery('section', parent);
+      }
+      gr.query();
+      while (gr.next()) {
+        gr.order = parseInt(gr.order) + 100;
+        gr.update();
+      }
+      //shit all sub section
+      var sub = new GlideRecord('x_315700_lms_section');
+      sub.addQuery('order', q, order);
+      if (parent) {
+        sub.addQuery('parent_section', parent)
+      }
+      sub.query();
+      while (sub.next()) {
+        sub.order = parseInt(sub.order) + 100;
+        sub.update();
+      }
+    } else if (type == 'sec') {
+      //shit all  section
+      var q = strict ? '>' : '>=';
+      var sec = new GlideRecord('x_315700_lms_section');
+      sec.addQuery('order', q, order);
+      if (parent) {
+        sec.addQuery('course', parent)
+      }
+      sec.query();
+      while (sec.next()) {
+        sec.order = parseInt(sec.order) + 100;
+        sec.update();
+      }
+    }
+
+  }
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-02-26 13:10:55</sys_created_on>
         <sys_id>bfdf6e0cdbd3001016939b81ca961980</sys_id>
-        <sys_mod_count>346</sys_mod_count>
+        <sys_mod_count>437</sys_mod_count>
         <sys_name>fm_cours_structure</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sp_widget_bfdf6e0cdbd3001016939b81ca961980</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2020-03-31 13:19:31</sys_updated_on>
+        <sys_updated_on>2020-07-13 15:52:07</sys_updated_on>
         <template><![CDATA[<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <div class="nav">
     <h3 id="course_title"> {{data.cours_name}} </h3>
-    <button class="add" data-toggle="modal" data-target="#myModal">
+    <button ng-show="!c.data.reading_mode" class="add" data-toggle="modal" data-target="#myModal">
         <i class="fa fa-plus fa-lg"></i>
     </button>
     <div class="multi-level">
         <div ng-repeat="sec in c.data.sectionlist | orderBy:'order' track by $index" class="item">
-            <input type="checkbox" id="{{sec.sys_id}}"/>
+            <input type="checkbox" id="{{sec.sys_id}}" />
             <img src="arrow.png" class="arrow">
-            <label ng-class="{true:'active',false:''}[c.data.highlight && c.data.highlight.indexOf(sec.sys_id) != -1]" for="{{sec.sys_id}}" ng-click="selectItem(sec.sys_id)">{{sec.name}}</label>
+            <label ng-class="{true:'active',false:''}[c.data.highlight && c.data.highlight.indexOf(sec.sys_id) != -1]"
+                for="{{sec.sys_id}}" ng-click="selectItem(sec.sys_id)">{{sec.name}}</label>
 
             <ul>
-                <li ng-repeat="obj in sec.list_obj | orderBy:'order'" >
+                <li ng-repeat="obj in sec.list_obj | orderBy:'order'">
                     <div class="sub-item">
                         <!-- ng-checked="obj.list_obj && c.data.highlight && c.data.highlight.indexOf(obj.sys_id)!=-1" -->
-                        <input type="checkbox" id="{{obj.sys_id}}"/>
-                        <img src="arrow.png" class="arrow" ng-if="obj.list_obj" >
-                        <label ng-class="{true:'active',false:''}[c.data.highlight && c.data.highlight.indexOf(obj.sys_id) != -1]" ng-click="selectItem(obj.sys_id,sec.sys_id)"
-                            for="{{obj.sys_id}}">{{obj.name}}</label>
+                        <input type="checkbox" id="{{obj.sys_id}}" />
+                        <img src="arrow.png" class="arrow" ng-if="obj.list_obj">
+                        <label
+                            ng-class="{true:'active',false:''}[c.data.highlight && c.data.highlight.indexOf(obj.sys_id) != -1]"
+                            ng-click="selectItem(obj.sys_id,sec.sys_id)" for="{{obj.sys_id}}">{{obj.name}}</label>
 
                         <ul ng-if="obj.list_obj.length>0">
-                            <li ng-repeat="subunit  in obj.list_obj">
-                                <a ng-class="{true:'active',false:''}[c.data.highlight && c.data.highlight.indexOf(subunit.sys_id)!=-1]" id="subunit.sys_id" ng-click="selectItem(subunit.sys_id,obj.sys_id)">{{subunit.name}}</a></li>
+                            <li ng-repeat="subunit  in obj.list_obj | orderBy:'order'">
+                                <a ng-class="{true:'active',false:''}[c.data.highlight && c.data.highlight.indexOf(subunit.sys_id)!=-1]"
+                                    id="subunit.sys_id"
+                                    ng-click="selectItem(subunit.sys_id,obj.sys_id)">{{subunit.name}}</a></li>
                         </ul>
                     </div>
                 </li>
@@ -544,62 +640,89 @@ background:#f1f1f1 !important;
             <div class="modal-body">
                 <form>
                     <div ng-class="{true:'has-error',false:''}[c.data.type_error && c.data.type_error !='']"
-                    class="form-group">
-                    <label for="type">Type</label>
-                    <select class="form-control" id="type" ng-model="type" ng-change="loadInside()">
-                        <option value="" disabled selected>Select your type</option>
-                        <option value="sec">Section</option>
-                        <option value="sub">Sub section</option>
-                        <option value="unt">Unit</option>
-                    </select>
-                    <small ng-if="c.data.type_error" class="text-danger">
-                        {{c.data.type_error}}
-                    </small>
-                </div>
-                <div ng-class="{true:'has-error',false:''}[c.data.inside_error && c.data.inside_error !='']"
-                    class="form-group" ng-if="type=='sub' || type=='unt'">
-                    <label for="type">Inside</label>
-                    <select class="form-control" id="inside" ng-model="c.data.inside" ng-change="loadAfter()">
-                        <option value="" disabled selected>Select your object</option>
-                        <option value="{{obj.id}}" ng-repeat="obj in c.data.list_sec_sub">{{obj.name}}</option>
-                    </select>
-                    <small ng-if="c.data.inside_error" class="text-danger">
-                        {{c.data.inside_error}}
-                    </small>
-                </div>
-                <div ng-class="{true:'has-error',false:''}[c.data.position_error && c.data.position_error !='']"
-                    class="form-group">
-                    <label for="after">Position</label>
-                    <div class="input-group">
-                        <div class="input-group-btn">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">{{c.data.selected_position}} <span
-                                    class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li ng-repeat="pos in c.data.positions track by $index"><a href="#" ng-class="{true:'disabled_action',false:''}[c.data.list_after.length==0 && (pos=='Before' || pos=='After')]" ng-click="changePosition($index)">{{pos}}</a></li>
-                            </ul>
-                        </div>
-                        <select class="form-control" id="after" ng-model="c.data.selected_object"
-                            ng-disabled='c.data.disable_select_option' ng-change="objectChange()">
-                            <option value="" disabled selected>Select your option</option>
-                            <option ng-if="c.data.list_after.length>0"
-                                ng-repeat="obj_after in c.data.list_after | orderBy:'order'" value="{{obj_after.id}}">
-                                {{obj_after.name}}</option>
+                        class="form-group">
+                        <label for="type">Type</label>
+                        <select class="form-control" id="type" ng-model="type" ng-change="loadInside()">
+                            <option value="" disabled selected>Select your type</option>
+                            <option value="sec">Section</option>
+                            <option value="sub">Sub section</option>
+                            <option value="unt">Unit</option>
+                            <option value="quiz">Quiz</option>
                         </select>
+                        <small ng-if="c.data.type_error" class="text-danger">
+                            {{c.data.type_error}}
+                        </small>
                     </div>
-                    <small ng-if="c.data.position_error" class="text-danger">
-                        {{c.data.position_error}}
-                    </small>
-                </div>
-                <div ng-class="{true:'has-error',false:''}[c.data.name_error && c.data.name_error !='']"
-                    class="form-group">
-                    <label for="name">Name</label>
-                    <input type="name" class="form-control" id="name" ng-model="c.data.modal_name"
-                        aria-describedby="name-error" ng-change="nameChange()">
-                    <small ng-if="c.data.name_error" id="name-error" class="text-danger">
-                        {{c.data.name_error}}
-                    </small>
-                </div>
+                    <div ng-class="{true:'has-error',false:''}[c.data.inside_error && c.data.inside_error !='']"
+                        class="form-group" ng-if="type=='sub' || type=='unt' || type=='quiz'">
+                        <label for="type">Inside</label>
+                        <select class="form-control" id="inside" ng-model="c.data.inside" ng-change="loadAfter()">
+                            <option value="" disabled selected>Select your object</option>
+                            <option value="{{obj.id}}" ng-repeat="obj in c.data.list_sec_sub">{{obj.name}}</option>
+                        </select>
+                        <small ng-if="c.data.inside_error" class="text-danger">
+                            {{c.data.inside_error}}
+                        </small>
+                    </div>
+                    <div ng-class="{true:'has-error',false:''}[c.data.position_error && c.data.position_error !='']"
+                        class="form-group">
+                        <label for="after">Position</label>
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">{{c.data.selected_position}} <span
+                                        class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li ng-repeat="pos in c.data.positions track by $index"><a href="javascript:void(0)"
+                                            ng-class="{true:'disabled_action',false:''}[c.data.list_after.length==0 && (pos=='Before' || pos=='After')]"
+                                            ng-click="changePosition($index)">{{pos}}</a></li>
+                                </ul>
+                            </div>
+                            <select class="form-control" id="after" ng-model="c.data.selected_object"
+                                ng-disabled='c.data.disable_select_option' ng-change="objectChange()">
+                                <option value="" disabled selected>Select your option</option>
+                                <option ng-if="c.data.list_after.length>0"
+                                    ng-repeat="obj_after in c.data.list_after | orderBy:'order'"
+                                    value="{{obj_after.id}}">
+                                    {{obj_after.name}}</option>
+                            </select>
+                        </div>
+                        <small ng-if="c.data.position_error" class="text-danger">
+                            {{c.data.position_error}}
+                        </small>
+                    </div>
+                    <div ng-if="type != 'quiz'"  ng-class="{true:'has-error',false:''}[c.data.name_error && c.data.name_error !='']"
+                        class="form-group">
+                        <label for="name">Name</label>
+                        <input type="name" class="form-control" id="name" ng-model="c.data.modal_name"
+                            aria-describedby="name-error" ng-change="nameChange()">
+                        <small ng-if="c.data.name_error" id="name-error" class="text-danger">
+                            {{c.data.name_error}}
+                        </small>
+                    </div>
+                    <div ng-if="type == 'quiz'" ng-class="{true:'has-error',false:''}[c.data.quiz_error && c.data.quiz_error !='']"
+                        class="form-group">
+                        <label for="name">Quiz</label>
+                        <sn-record-picker field="quiz" table="'asmt_metric_type'" display-field="'name'"
+                            value-field="'sys_id'" search-fields="'name'" default-query="c.data.quiz_query" page-size="100" on-change="quizChange()"></sn-record-picker>
+                        
+                        <small ng-if="c.data.quiz_error" id="name-error" class="text-danger">
+                            {{c.data.quiz_error}}
+                        </small>
+                    </div>
+                    <div ng-if="type == 'quiz'" ng-class="{true:'has-error',false:''}[c.data.min_error && c.data.min_error !='']"
+                        class="form-group">
+                        <label for="name">Min to pass</label>
+                            <div class="input-group">
+                                <input type="name" class="form-control" id="min" ng-model="c.data.min_to_pass"
+                                aria-describedby="name-error" ng-change="minToPassChange()">
+                                <span class="input-group-addon" ><i class="fa fa-percent" aria-hidden="true"></i></span>
+                              </div>
+                        
+                        <small ng-if="c.data.min_error" id="name-error" class="text-danger">
+                            {{c.data.min_error}}
+                        </small>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

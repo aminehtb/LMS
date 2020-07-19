@@ -41,7 +41,7 @@
         <update_guid_history>c231a5befe660010f3744831d3095b6b:274153799</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="Formation Catalog.Business Branding: The Complete Course Part 1 - Strategy">74c2a5fedb66001016939b81ca961988</sys_audit_delete>
+        <sys_audit_delete display_value="">74c2a5fedb66001016939b81ca961988</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-01-28 13:50:13</sys_created_on>

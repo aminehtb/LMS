@@ -41,7 +41,7 @@
         <update_guid_history>abbf0c2a4e2280106bdec1f88180964c:1421125716</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="Marketing.DIGITAL MARKETING: Learn Fundamentals of Digital marketing">bcf36572dba6001016939b81ca961987</sys_audit_delete>
+        <sys_audit_delete display_value="">bcf36572dba6001016939b81ca961987</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-01-28 13:55:24</sys_created_on>

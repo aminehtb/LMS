@@ -221,7 +221,7 @@
         <update_guid_history>c5c2edfec86600106aba04e4149a96d4:-1057962757,ae61a9be67660010efb33d776cb96d25:-1929481233,5641e5bebd660010235095102c41cee7:962492259,4e4125ba08660010e196464b6453dbc5:2129687071,9631a5bea5660010f5ea009075319b6f:250584462</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="Business Branding: The Complete Course Part 1 - Strategy">11c22132dba6001016939b81ca96191c</sys_audit_delete>
+        <sys_audit_delete display_value="">11c22132dba6001016939b81ca96191c</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-01-28 13:50:15</sys_created_on>

@@ -58,7 +58,7 @@
         <update_guid_history>de938894c82200100eac63ba998eea26:-512832262</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="Technologies.Servicenow Intermediate">598460aedb62801016939b81ca9619f7</sys_audit_delete>
+        <sys_audit_delete display_value="">598460aedb62801016939b81ca9619f7</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-01-27 14:39:48</sys_created_on>

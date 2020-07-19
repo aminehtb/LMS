@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container">
+    <sp_container action="DELETE">
+        <background_color/>
+        <background_image/>
+        <background_style>default</background_style>
+        <bootstrap_alt>false</bootstrap_alt>
+        <class_name>breadcrumbs-container</class_name>
+        <container_class_name/>
+        <name>Copy of Surveys (1) - Container 1</name>
+        <order>1</order>
+        <sp_page display_value="copy_of_my_surveys_1">7c72cad107bd5010288ff16c7c1ed093</sp_page>
+        <subheader>true</subheader>
+        <sys_class_name>sp_container</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-03 13:41:51</sys_created_on>
+        <sys_id>b472cad107bd5010288ff16c7c1ed097</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Copy of Surveys (1) - Container 1</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_container_b472cad107bd5010288ff16c7c1ed097</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-03 13:41:51</sys_updated_on>
+        <title/>
+        <width>container</width>
+    </sp_container>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>sp_container_b472cad107bd5010288ff16c7c1ed097</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container"><sp_container action="INSERT_OR_UPDATE"><background_color/><background_image/><background_style>default</background_style><bootstrap_alt>false</bootstrap_alt><class_name>breadcrumbs-container</class_name><container_class_name/><name>Copy of Surveys (1) - Container 1</name><order>1</order><sp_page display_value="copy_of_my_surveys_1">7c72cad107bd5010288ff16c7c1ed093</sp_page><subheader>true</subheader><sys_class_name>sp_container</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2020-07-03 13:41:51</sys_created_on><sys_id>b472cad107bd5010288ff16c7c1ed097</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Copy of Surveys (1) - Container 1</sys_name><sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package><sys_policy/><sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope><sys_update_name>sp_container_b472cad107bd5010288ff16c7c1ed097</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-07-03 13:41:51</sys_updated_on><title/><width>container</width></sp_container></record_update>]]></payload>
+        <payload_hash>1769923606</payload_hash>
+        <record_name>Copy of Surveys (1) - Container 1</record_name>
+        <reverted_from/>
+        <source>ec8ff54a078d1010288ff16c7c1ed09f</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-03 13:41:51</sys_created_on>
+        <sys_id>bc72cad107bd5010288ff16c7c1ed099</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17314e9760c0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-03 13:41:51</sys_updated_on>
+        <type>Container</type>
+        <update_guid>f472cad1f9bd50106707829a6465f299</update_guid>
+        <update_guid_history>f472cad1f9bd50106707829a6465f299:1769923606</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Copy of Surveys (1) - Container 1">b2720ed107bd5010288ff16c7c1ed050</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-03 13:41:59</sys_created_on>
+        <sys_db_object display_value="" name="sp_container">sp_container</sys_db_object>
+        <sys_id>2594b78ca56c4eff8f6e29594bb86169</sys_id>
+        <sys_metadata>b472cad107bd5010288ff16c7c1ed097</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Copy of Surveys (1) - Container 1</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sp_container_b472cad107bd5010288ff16c7c1ed097</sys_update_name>
+        <sys_update_version display_value="sp_container_b472cad107bd5010288ff16c7c1ed097">bc72cad107bd5010288ff16c7c1ed099</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-03 13:41:59</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

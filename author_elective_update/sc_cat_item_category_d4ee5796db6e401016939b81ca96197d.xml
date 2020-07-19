@@ -41,7 +41,7 @@
         <update_guid_history>18ee5796a86e40100e997e784f4db57f:-540387500</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="Human recource.Python for Everybody Specialization">a224ec6edb62801016939b81ca96192e</sys_audit_delete>
+        <sys_audit_delete display_value="">a224ec6edb62801016939b81ca96192e</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-01-27 14:38:15</sys_created_on>

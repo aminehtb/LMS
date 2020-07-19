@@ -104,7 +104,7 @@
         <update_guid_history>84a30c94d7220010b0ef7024b8bca076:-118415042</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="Current Status">87a4d0ecdb22001016939b81ca961920</sys_audit_delete>
+        <sys_audit_delete display_value="">87a4d0ecdb22001016939b81ca961920</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-01-21 08:22:42</sys_created_on>

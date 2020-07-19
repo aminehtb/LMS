@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element label="Unit user" max_length="40" name="x_315700_lms_unit_user" type="collection">
+    <element label="Unit user" max_length="40" name="x_315700_lms_unit_user" sizeclass="7" type="collection">
         <element label="Course" mandatory="true" max_length="32" name="course" reference="x_315700_lms_asynchronous_course" type="reference"/>
         <element label="Unit" mandatory="true" max_length="32" name="unit_id" reference="x_315700_lms_unit" type="reference"/>
         <element label="User ID" mandatory="true" max_length="32" name="user_id" reference="sys_user" type="reference"/>

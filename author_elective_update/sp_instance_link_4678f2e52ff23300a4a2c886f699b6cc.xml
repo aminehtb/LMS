@@ -110,7 +110,7 @@
         <update_guid_history>28a30c94a62200100445d2198d2dc5d8:1872638539</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="Knowledge Base">142390e8db22001016939b81ca961955</sys_audit_delete>
+        <sys_audit_delete display_value="">142390e8db22001016939b81ca961955</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-01-21 08:15:58</sys_created_on>

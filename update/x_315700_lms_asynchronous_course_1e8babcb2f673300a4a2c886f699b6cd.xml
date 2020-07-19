@@ -13,6 +13,7 @@
         <display_price_property>non_zero</display_price_property>
         <duration>8</duration>
         <entitlement_script/>
+        <flow_designer_flow/>
         <group/>
         <hide_sp>false</hide_sp>
         <icon/>

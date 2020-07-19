@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="asmt_metric_category">
+    <asmt_metric_category action="DELETE">
+        <create_stakeholders>false</create_stakeholders>
+        <description/>
+        <details/>
+        <filter table="asmt_metric_type">sys_id=33b6f33207719410288ff16c7c1ed02b^EQ<item endquery="false" field="sys_id" goto="false" newquery="false" operator="=" or="false" value="33b6f33207719410288ff16c7c1ed02b"/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter>
+        <metric_type display_value="some quiz">33b6f33207719410288ff16c7c1ed02b</metric_type>
+        <name>some quiz</name>
+        <order>1</order>
+        <qb_evaluation_method/>
+        <roles/>
+        <scoring_type>percent</scoring_type>
+        <sys_class_name>asmt_metric_category</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-08 14:00:50</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>ffb6f33207719410288ff16c7c1ed02f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>some quiz</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>asmt_metric_category_ffb6f33207719410288ff16c7c1ed02f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-08 14:00:50</sys_updated_on>
+        <table>asmt_metric_type</table>
+        <total_metrics/>
+        <weight>10</weight>
+    </asmt_metric_category>
+    <sys_translated_text action="DELETE" query="documentkey=ffb6f33207719410288ff16c7c1ed02f"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>asmt_metric_category_ffb6f33207719410288ff16c7c1ed02f</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="asmt_metric_category"><asmt_metric_category action="INSERT_OR_UPDATE"><create_stakeholders>false</create_stakeholders><description/><details/><filter table="asmt_metric_type">sys_id=33b6f33207719410288ff16c7c1ed02b^EQ<item endquery="false" field="sys_id" goto="false" newquery="false" operator="=" or="false" value="33b6f33207719410288ff16c7c1ed02b"/><item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/></filter><metric_type display_value="some quiz">33b6f33207719410288ff16c7c1ed02b</metric_type><name>some quiz</name><order>1</order><qb_evaluation_method/><roles/><scoring_type>percent</scoring_type><sys_class_name>asmt_metric_category</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2020-07-08 14:00:50</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>ffb6f33207719410288ff16c7c1ed02f</sys_id><sys_mod_count>0</sys_mod_count><sys_name>some quiz</sys_name><sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package><sys_policy/><sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope><sys_update_name>asmt_metric_category_ffb6f33207719410288ff16c7c1ed02f</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-07-08 14:00:50</sys_updated_on><table>asmt_metric_type</table><total_metrics/><weight>10</weight></asmt_metric_category><sys_translated_text action="delete_multiple" query="documentkey=ffb6f33207719410288ff16c7c1ed02f"/></record_update>]]></payload>
+        <payload_hash>1191241778</payload_hash>
+        <record_name>some quiz</record_name>
+        <reverted_from/>
+        <source>ec8ff54a078d1010288ff16c7c1ed09f</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-08 14:00:50</sys_created_on>
+        <sys_id>3bb6f33207719410288ff16c7c1ed033</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1732ebaa4740000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-08 14:00:50</sys_updated_on>
+        <type>Metric Category</type>
+        <update_guid>73b6f33274719410d7ac29a49d06da33</update_guid>
+        <update_guid_history>73b6f33274719410d7ac29a49d06da33:1191241778</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="some quiz">04c63b3207719410288ff16c7c1ed076</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-08 14:00:51</sys_created_on>
+        <sys_db_object display_value="" name="asmt_metric_category">asmt_metric_category</sys_db_object>
+        <sys_id>1a78daf16d534688a46b8e3789ecda90</sys_id>
+        <sys_metadata>ffb6f33207719410288ff16c7c1ed02f</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>some quiz</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>asmt_metric_category_ffb6f33207719410288ff16c7c1ed02f</sys_update_name>
+        <sys_update_version display_value="asmt_metric_category_ffb6f33207719410288ff16c7c1ed02f">3bb6f33207719410288ff16c7c1ed033</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-08 14:00:51</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

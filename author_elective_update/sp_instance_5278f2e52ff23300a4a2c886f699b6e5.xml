@@ -136,7 +136,7 @@
         <update_guid_history>48a30c947822001034af5c6285bb5651:-1967201896</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="Announcements">02b414ecdb22001016939b81ca96191e</sys_audit_delete>
+        <sys_audit_delete display_value="">02b414ecdb22001016939b81ca96191e</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-01-21 08:22:54</sys_created_on>

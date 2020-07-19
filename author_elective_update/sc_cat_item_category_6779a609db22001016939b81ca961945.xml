@@ -41,7 +41,7 @@
         <update_guid_history>2f79a609b9220010a5ee5e907483df47:832108580</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="Business.Crash cours">12a4a4aedb62801016939b81ca96193f</sys_audit_delete>
+        <sys_audit_delete display_value="">12a4a4aedb62801016939b81ca96193f</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-01-27 14:40:25</sys_created_on>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_315700_lms.quizUtil</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>quizUtil</name>
+        <script><![CDATA[var quizUtil = Class.create();
+quizUtil.prototype = {
+    initialize: function () {
+    },
+    getResult: function (instance_id, min_to_pass) {
+        if (!instance_id) {
+            return { status: 'failed', msg: 'no instance id provided' };
+        } else {
+
+            var result = 0;
+            var user_id = gs.getUserID();
+            var categories = this.getCategories(instance_id);
+            categories.forEach(function (category) {
+
+                var agg = new GlideAggregate('asmt_metric_result');
+                agg.addAggregate('SUM', 'normalized_value');
+                agg.addQuery('instance', instance_id);
+                agg.addQuery('user', user_id);
+                agg.addQuery('metric.category', category.sys_id);
+                agg.orderBy('metric.category');
+                agg.query();
+                var cat_result = 0;
+                while (agg.next()) {
+                    cat_result = (agg.getAggregate('SUM', 'normalized_value') * category.percentage) / 100;
+                }
+                result += cat_result;
+            });
+            if (result < min_to_pass)
+                return { status: 'success', percentage: result + "%" ,passed : false};
+            else
+                return { status: 'success', percentage: result + "%",passed : true };
+        }
+    },
+    getCategories: function (instance_id) {
+
+        var quiz_id = this.getQuizFromInstance(instance_id);
+        var total_weight = 0;
+        //get total weight of categories in a quiz
+        var agg = new GlideAggregate('asmt_metric_category');
+        agg.addAggregate('SUM', 'weight');
+        agg.addQuery('metric_type', quiz_id);
+        agg.query();
+        while (agg.next()) {
+            total_weight = agg.getAggregate('SUM', 'weight');
+        }
+        // catgeories weight and sys_id of the quiz
+        var categories_gr = new global.AssessmentUtils().getMetricCategoryByType(quiz_id);
+        var categories = [];
+        while (categories_gr.next()) {
+            var obj = {};
+            obj.sys_id = categories_gr.getValue('sys_id');
+            obj.percentage = (categories_gr.getValue('weight') / total_weight) * 100;
+            categories.push(obj);
+        }
+        return categories;
+    },
+    getQuizFromInstance: function (instance_id) {
+        var gr = new GlideRecord('asmt_assessment_instance');
+        gr.get(instance_id);
+        return gr.getValue('metric_type');
+    },
+    getOrCreateInstance: function (quiz_ref_id) {
+        var quiz_instance_id = "";
+        var gr = new GlideRecord('x_315700_lms_quiz_ref');
+        gr.get(quiz_ref_id);
+        if (gr && gr.getValue('quiz') != "") {
+            //find a quiz instance
+            var instance_gr = new GlideRecord('asmt_assessment_instance');
+            instance_gr.addQuery('user', gs.getUserID());
+            instance_gr.addQuery('metric_type', gr.getValue('quiz'));
+            instance_gr.addQuery('metric_type.evaluation_method', 'quiz');
+            //instance_gr.addQuery('state', 'ready');
+            instance_gr.query();
+            if (instance_gr.next()) {
+                //there is a quiz instance already
+                quiz_instance_id = instance_gr.getValue('sys_id');
+            } else {
+                //no quiz instance found
+                var category_gr = new GlideRecord('asmt_metric_category');
+                category_gr.addQuery('metric_type', gr.getValue('quiz'));
+                category_gr.query();
+                while (category_gr.next()) {
+                    //test if each category of the quiz is associated to the user
+                    var associated_gr = new GlideRecord('asmt_m2m_category_user');
+                    associated_gr.addQuery('user', gs.getUserID());
+                    associated_gr.addQuery('metric_category', category_gr.getValue('sys_id'));
+                    associated_gr.query();
+                    if (associated_gr.getRowCount() == 0) {
+                        //create the association
+                        var association = new GlideRecord('asmt_m2m_category_user');
+                        association.user = gs.getUserID();
+                        association.metric_category = category_gr.getValue('sys_id');
+                        association.insert();
+                    }
+
+                }
+                var instance = new global.AssessmentUtils().createAssessments(gr.getValue('quiz'), "", gs.getUserID());
+
+                quiz_instance_id = instance.split(',')[0];
+            }
+            return quiz_instance_id;
+        }
+    },
+    type: 'quizUtil'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-13 07:55:34</sys_created_on>
+        <sys_id>ad4054e007021010288ff16c7c1ed02a</sys_id>
+        <sys_mod_count>11</sys_mod_count>
+        <sys_name>quizUtil</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sys_script_include_ad4054e007021010288ff16c7c1ed02a</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-13 15:19:05</sys_updated_on>
+    </sys_script_include>
+</record_update>

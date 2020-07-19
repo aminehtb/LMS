@@ -110,7 +110,7 @@
         <update_guid_history>60a30c9497220010ac26c7542f68dddd:493509284</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="Community">97f254e0db22001016939b81ca96190b</sys_audit_delete>
+        <sys_audit_delete display_value="">97f254e0db22001016939b81ca96190b</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-01-21 08:15:21</sys_created_on>

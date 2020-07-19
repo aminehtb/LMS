@@ -2,137 +2,242 @@
     <sp_angular_provider action="INSERT_OR_UPDATE">
         <name>CourseData</name>
         <script><![CDATA[function CourseData() {
-  this.dataHolder = {};
-  this.setSectionList = function (list) {
-    this.dataHolder.sectionList = list;
-  }
-  this.getSectionList = function (){
-    return this.dataHolder.sectionList;
-  }
-  this.setCurrent = function (current_id) {
-    this.dataHolder.current_id = current_id;
-  }
-  this.getCurrent = function () {
-    return this.dataHolder.current_id;
-  }
-  this.isViewMode = function(){
-    return this.dataHolder.view_mode;
-  }
-  this.setViewMode = function(view_mode){
-    this.dataHolder.view_mode = view_mode;
-  }
-  /**
-   * retruns all sections and sub-sections of the course.
-   * output should be an array of items that contains name id and order properties.
-   * name of a sub-section : 'parent section -- sub section'.
-   */
-  this.getListSectionSub = function (sectionlist) {
-    var list_sec_sub = [];
-    sectionlist.forEach(function (item) {
-      var obj = { 'name': item.name, 'id': item.sys_id, 'order': item.order };
-      list_sec_sub.push(obj);
-      if (item.list_obj.length > 0) {
-        item.list_obj.forEach(function (sub) {
-          if (sub.type == "subsection") {
-            var obj = { 'name': item.name + ' -- ' + sub.name, 'id': sub.sys_id, 'order': sub.order };
+    this.dataHolder = {};
+    this.setSectionList = function (list) {
+        this.dataHolder.sectionList = list;
+        this.dataHolder.course_units_ordered = this.getCourseUnits();
+    };
+    this.getSectionList = function () {
+        return this.dataHolder.sectionList;
+    };
+    this.setCurrent = function (current_id) {
+		var current_obj = this.getSelectedObject(this.dataHolder.sectionList,current_id);
+
+        if (this.dataHolder.is_reading_mode && current_obj.type != 'quiz') {
+            var current = this.getfirstUnit(current_id);
+            if (current == null) {
+                this.dataHolder.no_first_unit = true;
+                this.dataHolder.current_id = current_id;
+            } else {
+                this.dataHolder.current_id = current;
+                this.dataHolder.no_first_unit = false;
+            }
+        } else
+            this.dataHolder.current_id = current_id;
+
+
+    };
+    this.getCurrent = function () {
+        return this.dataHolder.current_id;
+    };
+    this.isViewMode = function () {
+        return this.dataHolder.view_mode;
+    };
+    this.no_first_unit = function () {
+        return this.dataHolder.no_first_unit;
+    };
+    this.setViewMode = function (view_mode) {
+        this.dataHolder.view_mode = view_mode;
+    };
+    this.isFullScreenMode = function () {
+        return this.dataHolder.is_full_screen_mode;
+    };
+    this.setFullScreenMode = function (ull_screen_mode) {
+        this.dataHolder.is_full_screen_mode = ull_screen_mode;
+    };
+    this.isReadingMode = function () {
+        return this.dataHolder.is_reading_mode;
+    };
+    this.setReadingMode = function (reading_mode) {
+        this.dataHolder.is_reading_mode = reading_mode;
+    };
+    /**
+     * retruns all sections and sub-sections of the course.
+     * output should be an array of items that contains name id and order properties.
+     * name of a sub-section : 'parent section -- sub section'.
+     */
+    this.getListSectionSub = function (sectionlist) {
+        var list_sec_sub = [];
+        sectionlist.forEach(function (item) {
+            var obj = { 'name': item.name, 'id': item.sys_id, 'order': item.order };
             list_sec_sub.push(obj);
-          }
+            if (item.list_obj.length > 0) {
+                item.list_obj.forEach(function (sub) {
+                    if (sub.type == "subsection") {
+                        var obj = { 'name': item.name + ' -- ' + sub.name, 'id': sub.sys_id, 'order': sub.order };
+                        list_sec_sub.push(obj);
+                    }
+                });
+            }
         });
-      }
-    });
-    return list_sec_sub;
-  }
-  /**
-   * retruns all sections of the course.
-   * output should be an array of items that contains name id and order properties.
-   */
-  this.getAllSections = function (sectionlist) {
-    var list = [];
-    sectionlist.forEach(function (item) {
-      var obj = { 'name': item.name, 'id': item.sys_id, 'order': item.order };
-      list.push(obj);
-    });
-    return list;
-  }
-  /**
-   * format list data for the before and after choice select.
-   * list of data to be formatted.
-   * output format should be an array of items that have name, id and order properties.
-   */
+        return list_sec_sub;
+    };
+    /**
+     * retruns all sections of the course.
+     * output should be an array of items that contains name id and order properties.
+     */
+    this.getAllSections = function (sectionlist) {
+        var list = [];
+        sectionlist.forEach(function (item) {
+            var obj = { 'name': item.name, 'id': item.sys_id, 'order': item.order };
+            list.push(obj);
+        });
+        return list;
+    };
+    /**
+     * format list data for the before and after choice select.
+     * list of data to be formatted.
+     * output format should be an array of items that have name, id and order properties.
+     */
 
-  this.getListObjects = function (list) {
-    var list_after = [];
-    list.forEach(function (item) {
-      var obj = { 'name': item.name, 'id': item.sys_id, 'order': item.order };
-      list_after.push(obj);
-    });
-    return list_after
-  }
-  /**
-   * sectionlist represent the sections and its content of the course
-   * id of the object to get
-   * returns object and type in format {type,obj}
-   */
-  this.getSelectedObject = function (sectionlist, id) {
-    var obj = {};
-    sectionlist.forEach(function (item) {
-      if (item.sys_id == id) {
-        obj = { 'type': 'sec', 'obj': item };
-      } else if (item.list_obj.length > 0) {
-        item.list_obj.forEach(function (sub) {
-          if (sub.sys_id == id) {
-            obj = { 'type': sub.type == 'subsection' ? 'sub' : 'unt', 'parent': item.sys_id, 'obj': sub };
-          } else if (sub.type == 'subsection') {
-            sub.list_obj.forEach(function (sub_unit) {
-              if (sub_unit.sys_id == id) {
-                obj = { 'type': "sub unit", 'parent': sub.sys_id, 'obj': sub_unit };
-              }
+    this.getListObjects = function (list) {
+        var list_after = [];
+        list.forEach(function (item) {
+            var obj = { 'name': item.name, 'id': item.sys_id, 'order': item.order };
+            list_after.push(obj);
+        });
+        return list_after;
+    };
+    /**
+     * sectionlist represent the sections and its content of the course
+     * id of the object to get
+     * returns object and type in format {type,obj}
+     */
+    this.getSelectedObject = function (sectionlist, id) {
+        var obj = {};
+        sectionlist.forEach(function (item) {
+            if (item.sys_id == id) {
+                obj = { 'type': 'sec', 'obj': item };
+            } else if (item.list_obj.length > 0) {
+                item.list_obj.forEach(function (sub) {
+                    if (sub.sys_id == id) {
+                        obj = { 'type': sub.type == 'subsection' ? 'sub' : 'unt', 'parent': item.sys_id, 'obj': sub };
+                        if(sub.type =='quiz')
+                            obj.type = sub.type;
+                    } else if (sub.type == 'subsection') {
+                        sub.list_obj.forEach(function (sub_unit) {
+                            if (sub_unit.sys_id == id) {
+                                obj = { 'type': "sub unit", 'parent': sub.sys_id, 'obj': sub_unit };
+                                if(sub.type =='quiz')
+                                    obj.type = sub.type;
+                            }
+                        });
+                    }
+
+                });
+            }
+        });
+        return obj;
+    };
+
+    /**
+     * get order of the first or last elements
+     * list : the array of items
+     * param can be 'first' or 'last'
+     */
+    this.getOrder = function (list, param) {
+        if (list && list.length > 0) {
+            list.sort(function (a, b) {
+                if (a.order > b.order)
+                    return 1;
+                else if (a.order < b.order)
+                    return -1;
+                return 0;
             });
-          }
+            if (param == 'last') {
+                return list[list.length - 1].order;
+            } else if (param == 'first') {
+                list.reverse();
+                return list[list.length - 1].order;
+            }
+        } else {
+            return 0;
+        }
+    };
+    /**
+     * get first unit of the section or subsection defined 
+     * sec_or_sub_sys_id : sys_id of section or subsection
+     * return null if the section or subsection has no first unit
+     */
+    this.getfirstUnit = function (sec_or_sub_sys_id) {
+        var first_unit_id = null;
+        this.dataHolder.sectionList.forEach(function (sec) {
+            if (sec.sys_id == sec_or_sub_sys_id) {
+                var list_obj_sorted = sec.list_obj.sort(function (a, b) { return a.order - b.order; });
+                if (list_obj_sorted[0].type == 'unit' || list_obj_sorted[0].type == 'quiz')
+                    first_unit_id = list_obj_sorted[0].sys_id;
+                else {
+                    if (list_obj_sorted[0].list_obj.length > 0)
+                        first_unit_id = list_obj_sorted[0].list_obj[0].sys_id;
+                }
+            } else {
+                sec.list_obj.forEach(function (sub) {
+                    if (sub.type == "subsection" && sub.sys_id == sec_or_sub_sys_id) {
+                        if (sub.list_obj.length > 0)
+                            first_unit_id = sub.list_obj[0].sys_id;
+                    } else if (sub.type == "unit" && sub.sys_id == sec_or_sub_sys_id)
+                        first_unit_id = sub.sys_id;
+                });
 
+            }
         });
-      }
-    });
-    return obj;
-  }
+        return first_unit_id;
+    };
+    this.nextUnit = function(current_sys_id){
+        var index = this.dataHolder.course_units_ordered.indexOf(current_sys_id);
+        if(index != -1 && index+1 < this.dataHolder.course_units_ordered.length){
+            this.dataHolder.current_id = this.dataHolder.course_units_ordered[index+1];
+        }
+    };
+    this.prevUnit = function(current_sys_id){
+        var index = this.dataHolder.course_units_ordered.indexOf(current_sys_id);
+        if(index != -1 && index-1 >= 0){
+            this.dataHolder.current_id = this.dataHolder.course_units_ordered[index-1];
+        }
+    };
 
-  /**
-   * get order of the first or last elements
-   * list : the array of items
-   * param can be 'first' or 'last'
-   */
-  this.getOrder = function (list, param) {
-    if (list && list.length > 0) {
-      list.sort(function (a, b) {
-        if (a.order > b.order)
-          return 1;
-        else if (a.order < b.order)
-          return -1;
-        return 0;
-      });
-      if (param == 'last') {
-        return list[list.length - 1].order;
-      } else if (param == 'first') {
-        list.reverse();
-        return list[list.length - 1].order;
-      }
-    } else {
-      return 0;
-    }
-  }
+    this.getCourseUnits = function(){
+        var ids = [];
+        for (var i = 0; i < this.dataHolder.sectionList.length; i++) {
+            var sec = this.dataHolder.sectionList[i];
+            var list_obj_sorted = sec.list_obj.sort(function (a, b) { return a.order - b.order; });
+            list_obj_sorted.forEach(function(sub_or_unt){
+                if(sub_or_unt.type == "unit" || sub_or_unt.type == "quiz"){
+                    ids.push(sub_or_unt.sys_id);
+                }else if( sub_or_unt.type == "subsection" && sub_or_unt.list_obj.length>0){
+                    var list_sub_obj_sorted = sub_or_unt.list_obj.sort(function (a, b) { return a.order - b.order; });
+                    list_sub_obj_sorted.forEach(function(unt) {
+                        ids.push(unt.sys_id);
+                    });
+                }
+            });
+        }
+        return ids;
+	};
+	this.nextIsQuiz = function(current_id){
+		var index = this.dataHolder.course_units_ordered.indexOf(current_id);
+        if(index != -1 && index+1 < this.dataHolder.course_units_ordered.length){
+			var next_obj = this.getSelectedObject(this.dataHolder.sectionList,this.dataHolder.course_units_ordered[index+1]);
+			if(next_obj.type == 'quiz'){
+				return next_obj.obj.sys_id;
+			}else{
+				return false
+			}
+        }
+	}
 }]]></script>
         <sys_class_name>sp_angular_provider</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-03-27 10:18:00</sys_created_on>
         <sys_id>35e7e0b907ff8810e53ef03c7c1ed00d</sys_id>
-        <sys_mod_count>18</sys_mod_count>
+        <sys_mod_count>56</sys_mod_count>
         <sys_name>CourseData</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sp_angular_provider_35e7e0b907ff8810e53ef03c7c1ed00d</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2020-03-31 15:44:18</sys_updated_on>
+        <sys_updated_on>2020-07-09 14:55:43</sys_updated_on>
         <type>service</type>
     </sp_angular_provider>
 </record_update>

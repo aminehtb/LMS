@@ -41,7 +41,7 @@
         <update_guid_history>49c7fec5a7620010e0a5a45d90d985e0:-625850108</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="Design.Crash cours">b1c4e8aedb62801016939b81ca961909</sys_audit_delete>
+        <sys_audit_delete display_value="">b1c4e8aedb62801016939b81ca961909</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-01-27 14:40:56</sys_created_on>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_widget_dependency">
     <m2m_sp_widget_dependency action="INSERT_OR_UPDATE">
-        <sp_dependency display_value="quill_dependency">02a89789db03001016939b81ca96193e</sp_dependency>
+        <sp_dependency display_value="">02a89789db03001016939b81ca96193e</sp_dependency>
         <sp_widget display_value="fm_quill_editor">2e467b09db83001016939b81ca9619c9</sp_widget>
         <sys_class_name>m2m_sp_widget_dependency</sys_class_name>
         <sys_created_by>admin</sys_created_by>

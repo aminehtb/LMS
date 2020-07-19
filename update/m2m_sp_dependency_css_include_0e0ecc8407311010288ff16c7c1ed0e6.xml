@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_dependency_css_include">
+    <m2m_sp_dependency_css_include action="INSERT_OR_UPDATE">
+        <order>100</order>
+        <sp_css_include display_value="quill.css">3acd888407311010288ff16c7c1ed0e4</sp_css_include>
+        <sp_dependency display_value="quill dependency">9f9c884407311010288ff16c7c1ed0f0</sp_dependency>
+        <sys_class_name>m2m_sp_dependency_css_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-06-29 08:00:47</sys_created_on>
+        <sys_id>0e0ecc8407311010288ff16c7c1ed0e6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>quill.css.quill dependency</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>m2m_sp_dependency_css_include_0e0ecc8407311010288ff16c7c1ed0e6</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-06-29 08:00:47</sys_updated_on>
+    </m2m_sp_dependency_css_include>
+</record_update>
