@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[function($rootScope,$scope) {
+  /* widget controller */
+  var c = this;
+	
+	
+	
+	
+	
+c.data.name =$scope.data.name;
+console.log("name"+c.data.name);
+	
+	
+	
+	
+	
+ $rootScope.name = c.data.name;
+$rootScope.$emit('selectunit', c.data.name);
+
+
+		/*$scope.submit_record=function() {
+		
+
+console.log('started submit');
+		
+
+	
+c.data.action = 'insert';
+
+c.data.name =$scope.data.name;
+
+
+			
+
+		
+
+c.server.update().then(function(){
+
+
+
+c.data.action = undefined;
+});
+
+};
+	*/
+ 
+};
+	
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>unitform</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>unitform</name>
+        <option_schema>[{"name":"id","section":"other","label":"id","type":"string"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+data.id=input.id;
+	var section = new GlideRecord("x_315700_lms_section");
+	 section.get(data.id);
+	 data.section_name=section.getDisplayValue("name");
+ if(input){
+	 
+	if(input.action=='insert'){
+		
+				gs.warn("unitname"+input.name);
+				var unitGR = new GlideRecord("x_315700_lms_unit");
+            
+            unitGR.name = input.name;
+		        
+		        unitGR.section=data.id;
+		        gs.warn("unitname"+input.name+"   "+unitGR.section);
+            var id = unitGR.insert();
+            data.sysID = id;
+				    
+			}
+	 
+	
+	 
+	
+
+	
+	
+	 }
+	
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-30 09:09:33</sys_created_on>
+        <sys_id>183801a82ff17300a4a2c886f699b624</sys_id>
+        <sys_mod_count>60</sys_mod_count>
+        <sys_name>unitform</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_183801a82ff17300a4a2c886f699b624</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-06-24 09:56:12</sys_updated_on>
+        <template><![CDATA[
+
+<div style="text-align:center;">
+<!-- your widget template -->
+ <div >
+   
+  Unit Name :  <input type="text" ng-model="c.data.name"> 
+  </div>
+  
+  
+   Section Name :  <input type="text" ng-model="data.section_name"> 
+  <div>
+   
+  <button  ng-click="submit_record()">
+                     Add unit  
+								</button> </div>
+  
+  
+</div>]]></template>
+    </sp_widget>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>sp_widget_183801a82ff17300a4a2c886f699b624</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;
+    &lt;sp_widget action="INSERT_OR_UPDATE"&gt;
+        &lt;category&gt;custom&lt;/category&gt;
+        &lt;client_script&gt;&lt;![CDATA[function($rootScope,$scope) {
+  /* widget controller */
+  var c = this;
+	
+	
+	
+	
+	
+c.data.name =$scope.data.name;
+console.log("name"+c.data.name);
+	
+	
+	
+	
+	
+ $rootScope.name = c.data.name;
+$rootScope.$emit('selectunit', c.data.name);
+
+
+		/*$scope.submit_record=function() {
+		
+
+console.log('started submit');
+		
+
+	
+c.data.action = 'insert';
+
+c.data.name =$scope.data.name;
+
+
+			
+
+		
+
+c.server.update().then(function(){
+
+
+
+c.data.action = undefined;
+});
+
+};
+	*/
+ 
+};
+	
+]]&gt;&lt;/client_script&gt;
+        &lt;controller_as&gt;c&lt;/controller_as&gt;
+        &lt;css/&gt;
+        &lt;data_table&gt;sp_instance&lt;/data_table&gt;
+        &lt;demo_data/&gt;
+        &lt;description/&gt;
+        &lt;docs/&gt;
+        &lt;field_list/&gt;
+        &lt;has_preview&gt;false&lt;/has_preview&gt;
+        &lt;id&gt;unitform&lt;/id&gt;
+        &lt;internal&gt;false&lt;/internal&gt;
+        &lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;
+        &lt;name&gt;unitform&lt;/name&gt;
+        &lt;option_schema&gt;[{"name":"id","section":"other","label":"id","type":"string"}]&lt;/option_schema&gt;
+        &lt;public&gt;false&lt;/public&gt;
+        &lt;roles/&gt;
+        &lt;script&gt;&lt;![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+data.id=input.id;
+	var section = new GlideRecord("x_315700_lms_section");
+	 section.get(data.id);
+	 data.section_name=section.getDisplayValue("name");
+ if(input){
+	 
+	if(input.action=='insert'){
+		
+				gs.warn("unitname"+input.name);
+				var unitGR = new GlideRecord("x_315700_lms_unit");
+            
+            unitGR.name = input.name;
+		        
+		        unitGR.section=data.id;
+		        gs.warn("unitname"+input.name+"   "+unitGR.section);
+            var id = unitGR.insert();
+            data.sysID = id;
+				    
+			}
+	 
+	
+	 
+	
+
+	
+	
+	 }
+	
+	
+})();]]&gt;&lt;/script&gt;
+        &lt;servicenow&gt;false&lt;/servicenow&gt;
+        &lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2019-05-30 09:09:33&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;183801a82ff17300a4a2c886f699b624&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;60&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;unitform&lt;/sys_name&gt;
+        &lt;sys_package display_value="LMS" source="x_315700_lms"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="LMS"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sp_widget_183801a82ff17300a4a2c886f699b624&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2019-06-24 09:56:12&lt;/sys_updated_on&gt;
+        &lt;template&gt;&lt;![CDATA[
+
+&lt;div style="text-align:center;"&gt;
+&lt;!-- your widget template --&gt;
+ &lt;div &gt;
+   
+  Unit Name :  &lt;input type="text" ng-model="c.data.name"&gt; 
+  &lt;/div&gt;
+  
+  
+   Section Name :  &lt;input type="text" ng-model="data.section_name"&gt; 
+  &lt;div&gt;
+   
+  &lt;button  ng-click="submit_record()"&gt;
+                     Add unit  
+								&lt;/button&gt; &lt;/div&gt;
+  
+  
+&lt;/div&gt;]]&gt;&lt;/template&gt;
+    &lt;/sp_widget&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>-1713460969</payload_hash>
+        <record_name>unitform</record_name>
+        <reverted_from/>
+        <source>52acf146078d1010288ff16c7c1ed025</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-05-29 14:25:56</sys_created_on>
+        <sys_id>e5ec7586078d1010288ff16c7c1ed040</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17260d33dfd0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-05-29 14:25:56</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>a5ec7586e98d10102752c53a487aae40</update_guid>
+        <update_guid_history>a5ec7586e98d10102752c53a487aae40:-1713460969</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="unitform">2bcb35ba074a1010288ff16c7c1ed065</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-20 15:19:23</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>b410979772c3404ea5109aae914f0e39</sys_id>
+        <sys_metadata>183801a82ff17300a4a2c886f699b624</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>unitform</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sp_widget_183801a82ff17300a4a2c886f699b624</sys_update_name>
+        <sys_update_version display_value="sp_widget_183801a82ff17300a4a2c886f699b624">e5ec7586078d1010288ff16c7c1ed040</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-20 15:19:23</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {
+  /* widget controller */
+  var c = this;
+	$(document).ready(function() {
+  $('#calendar').fullCalendar({
+    left: 'prev,next today',
+    center: 'title',
+    right: 'month,agendaWeek,agendaDay'
+  });
+});
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>calendartest</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>calendartest</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-10-07 13:04:04</sys_created_on>
+        <sys_id>0b8c531e2f500010a4a2c886f699b68c</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>calendartest</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_0b8c531e2f500010a4a2c886f699b68c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-10-08 11:15:27</sys_updated_on>
+        <template><![CDATA[ <head>
+<link rel='stylesheet' href='https://fullcalendar.io/js/fullcalendar-3.1.0/fullcalendar.min.css' />
+</head>
+<div id='calendar'></div>
+<script src='https://fullcalendar.io/js/fullcalendar-3.1.0/lib/moment.min.js'></script>
+<script src='https://fullcalendar.io/js/fullcalendar-3.1.0/lib/jquery.min.js'></script>
+<script src='https://fullcalendar.io/js/fullcalendar-3.1.0/lib/jquery-ui.min.js'></script>
+<script src='https://fullcalendar.io/js/fullcalendar-3.1.0/fullcalendar.min.js'></script>]]></template>
+    </sp_widget>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>sp_widget_0b8c531e2f500010a4a2c886f699b68c</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;
+    &lt;sp_widget action="INSERT_OR_UPDATE"&gt;
+        &lt;category&gt;custom&lt;/category&gt;
+        &lt;client_script&gt;&lt;![CDATA[function() {
+  /* widget controller */
+  var c = this;
+	$(document).ready(function() {
+  $('#calendar').fullCalendar({
+    left: 'prev,next today',
+    center: 'title',
+    right: 'month,agendaWeek,agendaDay'
+  });
+});
+}]]&gt;&lt;/client_script&gt;
+        &lt;controller_as&gt;c&lt;/controller_as&gt;
+        &lt;css/&gt;
+        &lt;data_table&gt;sp_instance&lt;/data_table&gt;
+        &lt;demo_data/&gt;
+        &lt;description/&gt;
+        &lt;docs/&gt;
+        &lt;field_list/&gt;
+        &lt;has_preview&gt;false&lt;/has_preview&gt;
+        &lt;id&gt;calendartest&lt;/id&gt;
+        &lt;internal&gt;false&lt;/internal&gt;
+        &lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;
+        &lt;name&gt;calendartest&lt;/name&gt;
+        &lt;option_schema/&gt;
+        &lt;public&gt;false&lt;/public&gt;
+        &lt;roles/&gt;
+        &lt;script&gt;&lt;![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]&gt;&lt;/script&gt;
+        &lt;servicenow&gt;false&lt;/servicenow&gt;
+        &lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2019-10-07 13:04:04&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;0b8c531e2f500010a4a2c886f699b68c&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;6&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;calendartest&lt;/sys_name&gt;
+        &lt;sys_package display_value="LMS" source="x_315700_lms"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="LMS"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sp_widget_0b8c531e2f500010a4a2c886f699b68c&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2019-10-08 11:15:27&lt;/sys_updated_on&gt;
+        &lt;template&gt;&lt;![CDATA[ &lt;head&gt;
+&lt;link rel='stylesheet' href='https://fullcalendar.io/js/fullcalendar-3.1.0/fullcalendar.min.css' /&gt;
+&lt;/head&gt;
+&lt;div id='calendar'&gt;&lt;/div&gt;
+&lt;script src='https://fullcalendar.io/js/fullcalendar-3.1.0/lib/moment.min.js'&gt;&lt;/script&gt;
+&lt;script src='https://fullcalendar.io/js/fullcalendar-3.1.0/lib/jquery.min.js'&gt;&lt;/script&gt;
+&lt;script src='https://fullcalendar.io/js/fullcalendar-3.1.0/lib/jquery-ui.min.js'&gt;&lt;/script&gt;
+&lt;script src='https://fullcalendar.io/js/fullcalendar-3.1.0/fullcalendar.min.js'&gt;&lt;/script&gt;]]&gt;&lt;/template&gt;
+    &lt;/sp_widget&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>-884157131</payload_hash>
+        <record_name>calendartest</record_name>
+        <reverted_from/>
+        <source>52acf146078d1010288ff16c7c1ed025</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-05-29 14:25:56</sys_created_on>
+        <sys_id>25ec7586078d1010288ff16c7c1ed03c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17260d33daa0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-05-29 14:25:56</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>e1ec7586ea8d101073839c083b8af63c</update_guid>
+        <update_guid_history>e1ec7586ea8d101073839c083b8af63c:-884157131</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="calendartest">0e05f576074a1010288ff16c7c1ed02b</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-20 14:49:48</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>13f81161ea6743508930e7313071fc40</sys_id>
+        <sys_metadata>0b8c531e2f500010a4a2c886f699b68c</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>calendartest</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sp_widget_0b8c531e2f500010a4a2c886f699b68c</sys_update_name>
+        <sys_update_version display_value="sp_widget_0b8c531e2f500010a4a2c886f699b68c">25ec7586078d1010288ff16c7c1ed03c</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-20 14:49:48</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

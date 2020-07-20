@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope) {
+  /* widget controller */
+  var c = this;
+	
+	
+	
+	var shared = c.widget.options.shared;
+	c.selection = function selection(idx) {
+	var id = c.data.activity[idx];
+		//console.log(id);
+		
+		return angular.isDefined(id) ? (shared.selection = id) : shared.selection;
+		
+	}
+	
+	
+	 $scope.Search=function(){
+	var input, filter, ul, li, a,txtValue;
+  input = document.getElementById('myinput');
+  filter = input.value.toUpperCase();
+  li = document.querySelectorAll('.list-group  li');
+  
+  
+  for (var i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+		console.log(a);
+    txtValue = a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+	 }
+	
+
+}
+
+
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>activitieslist</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>activitieslist</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+	
+	
+	data.activity=[];
+	 var activity=new GlideRecord("x_315700_lms_activitycmp");
+	activity.query();
+	while (activity.next()) {
+    activityobj = {};
+    $sp.getRecordDisplayValues(activityobj,activity,'title,sys_id');	
+
+		data.activity.push(activity);
+	
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-21 12:05:52</sys_created_on>
+        <sys_id>5f3a1fa92fa13300a4a2c886f699b661</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>activitieslist</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_5f3a1fa92fa13300a4a2c886f699b661</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-05-23 09:45:20</sys_updated_on>
+        <template><![CDATA[<div>
+
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+<div class="container">
+    <div class="row">
+     
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-3">
+            <form action="" class="search-form">
+                <div class="form-group has-feedback">
+            		<label for="search" class="sr-only">Search</label>
+            		<input type="text" onkeyup="angular.element(this).scope().Search()" class="form-control" name="search" id="myinput" placeholder="search">
+              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
+            	</div>
+            </form>
+        </div>
+    </div>
+  
+  
+  
+  <div style="display: inline-block;">
+    
+  
+ <ul class="list-group">
+      <li  ng-click="c.selection($index)"  class="list-group-item" ng-repeat="item in data.activity">
+        <a >{{item}}</a>
+      </li>
+    </ul>
+    </div>
+  </div>
+
+</div>
+  
+  
+]]></template>
+    </sp_widget>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>sp_widget_5f3a1fa92fa13300a4a2c886f699b661</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;
+    &lt;sp_widget action="INSERT_OR_UPDATE"&gt;
+        &lt;category&gt;custom&lt;/category&gt;
+        &lt;client_script&gt;&lt;![CDATA[function($scope) {
+  /* widget controller */
+  var c = this;
+	
+	
+	
+	var shared = c.widget.options.shared;
+	c.selection = function selection(idx) {
+	var id = c.data.activity[idx];
+		//console.log(id);
+		
+		return angular.isDefined(id) ? (shared.selection = id) : shared.selection;
+		
+	}
+	
+	
+	 $scope.Search=function(){
+	var input, filter, ul, li, a,txtValue;
+  input = document.getElementById('myinput');
+  filter = input.value.toUpperCase();
+  li = document.querySelectorAll('.list-group  li');
+  
+  
+  for (var i = 0; i &lt; li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+		console.log(a);
+    txtValue = a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) &gt; -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+	 }
+	
+
+}
+
+
+]]&gt;&lt;/client_script&gt;
+        &lt;controller_as&gt;c&lt;/controller_as&gt;
+        &lt;css/&gt;
+        &lt;data_table&gt;sp_instance&lt;/data_table&gt;
+        &lt;demo_data/&gt;
+        &lt;description/&gt;
+        &lt;docs/&gt;
+        &lt;field_list/&gt;
+        &lt;has_preview&gt;false&lt;/has_preview&gt;
+        &lt;id&gt;activitieslist&lt;/id&gt;
+        &lt;internal&gt;false&lt;/internal&gt;
+        &lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;
+        &lt;name&gt;activitieslist&lt;/name&gt;
+        &lt;option_schema/&gt;
+        &lt;public&gt;false&lt;/public&gt;
+        &lt;roles/&gt;
+        &lt;script&gt;&lt;![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+	
+	
+	data.activity=[];
+	 var activity=new GlideRecord("x_315700_lms_activitycmp");
+	activity.query();
+	while (activity.next()) {
+    activityobj = {};
+    $sp.getRecordDisplayValues(activityobj,activity,'title,sys_id');	
+
+		data.activity.push(activity);
+	
+	}
+})();]]&gt;&lt;/script&gt;
+        &lt;servicenow&gt;false&lt;/servicenow&gt;
+        &lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2019-05-21 12:05:52&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;5f3a1fa92fa13300a4a2c886f699b661&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;5&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;activitieslist&lt;/sys_name&gt;
+        &lt;sys_package display_value="LMS" source="x_315700_lms"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="LMS"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sp_widget_5f3a1fa92fa13300a4a2c886f699b661&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2019-05-23 09:45:20&lt;/sys_updated_on&gt;
+        &lt;template&gt;&lt;![CDATA[&lt;div&gt;
+
+  &lt;link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"&gt;
+&lt;script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"&gt;&lt;/script&gt;
+&lt;script src="//code.jquery.com/jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+
+
+&lt;div class="container"&gt;
+    &lt;div class="row"&gt;
+     
+    &lt;/div&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-md-4 col-md-offset-3"&gt;
+            &lt;form action="" class="search-form"&gt;
+                &lt;div class="form-group has-feedback"&gt;
+            		&lt;label for="search" class="sr-only"&gt;Search&lt;/label&gt;
+            		&lt;input type="text" onkeyup="angular.element(this).scope().Search()" class="form-control" name="search" id="myinput" placeholder="search"&gt;
+              		&lt;span class="glyphicon glyphicon-search form-control-feedback"&gt;&lt;/span&gt;
+            	&lt;/div&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+  
+  
+  
+  &lt;div style="display: inline-block;"&gt;
+    
+  
+ &lt;ul class="list-group"&gt;
+      &lt;li  ng-click="c.selection($index)"  class="list-group-item" ng-repeat="item in data.activity"&gt;
+        &lt;a &gt;{{item}}&lt;/a&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+  
+  
+]]&gt;&lt;/template&gt;
+    &lt;/sp_widget&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>-608294086</payload_hash>
+        <record_name>activitieslist</record_name>
+        <reverted_from/>
+        <source>52acf146078d1010288ff16c7c1ed025</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-05-29 14:25:56</sys_created_on>
+        <sys_id>69ec7586078d1010288ff16c7c1ed053</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17260d33fdd0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-05-29 14:25:56</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>29ec7586448d10109d88413838bd2153</update_guid>
+        <update_guid_history>29ec7586448d10109d88413838bd2153:-608294086</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="activitieslist">aca4b176074a1010288ff16c7c1ed080</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-20 14:48:03</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>999903ebf53d4d8d9e48dd7a0fd34489</sys_id>
+        <sys_metadata>5f3a1fa92fa13300a4a2c886f699b661</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>activitieslist</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sp_widget_5f3a1fa92fa13300a4a2c886f699b661</sys_update_name>
+        <sys_update_version display_value="sp_widget_5f3a1fa92fa13300a4a2c886f699b661">69ec7586078d1010288ff16c7c1ed053</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-20 14:48:03</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

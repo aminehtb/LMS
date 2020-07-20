@@ -1,0 +1,2186 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[function($rootScope,$scope,$sce,nowAttachmentHandler,$timeout,spAriaUtil,spUtil,$http) {
+  
+    var c = this;
+      
+      console.log("state"+c.data.state);
+	
+	console.log(c.data.test[0]);
+	
+	console.log("amine : "+c.data.listcurrentunit.length);
+	console.log("listcurrentunit order"+JSON.stringify(c.data.listcurrentunit));
+	console.log("section"+c.data.unitsectionid);
+	
+	
+      c.data.sys_id=c.data.id;
+	  console.log(c.data.sys_id);
+	
+	console.log("parentsection"+c.data.parent_section);
+	console.log("order"+c.data.order);
+	
+	console.log("current section"+c.data.currentsection);
+ console.log(c.data.listcurrentunit.length);
+	console.log("length"+c.data.test.length);
+
+c.data.unitlength=c.data.list_course.length+c.data.subunit.length;
+	  var ll = c.data.listcurrentunit.length;
+	  var length = c.data.test.length;
+  
+	for(var i=0;i<c.data.listcurrentunit.length;i++){
+		
+		console.log(i);
+	 console.log("ll : "+ll);
+		console.log("fst element : "+c.data.listcurrentunit[ll-1].order);
+		var testsubsection=has_section(c.data.currentsection);
+		if(c.data.order<c.data.listcurrentunit[ll-1].order){
+			
+			c.link ="?id=unit_body&unit_id="+c.data.nextid+"&sys_id="+c.data.courseid;
+			console.log("url"+c.link);
+		}
+		else if (testsubsection.has_sub){ 
+			c.link = "?id=unit_body&unit_id="+testsubsection.firstunit+"&sys_id="+c.data.courseid;
+		
+		}
+			else {
+			
+			c.link = "?id=unit_body&unit_id="+c.data.unitsectionid+"&sys_id="+c.data.courseid;
+			
+			}
+				 
+			if (c.data.last==true){
+			c.link="?id=user_dashboard";
+		}
+	}
+	
+		
+			
+		
+	
+
+
+		
+	
+    //document.getElementById("link").href = $scope.getNext();  
+  
+       $scope.files = [];  
+			var activity_attch = [];
+    $scope.setFiles = function(element,id) {
+			console.log(id);
+			 var obj =  {'id':id,'list':[]}
+       for (var i = 0; i < element.files.length; i++) {
+      console.log(element.files[i].name);        
+   document.getElementsByName(id)[0].innerHTML+='<button class="btn btn-default btn-sm" id='+element.files[i].name+' onclick="removeFiles(\''+id+'\',this.id)">'+ element.files[i].name + element.files[i].size+'KB <i class="fas fa-trash-alt"></i>'+'</button>'+'</br>'; 
+
+        obj.list.push(element.files[i]);
+     }
+			activity_attch.push(obj);
+			
+   };
+  
+  /*$scope.setId = function(id){
+          document.getElementById(id).innerHTML=element.file.name;
+             console.log('files:', id);
+          
+          
+      }*/
+      
+      
+    
+    removeFiles = function(id,fname) {
+		console.log('removing '+fname);
+			document.getElementById(fname).remove();
+			activity_attch.forEach(function(item){
+				if(item.id == id ){
+					for(var i=0;i<item.list.length;i++){
+						
+							item.list.splice(i,1);
+						
+						
+					}
+					console.log("alaaaa"+item.list);
+				}
+			});
+      
+		}
+    $scope.uploadFiles = function() { 
+      $scope.fd = new FormData();
+			
+      $scope.files.forEach(function(file){
+        $scope.fd.set('files', file);
+				console.log(file);
+        var request = {
+          method: 'POST',
+          url: 'https://'+c.data.instanceName+'.service-now.com/api/now/attachment/file?table_name='+c.data.table+'&table_sys_id='+c.data.tableSys+'&file_name='+file.name,
+          data: $scope.fd.get('files'),
+          headers: {
+            'Content-Type': file.type,
+            'Accept':'application/json'         
+          }
+        };
+        console.log('HTTP request:',request);
+  
+        // SEND THE FILES.
+        $http(request)
+          .success(function (d) {
+         var json_data = JSON.stringify(d);
+        json_data = JSON.parse(json_data);
+         c.data.action = 'append_file';
+         c.data.rec_id = c.data.sysID;
+         c.data.attachment_id = json_data.result.sys_id;
+         c.server.update().then(function(){
+      c.data.action = undefined;
+      })
+              })
+          .error(function (err) {
+          // On error code here
+        });
+                              
+  
+                                   
+          });
+      }
+      $scope.submit_record=function(act_id) {
+      
+      
+          var index=-1;
+          for (var i=0;i<c.data.all_components.length;i++){
+          if (c.data.all_components[i].sys_id==act_id)
+              index=i;
+      
+          }
+      c.data.activity =c.data.all_components[index].sys_id;
+      
+			activity_attch.forEach(function(item){
+				if(item.id == act_id){
+					item.list.forEach(function(f){
+						$scope.files.push(f);
+					});
+					
+				}
+				
+			});
+			
+				//console.log($scope.files);
+      c.data.insert = 'insert';
+      c.server.update().then(function(){
+       c.data.table = 'x_315700_lms_useractivity';
+          c.data.tableSys = c.data.sysID;
+          $scope.uploadFiles();
+				console.log('success');
+  c.data.insert = undefined;
+      });
+      
+         
+  };
+  
+
+
+	
+		
+	
+	console.log("c.data.list"+c.data.last)
+	$scope.change_state= function(){
+		 	if ( c.data.last==true){
+			c.btnvalue="Passer au dashboard ";
+				return false;
+		}
+	else if(c.data.state==true){
+		c.btnvalue="chapitre terminée";
+		return true;
+		
+		
+	}
+	else if (c.data.state==false) { 
+		c.btnvalue="J'ai terminée ce chapitre";
+		return false;
+				}
+		console.log("state"+c.data.state+"last"+c.data.last);
+	
+	}
+	
+	
+	
+	
+	
+	
+	$scope.add_state=function(){		
+			
+  c.data.action='add_state';
+		
+	
+			 c.server.update().then(function(){
+
+c.data.action = 'undefined';
+});
+		
+}
+
+          c.data.textarticleHtml ="";
+      c.server.get({
+                  action: 'getunit'
+              }).then(function(r) {
+                  console.log(r.data);
+                  c.data= r.data;
+              c.data.all_components=r.data.all_components;
+			});   
+          
+          
+		function has_section(id){ 
+		
+			var obj={};
+			obj.has_sub=false;
+		c.data.unitlist.forEach(function(item){
+			if(item.sys_id==id){
+				if(item.subsection.length>0){
+					
+					obj.has_sub=true;
+					obj.firstunit=item.subsection[0].arraysubunit[0].sys_id;
+				}
+			}
+		});
+		return obj;
+	}
+}
+	
+	
+	
+
+
+                                                   
+  
+  ]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.nbs-flexisel-nav-left, .nbs-flexisel-nav-right {
+    width: 20px;
+    height:25px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+    margin-top:2em;
+}
+.nbs-flexisel-nav-left {
+    right: 0;
+    background: none;
+}
+.nbs-flexisel-nav-right {
+ left: 0;
+  background: none;
+}
+li.nbs-flexisel-item {
+ width:370px;
+}
+.biseller-column  p {
+    font-size: 1em;
+    color: #fff;
+    margin: 0;
+    text-align:center;
+}
+.panel-title &gt; a, .panel-title &gt; small, .panel-title &gt; .small, .panel-title &gt; small &gt; a, .panel-title &gt; .small &gt; a {
+    color:#000;
+    text-decoration: none;
+}
+.panel-title {
+    font-size: 1.1em;
+}
+.panel-default &gt; .panel-heading {
+    background: none;
+    border: none;
+	cursor: pointer;
+}
+.panel-default {
+    border: none;
+}
+.panel-group .panel-heading + .panel-collapse &gt; .panel-body, .panel-group .panel-heading + .panel-collapse &gt; .list-group {
+    border: none;
+}
+.asd {
+    padding: 1em 0;
+	text-transform:capitalize;
+}
+.panel_text {
+    font-size: 14px;
+    color: black;
+    line-height: 1.8em;
+}
+.panel{
+	box-shadow:none;
+}
+.pa_italic span{
+	display:none;
+}
+.pa_italic i{
+	left: -1em;
+}
+.collapsed span{
+	display: inline-block;
+    left: -1em;
+}
+.collapsed i{
+	display:none;
+}
+.panel_text {
+    background:#fff;
+.img-fluid. max-width: 100%;
+  height:auto;
+}
+p{font-size: 1.3rem;
+  line-height: 1.625rem;
+ font-family: Verdana, Geneva, sans-serif;
+  
+}
+.responsive {
+  max-width: 90%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+.youtube-player{
+   margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 6px;
+    display: block;
+}
+h2 { text-align: center }
+
+.section{
+  background-color:#00251a;
+}
+.greenbtn{
+  background-color:#39796b;
+  border: none;
+  color: white;
+  padding: 17px 35px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight:bold;
+  display: block;
+   margin : auto;
+  margin-top:15px;
+}
+.finish-btn{
+  background-color:grey;
+    border: none;
+  color: white;
+  padding: 17px 35px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight:bold;
+  display: block;
+   margin : auto;
+  margin-top:15px;
+}
+
+
+
+
+
+
+ .progressbar {
+      margin: 50px 0 50px 0;
+      counter-reset: step;
+  }
+
+  .progressbar li {
+      list-style-type: none;
+      width: 25%;
+      float: left;
+      font-size: 12px;
+      position: relative;
+      text-align: center;
+      text-transform: uppercase;
+      color: #7d7d7d;
+  }
+  .progressbar li:before {
+      width: 15px;
+      height: 15px;
+      content: '';
+      line-height: 30px;
+      border: 10px solid #7d7d7d;
+      background: #7d7d7d;
+      display: block;
+      text-align: center;
+      margin: 0 auto 10px auto;
+      border-radius: 10px;
+      transition: all .8s;
+  }
+  .progressbar li:after {
+      width: 100%;
+      height: 2px;
+      content: '';
+      position: absolute;
+      background-color: #7d7d7d;
+      top: 7px;
+      left: -50%;
+      z-index: 0;
+      transition: all .8s;
+  }
+  .progressbar li:first-child:after {
+      content: none;
+  }
+  .progressbar li.active:before {
+      border-color: #55b776;
+      background-color: #55b776;
+      transition: all .8s;
+  }
+  .progressbar li.active:after {
+      background-color: #55b776;
+      transition: all .8s;
+  }
+
+.btn {
+  background-color: #55b776;
+  margin: 5px;
+  width: 75px;
+  color: white;
+}
+.btn:hover {
+  color: white;
+}
+.btn:focus {
+  color: white;
+}
+.btn-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+.progressbar li:hover  {
+	cursor: pointer;
+  color: #48A4D2;
+}
+li:hover .description {
+  display: block;
+}
+
+
+
+
+
+
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>unit_content</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Unit_content</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	
+	
+	data.section=[];
+	data.subsection=[];
+	 data.unitid=$sp.getParameter("unit_id");
+	 data.courseid=$sp.getParameter("sys_id");
+	data.subunit=[];
+	
+	var currentunit = new GlideRecord("x_315700_lms_unit");
+	currentunit.get(data.unitid);
+	data.unitbody=currentunit.getDisplayValue("unitbody");
+	
+	
+	gs.warn("dataunitbody"+data.unitbody);
+	var unituserGR = new GlideRecord("x_315700_lms_unit_user");
+	function exist(id){
+var val=false;
+			
+	  unituserGR.addQuery("unit_id",id);
+		unituserGR.query();
+	  var total = unituserGR.getRowCount();
+	  
+	  if(total == 1){
+			val=true;
+			
+		}
+		return val ;
+		}
+	
+	
+	data.list_course=[];
+	 var section = new GlideRecord('x_315700_lms_section');
+	 section.addQuery("course",data.courseid);
+	 section.orderByDesc("order");
+	 section.setLimit(1);
+	 section.query();
+	 while(section.next()){
+		var unitsection=new GlideRecord('x_315700_lms_unit');
+			 unitsection.addQuery("section",section.sys_id);
+			 unitsection.orderByDesc("order");
+			 unitsection.setLimit(1);
+			 unitsection.query();
+			 while (unitsection.next()){
+				 data.unit_last=unitsection.getDisplayValue("sys_id");
+	 }
+		 
+	 }
+		 data.last=false;
+		if(data.unitid==data.unit_last) {
+			data.last=true;
+		}
+		 
+		 
+		 
+	 data.state=false;
+	
+	 var unituserGR = new GlideRecord("x_315700_lms_unit_user");
+	  
+	 unituserGR.query();
+	 while(unituserGR.next()){
+	     if (unituserGR.unit_id==data.unitid && unituserGR.user_id==gs.getUserID()) {
+				 data.state=true;
+			 }
+	 }
+		 
+	data.firstunit=[];
+	var firstunit=new GlideRecord('x_315700_lms_unit');
+	firstunit.get(data.unitid);
+	
+	data.order=firstunit.getValue("order");
+	
+	gs.warn("firstunit"+JSON.stringify(data.order));
+	
+	 var section = new GlideRecord('x_315700_lms_section');
+	
+	
+	
+	  gs.warn("id"+data.unitid);
+	var parent_section = new GlideRecord('x_315700_lms_section');
+	var parentsection = new GlideRecord('x_315700_lms_section');
+	
+				var currentunit=new GlideRecord('x_315700_lms_unit');
+	 
+			var nextunit=new GlideRecord('x_315700_lms_unit');
+	
+	var currentsection = new GlideRecord('x_315700_lms_section');
+	
+	var nextsection=new GlideRecord('x_315700_lms_section');
+		 currentunit.get(data.unitid);
+	   data.currentsection=currentunit.getValue("section"); 
+	   currentsection.get(data.currentsection);
+	   currentsection.query();
+	   if (currentsection.getDisplayValue("parent_section")!=null){
+			 data.parent_section=currentsection.getDisplayValue("parent_section")
+		 }
+	   parent_section.get(data.parent_section);
+	 parentsection.addQuery("course",data.courseid);
+	   parentsection.addQuery("order",(parent_section.order)+100);
+	   parentsection.setLimit(1);
+	   parentsection.query();
+	
+	   while(parentsection.next()){
+			 data.nextsectionid=parentsection.getValue("sys_id");
+			 gs.warn("nextsection"+data.nextsectionid);
+			 var unitsection=new GlideRecord('x_315700_lms_unit');
+			 unitsection.addQuery("section",data.nextsectionid);
+			 unitsection.orderBy("order");
+			 unitsection.setLimit(1);
+			 unitsection.query();
+			 while (unitsection.next()){
+				
+				 data.unitparentsectionid=unitsection.getDisplayValue("sys_id");
+			 }
+		 }
+	
+	
+	   nextsection.addQuery("course",data.courseid);
+	   nextsection.addQuery("order",(currentsection.order)+100);
+	   nextsection.setLimit(1);
+	   nextsection.query();
+	
+	   while(nextsection.next()){
+			 data.nextsectionid=nextsection.getValue("sys_id");
+			 gs.warn("nextsection"+data.nextsectionid);
+			 var unitsection=new GlideRecord('x_315700_lms_unit');
+			 unitsection.addQuery("section",data.nextsectionid);
+			 unitsection.orderBy("order");
+			 unitsection.setLimit(1);
+			 unitsection.query();
+			 while (unitsection.next()){
+				
+				 data.unitsectionid=unitsection.getDisplayValue("sys_id");
+			 }
+		 }
+		gs.warn("order "+JSON.stringify(data.unitsectionid));
+	   gs.warn("current section"+currentunit.getValue("section"));
+	   nextunit.addQuery("section",currentunit.getValue("section"));
+	
+     nextunit.addQuery("order",(currentunit.order)+100);
+	   nextunit.query();
+	   gs.warn("nextunit "+JSON.stringify(nextunit));
+	while(nextunit.next()){
+		data.nextid=nextunit.getDisplayValue("sys_id");
+	}
+		gs.warn("nextunit id "+data.nextid);
+	data.test=[];
+	var subsection = new GlideRecord("x_315700_lms_section");
+	subsection.addQuery("parent_section",data.currentsection);
+	subsection.orderBy("order");
+	subsection.query();
+	
+	
+	while(subsection.next()){
+		var subunit = new GlideRecord('x_315700_lms_unit');
+		subunit.addQuery("section",subsection.sys_id);
+		subunit.orderBy("order");
+		subunit.query();
+		while(subunit.next()){
+			var subunitobj={};
+				$sp.getRecordDisplayValues(subunitobj,subunit,"sys_id,name,order");
+				data.test.push(subunitobj);
+			   data.nextsubid=subunit.getDisplayValue("sys_id");
+			gs.warn("nextsubid",data.nextsubid);
+			gs.warn("test"+JSON.stringify(data.test));
+		}
+		
+	}
+	
+	  //data.url="?id=unit_body&unit_id="+data.unitsectionid+"&course_id="+data.courseid;
+	data.listcurrentunit=[];
+	var listunitt=new GlideRecord('x_315700_lms_unit');
+		 listunitt.addQuery("section",data.currentsection);
+	
+			listunitt.orderBy("order");
+			listunitt.query();
+
+			while(listunitt.next()){
+				var unitobj={};
+				data.unit_id=listunitt.getDisplayValue("sys_id");
+				$sp.getRecordDisplayValues(unitobj,listunitt,"sys_id,name,order");
+				data.listcurrentunit.push(unitobj);
+			  
+			
+			}
+	
+		    gs.warn("listunit"+JSON.stringify(data.listcurrentunit));
+	  
+	
+	
+	if(input){
+		var unit = new GlideRecord('x_315700_lms_unit');
+		var section = new GlideRecord('x_315700_lms_section');
+   data.id=$sp.getParameter("unit_id");
+		gs.warn("unit id"+data.id);
+		data.table='x_315700_lms_useractivity';
+		
+		data.instanceName = gs.getProperty('instance_name');
+		if (unit.get(data.id)) {			
+			if (input.action == 'getunit') {	
+				
+				
+				data.all_components = [];
+				data.unit={};
+				data.section={};
+				data.useractivity={};
+				data.course={};
+				data.course=section.getDisplayValue("course");
+				data.section= unit.getDisplayValue("section");
+					var componentGR = new GlideRecord('x_315700_lms_component');
+					componentGR.addQuery("parent_unit",data.id);
+				componentGR.orderBy('order');
+				 componentGR.query();
+					while(componentGR.next()){
+						var cmpClass =componentGR.getValue('sys_class_name')+""; 
+				
+						switch (cmpClass) {
+							case 'x_315700_lms_videocmp':	
+								var videocomponentGR = new GlideRecord("x_315700_lms_videocmp");
+								videocomponentGR.get(componentGR.sys_id);
+								videocomponentGR.query();
+								while(videocomponentGR.next()){
+									var videoobj={};
+								$sp.getRecordValues(videoobj,videocomponentGR,"link,sys_class_name,title,unit,order");
+									videoobj.c_type = 'video';
+									data.all_components.push(videoobj);
+								}
+								break;
+								
+							case 'x_315700_lms_textcmp': 
+								var textcomponentGR = new GlideRecord("x_315700_lms_textcmp");
+								  textcomponentGR.get(componentGR.sys_id);
+								textcomponentGR.query();
+								while(textcomponentGR.next()){
+									var textobj={};
+								$sp.getRecordValues(textobj,textcomponentGR,"text_body,sys_class_name");
+									textobj.c_type ='text';
+									data.all_components.push(textobj);
+								}
+								break;
+								
+							 case 'x_315700_lms_imagecmp':
+								
+								var imagecomponentGR = new GlideRecord("x_315700_lms_imagecmp");
+								imagecomponentGR.get(componentGR.sys_id);	  
+                imagecomponentGR.addQuery("sys_id",imagecomponentGR.getValue('sys_id'));
+                imagecomponentGR.query();
+                while (imagecomponentGR.next()) {
+								
+                var link = imagecomponentGR.link.getDisplayValue();
+									
+		
+								
+									var imageobj = {'src':link,'c_type':'image'};
+									data.all_components.push(imageobj);									
+                }
+	              break;			
+							
+							case 'x_315700_lms_articlecmp':
+								var articlecomponentGR=new GlideRecord("x_315700_lms_articlecmp");
+								articlecomponentGR.get(componentGR.sys_id);
+								articlecomponentGR.query();
+                var articleGR = new GlideRecord("kb_knowledge");
+								var kbarticle=articlecomponentGR.getValue("kb_article");
+                articleGR.get(kbarticle);
+								while(articlecomponentGR.next()){
+								var textarticle={};
+									
+								textarticle = new global.KBViewModel().getArticleContentBySysId(articleGR.getUniqueValue());
+							    var articleobj = {'textarticle':textarticle,'c_type':'article'};
+									data.all_components.push(articleobj);
+									
+								}
+								break;
+								
+							case 'x_315700_lms_activitycmp':
+						  
+								var activitycomponentGR=new GlideRecord("x_315700_lms_activitycmp");
+								activitycomponentGR.get(componentGR.sys_id);
+								activitycomponentGR.addQuery("sys_id",activitycomponentGR.getValue('sys_id'));
+                activitycomponentGR.query();
+                while (activitycomponentGR.next()) { 
+									 var activityobj={};
+									$sp.getRecordValues(activityobj,activitycomponentGR,"title,description,sys_id,sys_class_name");
+									activityobj.c_type='activity';
+			          data.all_components.push(activityobj);
+								}
+									
+			
+								break;						
+						
+						
+							default : gs.warn('notfound');
+					
+						}
+			
+						}
+						$sp.getRecordValues(data.unit,unit,"name,sys_id,section");
+			}
+			
+	}
+		
+			if(input.insert=='insert'){
+				
+				var useractivityGR = new GlideRecord(data.table);
+            
+            useractivityGR.activity = input.activity; 
+            useractivityGR.user=gs.getUserID();
+            var id = useractivityGR.insert();
+            data.sysID = id;
+				    
+			}
+					
+if(input && input.action=='append_file'){
+
+if(input.rec_id && input.attachment_id){
+
+var useractivityres = new GlideRecord(data.table);
+useractivityres.get(input.rec_id);
+useractivityres.file = input.attachment_id;
+var result = useractivityres.update();
+}
+}
+		
+		
+	gs.warn("boolean"+exist(data.unitid));	
+if( input.action =='add_state'){
+	
+		var unituserGR = new GlideRecord("x_315700_lms_unit_user");
+	  gs.warn("boolean"+exist(data.unitid));
+	 if (exist(data.unitid)==false){
+		unituserGR.unit_id=data.unitid;
+		unituserGR.user_id=gs.getUserID();
+	  unituserGR.course=data.courseid;
+		 
+     
+   gs.warn("user"+JSON.stringify(unituserGR));
+		
+		
+		unituserGR.insert();
+	  
+		gs.warn("inserted");
+	 }
+		}
+	}
+	
+	data.unitlist = [];
+data.list =[];
+	data.id=$sp.getParameter("course_id");
+	
+  var section = new GlideRecord("x_315700_lms_section");
+ section.addQuery("course",$sp.getParameter("course_id"));
+ section.orderBy("order");
+ section.addNullQuery("parent_section");
+ section.query();
+
+ while (section.next()) {
+	
+ 
+   var obj = {
+     'name': section.getDisplayValue("name"),
+     'sys_id': section.getDisplayValue("sys_id"),
+     'arrayunit': [],
+     'subsection': []
+   };
+	 
+   var subsection = new GlideRecord("x_315700_lms_section");
+   gs.warn("section " + section.getDisplayValue("name"));
+   subsection.addQuery("parent_section", obj.sys_id);
+	 subsection.orderBy('order');
+   subsection.query();
+   data.subunitlist = [];
+   while (subsection.next()) {
+     gs.warn("section " + section.getDisplayValue("name") + " subsection " + subsection.getDisplayValue("name"));
+     var subobj = {
+       'name': subsection.getDisplayValue("name"),
+       'sys_id': subsection.getDisplayValue("sys_id"),
+			 'order':subsection.getDisplayValue("order"),
+       'arraysubunit': []
+     };
+     obj.subsection.push(subobj);
+     data.subsection.push(subobj);
+		 
+		 
+
+		       var subunit = new GlideRecord("x_315700_lms_unit");
+           subunit.addQuery("section", subobj.sys_id);
+		       subunit.orderBy('order');
+		      subunit.setLimit(1);
+		    subunit.query();
+		 while(subunit.next()){
+			 data.subunitid=subunit.getDisplayValue("sys_id");
+		 }
+		 if (data.subsection.length!=0){
+			data.link= "?id=unit_body&unit_id="+data.subunitid+"&course_id="+data.courseid;
+		 }
+		 
+		 
+		 
+		 
+      var unitsubsection = new GlideRecord("x_315700_lms_unit");
+           unitsubsection.addQuery("section", subobj.sys_id);
+		       unitsubsection.orderBy('order');
+           unitsubsection.query();
+
+           while (unitsubsection.next()) {
+               var unitsubobj = {
+                   'name': unitsubsection.getDisplayValue("name"),
+                   'sys_id': unitsubsection.getDisplayValue("sys_id"),
+								    'order': unitsubsection.getDisplayValue("order")
+               };
+               subobj.arraysubunit.push(unitsubobj);
+						 data.subunit.push(unitsubobj);
+           }
+		   
+
+       }
+       var unit = new GlideRecord("x_315700_lms_unit");
+       unit.addQuery("section", section.sys_id);
+	     unit.orderBy('order');
+       unit.query();
+	 	
+       while (unit.next()) {
+				 
+	 var unituserGR = new GlideRecord("x_315700_lms_unit_user");
+	  
+	 unituserGR.query();
+	 while(unituserGR.next()){
+	     if (unituserGR.unit_id==unit.sys_id && unituserGR.user_id==gs.getUserID()) {
+				 var  unituserobj = {};
+				 $sp.getRecordValues(unituserobj,unituserGR,"sys_id");
+				 
+				 data.list.push(unituserobj);
+			 }
+		
+		  gs.warn("liste des cours"+data.list);
+					 }
+           gs.warn("inside unit : " + unit.name);
+           var unitobj = { 'name': unit.getDisplayValue("name"), 'sys_id': unit.getDisplayValue("sys_id"),'order':unit.getDisplayValue("order") };
+           obj.arrayunit.push(unitobj);
+				 data.list_course.push(unitobj);
+       }
+
+
+ 
+ data.unitlist.push(obj);
+	 gs.warn("unitlist"+data.unitlist);
+ }
+})
+
+();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-04-16 08:30:40</sys_created_on>
+        <sys_id>f1599e5a2f303300a4a2c886f699b699</sys_id>
+        <sys_mod_count>627</sys_mod_count>
+        <sys_name>Unit_content</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_f1599e5a2f303300a4a2c886f699b699</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-09-12 08:59:07</sys_updated_on>
+        <template><![CDATA[<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+
+<div class="panel panel-info" style="width: 100%" ng-if="c.data.unit.sys_id">
+    <div class="panel-heading clearfix section">
+        <div class="row ">
+
+            <div class="col-md-12 ">
+
+                <h2>
+                    {{c.data.section}}
+                </h2>
+            </div>
+
+        </div>
+
+    </div>
+  <!--
+  <div>
+   <div class="container">
+   <div class="row">
+     <div class="col">
+       <ul id="progress-bar" class="progressbar">
+         <li ng-repeat="sec in data.unitlist" >{{sec.name}}
+         </li>
+      </ul>
+     </div>
+  </div>
+</div>
+</div>
+-->
+  <widget id="scrollbar"> </widget>
+    <div class="col-md-12">
+
+
+        <h3>
+            {{c.data.unit.name}}
+        </h3>
+    </div>
+
+    <div class="panel-body">
+
+      
+      
+      <div ng-bind-html="data.unitbody" >{{data.unitbody}}</div>
+        <div ng-repeat="cmp in c.data.all_components   ">
+            <div ng-if="cmp.c_type=='activity'">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title asd">
+                            <a class="pa_italic" role="button" data-toggle="collapse" data-parent="#accordion"
+                                href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <span class="lnr lnr-chevron-down"></span><i
+                                    class="lnr lnr-chevron-up"></i><label>{{cmp.title}}</label><i
+                                    class="fa fa-angle-down"></i>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                        aria-labelledby="headingOne">
+                        <div class="panel-body panel_text">
+                            {{cmp.description}}
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="att-group">
+                  
+
+                    <label class="btn btn-info btn-sm"> <span><i class="fas fa-cloud-upload-alt mr-2"
+                                aria-hidden="true"></i>Choose files</span>
+                        <input id={{cmp.sys_id}} style='opacity:0; width:0px; height:0px;' type="file" multiple
+                            onchange="angular.element(this).scope().setFiles(this,this.id)" />
+
+                    </label>
+                    <p name ="{{cmp.sys_id}}"></p>
+                    
+                    <br />
+                  <button class="btn btn-success btn-md" ng-click="submit_record(cmp.sys_id)">
+                    Add
+                  </button>
+                    <!-- <div ng-show="files.length">
+
+                        <div ng-repeat="file in files">
+
+                          
+                       <span class="glyphicon glyphicon-remove-circle" id="removeicon" ng-click="removeFiles(file)"></span>
+               		 <button  ng-click="submit_record(cmp.sys_id)">
+                     Add 
+								</button>
+                  </div>
+                            <span ng-switch="file.size > 1024*1024">
+                                <span ng-switch-when="true">{{file.size / 1024 / 1024 | number:2}} MB</span>
+                                <span ng-switch-default>{{file.size / 1024 | number:2}} kB</span>
+                            </span>
+
+                        </div>
+                    </div> -->
+
+                </div>
+            </div>
+       
+            <videocomponent videoclass="cmp" ng-if="cmp.c_type=='video'">
+            </videocomponent>
+            <textcomponent textclass="cmp" ng-if="cmp.c_type=='text'">
+            </textcomponent>
+            <imagecomponent imageclass="cmp" ng-if="cmp.c_type=='image'">
+            </imagecomponent>
+            <articlecomponent articleclass="cmp" ng-if="cmp.c_type=='article'">
+            </articlecomponent>
+         
+
+
+        </div>
+        <div> 
+              <!--<a href="?id=unit_body&unit_id={{c.data.selectid}}&course_id={{c.data.courseid}}"  > -->  <a href="{{c.link}}" ><input  ng-class="{'true':'finish-btn','false':'greenbtn'}[change_state()]" id="Btn" ng-disabled="change_state()"   ng-click="add_state();"   type="button" value="{{c.btnvalue}}"> </a>
+                
+              
+            </div>
+    </div>
+
+</div>]]></template>
+    </sp_widget>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>sp_widget_f1599e5a2f303300a4a2c886f699b699</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;
+    &lt;sp_widget action="INSERT_OR_UPDATE"&gt;
+        &lt;category&gt;custom&lt;/category&gt;
+        &lt;client_script&gt;&lt;![CDATA[function($rootScope,$scope,$sce,nowAttachmentHandler,$timeout,spAriaUtil,spUtil,$http) {
+  
+    var c = this;
+      
+      console.log("state"+c.data.state);
+	
+	console.log(c.data.test[0]);
+	
+	console.log("amine : "+c.data.listcurrentunit.length);
+	console.log("listcurrentunit order"+JSON.stringify(c.data.listcurrentunit));
+	console.log("section"+c.data.unitsectionid);
+	
+	
+      c.data.sys_id=c.data.id;
+	  console.log(c.data.sys_id);
+	
+	console.log("parentsection"+c.data.parent_section);
+	console.log("order"+c.data.order);
+	
+	console.log("current section"+c.data.currentsection);
+ console.log(c.data.listcurrentunit.length);
+	console.log("length"+c.data.test.length);
+
+c.data.unitlength=c.data.list_course.length+c.data.subunit.length;
+	  var ll = c.data.listcurrentunit.length;
+	  var length = c.data.test.length;
+  
+	for(var i=0;i&lt;c.data.listcurrentunit.length;i++){
+		
+		console.log(i);
+	 console.log("ll : "+ll);
+		console.log("fst element : "+c.data.listcurrentunit[ll-1].order);
+		var testsubsection=has_section(c.data.currentsection);
+		if(c.data.order&lt;c.data.listcurrentunit[ll-1].order){
+			
+			c.link ="?id=unit_body&amp;unit_id="+c.data.nextid+"&amp;sys_id="+c.data.courseid;
+			console.log("url"+c.link);
+		}
+		else if (testsubsection.has_sub){ 
+			c.link = "?id=unit_body&amp;unit_id="+testsubsection.firstunit+"&amp;sys_id="+c.data.courseid;
+		
+		}
+			else {
+			
+			c.link = "?id=unit_body&amp;unit_id="+c.data.unitsectionid+"&amp;sys_id="+c.data.courseid;
+			
+			}
+				 
+			if (c.data.last==true){
+			c.link="?id=user_dashboard";
+		}
+	}
+	
+		
+			
+		
+	
+
+
+		
+	
+    //document.getElementById("link").href = $scope.getNext();  
+  
+       $scope.files = [];  
+			var activity_attch = [];
+    $scope.setFiles = function(element,id) {
+			console.log(id);
+			 var obj =  {'id':id,'list':[]}
+       for (var i = 0; i &lt; element.files.length; i++) {
+      console.log(element.files[i].name);        
+   document.getElementsByName(id)[0].innerHTML+='&lt;button class="btn btn-default btn-sm" id='+element.files[i].name+' onclick="removeFiles(\''+id+'\',this.id)"&gt;'+ element.files[i].name + element.files[i].size+'KB &lt;i class="fas fa-trash-alt"&gt;&lt;/i&gt;'+'&lt;/button&gt;'+'&lt;/br&gt;'; 
+
+        obj.list.push(element.files[i]);
+     }
+			activity_attch.push(obj);
+			
+   };
+  
+  /*$scope.setId = function(id){
+          document.getElementById(id).innerHTML=element.file.name;
+             console.log('files:', id);
+          
+          
+      }*/
+      
+      
+    
+    removeFiles = function(id,fname) {
+		console.log('removing '+fname);
+			document.getElementById(fname).remove();
+			activity_attch.forEach(function(item){
+				if(item.id == id ){
+					for(var i=0;i&lt;item.list.length;i++){
+						
+							item.list.splice(i,1);
+						
+						
+					}
+					console.log("alaaaa"+item.list);
+				}
+			});
+      
+		}
+    $scope.uploadFiles = function() { 
+      $scope.fd = new FormData();
+			
+      $scope.files.forEach(function(file){
+        $scope.fd.set('files', file);
+				console.log(file);
+        var request = {
+          method: 'POST',
+          url: 'https://'+c.data.instanceName+'.service-now.com/api/now/attachment/file?table_name='+c.data.table+'&amp;table_sys_id='+c.data.tableSys+'&amp;file_name='+file.name,
+          data: $scope.fd.get('files'),
+          headers: {
+            'Content-Type': file.type,
+            'Accept':'application/json'         
+          }
+        };
+        console.log('HTTP request:',request);
+  
+        // SEND THE FILES.
+        $http(request)
+          .success(function (d) {
+         var json_data = JSON.stringify(d);
+        json_data = JSON.parse(json_data);
+         c.data.action = 'append_file';
+         c.data.rec_id = c.data.sysID;
+         c.data.attachment_id = json_data.result.sys_id;
+         c.server.update().then(function(){
+      c.data.action = undefined;
+      })
+              })
+          .error(function (err) {
+          // On error code here
+        });
+                              
+  
+                                   
+          });
+      }
+      $scope.submit_record=function(act_id) {
+      
+      
+          var index=-1;
+          for (var i=0;i&lt;c.data.all_components.length;i++){
+          if (c.data.all_components[i].sys_id==act_id)
+              index=i;
+      
+          }
+      c.data.activity =c.data.all_components[index].sys_id;
+      
+			activity_attch.forEach(function(item){
+				if(item.id == act_id){
+					item.list.forEach(function(f){
+						$scope.files.push(f);
+					});
+					
+				}
+				
+			});
+			
+				//console.log($scope.files);
+      c.data.insert = 'insert';
+      c.server.update().then(function(){
+       c.data.table = 'x_315700_lms_useractivity';
+          c.data.tableSys = c.data.sysID;
+          $scope.uploadFiles();
+				console.log('success');
+  c.data.insert = undefined;
+      });
+      
+         
+  };
+  
+
+
+	
+		
+	
+	console.log("c.data.list"+c.data.last)
+	$scope.change_state= function(){
+		 	if ( c.data.last==true){
+			c.btnvalue="Passer au dashboard ";
+				return false;
+		}
+	else if(c.data.state==true){
+		c.btnvalue="chapitre terminée";
+		return true;
+		
+		
+	}
+	else if (c.data.state==false) { 
+		c.btnvalue="J'ai terminée ce chapitre";
+		return false;
+				}
+		console.log("state"+c.data.state+"last"+c.data.last);
+	
+	}
+	
+	
+	
+	
+	
+	
+	$scope.add_state=function(){		
+			
+  c.data.action='add_state';
+		
+	
+			 c.server.update().then(function(){
+
+c.data.action = 'undefined';
+});
+		
+}
+
+          c.data.textarticleHtml ="";
+      c.server.get({
+                  action: 'getunit'
+              }).then(function(r) {
+                  console.log(r.data);
+                  c.data= r.data;
+              c.data.all_components=r.data.all_components;
+			});   
+          
+          
+		function has_section(id){ 
+		
+			var obj={};
+			obj.has_sub=false;
+		c.data.unitlist.forEach(function(item){
+			if(item.sys_id==id){
+				if(item.subsection.length&gt;0){
+					
+					obj.has_sub=true;
+					obj.firstunit=item.subsection[0].arraysubunit[0].sys_id;
+				}
+			}
+		});
+		return obj;
+	}
+}
+	
+	
+	
+
+
+                                                   
+  
+  ]]&gt;&lt;/client_script&gt;
+        &lt;controller_as&gt;c&lt;/controller_as&gt;
+        &lt;css&gt;.nbs-flexisel-nav-left, .nbs-flexisel-nav-right {
+    width: 20px;
+    height:25px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+    margin-top:2em;
+}
+.nbs-flexisel-nav-left {
+    right: 0;
+    background: none;
+}
+.nbs-flexisel-nav-right {
+ left: 0;
+  background: none;
+}
+li.nbs-flexisel-item {
+ width:370px;
+}
+.biseller-column  p {
+    font-size: 1em;
+    color: #fff;
+    margin: 0;
+    text-align:center;
+}
+.panel-title &amp;gt; a, .panel-title &amp;gt; small, .panel-title &amp;gt; .small, .panel-title &amp;gt; small &amp;gt; a, .panel-title &amp;gt; .small &amp;gt; a {
+    color:#000;
+    text-decoration: none;
+}
+.panel-title {
+    font-size: 1.1em;
+}
+.panel-default &amp;gt; .panel-heading {
+    background: none;
+    border: none;
+	cursor: pointer;
+}
+.panel-default {
+    border: none;
+}
+.panel-group .panel-heading + .panel-collapse &amp;gt; .panel-body, .panel-group .panel-heading + .panel-collapse &amp;gt; .list-group {
+    border: none;
+}
+.asd {
+    padding: 1em 0;
+	text-transform:capitalize;
+}
+.panel_text {
+    font-size: 14px;
+    color: black;
+    line-height: 1.8em;
+}
+.panel{
+	box-shadow:none;
+}
+.pa_italic span{
+	display:none;
+}
+.pa_italic i{
+	left: -1em;
+}
+.collapsed span{
+	display: inline-block;
+    left: -1em;
+}
+.collapsed i{
+	display:none;
+}
+.panel_text {
+    background:#fff;
+.img-fluid. max-width: 100%;
+  height:auto;
+}
+p{font-size: 1.3rem;
+  line-height: 1.625rem;
+ font-family: Verdana, Geneva, sans-serif;
+  
+}
+.responsive {
+  max-width: 90%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+.youtube-player{
+   margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 6px;
+    display: block;
+}
+h2 { text-align: center }
+
+.section{
+  background-color:#00251a;
+}
+.greenbtn{
+  background-color:#39796b;
+  border: none;
+  color: white;
+  padding: 17px 35px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight:bold;
+  display: block;
+   margin : auto;
+  margin-top:15px;
+}
+.finish-btn{
+  background-color:grey;
+    border: none;
+  color: white;
+  padding: 17px 35px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight:bold;
+  display: block;
+   margin : auto;
+  margin-top:15px;
+}
+
+
+
+
+
+
+ .progressbar {
+      margin: 50px 0 50px 0;
+      counter-reset: step;
+  }
+
+  .progressbar li {
+      list-style-type: none;
+      width: 25%;
+      float: left;
+      font-size: 12px;
+      position: relative;
+      text-align: center;
+      text-transform: uppercase;
+      color: #7d7d7d;
+  }
+  .progressbar li:before {
+      width: 15px;
+      height: 15px;
+      content: '';
+      line-height: 30px;
+      border: 10px solid #7d7d7d;
+      background: #7d7d7d;
+      display: block;
+      text-align: center;
+      margin: 0 auto 10px auto;
+      border-radius: 10px;
+      transition: all .8s;
+  }
+  .progressbar li:after {
+      width: 100%;
+      height: 2px;
+      content: '';
+      position: absolute;
+      background-color: #7d7d7d;
+      top: 7px;
+      left: -50%;
+      z-index: 0;
+      transition: all .8s;
+  }
+  .progressbar li:first-child:after {
+      content: none;
+  }
+  .progressbar li.active:before {
+      border-color: #55b776;
+      background-color: #55b776;
+      transition: all .8s;
+  }
+  .progressbar li.active:after {
+      background-color: #55b776;
+      transition: all .8s;
+  }
+
+.btn {
+  background-color: #55b776;
+  margin: 5px;
+  width: 75px;
+  color: white;
+}
+.btn:hover {
+  color: white;
+}
+.btn:focus {
+  color: white;
+}
+.btn-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+.progressbar li:hover  {
+	cursor: pointer;
+  color: #48A4D2;
+}
+li:hover .description {
+  display: block;
+}
+
+
+
+
+
+
+&lt;/css&gt;
+        &lt;data_table&gt;sp_instance&lt;/data_table&gt;
+        &lt;demo_data/&gt;
+        &lt;description/&gt;
+        &lt;docs/&gt;
+        &lt;field_list/&gt;
+        &lt;has_preview&gt;false&lt;/has_preview&gt;
+        &lt;id&gt;unit_content&lt;/id&gt;
+        &lt;internal&gt;false&lt;/internal&gt;
+        &lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;
+        &lt;name&gt;Unit_content&lt;/name&gt;
+        &lt;option_schema/&gt;
+        &lt;public&gt;false&lt;/public&gt;
+        &lt;roles/&gt;
+        &lt;script&gt;&lt;![CDATA[(function() {
+	
+	
+	data.section=[];
+	data.subsection=[];
+	 data.unitid=$sp.getParameter("unit_id");
+	 data.courseid=$sp.getParameter("sys_id");
+	data.subunit=[];
+	
+	var currentunit = new GlideRecord("x_315700_lms_unit");
+	currentunit.get(data.unitid);
+	data.unitbody=currentunit.getDisplayValue("unitbody");
+	
+	
+	gs.warn("dataunitbody"+data.unitbody);
+	var unituserGR = new GlideRecord("x_315700_lms_unit_user");
+	function exist(id){
+var val=false;
+			
+	  unituserGR.addQuery("unit_id",id);
+		unituserGR.query();
+	  var total = unituserGR.getRowCount();
+	  
+	  if(total == 1){
+			val=true;
+			
+		}
+		return val ;
+		}
+	
+	
+	data.list_course=[];
+	 var section = new GlideRecord('x_315700_lms_section');
+	 section.addQuery("course",data.courseid);
+	 section.orderByDesc("order");
+	 section.setLimit(1);
+	 section.query();
+	 while(section.next()){
+		var unitsection=new GlideRecord('x_315700_lms_unit');
+			 unitsection.addQuery("section",section.sys_id);
+			 unitsection.orderByDesc("order");
+			 unitsection.setLimit(1);
+			 unitsection.query();
+			 while (unitsection.next()){
+				 data.unit_last=unitsection.getDisplayValue("sys_id");
+	 }
+		 
+	 }
+		 data.last=false;
+		if(data.unitid==data.unit_last) {
+			data.last=true;
+		}
+		 
+		 
+		 
+	 data.state=false;
+	
+	 var unituserGR = new GlideRecord("x_315700_lms_unit_user");
+	  
+	 unituserGR.query();
+	 while(unituserGR.next()){
+	     if (unituserGR.unit_id==data.unitid &amp;&amp; unituserGR.user_id==gs.getUserID()) {
+				 data.state=true;
+			 }
+	 }
+		 
+	data.firstunit=[];
+	var firstunit=new GlideRecord('x_315700_lms_unit');
+	firstunit.get(data.unitid);
+	
+	data.order=firstunit.getValue("order");
+	
+	gs.warn("firstunit"+JSON.stringify(data.order));
+	
+	 var section = new GlideRecord('x_315700_lms_section');
+	
+	
+	
+	  gs.warn("id"+data.unitid);
+	var parent_section = new GlideRecord('x_315700_lms_section');
+	var parentsection = new GlideRecord('x_315700_lms_section');
+	
+				var currentunit=new GlideRecord('x_315700_lms_unit');
+	 
+			var nextunit=new GlideRecord('x_315700_lms_unit');
+	
+	var currentsection = new GlideRecord('x_315700_lms_section');
+	
+	var nextsection=new GlideRecord('x_315700_lms_section');
+		 currentunit.get(data.unitid);
+	   data.currentsection=currentunit.getValue("section"); 
+	   currentsection.get(data.currentsection);
+	   currentsection.query();
+	   if (currentsection.getDisplayValue("parent_section")!=null){
+			 data.parent_section=currentsection.getDisplayValue("parent_section")
+		 }
+	   parent_section.get(data.parent_section);
+	 parentsection.addQuery("course",data.courseid);
+	   parentsection.addQuery("order",(parent_section.order)+100);
+	   parentsection.setLimit(1);
+	   parentsection.query();
+	
+	   while(parentsection.next()){
+			 data.nextsectionid=parentsection.getValue("sys_id");
+			 gs.warn("nextsection"+data.nextsectionid);
+			 var unitsection=new GlideRecord('x_315700_lms_unit');
+			 unitsection.addQuery("section",data.nextsectionid);
+			 unitsection.orderBy("order");
+			 unitsection.setLimit(1);
+			 unitsection.query();
+			 while (unitsection.next()){
+				
+				 data.unitparentsectionid=unitsection.getDisplayValue("sys_id");
+			 }
+		 }
+	
+	
+	   nextsection.addQuery("course",data.courseid);
+	   nextsection.addQuery("order",(currentsection.order)+100);
+	   nextsection.setLimit(1);
+	   nextsection.query();
+	
+	   while(nextsection.next()){
+			 data.nextsectionid=nextsection.getValue("sys_id");
+			 gs.warn("nextsection"+data.nextsectionid);
+			 var unitsection=new GlideRecord('x_315700_lms_unit');
+			 unitsection.addQuery("section",data.nextsectionid);
+			 unitsection.orderBy("order");
+			 unitsection.setLimit(1);
+			 unitsection.query();
+			 while (unitsection.next()){
+				
+				 data.unitsectionid=unitsection.getDisplayValue("sys_id");
+			 }
+		 }
+		gs.warn("order "+JSON.stringify(data.unitsectionid));
+	   gs.warn("current section"+currentunit.getValue("section"));
+	   nextunit.addQuery("section",currentunit.getValue("section"));
+	
+     nextunit.addQuery("order",(currentunit.order)+100);
+	   nextunit.query();
+	   gs.warn("nextunit "+JSON.stringify(nextunit));
+	while(nextunit.next()){
+		data.nextid=nextunit.getDisplayValue("sys_id");
+	}
+		gs.warn("nextunit id "+data.nextid);
+	data.test=[];
+	var subsection = new GlideRecord("x_315700_lms_section");
+	subsection.addQuery("parent_section",data.currentsection);
+	subsection.orderBy("order");
+	subsection.query();
+	
+	
+	while(subsection.next()){
+		var subunit = new GlideRecord('x_315700_lms_unit');
+		subunit.addQuery("section",subsection.sys_id);
+		subunit.orderBy("order");
+		subunit.query();
+		while(subunit.next()){
+			var subunitobj={};
+				$sp.getRecordDisplayValues(subunitobj,subunit,"sys_id,name,order");
+				data.test.push(subunitobj);
+			   data.nextsubid=subunit.getDisplayValue("sys_id");
+			gs.warn("nextsubid",data.nextsubid);
+			gs.warn("test"+JSON.stringify(data.test));
+		}
+		
+	}
+	
+	  //data.url="?id=unit_body&amp;unit_id="+data.unitsectionid+"&amp;course_id="+data.courseid;
+	data.listcurrentunit=[];
+	var listunitt=new GlideRecord('x_315700_lms_unit');
+		 listunitt.addQuery("section",data.currentsection);
+	
+			listunitt.orderBy("order");
+			listunitt.query();
+
+			while(listunitt.next()){
+				var unitobj={};
+				data.unit_id=listunitt.getDisplayValue("sys_id");
+				$sp.getRecordDisplayValues(unitobj,listunitt,"sys_id,name,order");
+				data.listcurrentunit.push(unitobj);
+			  
+			
+			}
+	
+		    gs.warn("listunit"+JSON.stringify(data.listcurrentunit));
+	  
+	
+	
+	if(input){
+		var unit = new GlideRecord('x_315700_lms_unit');
+		var section = new GlideRecord('x_315700_lms_section');
+   data.id=$sp.getParameter("unit_id");
+		gs.warn("unit id"+data.id);
+		data.table='x_315700_lms_useractivity';
+		
+		data.instanceName = gs.getProperty('instance_name');
+		if (unit.get(data.id)) {			
+			if (input.action == 'getunit') {	
+				
+				
+				data.all_components = [];
+				data.unit={};
+				data.section={};
+				data.useractivity={};
+				data.course={};
+				data.course=section.getDisplayValue("course");
+				data.section= unit.getDisplayValue("section");
+					var componentGR = new GlideRecord('x_315700_lms_component');
+					componentGR.addQuery("parent_unit",data.id);
+				componentGR.orderBy('order');
+				 componentGR.query();
+					while(componentGR.next()){
+						var cmpClass =componentGR.getValue('sys_class_name')+""; 
+				
+						switch (cmpClass) {
+							case 'x_315700_lms_videocmp':	
+								var videocomponentGR = new GlideRecord("x_315700_lms_videocmp");
+								videocomponentGR.get(componentGR.sys_id);
+								videocomponentGR.query();
+								while(videocomponentGR.next()){
+									var videoobj={};
+								$sp.getRecordValues(videoobj,videocomponentGR,"link,sys_class_name,title,unit,order");
+									videoobj.c_type = 'video';
+									data.all_components.push(videoobj);
+								}
+								break;
+								
+							case 'x_315700_lms_textcmp': 
+								var textcomponentGR = new GlideRecord("x_315700_lms_textcmp");
+								  textcomponentGR.get(componentGR.sys_id);
+								textcomponentGR.query();
+								while(textcomponentGR.next()){
+									var textobj={};
+								$sp.getRecordValues(textobj,textcomponentGR,"text_body,sys_class_name");
+									textobj.c_type ='text';
+									data.all_components.push(textobj);
+								}
+								break;
+								
+							 case 'x_315700_lms_imagecmp':
+								
+								var imagecomponentGR = new GlideRecord("x_315700_lms_imagecmp");
+								imagecomponentGR.get(componentGR.sys_id);	  
+                imagecomponentGR.addQuery("sys_id",imagecomponentGR.getValue('sys_id'));
+                imagecomponentGR.query();
+                while (imagecomponentGR.next()) {
+								
+                var link = imagecomponentGR.link.getDisplayValue();
+									
+		
+								
+									var imageobj = {'src':link,'c_type':'image'};
+									data.all_components.push(imageobj);									
+                }
+	              break;			
+							
+							case 'x_315700_lms_articlecmp':
+								var articlecomponentGR=new GlideRecord("x_315700_lms_articlecmp");
+								articlecomponentGR.get(componentGR.sys_id);
+								articlecomponentGR.query();
+                var articleGR = new GlideRecord("kb_knowledge");
+								var kbarticle=articlecomponentGR.getValue("kb_article");
+                articleGR.get(kbarticle);
+								while(articlecomponentGR.next()){
+								var textarticle={};
+									
+								textarticle = new global.KBViewModel().getArticleContentBySysId(articleGR.getUniqueValue());
+							    var articleobj = {'textarticle':textarticle,'c_type':'article'};
+									data.all_components.push(articleobj);
+									
+								}
+								break;
+								
+							case 'x_315700_lms_activitycmp':
+						  
+								var activitycomponentGR=new GlideRecord("x_315700_lms_activitycmp");
+								activitycomponentGR.get(componentGR.sys_id);
+								activitycomponentGR.addQuery("sys_id",activitycomponentGR.getValue('sys_id'));
+                activitycomponentGR.query();
+                while (activitycomponentGR.next()) { 
+									 var activityobj={};
+									$sp.getRecordValues(activityobj,activitycomponentGR,"title,description,sys_id,sys_class_name");
+									activityobj.c_type='activity';
+			          data.all_components.push(activityobj);
+								}
+									
+			
+								break;						
+						
+						
+							default : gs.warn('notfound');
+					
+						}
+			
+						}
+						$sp.getRecordValues(data.unit,unit,"name,sys_id,section");
+			}
+			
+	}
+		
+			if(input.insert=='insert'){
+				
+				var useractivityGR = new GlideRecord(data.table);
+            
+            useractivityGR.activity = input.activity; 
+            useractivityGR.user=gs.getUserID();
+            var id = useractivityGR.insert();
+            data.sysID = id;
+				    
+			}
+					
+if(input &amp;&amp; input.action=='append_file'){
+
+if(input.rec_id &amp;&amp; input.attachment_id){
+
+var useractivityres = new GlideRecord(data.table);
+useractivityres.get(input.rec_id);
+useractivityres.file = input.attachment_id;
+var result = useractivityres.update();
+}
+}
+		
+		
+	gs.warn("boolean"+exist(data.unitid));	
+if( input.action =='add_state'){
+	
+		var unituserGR = new GlideRecord("x_315700_lms_unit_user");
+	  gs.warn("boolean"+exist(data.unitid));
+	 if (exist(data.unitid)==false){
+		unituserGR.unit_id=data.unitid;
+		unituserGR.user_id=gs.getUserID();
+	  unituserGR.course=data.courseid;
+		 
+     
+   gs.warn("user"+JSON.stringify(unituserGR));
+		
+		
+		unituserGR.insert();
+	  
+		gs.warn("inserted");
+	 }
+		}
+	}
+	
+	data.unitlist = [];
+data.list =[];
+	data.id=$sp.getParameter("course_id");
+	
+  var section = new GlideRecord("x_315700_lms_section");
+ section.addQuery("course",$sp.getParameter("course_id"));
+ section.orderBy("order");
+ section.addNullQuery("parent_section");
+ section.query();
+
+ while (section.next()) {
+	
+ 
+   var obj = {
+     'name': section.getDisplayValue("name"),
+     'sys_id': section.getDisplayValue("sys_id"),
+     'arrayunit': [],
+     'subsection': []
+   };
+	 
+   var subsection = new GlideRecord("x_315700_lms_section");
+   gs.warn("section " + section.getDisplayValue("name"));
+   subsection.addQuery("parent_section", obj.sys_id);
+	 subsection.orderBy('order');
+   subsection.query();
+   data.subunitlist = [];
+   while (subsection.next()) {
+     gs.warn("section " + section.getDisplayValue("name") + " subsection " + subsection.getDisplayValue("name"));
+     var subobj = {
+       'name': subsection.getDisplayValue("name"),
+       'sys_id': subsection.getDisplayValue("sys_id"),
+			 'order':subsection.getDisplayValue("order"),
+       'arraysubunit': []
+     };
+     obj.subsection.push(subobj);
+     data.subsection.push(subobj);
+		 
+		 
+
+		       var subunit = new GlideRecord("x_315700_lms_unit");
+           subunit.addQuery("section", subobj.sys_id);
+		       subunit.orderBy('order');
+		      subunit.setLimit(1);
+		    subunit.query();
+		 while(subunit.next()){
+			 data.subunitid=subunit.getDisplayValue("sys_id");
+		 }
+		 if (data.subsection.length!=0){
+			data.link= "?id=unit_body&amp;unit_id="+data.subunitid+"&amp;course_id="+data.courseid;
+		 }
+		 
+		 
+		 
+		 
+      var unitsubsection = new GlideRecord("x_315700_lms_unit");
+           unitsubsection.addQuery("section", subobj.sys_id);
+		       unitsubsection.orderBy('order');
+           unitsubsection.query();
+
+           while (unitsubsection.next()) {
+               var unitsubobj = {
+                   'name': unitsubsection.getDisplayValue("name"),
+                   'sys_id': unitsubsection.getDisplayValue("sys_id"),
+								    'order': unitsubsection.getDisplayValue("order")
+               };
+               subobj.arraysubunit.push(unitsubobj);
+						 data.subunit.push(unitsubobj);
+           }
+		   
+
+       }
+       var unit = new GlideRecord("x_315700_lms_unit");
+       unit.addQuery("section", section.sys_id);
+	     unit.orderBy('order');
+       unit.query();
+	 	
+       while (unit.next()) {
+				 
+	 var unituserGR = new GlideRecord("x_315700_lms_unit_user");
+	  
+	 unituserGR.query();
+	 while(unituserGR.next()){
+	     if (unituserGR.unit_id==unit.sys_id &amp;&amp; unituserGR.user_id==gs.getUserID()) {
+				 var  unituserobj = {};
+				 $sp.getRecordValues(unituserobj,unituserGR,"sys_id");
+				 
+				 data.list.push(unituserobj);
+			 }
+		
+		  gs.warn("liste des cours"+data.list);
+					 }
+           gs.warn("inside unit : " + unit.name);
+           var unitobj = { 'name': unit.getDisplayValue("name"), 'sys_id': unit.getDisplayValue("sys_id"),'order':unit.getDisplayValue("order") };
+           obj.arrayunit.push(unitobj);
+				 data.list_course.push(unitobj);
+       }
+
+
+ 
+ data.unitlist.push(obj);
+	 gs.warn("unitlist"+data.unitlist);
+ }
+})
+
+();]]&gt;&lt;/script&gt;
+        &lt;servicenow&gt;false&lt;/servicenow&gt;
+        &lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2019-04-16 08:30:40&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;f1599e5a2f303300a4a2c886f699b699&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;627&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;Unit_content&lt;/sys_name&gt;
+        &lt;sys_package display_value="LMS" source="x_315700_lms"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="LMS"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sp_widget_f1599e5a2f303300a4a2c886f699b699&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2019-09-12 08:59:07&lt;/sys_updated_on&gt;
+        &lt;template&gt;&lt;![CDATA[&lt;link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"&gt;
+
+
+&lt;div class="panel panel-info" style="width: 100%" ng-if="c.data.unit.sys_id"&gt;
+    &lt;div class="panel-heading clearfix section"&gt;
+        &lt;div class="row "&gt;
+
+            &lt;div class="col-md-12 "&gt;
+
+                &lt;h2&gt;
+                    {{c.data.section}}
+                &lt;/h2&gt;
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+  &lt;!--
+  &lt;div&gt;
+   &lt;div class="container"&gt;
+   &lt;div class="row"&gt;
+     &lt;div class="col"&gt;
+       &lt;ul id="progress-bar" class="progressbar"&gt;
+         &lt;li ng-repeat="sec in data.unitlist" &gt;{{sec.name}}
+         &lt;/li&gt;
+      &lt;/ul&gt;
+     &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+--&gt;
+  &lt;widget id="scrollbar"&gt; &lt;/widget&gt;
+    &lt;div class="col-md-12"&gt;
+
+
+        &lt;h3&gt;
+            {{c.data.unit.name}}
+        &lt;/h3&gt;
+    &lt;/div&gt;
+
+    &lt;div class="panel-body"&gt;
+
+      
+      
+      &lt;div ng-bind-html="data.unitbody" &gt;{{data.unitbody}}&lt;/div&gt;
+        &lt;div ng-repeat="cmp in c.data.all_components   "&gt;
+            &lt;div ng-if="cmp.c_type=='activity'"&gt;
+                &lt;div class="panel panel-default"&gt;
+                    &lt;div class="panel-heading" role="tab" id="headingOne"&gt;
+                        &lt;h4 class="panel-title asd"&gt;
+                            &lt;a class="pa_italic" role="button" data-toggle="collapse" data-parent="#accordion"
+                                href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"&gt;
+                                &lt;span class="lnr lnr-chevron-down"&gt;&lt;/span&gt;&lt;i
+                                    class="lnr lnr-chevron-up"&gt;&lt;/i&gt;&lt;label&gt;{{cmp.title}}&lt;/label&gt;&lt;i
+                                    class="fa fa-angle-down"&gt;&lt;/i&gt;
+                            &lt;/a&gt;
+                        &lt;/h4&gt;
+                    &lt;/div&gt;
+                    &lt;div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                        aria-labelledby="headingOne"&gt;
+                        &lt;div class="panel-body panel_text"&gt;
+                            {{cmp.description}}
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+
+                &lt;/div&gt;
+
+                &lt;div class="att-group"&gt;
+                  
+
+                    &lt;label class="btn btn-info btn-sm"&gt; &lt;span&gt;&lt;i class="fas fa-cloud-upload-alt mr-2"
+                                aria-hidden="true"&gt;&lt;/i&gt;Choose files&lt;/span&gt;
+                        &lt;input id={{cmp.sys_id}} style='opacity:0; width:0px; height:0px;' type="file" multiple
+                            onchange="angular.element(this).scope().setFiles(this,this.id)" /&gt;
+
+                    &lt;/label&gt;
+                    &lt;p name ="{{cmp.sys_id}}"&gt;&lt;/p&gt;
+                    
+                    &lt;br /&gt;
+                  &lt;button class="btn btn-success btn-md" ng-click="submit_record(cmp.sys_id)"&gt;
+                    Add
+                  &lt;/button&gt;
+                    &lt;!-- &lt;div ng-show="files.length"&gt;
+
+                        &lt;div ng-repeat="file in files"&gt;
+
+                          
+                       &lt;span class="glyphicon glyphicon-remove-circle" id="removeicon" ng-click="removeFiles(file)"&gt;&lt;/span&gt;
+               		 &lt;button  ng-click="submit_record(cmp.sys_id)"&gt;
+                     Add 
+								&lt;/button&gt;
+                  &lt;/div&gt;
+                            &lt;span ng-switch="file.size &gt; 1024*1024"&gt;
+                                &lt;span ng-switch-when="true"&gt;{{file.size / 1024 / 1024 | number:2}} MB&lt;/span&gt;
+                                &lt;span ng-switch-default&gt;{{file.size / 1024 | number:2}} kB&lt;/span&gt;
+                            &lt;/span&gt;
+
+                        &lt;/div&gt;
+                    &lt;/div&gt; --&gt;
+
+                &lt;/div&gt;
+            &lt;/div&gt;
+       
+            &lt;videocomponent videoclass="cmp" ng-if="cmp.c_type=='video'"&gt;
+            &lt;/videocomponent&gt;
+            &lt;textcomponent textclass="cmp" ng-if="cmp.c_type=='text'"&gt;
+            &lt;/textcomponent&gt;
+            &lt;imagecomponent imageclass="cmp" ng-if="cmp.c_type=='image'"&gt;
+            &lt;/imagecomponent&gt;
+            &lt;articlecomponent articleclass="cmp" ng-if="cmp.c_type=='article'"&gt;
+            &lt;/articlecomponent&gt;
+         
+
+
+        &lt;/div&gt;
+        &lt;div&gt; 
+              &lt;!--&lt;a href="?id=unit_body&amp;unit_id={{c.data.selectid}}&amp;course_id={{c.data.courseid}}"  &gt; --&gt;  &lt;a href="{{c.link}}" &gt;&lt;input  ng-class="{'true':'finish-btn','false':'greenbtn'}[change_state()]" id="Btn" ng-disabled="change_state()"   ng-click="add_state();"   type="button" value="{{c.btnvalue}}"&gt; &lt;/a&gt;
+                
+              
+            &lt;/div&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;]]&gt;&lt;/template&gt;
+    &lt;/sp_widget&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>-742694607</payload_hash>
+        <record_name>Unit_content</record_name>
+        <reverted_from/>
+        <source>52acf146078d1010288ff16c7c1ed025</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-05-29 14:25:58</sys_created_on>
+        <sys_id>ceec7586078d1010288ff16c7c1ed0c6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17260d345980000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-05-29 14:25:58</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>8eec7586778d10104e1cc32ad69aecc6</update_guid>
+        <update_guid_history>8eec7586778d10104e1cc32ad69aecc6:-742694607</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Unit_content">ce0cb9ba074a1010288ff16c7c1ed08e</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-20 15:20:23</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>2a3e8729defc490b8a8ebc60b2659e11</sys_id>
+        <sys_metadata>f1599e5a2f303300a4a2c886f699b699</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Unit_content</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sp_widget_f1599e5a2f303300a4a2c886f699b699</sys_update_name>
+        <sys_update_version display_value="sp_widget_f1599e5a2f303300a4a2c886f699b699">ceec7586078d1010288ff16c7c1ed0c6</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-20 15:20:23</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

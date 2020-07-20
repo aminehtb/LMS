@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">87478613db247300c1e8f53a2996190f</sp_column>
+        <sp_widget/>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-03-21 10:51:10</sys_created_on>
+        <sys_id>1e20094edb18b300c1e8f53a29961972</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_instance_1e20094edb18b300c1e8f53a29961972</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-04-06 23:30:21</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance>
+    <sys_translated_text action="DELETE" query="documentkey=1e20094edb18b300c1e8f53a29961972"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>sp_instance_1e20094edb18b300c1e8f53a29961972</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance"><sp_instance action="INSERT_OR_UPDATE"><active>true</active><class_name/><color>default</color><css/><glyph/><id/><order>1</order><roles/><short_description/><size>md</size><sp_column display_value="1">87478613db247300c1e8f53a2996190f</sp_column><sp_widget/><sys_class_name>sp_instance</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2019-03-21 10:51:10</sys_created_on><sys_id>1e20094edb18b300c1e8f53a29961972</sys_id><sys_mod_count>3</sys_mod_count><sys_name/><sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package><sys_policy/><sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope><sys_update_name>sp_instance_1e20094edb18b300c1e8f53a29961972</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2019-04-06 23:30:21</sys_updated_on><title/><url/><widget_parameters/></sp_instance><sys_translated_text action="delete_multiple" query="documentkey=1e20094edb18b300c1e8f53a29961972"/></record_update>]]></payload>
+        <payload_hash>164451311</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>ec8ff54a078d1010288ff16c7c1ed09f</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-20 15:19:54</sys_created_on>
+        <sys_id>0beb39ba074a1010288ff16c7c1ed03e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1736ccf56e60000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-20 15:19:54</sys_updated_on>
+        <type>Instance</type>
+        <update_guid>47eb39ba1d4a1010f9df016a7de0d93e</update_guid>
+        <update_guid_history>47eb39ba1d4a1010f9df016a7de0d93e:0,c4ecf186628d10108e5c2967ac2a0ea5:-302237418</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">6eecb5fa074a1010288ff16c7c1ed072</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-20 15:24:14</sys_created_on>
+        <sys_db_object display_value="" name="sp_instance">sp_instance</sys_db_object>
+        <sys_id>120216a4832649208600763c25fcf440</sys_id>
+        <sys_metadata>1e20094edb18b300c1e8f53a29961972</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sp_instance_1e20094edb18b300c1e8f53a29961972</sys_update_name>
+        <sys_update_version display_value="sp_instance_1e20094edb18b300c1e8f53a29961972">0beb39ba074a1010288ff16c7c1ed03e</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-20 15:24:14</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

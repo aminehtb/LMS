@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_module">
+    <sys_ui_module action="DELETE">
+        <active>true</active>
+        <application display_value="LMS">c12c413edb003300c1e8f53a299619e0</application>
+        <filter/>
+        <name>textCmps</name>
+        <order/>
+        <path/>
+        <path_relative_to_root>false</path_relative_to_root>
+        <roles>x_315700_lms.user</roles>
+        <sys_class_name>sys_ui_module</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-03-11 14:00:21</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>009b8e36dbc03300c1e8f53a29961920</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>textCmps</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sys_ui_module_009b8e36dbc03300c1e8f53a29961920</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-03-11 14:00:21</sys_updated_on>
+        <table>x_315700_lms_textcmp</table>
+        <uncancelable>false</uncancelable>
+        <view_name/>
+    </sys_ui_module>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>sys_ui_module_009b8e36dbc03300c1e8f53a29961920</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_module">
+    <sys_ui_module action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <application display_value="LMS">c12c413edb003300c1e8f53a299619e0</application>
+        <filter/>
+        <name>textCmps</name>
+        <order/>
+        <path/>
+        <path_relative_to_root>false</path_relative_to_root>
+        <roles>x_315700_lms.user</roles>
+        <sys_class_name>sys_ui_module</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-03-11 14:00:21</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>009b8e36dbc03300c1e8f53a29961920</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>textCmps</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sys_ui_module_009b8e36dbc03300c1e8f53a29961920</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-03-11 14:00:21</sys_updated_on>
+        <table>x_315700_lms_textcmp</table>
+        <uncancelable>false</uncancelable>
+        <view_name/>
+    </sys_ui_module>
+</record_update>]]></payload>
+        <payload_hash>953356958</payload_hash>
+        <record_name>textCmps</record_name>
+        <reverted_from/>
+        <source>52acf146078d1010288ff16c7c1ed025</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-05-29 14:26:09</sys_created_on>
+        <sys_id>acfc3d86078d1010288ff16c7c1ed0e3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17260d370eb0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-05-29 14:26:09</sys_updated_on>
+        <type>Module</type>
+        <update_guid>6cfc3d86568d10107f4ffa9fcfd77be3</update_guid>
+        <update_guid_history>6cfc3d86568d10107f4ffa9fcfd77be3:953356958</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-20 15:52:18</sys_created_on>
+        <sys_db_object display_value="" name="sys_ui_module">sys_ui_module</sys_db_object>
+        <sys_id>012afa5446084e8f81efbaef1d376619</sys_id>
+        <sys_metadata>009b8e36dbc03300c1e8f53a29961920</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>textCmps</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sys_ui_module_009b8e36dbc03300c1e8f53a29961920</sys_update_name>
+        <sys_update_version display_value="sys_ui_module_009b8e36dbc03300c1e8f53a29961920">acfc3d86078d1010288ff16c7c1ed0e3</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-20 15:52:18</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

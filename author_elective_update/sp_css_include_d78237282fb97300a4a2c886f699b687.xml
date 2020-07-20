@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_css_include">
+    <sp_css_include action="DELETE">
+        <name>summernotetest</name>
+        <source>local</source>
+        <sp_css display_value="summernotetest">4d82b7a82fb97300a4a2c886f699b6f6</sp_css>
+        <sys_class_name>sp_css_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-30 21:33:52</sys_created_on>
+        <sys_id>d78237282fb97300a4a2c886f699b687</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>summernotetest</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_css_include_d78237282fb97300a4a2c886f699b687</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-05-30 21:33:52</sys_updated_on>
+        <url/>
+    </sp_css_include>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>sp_css_include_d78237282fb97300a4a2c886f699b687</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_css_include">
+    <sp_css_include action="INSERT_OR_UPDATE">
+        <name>summernotetest</name>
+        <source>local</source>
+        <sp_css display_value="summernotetest">4d82b7a82fb97300a4a2c886f699b6f6</sp_css>
+        <sys_class_name>sp_css_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-30 21:33:52</sys_created_on>
+        <sys_id>d78237282fb97300a4a2c886f699b687</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>summernotetest</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_css_include_d78237282fb97300a4a2c886f699b687</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-05-30 21:33:52</sys_updated_on>
+        <url/>
+    </sp_css_include>
+</record_update>]]></payload>
+        <payload_hash>1438471652</payload_hash>
+        <record_name>summernotetest</record_name>
+        <reverted_from/>
+        <source>52acf146078d1010288ff16c7c1ed025</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-05-29 14:25:49</sys_created_on>
+        <sys_id>04ecf186078d1010288ff16c7c1ed07c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17260d325a70000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-05-29 14:25:49</sys_updated_on>
+        <type>CSS Include</type>
+        <update_guid>c0ecf1865d8d101060e79611d1f0047c</update_guid>
+        <update_guid_history>c0ecf1865d8d101060e79611d1f0047c:1438471652</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="summernotetest">ea72cafe074a1010288ff16c7c1ed0c2</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-20 15:48:33</sys_created_on>
+        <sys_db_object display_value="" name="sp_css_include">sp_css_include</sys_db_object>
+        <sys_id>125aecb6c83644e08e839542ebd52100</sys_id>
+        <sys_metadata>d78237282fb97300a4a2c886f699b687</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>summernotetest</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sp_css_include_d78237282fb97300a4a2c886f699b687</sys_update_name>
+        <sys_update_version display_value="sp_css_include_d78237282fb97300a4a2c886f699b687">04ecf186078d1010288ff16c7c1ed07c</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-20 15:48:33</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

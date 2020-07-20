@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page">
+    <sp_page action="DELETE">
+        <category>custom</category>
+        <css/>
+        <draft>false</draft>
+        <dynamic_title_structure/>
+        <id>unitshome</id>
+        <internal>false</internal>
+        <public>false</public>
+        <roles/>
+        <short_description/>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-03-21 10:50:21</sys_created_on>
+        <sys_id>e2ffb04edb18b300c1e8f53a29961998</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>unitshome</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_page_e2ffb04edb18b300c1e8f53a29961998</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-03-21 10:50:21</sys_updated_on>
+        <title>UnitsHome</title>
+    </sp_page>
+    <sys_translated_text action="DELETE" query="documentkey=e2ffb04edb18b300c1e8f53a29961998"/>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>sp_page_e2ffb04edb18b300c1e8f53a29961998</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page">
+    <sp_page action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <css/>
+        <draft>false</draft>
+        <dynamic_title_structure/>
+        <id>unitshome</id>
+        <internal>false</internal>
+        <public>false</public>
+        <roles/>
+        <short_description/>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-03-21 10:50:21</sys_created_on>
+        <sys_id>e2ffb04edb18b300c1e8f53a29961998</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>unitshome</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_page_e2ffb04edb18b300c1e8f53a29961998</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-03-21 10:50:21</sys_updated_on>
+        <title>UnitsHome</title>
+    </sp_page>
+    <sys_translated_text action="delete_multiple" query="documentkey=e2ffb04edb18b300c1e8f53a29961998"/>
+</record_update>]]></payload>
+        <payload_hash>639420891</payload_hash>
+        <record_name>unitshome</record_name>
+        <reverted_from/>
+        <source>52acf146078d1010288ff16c7c1ed025</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-05-29 14:25:53</sys_created_on>
+        <sys_id>78ec3586078d1010288ff16c7c1ed0b7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17260d334150000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-05-29 14:25:53</sys_updated_on>
+        <type>Page</type>
+        <update_guid>38ec3586598d1010db4f452bc28c7cb7</update_guid>
+        <update_guid_history>38ec3586598d1010db4f452bc28c7cb7:639420891</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="unitshome">72ecb5fa074a1010288ff16c7c1ed0bb</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-20 15:24:15</sys_created_on>
+        <sys_db_object display_value="" name="sp_page">sp_page</sys_db_object>
+        <sys_id>7d25e322495b4b93bff64383d2b86359</sys_id>
+        <sys_metadata>e2ffb04edb18b300c1e8f53a29961998</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>unitshome</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sp_page_e2ffb04edb18b300c1e8f53a29961998</sys_update_name>
+        <sys_update_version display_value="sp_page_e2ffb04edb18b300c1e8f53a29961998">78ec3586078d1010288ff16c7c1ed0b7</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-20 15:24:15</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

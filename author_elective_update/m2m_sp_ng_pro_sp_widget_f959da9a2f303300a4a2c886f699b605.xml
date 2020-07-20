@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_ng_pro_sp_widget">
+    <m2m_sp_ng_pro_sp_widget action="DELETE">
+        <sp_angular_provider display_value="textcomponent">94e3855bdb103300c1e8f53a2996198d</sp_angular_provider>
+        <sp_widget display_value="Unit_content">f1599e5a2f303300a4a2c886f699b699</sp_widget>
+        <sys_class_name>m2m_sp_ng_pro_sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-04-16 08:30:41</sys_created_on>
+        <sys_id>f959da9a2f303300a4a2c886f699b605</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>textcomponent.UnitBody_clone</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>m2m_sp_ng_pro_sp_widget_f959da9a2f303300a4a2c886f699b605</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-04-16 08:30:41</sys_updated_on>
+    </m2m_sp_ng_pro_sp_widget>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>m2m_sp_ng_pro_sp_widget_f959da9a2f303300a4a2c886f699b605</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_ng_pro_sp_widget">
+    <m2m_sp_ng_pro_sp_widget action="INSERT_OR_UPDATE">
+        <sp_angular_provider display_value="textcomponent">94e3855bdb103300c1e8f53a2996198d</sp_angular_provider>
+        <sp_widget display_value="Unit_content">f1599e5a2f303300a4a2c886f699b699</sp_widget>
+        <sys_class_name>m2m_sp_ng_pro_sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-04-16 08:30:41</sys_created_on>
+        <sys_id>f959da9a2f303300a4a2c886f699b605</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>textcomponent.UnitBody_clone</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>m2m_sp_ng_pro_sp_widget_f959da9a2f303300a4a2c886f699b605</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-04-16 08:30:41</sys_updated_on>
+    </m2m_sp_ng_pro_sp_widget>
+</record_update>]]></payload>
+        <payload_hash>460705217</payload_hash>
+        <record_name>textcomponent.UnitBody_clone</record_name>
+        <reverted_from/>
+        <source>52acf146078d1010288ff16c7c1ed025</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-05-29 14:25:25</sys_created_on>
+        <sys_id>82cc7d46078d1010288ff16c7c1ed0f2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17260d2c5830000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-05-29 14:25:25</sys_updated_on>
+        <type>Angular Providers</type>
+        <update_guid>42cc7d46368d1010107badd82055c1f2</update_guid>
+        <update_guid_history>42cc7d46368d1010107badd82055c1f2:460705217</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="textcomponent.UnitBody_clone">460cb9ba074a1010288ff16c7c1ed088</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-20 15:20:23</sys_created_on>
+        <sys_db_object display_value="" name="m2m_sp_ng_pro_sp_widget">m2m_sp_ng_pro_sp_widget</sys_db_object>
+        <sys_id>3f4f6023bc584ff0bbb001813d192100</sys_id>
+        <sys_metadata>f959da9a2f303300a4a2c886f699b605</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>textcomponent.UnitBody_clone</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>m2m_sp_ng_pro_sp_widget_f959da9a2f303300a4a2c886f699b605</sys_update_name>
+        <sys_update_version display_value="m2m_sp_ng_pro_sp_widget_f959da9a2f303300a4a2c886f699b605">82cc7d46078d1010288ff16c7c1ed0f2</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-20 15:20:23</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

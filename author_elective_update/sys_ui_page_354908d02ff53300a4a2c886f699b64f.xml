@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
+    <sys_ui_page action="DELETE">
+        <category>general</category>
+        <client_script><![CDATA[angular.module('summernoteDemo', ['summernote'])
+  .controller('OptCtrl', function($scope) {
+    $scope.options = {
+      height: 150,
+      toolbar: [
+       ['img', ['picture']],
+                ['style', ['style', 'addclass', 'clear']],
+                ['fontstyle', ['bold', 'italic', 'ul', 'ol', 'link', 'paragraph']],
+                ['fontstyleextra', ['strikethrough', 'underline', 'hr', 'color', 'superscript', 'subscript']],
+                ['extra', ['video', 'table', 'height']],
+                ['misc', ['undo', 'redo', 'codeview', 'help']],
+                ['mybutton', ['knowledge']],
+                ['mybutton1', ['activity']],
+                ['mybutton2', ['section']],
+                ['mybutton3', ['list']],
+				['mybutton4',['scorm']]
+      ]
+					
+            
+    };
+
+    $scope.text = "Hello World <strong>from Slovakia</strong>!";
+  });]]></client_script>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_315700_lms_.do</endpoint>
+        <html><![CDATA[
+
+<!--summernote dependencies-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+  
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></link>
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> </link>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<link href="netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"></link>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet"></link>
+  <!--summernote-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/lang/summernote-de-DE.js"></script>
+
+  <!--angular-summernote dependencies -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-summernote/0.8.1/angular-summernote.min.js"></script>
+  <h2>summernote options</h2>
+
+  <div ng-app="summernoteDemo">
+
+
+
+<div class="example" ng-controller="OptCtrl">
+  <summernote config="options" ng-model="text"></summernote>
+  <p ng-bind="text">
+  </p>
+</div>
+
+</div>
+	 
+]]></html>
+        <name/>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-29 09:56:35</sys_created_on>
+        <sys_id>354908d02ff53300a4a2c886f699b64f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sys_ui_page_354908d02ff53300a4a2c886f699b64f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-05-29 09:56:35</sys_updated_on>
+    </sys_ui_page>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>sys_ui_page_354908d02ff53300a4a2c886f699b64f</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ui_page"&gt;
+    &lt;sys_ui_page action="INSERT_OR_UPDATE"&gt;
+        &lt;category&gt;general&lt;/category&gt;
+        &lt;client_script&gt;&lt;![CDATA[angular.module('summernoteDemo', ['summernote'])
+  .controller('OptCtrl', function($scope) {
+    $scope.options = {
+      height: 150,
+      toolbar: [
+       ['img', ['picture']],
+                ['style', ['style', 'addclass', 'clear']],
+                ['fontstyle', ['bold', 'italic', 'ul', 'ol', 'link', 'paragraph']],
+                ['fontstyleextra', ['strikethrough', 'underline', 'hr', 'color', 'superscript', 'subscript']],
+                ['extra', ['video', 'table', 'height']],
+                ['misc', ['undo', 'redo', 'codeview', 'help']],
+                ['mybutton', ['knowledge']],
+                ['mybutton1', ['activity']],
+                ['mybutton2', ['section']],
+                ['mybutton3', ['list']],
+				['mybutton4',['scorm']]
+      ]
+					
+            
+    };
+
+    $scope.text = "Hello World &lt;strong&gt;from Slovakia&lt;/strong&gt;!";
+  });]]&gt;&lt;/client_script&gt;
+        &lt;description/&gt;
+        &lt;direct&gt;false&lt;/direct&gt;
+        &lt;endpoint&gt;x_315700_lms_.do&lt;/endpoint&gt;
+        &lt;html&gt;&lt;![CDATA[
+
+&lt;!--summernote dependencies--&gt;
+  &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"&gt;&lt;/script&gt; 
+  
+  &lt;!-- Latest compiled and minified CSS --&gt;
+&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"&gt;&lt;/link&gt;
+
+&lt;!-- Optional theme --&gt;
+&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"&gt; &lt;/link&gt;
+
+&lt;!-- Latest compiled and minified JavaScript --&gt;
+&lt;script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"&gt;&lt;/script&gt;
+
+	&lt;link href="netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"&gt;&lt;/link&gt;
+&lt;link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet"&gt;&lt;/link&gt;
+  &lt;!--summernote--&gt;
+  &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"&gt;&lt;/script&gt;
+  &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/lang/summernote-de-DE.js"&gt;&lt;/script&gt;
+
+  &lt;!--angular-summernote dependencies --&gt;
+      &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"&gt;&lt;/script&gt;
+  &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/angular-summernote/0.8.1/angular-summernote.min.js"&gt;&lt;/script&gt;
+  &lt;h2&gt;summernote options&lt;/h2&gt;
+
+  &lt;div ng-app="summernoteDemo"&gt;
+
+
+
+&lt;div class="example" ng-controller="OptCtrl"&gt;
+  &lt;summernote config="options" ng-model="text"&gt;&lt;/summernote&gt;
+  &lt;p ng-bind="text"&gt;
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+	 
+]]&gt;&lt;/html&gt;
+        &lt;name/&gt;
+        &lt;processing_script/&gt;
+        &lt;sys_class_name&gt;sys_ui_page&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2019-05-29 09:56:35&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;354908d02ff53300a4a2c886f699b64f&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;
+        &lt;sys_name/&gt;
+        &lt;sys_package display_value="LMS" source="x_315700_lms"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="LMS"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sys_ui_page_354908d02ff53300a4a2c886f699b64f&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2019-05-29 09:56:35&lt;/sys_updated_on&gt;
+    &lt;/sys_ui_page&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>1083330752</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>52acf146078d1010288ff16c7c1ed025</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-05-29 14:26:09</sys_created_on>
+        <sys_id>f8fc7d86078d1010288ff16c7c1ed02d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17260d3736c0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-05-29 14:26:09</sys_updated_on>
+        <type>UI Page</type>
+        <update_guid>b8fc7d865c8d1010476664dfe6eee02d</update_guid>
+        <update_guid_history>b8fc7d865c8d1010476664dfe6eee02d:1083330752</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-20 15:53:52</sys_created_on>
+        <sys_db_object display_value="" name="sys_ui_page">sys_ui_page</sys_db_object>
+        <sys_id>ae8d10cdc03942e4961c1334e4dfc610</sys_id>
+        <sys_metadata>354908d02ff53300a4a2c886f699b64f</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sys_ui_page_354908d02ff53300a4a2c886f699b64f</sys_update_name>
+        <sys_update_version display_value="sys_ui_page_354908d02ff53300a4a2c886f699b64f">f8fc7d86078d1010288ff16c7c1ed02d</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-20 15:53:52</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

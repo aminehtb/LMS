@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope,$filter) {
+  /* widget controller */
+  var c = this;
+	
+	
+	
+	$scope.range = function (size,start, end) {
+    var ret = [];        
+    console.log(size,start, end);
+
+       if (size < end) {
+        end = size;
+        if(size<$scope.gap){
+             start = 0;
+        }else{
+             start = size-$scope.gap;
+        }
+
+    }
+    for (var i = start; i < end; i++) {
+        ret.push(i);
+    }        
+     console.log(ret);        
+    return ret;
+};
+
+	c.ctrlRead =function(data ) 
+{
+
+
+$scope.reverse = false;
+$scope.filteredItems = [];
+$scope.groupedItems = [];
+$scope.itemsPerPage = 5;
+$scope.pagedItems = [];
+$scope.currentPage = 0;
+$scope.items =JSON.parse(c.data.tableData);
+var searchMatch = function (haystack, needle) {
+if (!needle) {
+return true;
+}
+return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+};
+
+// init the filtered items
+$scope.search = function () {
+$scope.filteredItems = $filter('filter')($scope.items, function (item) {
+for(var attr in item) {
+if (searchMatch(item[attr], $scope.query))
+return true;
+}
+return false;
+});
+// take care of the sorting order
+if ($scope.sortingOrder !== '') {
+$scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sortingOrder, $scope.reverse);
+}
+$scope.currentPage = 0;
+// now group by pages
+$scope.groupToPages();
+};
+
+// calculate page in place
+$scope.groupToPages = function () {
+$scope.pagedItems = [];
+
+for (var i = 0; i < $scope.filteredItems.length; i++) {
+if (i % $scope.itemsPerPage === 0) {
+$scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [ $scope.filteredItems[i] ];
+} else {
+$scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.filteredItems[i]);
+}
+}
+};
+
+$scope.range = function (start, end) {
+var ret = [];
+if (!end) {
+end = start;
+start = 0;
+}
+for (var i = start; i < end; i++) {
+ret.push(i);
+}
+return ret;
+};
+
+$scope.prevPage = function () {
+if ($scope.currentPage > 0) {
+$scope.currentPage--;
+}
+};
+
+$scope.nextPage = function () {
+if ($scope.currentPage < $scope.pagedItems.length - 1) {
+$scope.currentPage++;
+}
+};
+
+$scope.setPage = function () {
+$scope.currentPage = this.n;
+};
+
+// functions have been describe process the data for display
+$scope.search();
+
+// change sorting order
+$scope.sort_by = function(newSortingOrder) {
+if ($scope.sortingOrder == newSortingOrder)
+$scope.reverse = !$scope.reverse;
+
+$scope.sortingOrder = newSortingOrder;
+
+// icon setup
+$('th i').each(function(){
+// icon reset
+$(this).removeClass().addClass('icon-sort');
+});
+if ($scope.reverse)
+$('th.'+$scope.sortingOrder+' i').removeClass().addClass('icon-chevron-up');
+else
+$('th.'+$scope.sortingOrder+' i').removeClass().addClass('icon-chevron-down');
+};
+}
+
+//c.getData();
+c.ctrlRead(c.data.tableData );
+	
+	
+	
+	
+	var shared = c.widget.options.shared;
+	c.selection = function selection(idx) {
+	var id = c.data.knowledge[idx];
+		//console.log(id);
+		
+		return angular.isDefined(id) ? (shared.selection = id) : shared.selection;
+		
+	}
+	
+	
+	 $scope.Search=function(){
+	var input, filter, ul, li, a,txtValue;
+  input = document.getElementById('myinput');
+  filter = input.value.toUpperCase();
+  li = document.querySelectorAll('.list-group  li');
+  
+  
+  for (var i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+		console.log(a);
+    txtValue = a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+	 }
+	
+
+}
+
+
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.search-form .form-group {
+  float: right !important;
+  transition: all 0.35s, border-radius 0s;
+  width: 32px;
+  height: 32px;
+  background-color: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+}
+.search-form .form-group input.form-control {
+  padding-right: 20px;
+  border: 0 none;
+  background: transparent;
+  box-shadow: none;
+  display:block;
+}
+.search-form .form-group input.form-control::-webkit-input-placeholder {
+  display: none;
+}
+.search-form .form-group input.form-control:-moz-placeholder {
+  /* Firefox 18- */
+  display: none;
+}
+.search-form .form-group input.form-control::-moz-placeholder {
+  /* Firefox 19+ */
+  display: none;
+}
+.search-form .form-group input.form-control:-ms-input-placeholder {
+  display: none;
+}
+.search-form .form-group:hover,
+.search-form .form-group.hover {
+  width: 100%;
+  border-radius: 4px 25px 25px 4px;
+}
+.search-form .form-group span.form-control-feedback {
+  position: absolute;
+  top: -1px;
+  right: -2px;
+  z-index: 2;
+  display: block;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  color: #3596e0;
+  left: initial;
+  font-size: 14px;</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>kbknowledgelist</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>kbknowledgelist</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+	
+	var json=new global.JSON();
+	
+	if (input) {
+data.table = input.table;
+		data.display_field = input.display_field;
+		data.maximum_entries= input.maximum_entries;
+		
+		
+		
+	}
+	
+	data.knowledge=[];
+	 var knowledge=new GlideRecord("kb_knowledge");
+		knowledge.addNotNullQuery("text");
+	knowledge.query();
+	while (knowledge.next()) {
+    knowledgeobj = {};
+    $sp.getRecordDisplayValues(knowledgeobj,knowledge,'short_description,sys_id,text');	
+
+		data.knowledge.push(knowledgeobj);
+		gs.warn(data.knowledge)
+	}
+	data.tableData = null ; 
+data.tableData = json.encode(data.knowledge);
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-16 08:16:29</sys_created_on>
+        <sys_id>96c5f8c42f213300a4a2c886f699b64e</sys_id>
+        <sys_mod_count>90</sys_mod_count>
+        <sys_name>kbknowledgelist</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_96c5f8c42f213300a4a2c886f699b64e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-08-19 07:44:14</sys_updated_on>
+        <template><![CDATA[<div style="text-align:center;">
+
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+<div class="container">
+    <div class="row">
+     
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-3">
+            <form action="" class="search-form">
+                <div class="form-group has-feedback">
+            		<label for="search" class="sr-only">Search</label>
+            		<input type="text" ng-model="query" ng-change="search()" class="form-control" name="search" id="myinput" placeholder="search">
+              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
+            	</div>
+            </form>
+        </div>
+    </div>
+  
+  
+  
+ 
+    
+   <div ng-controller="ctrlRead">
+     <div style="text-align:center;width:65%">
+       
+    
+ <ul class="list-group">
+      <li  ng-click="c.selection($index)"  class="list-group-item" ng-repeat="item in pagedItems[currentPage]   track by $index">
+        
+          
+        
+        <a>{{item.short_description}}</a>
+      </li>
+    </ul>
+    </div>
+ 
+  </div>
+  
+ <!-- <widget style="display:inline-block !important;" id="widget-simple-list" options="{'table':data.table,'display_field':data.display_field,maximum_entries:data.maximum_entries}" > </widget> -->
+</div>
+  <div style="text-align:center;">
+    
+ 
+  <ul class=" pagination  justify-content-center">
+
+      <li ng-class="{disabled: currentPage == 0}">
+        <a href ng-click="prevPage()">« Prev</a>
+      </li>
+      <li ng-repeat="n in range(pagedItems.length)"
+          ng-class="{active: n == currentPage}"
+          ng-click="setPage()">
+        <a href ng-bind="n + 1">1</a>
+      </li>
+      <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+        <a href ng-click="nextPage()">Next »</a>
+      </li>
+    </ul>
+     </div>
+</div>
+  
+]]></template>
+    </sp_widget>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>sp_widget_96c5f8c42f213300a4a2c886f699b64e</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;
+    &lt;sp_widget action="INSERT_OR_UPDATE"&gt;
+        &lt;category&gt;custom&lt;/category&gt;
+        &lt;client_script&gt;&lt;![CDATA[function($scope,$filter) {
+  /* widget controller */
+  var c = this;
+	
+	
+	
+	$scope.range = function (size,start, end) {
+    var ret = [];        
+    console.log(size,start, end);
+
+       if (size &lt; end) {
+        end = size;
+        if(size&lt;$scope.gap){
+             start = 0;
+        }else{
+             start = size-$scope.gap;
+        }
+
+    }
+    for (var i = start; i &lt; end; i++) {
+        ret.push(i);
+    }        
+     console.log(ret);        
+    return ret;
+};
+
+	c.ctrlRead =function(data ) 
+{
+
+
+$scope.reverse = false;
+$scope.filteredItems = [];
+$scope.groupedItems = [];
+$scope.itemsPerPage = 5;
+$scope.pagedItems = [];
+$scope.currentPage = 0;
+$scope.items =JSON.parse(c.data.tableData);
+var searchMatch = function (haystack, needle) {
+if (!needle) {
+return true;
+}
+return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+};
+
+// init the filtered items
+$scope.search = function () {
+$scope.filteredItems = $filter('filter')($scope.items, function (item) {
+for(var attr in item) {
+if (searchMatch(item[attr], $scope.query))
+return true;
+}
+return false;
+});
+// take care of the sorting order
+if ($scope.sortingOrder !== '') {
+$scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sortingOrder, $scope.reverse);
+}
+$scope.currentPage = 0;
+// now group by pages
+$scope.groupToPages();
+};
+
+// calculate page in place
+$scope.groupToPages = function () {
+$scope.pagedItems = [];
+
+for (var i = 0; i &lt; $scope.filteredItems.length; i++) {
+if (i % $scope.itemsPerPage === 0) {
+$scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [ $scope.filteredItems[i] ];
+} else {
+$scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.filteredItems[i]);
+}
+}
+};
+
+$scope.range = function (start, end) {
+var ret = [];
+if (!end) {
+end = start;
+start = 0;
+}
+for (var i = start; i &lt; end; i++) {
+ret.push(i);
+}
+return ret;
+};
+
+$scope.prevPage = function () {
+if ($scope.currentPage &gt; 0) {
+$scope.currentPage--;
+}
+};
+
+$scope.nextPage = function () {
+if ($scope.currentPage &lt; $scope.pagedItems.length - 1) {
+$scope.currentPage++;
+}
+};
+
+$scope.setPage = function () {
+$scope.currentPage = this.n;
+};
+
+// functions have been describe process the data for display
+$scope.search();
+
+// change sorting order
+$scope.sort_by = function(newSortingOrder) {
+if ($scope.sortingOrder == newSortingOrder)
+$scope.reverse = !$scope.reverse;
+
+$scope.sortingOrder = newSortingOrder;
+
+// icon setup
+$('th i').each(function(){
+// icon reset
+$(this).removeClass().addClass('icon-sort');
+});
+if ($scope.reverse)
+$('th.'+$scope.sortingOrder+' i').removeClass().addClass('icon-chevron-up');
+else
+$('th.'+$scope.sortingOrder+' i').removeClass().addClass('icon-chevron-down');
+};
+}
+
+//c.getData();
+c.ctrlRead(c.data.tableData );
+	
+	
+	
+	
+	var shared = c.widget.options.shared;
+	c.selection = function selection(idx) {
+	var id = c.data.knowledge[idx];
+		//console.log(id);
+		
+		return angular.isDefined(id) ? (shared.selection = id) : shared.selection;
+		
+	}
+	
+	
+	 $scope.Search=function(){
+	var input, filter, ul, li, a,txtValue;
+  input = document.getElementById('myinput');
+  filter = input.value.toUpperCase();
+  li = document.querySelectorAll('.list-group  li');
+  
+  
+  for (var i = 0; i &lt; li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+		console.log(a);
+    txtValue = a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) &gt; -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+	 }
+	
+
+}
+
+
+]]&gt;&lt;/client_script&gt;
+        &lt;controller_as&gt;c&lt;/controller_as&gt;
+        &lt;css&gt;.search-form .form-group {
+  float: right !important;
+  transition: all 0.35s, border-radius 0s;
+  width: 32px;
+  height: 32px;
+  background-color: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+}
+.search-form .form-group input.form-control {
+  padding-right: 20px;
+  border: 0 none;
+  background: transparent;
+  box-shadow: none;
+  display:block;
+}
+.search-form .form-group input.form-control::-webkit-input-placeholder {
+  display: none;
+}
+.search-form .form-group input.form-control:-moz-placeholder {
+  /* Firefox 18- */
+  display: none;
+}
+.search-form .form-group input.form-control::-moz-placeholder {
+  /* Firefox 19+ */
+  display: none;
+}
+.search-form .form-group input.form-control:-ms-input-placeholder {
+  display: none;
+}
+.search-form .form-group:hover,
+.search-form .form-group.hover {
+  width: 100%;
+  border-radius: 4px 25px 25px 4px;
+}
+.search-form .form-group span.form-control-feedback {
+  position: absolute;
+  top: -1px;
+  right: -2px;
+  z-index: 2;
+  display: block;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  color: #3596e0;
+  left: initial;
+  font-size: 14px;&lt;/css&gt;
+        &lt;data_table&gt;sp_instance&lt;/data_table&gt;
+        &lt;demo_data/&gt;
+        &lt;description/&gt;
+        &lt;docs/&gt;
+        &lt;field_list/&gt;
+        &lt;has_preview&gt;true&lt;/has_preview&gt;
+        &lt;id&gt;kbknowledgelist&lt;/id&gt;
+        &lt;internal&gt;false&lt;/internal&gt;
+        &lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;
+        &lt;name&gt;kbknowledgelist&lt;/name&gt;
+        &lt;option_schema/&gt;
+        &lt;public&gt;false&lt;/public&gt;
+        &lt;roles/&gt;
+        &lt;script&gt;&lt;![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+	
+	var json=new global.JSON();
+	
+	if (input) {
+data.table = input.table;
+		data.display_field = input.display_field;
+		data.maximum_entries= input.maximum_entries;
+		
+		
+		
+	}
+	
+	data.knowledge=[];
+	 var knowledge=new GlideRecord("kb_knowledge");
+		knowledge.addNotNullQuery("text");
+	knowledge.query();
+	while (knowledge.next()) {
+    knowledgeobj = {};
+    $sp.getRecordDisplayValues(knowledgeobj,knowledge,'short_description,sys_id,text');	
+
+		data.knowledge.push(knowledgeobj);
+		gs.warn(data.knowledge)
+	}
+	data.tableData = null ; 
+data.tableData = json.encode(data.knowledge);
+	
+})();]]&gt;&lt;/script&gt;
+        &lt;servicenow&gt;false&lt;/servicenow&gt;
+        &lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2019-05-16 08:16:29&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;96c5f8c42f213300a4a2c886f699b64e&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;90&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;kbknowledgelist&lt;/sys_name&gt;
+        &lt;sys_package display_value="LMS" source="x_315700_lms"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="LMS"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sp_widget_96c5f8c42f213300a4a2c886f699b64e&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2019-08-19 07:44:14&lt;/sys_updated_on&gt;
+        &lt;template&gt;&lt;![CDATA[&lt;div style="text-align:center;"&gt;
+
+  &lt;link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"&gt;
+&lt;script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"&gt;&lt;/script&gt;
+&lt;script src="//code.jquery.com/jquery-1.11.1.min.js"&gt;&lt;/script&gt;
+
+
+&lt;div class="container"&gt;
+    &lt;div class="row"&gt;
+     
+    &lt;/div&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-md-4 col-md-offset-3"&gt;
+            &lt;form action="" class="search-form"&gt;
+                &lt;div class="form-group has-feedback"&gt;
+            		&lt;label for="search" class="sr-only"&gt;Search&lt;/label&gt;
+            		&lt;input type="text" ng-model="query" ng-change="search()" class="form-control" name="search" id="myinput" placeholder="search"&gt;
+              		&lt;span class="glyphicon glyphicon-search form-control-feedback"&gt;&lt;/span&gt;
+            	&lt;/div&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+  
+  
+  
+ 
+    
+   &lt;div ng-controller="ctrlRead"&gt;
+     &lt;div style="text-align:center;width:65%"&gt;
+       
+    
+ &lt;ul class="list-group"&gt;
+      &lt;li  ng-click="c.selection($index)"  class="list-group-item" ng-repeat="item in pagedItems[currentPage]   track by $index"&gt;
+        
+          
+        
+        &lt;a&gt;{{item.short_description}}&lt;/a&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;/div&gt;
+ 
+  &lt;/div&gt;
+  
+ &lt;!-- &lt;widget style="display:inline-block !important;" id="widget-simple-list" options="{'table':data.table,'display_field':data.display_field,maximum_entries:data.maximum_entries}" &gt; &lt;/widget&gt; --&gt;
+&lt;/div&gt;
+  &lt;div style="text-align:center;"&gt;
+    
+ 
+  &lt;ul class=" pagination  justify-content-center"&gt;
+
+      &lt;li ng-class="{disabled: currentPage == 0}"&gt;
+        &lt;a href ng-click="prevPage()"&gt;« Prev&lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li ng-repeat="n in range(pagedItems.length)"
+          ng-class="{active: n == currentPage}"
+          ng-click="setPage()"&gt;
+        &lt;a href ng-bind="n + 1"&gt;1&lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li ng-class="{disabled: currentPage == pagedItems.length - 1}"&gt;
+        &lt;a href ng-click="nextPage()"&gt;Next »&lt;/a&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+     &lt;/div&gt;
+&lt;/div&gt;
+  
+]]&gt;&lt;/template&gt;
+    &lt;/sp_widget&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>-1524172698</payload_hash>
+        <record_name>kbknowledgelist</record_name>
+        <reverted_from/>
+        <source>52acf146078d1010288ff16c7c1ed025</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-05-29 14:25:57</sys_created_on>
+        <sys_id>a5ec7586078d1010288ff16c7c1ed085</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17260d3410b0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-05-29 14:25:57</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>65ec7586658d10102d58342e955f4c85</update_guid>
+        <update_guid_history>65ec7586658d10102d58342e955f4c85:-1524172698</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="kbknowledgelist">db19f53a074a1010288ff16c7c1ed076</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-20 15:07:38</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>5627c070646947cebd1d1b75d743e3c4</sys_id>
+        <sys_metadata>96c5f8c42f213300a4a2c886f699b64e</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>kbknowledgelist</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sp_widget_96c5f8c42f213300a4a2c886f699b64e</sys_update_name>
+        <sys_update_version display_value="sp_widget_96c5f8c42f213300a4a2c886f699b64e">a5ec7586078d1010288ff16c7c1ed085</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-20 15:07:38</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

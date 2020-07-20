@@ -1,0 +1,1070 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[
+function($rootScope,$scope,$sce,nowAttachmentHandler,$timeout,spAriaUtil,spUtil,$http) {
+  
+  var c = this;
+	
+	
+	
+	
+	
+
+	 $scope.files = [];  
+  $scope.setFiles = function(element,id) {
+    $scope.$apply(function() {
+			
+   
+       
+     for (var i = 0; i < element.files.length; i++) {
+			 console.log(element.files[i]);
+			 console.log("valuuuue "+id);
+			 console.log("valuuuue "+document.getElementById('dodo').value);
+			
+				if(document.getElementById('dodo').value == id)
+			{
+				console.log("if ok");
+				document.getElementById(id).innerHTML=element.files[i].name;
+				
+        $scope.files.push(element.files[i]);
+      }
+			if(document.getElementById('dodo').value != id)
+			{	console.log('lééééééé');
+			}
+   }}
+								 );
+ };
+
+/*$scope.setId = function(id){
+		document.getElementById(id).innerHTML=element.file.name;
+		   console.log('files:', id);
+		
+		
+	}*/
+	
+	
+  
+  $scope.removeFiles = function(fname) {
+    var index = $scope.files.indexOf(fname);
+    if(index>-1)
+      $scope.files.splice(index,1);
+  };  
+
+  $scope.uploadFiles = function() { 
+    $scope.fd = new FormData();
+    $scope.files.forEach(function(file){
+      $scope.fd.set('files', file);
+      var request = {
+        method: 'POST',
+        url: 'https://'+c.data.instanceName+'.service-now.com/api/now/attachment/file?table_name='+c.data.table+'&table_sys_id='+c.data.tableSys+'&file_name='+file.name,
+        data: $scope.fd.get('files'),
+        headers: {
+          'Content-Type': file.type,
+          'Accept':'application/json'         
+        }
+      };
+      console.log('HTTP request:',request);
+
+      // SEND THE FILES.
+      $http(request)
+        .success(function (d) {
+       var json_data = JSON.stringify(d);
+      json_data = JSON.parse(json_data);
+       c.data.action = 'append_file';
+       c.data.rec_id = c.data.sysID;
+       c.data.attachment_id = json_data.result.sys_id;
+       c.server.update().then(function(){
+    c.data.action = undefined;
+    })
+			})
+        .error(function (err) {
+        // On error code here
+      });
+							
+
+								 
+		});
+	}
+	$scope.submit_record=function(act_id) {
+    
+    c.data.insert = 'insert';
+		var index=-1;
+		for (var i=0;i<c.data.all_components.length;i++){
+		if (c.data.all_components[i].sys_id==act_id)
+			index=i;
+	
+		}
+    c.data.activity =c.data.all_components[index].sys_id;
+	
+    
+    c.server.update().then(function(){
+     
+        c.data.table = 'x_315700_lms_useractivity';
+        c.data.tableSys = c.data.sysID;
+			 
+        $scope.uploadFiles();
+
+c.data.insert = undefined;
+    });
+    
+       
+};
+
+
+
+
+
+
+	$rootScope.$on('selectunit', function(event,data){
+		c.data.textarticleHtml ="";
+	c.server.get({
+				action: 'getunit',
+				unitID: $rootScope.unitID
+			}).then(function(r) {
+				console.log(r.data);
+				c.data= r.data;
+		    c.data.all_components=r.data.all_components;
+				
+		
+			});
+	});
+
+}
+												 
+
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.nbs-flexisel-nav-left, .nbs-flexisel-nav-right {
+    width: 20px;
+    height:25px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+    margin-top:2em;
+}
+.nbs-flexisel-nav-left {
+    right: 0;
+    background: none;
+}
+.nbs-flexisel-nav-right {
+ left: 0;
+  background: none;
+}
+li.nbs-flexisel-item {
+ width:370px;
+}
+.biseller-column  p {
+    font-size: 1em;
+    color: #fff;
+    margin: 0;
+    text-align:center;
+}
+.panel-title &gt; a, .panel-title &gt; small, .panel-title &gt; .small, .panel-title &gt; small &gt; a, .panel-title &gt; .small &gt; a {
+    color:#000;
+    text-decoration: none;
+}
+.panel-title {
+    font-size: 1.1em;
+}
+.panel-default &gt; .panel-heading {
+    background: none;
+    border: none;
+	cursor: pointer;
+}
+.panel-default {
+    border: none;
+}
+.panel-group .panel-heading + .panel-collapse &gt; .panel-body, .panel-group .panel-heading + .panel-collapse &gt; .list-group {
+    border: none;
+}
+.asd {
+    padding: 1em 0;
+	text-transform:capitalize;
+}
+.panel_text {
+    font-size: 14px;
+    color: black;
+    line-height: 1.8em;
+}
+.panel{
+	box-shadow:none;
+}
+.pa_italic span{
+	display:none;
+}
+.pa_italic i{
+	left: -1em;
+}
+.collapsed span{
+	display: inline-block;
+    left: -1em;
+}
+.collapsed i{
+	display:none;
+}
+.panel_text {
+    background:#fff;
+.img-fluid. max-width: 100%;
+  height:auto;
+}
+p{font-size: 1.3rem;
+  line-height: 1.625rem;
+ font-family: Verdana, Geneva, sans-serif;
+  
+}
+.responsive {
+  max-width: 90%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+.youtube-player{
+   margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 6px;
+    display: block;
+}
+h2 { text-align: center }
+
+
+
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>unitbody</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>UnitBody</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function($scope) {
+	if(input){
+		var unit = new GlideRecord('x_315700_lms_unit');
+		var section = new GlideRecord('x_315700_lms_section');
+
+		data.table='x_315700_lms_useractivity';
+		data.rec_sysid='658631b6db803300c1e8f53a2996199a';
+		data.instanceName = gs.getProperty('instance_name');
+		if (unit.get(input.unitID)) {			
+			if (input.action == 'getunit') {	
+				
+				
+				data.all_components = [];
+				data.unit={};
+				data.section={};
+				data.useractivity={};
+				
+				data.section= unit.getDisplayValue("section");
+					var componentGR = new GlideRecord('x_315700_lms_component');
+					componentGR.addQuery("parent_unit",input.unitID);
+				componentGR.orderBy('order');
+				 componentGR.query();
+					while(componentGR.next()){
+						var cmpClass =componentGR.getValue('sys_class_name')+""; 
+				
+						switch (cmpClass) {
+							case 'x_315700_lms_videocmp':	
+								var videocomponentGR = new GlideRecord("x_315700_lms_videocmp");
+								videocomponentGR.get(componentGR.sys_id);
+								videocomponentGR.query();
+								while(videocomponentGR.next()){
+									var videoobj={};
+								$sp.getRecordValues(videoobj,videocomponentGR,"link,sys_class_name,title,unit,order");
+									videoobj.c_type = 'video';
+									data.all_components.push(videoobj);
+								}
+								break;
+								
+							case 'x_315700_lms_textcmp': 
+								var textcomponentGR = new GlideRecord("x_315700_lms_textcmp");
+								  textcomponentGR.get(componentGR.sys_id);
+								textcomponentGR.query();
+								while(textcomponentGR.next()){
+									var textobj={};
+								$sp.getRecordValues(textobj,textcomponentGR,"text_body,sys_class_name");
+									textobj.c_type ='text';
+									data.all_components.push(textobj);
+								}
+								break;
+								
+							 case 'x_315700_lms_imagecmp':
+								
+								var imagecomponentGR = new GlideRecord("x_315700_lms_imagecmp");
+								imagecomponentGR.get(componentGR.sys_id);	  
+                imagecomponentGR.addQuery("sys_id",imagecomponentGR.getValue('sys_id'));
+                imagecomponentGR.query();
+                while (imagecomponentGR.next()) {
+								
+                var link = imagecomponentGR.link.getDisplayValue();
+									
+		
+								
+									var imageobj = {'src':link,'c_type':'image'};
+									data.all_components.push(imageobj);									
+                }
+	              break;			
+							
+							case 'x_315700_lms_articlecmp':
+								var articlecomponentGR=new GlideRecord("x_315700_lms_articlecmp");
+								articlecomponentGR.get(componentGR.sys_id);
+								articlecomponentGR.query();
+                var articleGR = new GlideRecord("kb_knowledge");
+								var kbarticle=articlecomponentGR.getValue("kb_article");
+                articleGR.get(kbarticle);
+								while(articlecomponentGR.next()){
+								var textarticle={};
+									
+								textarticle = new global.KBViewModel().getArticleContentBySysId(articleGR.getUniqueValue());
+							    var articleobj = {'textarticle':textarticle,'c_type':'article'};
+									data.all_components.push(articleobj);
+									
+								}
+								break;
+								
+							case 'x_315700_lms_activitycmp':
+						  
+								var activitycomponentGR=new GlideRecord("x_315700_lms_activitycmp");
+								activitycomponentGR.get(componentGR.sys_id);
+								activitycomponentGR.addQuery("sys_id",activitycomponentGR.getValue('sys_id'));
+                activitycomponentGR.query();
+                while (activitycomponentGR.next()) { 
+									 var activityobj={};
+									$sp.getRecordValues(activityobj,activitycomponentGR,"title,description,sys_id,sys_class_name");
+									activityobj.c_type='activity';
+			          data.all_components.push(activityobj);
+								}
+									
+							
+								
+											 
+            
+        
+	
+								break;						
+						
+						
+							default : gs.warn('notfound');
+					
+						}
+			
+						}
+						$sp.getRecordValues(data.unit,unit,"name,sys_id,section");
+			}
+			
+	}
+		
+			if(input.insert=='insert'){
+				
+				var useractivityGR = new GlideRecord(data.table);
+            
+            useractivityGR.activity = input.activity; 
+            useractivityGR.user=gs.getUserID(); 
+            var id = useractivityGR.insert();
+            data.sysID = id;
+				    
+			}
+					
+if(input && input.action=='append_file'){
+
+if(input.rec_id && input.attachment_id){
+
+var useractivityres = new GlideRecord(data.table);
+useractivityres.get(input.rec_id);
+useractivityres.file = input.attachment_id;
+var result = useractivityres.update();
+}
+}
+
+}})
+
+();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-03-21 10:06:57</sys_created_on>
+        <sys_id>f606f882db18b300c1e8f53a29961968</sys_id>
+        <sys_mod_count>852</sys_mod_count>
+        <sys_name>UnitBody</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_f606f882db18b300c1e8f53a29961968</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-06-02 10:42:35</sys_updated_on>
+        <template><![CDATA[<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+
+<div class="panel panel-info" style="width: 100%" ng-if="c.data.unit.sys_id">
+	  <div class="panel-heading clearfix">
+	    <div class="row">
+       
+         <div class="col-md-12">
+           
+	       <h2>
+           {{c.data.section}}
+           </h2> 
+	      </div>
+	      
+	    </div>
+      
+	  </div>
+  <div>
+    <div class="col-md-12">
+          
+         
+	      <h3>
+        {{c.data.unit.name}}  
+      </h3> 
+	      </div>
+  </div>
+	  
+<div class="panel-body">
+ 
+   <div ng-repeat="cmp in c.data.all_components   ">
+     <div  ng-if="cmp.c_type=='activity'" >
+      
+  
+ 
+ <div class="panel panel-default" >
+									<div class="panel-heading" role="tab" id="headingOne">
+									  <h4 class="panel-title asd">
+										<a class="pa_italic" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+										  <span class="lnr lnr-chevron-down"></span><i class="lnr lnr-chevron-up"></i><label>{{cmp.title}}</label><i class="fa fa-angle-down" ></i>
+										</a>
+									  </h4>
+									</div>
+									<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+									  <div class="panel-body panel_text">
+									{{cmp.description}}
+									  </div>
+									</div>
+   
+  
+ </div>
+
+    <div class="att-group">
+     <input type='hidden' id="dodo" value={{cmp.sys_id}} />
+  
+  <label  class="btn btn-info btn-sm"> <span><i class="fas fa-cloud-upload-alt mr-2" aria-hidden="true"></i>Choose files</span> 
+   
+         
+         
+       <input  id={{cmp.sys_id}}  style='opacity:0; width:0px; height:0px;'  type="file" multiple onchange="angular.element(this).scope().setFiles(this,this.id)"/>
+  
+  </label>
+   
+                     
+
+
+            <br/>  <div ng-show="files.length">
+      
+              <div ng-repeat="file in files">
+             
+
+                  <span ng-switch="file.size > 1024*1024">
+                      <span ng-switch-when="true">{{file.size / 1024 / 1024 | number:2}} MB</span>
+                      <span ng-switch-default>{{file.size / 1024 | number:2}} kB</span>
+                  </span><span class="glyphicon glyphicon-remove-circle" id="removeicon" ng-click="removeFiles(file)"></span>
+               		 <button  ng-click="submit_record(cmp.sys_id)">
+                     Add 
+								</button>
+   
+            </div>
+            </div>
+  
+  </div>
+     </div>
+   
+     <videocomponent videoclass="cmp" ng-if="cmp.c_type=='video'">
+      </videocomponent>
+     <textcomponent textclass="cmp" ng-if="cmp.c_type=='text'">
+      </textcomponent>
+     <imagecomponent imageclass="cmp"  ng-if="cmp.c_type=='image'">
+      </imagecomponent>
+     <articlecomponent articleclass="cmp" ng-if="cmp.c_type=='article'">
+  		</articlecomponent>
+     
+      
+
+  </div>
+  </div>
+  
+  </div>
+   
+
+  
+
+
+
+
+	
+
+
+	
+	]]></template>
+    </sp_widget>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>sp_widget_f606f882db18b300c1e8f53a29961968</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;
+    &lt;sp_widget action="INSERT_OR_UPDATE"&gt;
+        &lt;category&gt;custom&lt;/category&gt;
+        &lt;client_script&gt;&lt;![CDATA[
+function($rootScope,$scope,$sce,nowAttachmentHandler,$timeout,spAriaUtil,spUtil,$http) {
+  
+  var c = this;
+	
+	
+	
+	
+	
+
+	 $scope.files = [];  
+  $scope.setFiles = function(element,id) {
+    $scope.$apply(function() {
+			
+   
+       
+     for (var i = 0; i &lt; element.files.length; i++) {
+			 console.log(element.files[i]);
+			 console.log("valuuuue "+id);
+			 console.log("valuuuue "+document.getElementById('dodo').value);
+			
+				if(document.getElementById('dodo').value == id)
+			{
+				console.log("if ok");
+				document.getElementById(id).innerHTML=element.files[i].name;
+				
+        $scope.files.push(element.files[i]);
+      }
+			if(document.getElementById('dodo').value != id)
+			{	console.log('lééééééé');
+			}
+   }}
+								 );
+ };
+
+/*$scope.setId = function(id){
+		document.getElementById(id).innerHTML=element.file.name;
+		   console.log('files:', id);
+		
+		
+	}*/
+	
+	
+  
+  $scope.removeFiles = function(fname) {
+    var index = $scope.files.indexOf(fname);
+    if(index&gt;-1)
+      $scope.files.splice(index,1);
+  };  
+
+  $scope.uploadFiles = function() { 
+    $scope.fd = new FormData();
+    $scope.files.forEach(function(file){
+      $scope.fd.set('files', file);
+      var request = {
+        method: 'POST',
+        url: 'https://'+c.data.instanceName+'.service-now.com/api/now/attachment/file?table_name='+c.data.table+'&amp;table_sys_id='+c.data.tableSys+'&amp;file_name='+file.name,
+        data: $scope.fd.get('files'),
+        headers: {
+          'Content-Type': file.type,
+          'Accept':'application/json'         
+        }
+      };
+      console.log('HTTP request:',request);
+
+      // SEND THE FILES.
+      $http(request)
+        .success(function (d) {
+       var json_data = JSON.stringify(d);
+      json_data = JSON.parse(json_data);
+       c.data.action = 'append_file';
+       c.data.rec_id = c.data.sysID;
+       c.data.attachment_id = json_data.result.sys_id;
+       c.server.update().then(function(){
+    c.data.action = undefined;
+    })
+			})
+        .error(function (err) {
+        // On error code here
+      });
+							
+
+								 
+		});
+	}
+	$scope.submit_record=function(act_id) {
+    
+    c.data.insert = 'insert';
+		var index=-1;
+		for (var i=0;i&lt;c.data.all_components.length;i++){
+		if (c.data.all_components[i].sys_id==act_id)
+			index=i;
+	
+		}
+    c.data.activity =c.data.all_components[index].sys_id;
+	
+    
+    c.server.update().then(function(){
+     
+        c.data.table = 'x_315700_lms_useractivity';
+        c.data.tableSys = c.data.sysID;
+			 
+        $scope.uploadFiles();
+
+c.data.insert = undefined;
+    });
+    
+       
+};
+
+
+
+
+
+
+	$rootScope.$on('selectunit', function(event,data){
+		c.data.textarticleHtml ="";
+	c.server.get({
+				action: 'getunit',
+				unitID: $rootScope.unitID
+			}).then(function(r) {
+				console.log(r.data);
+				c.data= r.data;
+		    c.data.all_components=r.data.all_components;
+				
+		
+			});
+	});
+
+}
+												 
+
+]]&gt;&lt;/client_script&gt;
+        &lt;controller_as&gt;c&lt;/controller_as&gt;
+        &lt;css&gt;.nbs-flexisel-nav-left, .nbs-flexisel-nav-right {
+    width: 20px;
+    height:25px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+    margin-top:2em;
+}
+.nbs-flexisel-nav-left {
+    right: 0;
+    background: none;
+}
+.nbs-flexisel-nav-right {
+ left: 0;
+  background: none;
+}
+li.nbs-flexisel-item {
+ width:370px;
+}
+.biseller-column  p {
+    font-size: 1em;
+    color: #fff;
+    margin: 0;
+    text-align:center;
+}
+.panel-title &amp;gt; a, .panel-title &amp;gt; small, .panel-title &amp;gt; .small, .panel-title &amp;gt; small &amp;gt; a, .panel-title &amp;gt; .small &amp;gt; a {
+    color:#000;
+    text-decoration: none;
+}
+.panel-title {
+    font-size: 1.1em;
+}
+.panel-default &amp;gt; .panel-heading {
+    background: none;
+    border: none;
+	cursor: pointer;
+}
+.panel-default {
+    border: none;
+}
+.panel-group .panel-heading + .panel-collapse &amp;gt; .panel-body, .panel-group .panel-heading + .panel-collapse &amp;gt; .list-group {
+    border: none;
+}
+.asd {
+    padding: 1em 0;
+	text-transform:capitalize;
+}
+.panel_text {
+    font-size: 14px;
+    color: black;
+    line-height: 1.8em;
+}
+.panel{
+	box-shadow:none;
+}
+.pa_italic span{
+	display:none;
+}
+.pa_italic i{
+	left: -1em;
+}
+.collapsed span{
+	display: inline-block;
+    left: -1em;
+}
+.collapsed i{
+	display:none;
+}
+.panel_text {
+    background:#fff;
+.img-fluid. max-width: 100%;
+  height:auto;
+}
+p{font-size: 1.3rem;
+  line-height: 1.625rem;
+ font-family: Verdana, Geneva, sans-serif;
+  
+}
+.responsive {
+  max-width: 90%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+.youtube-player{
+   margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 6px;
+    display: block;
+}
+h2 { text-align: center }
+
+
+
+&lt;/css&gt;
+        &lt;data_table&gt;sp_instance&lt;/data_table&gt;
+        &lt;demo_data/&gt;
+        &lt;description/&gt;
+        &lt;docs/&gt;
+        &lt;field_list/&gt;
+        &lt;has_preview&gt;true&lt;/has_preview&gt;
+        &lt;id&gt;unitbody&lt;/id&gt;
+        &lt;internal&gt;false&lt;/internal&gt;
+        &lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;
+        &lt;name&gt;UnitBody&lt;/name&gt;
+        &lt;option_schema/&gt;
+        &lt;public&gt;false&lt;/public&gt;
+        &lt;roles/&gt;
+        &lt;script&gt;&lt;![CDATA[(function($scope) {
+	if(input){
+		var unit = new GlideRecord('x_315700_lms_unit');
+		var section = new GlideRecord('x_315700_lms_section');
+
+		data.table='x_315700_lms_useractivity';
+		data.rec_sysid='658631b6db803300c1e8f53a2996199a';
+		data.instanceName = gs.getProperty('instance_name');
+		if (unit.get(input.unitID)) {			
+			if (input.action == 'getunit') {	
+				
+				
+				data.all_components = [];
+				data.unit={};
+				data.section={};
+				data.useractivity={};
+				
+				data.section= unit.getDisplayValue("section");
+					var componentGR = new GlideRecord('x_315700_lms_component');
+					componentGR.addQuery("parent_unit",input.unitID);
+				componentGR.orderBy('order');
+				 componentGR.query();
+					while(componentGR.next()){
+						var cmpClass =componentGR.getValue('sys_class_name')+""; 
+				
+						switch (cmpClass) {
+							case 'x_315700_lms_videocmp':	
+								var videocomponentGR = new GlideRecord("x_315700_lms_videocmp");
+								videocomponentGR.get(componentGR.sys_id);
+								videocomponentGR.query();
+								while(videocomponentGR.next()){
+									var videoobj={};
+								$sp.getRecordValues(videoobj,videocomponentGR,"link,sys_class_name,title,unit,order");
+									videoobj.c_type = 'video';
+									data.all_components.push(videoobj);
+								}
+								break;
+								
+							case 'x_315700_lms_textcmp': 
+								var textcomponentGR = new GlideRecord("x_315700_lms_textcmp");
+								  textcomponentGR.get(componentGR.sys_id);
+								textcomponentGR.query();
+								while(textcomponentGR.next()){
+									var textobj={};
+								$sp.getRecordValues(textobj,textcomponentGR,"text_body,sys_class_name");
+									textobj.c_type ='text';
+									data.all_components.push(textobj);
+								}
+								break;
+								
+							 case 'x_315700_lms_imagecmp':
+								
+								var imagecomponentGR = new GlideRecord("x_315700_lms_imagecmp");
+								imagecomponentGR.get(componentGR.sys_id);	  
+                imagecomponentGR.addQuery("sys_id",imagecomponentGR.getValue('sys_id'));
+                imagecomponentGR.query();
+                while (imagecomponentGR.next()) {
+								
+                var link = imagecomponentGR.link.getDisplayValue();
+									
+		
+								
+									var imageobj = {'src':link,'c_type':'image'};
+									data.all_components.push(imageobj);									
+                }
+	              break;			
+							
+							case 'x_315700_lms_articlecmp':
+								var articlecomponentGR=new GlideRecord("x_315700_lms_articlecmp");
+								articlecomponentGR.get(componentGR.sys_id);
+								articlecomponentGR.query();
+                var articleGR = new GlideRecord("kb_knowledge");
+								var kbarticle=articlecomponentGR.getValue("kb_article");
+                articleGR.get(kbarticle);
+								while(articlecomponentGR.next()){
+								var textarticle={};
+									
+								textarticle = new global.KBViewModel().getArticleContentBySysId(articleGR.getUniqueValue());
+							    var articleobj = {'textarticle':textarticle,'c_type':'article'};
+									data.all_components.push(articleobj);
+									
+								}
+								break;
+								
+							case 'x_315700_lms_activitycmp':
+						  
+								var activitycomponentGR=new GlideRecord("x_315700_lms_activitycmp");
+								activitycomponentGR.get(componentGR.sys_id);
+								activitycomponentGR.addQuery("sys_id",activitycomponentGR.getValue('sys_id'));
+                activitycomponentGR.query();
+                while (activitycomponentGR.next()) { 
+									 var activityobj={};
+									$sp.getRecordValues(activityobj,activitycomponentGR,"title,description,sys_id,sys_class_name");
+									activityobj.c_type='activity';
+			          data.all_components.push(activityobj);
+								}
+									
+							
+								
+											 
+            
+        
+	
+								break;						
+						
+						
+							default : gs.warn('notfound');
+					
+						}
+			
+						}
+						$sp.getRecordValues(data.unit,unit,"name,sys_id,section");
+			}
+			
+	}
+		
+			if(input.insert=='insert'){
+				
+				var useractivityGR = new GlideRecord(data.table);
+            
+            useractivityGR.activity = input.activity; 
+            useractivityGR.user=gs.getUserID(); 
+            var id = useractivityGR.insert();
+            data.sysID = id;
+				    
+			}
+					
+if(input &amp;&amp; input.action=='append_file'){
+
+if(input.rec_id &amp;&amp; input.attachment_id){
+
+var useractivityres = new GlideRecord(data.table);
+useractivityres.get(input.rec_id);
+useractivityres.file = input.attachment_id;
+var result = useractivityres.update();
+}
+}
+
+}})
+
+();]]&gt;&lt;/script&gt;
+        &lt;servicenow&gt;false&lt;/servicenow&gt;
+        &lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2019-03-21 10:06:57&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;f606f882db18b300c1e8f53a29961968&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;852&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;UnitBody&lt;/sys_name&gt;
+        &lt;sys_package display_value="LMS" source="x_315700_lms"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="LMS"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sp_widget_f606f882db18b300c1e8f53a29961968&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2019-06-02 10:42:35&lt;/sys_updated_on&gt;
+        &lt;template&gt;&lt;![CDATA[&lt;link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"&gt;
+
+
+&lt;div class="panel panel-info" style="width: 100%" ng-if="c.data.unit.sys_id"&gt;
+	  &lt;div class="panel-heading clearfix"&gt;
+	    &lt;div class="row"&gt;
+       
+         &lt;div class="col-md-12"&gt;
+           
+	       &lt;h2&gt;
+           {{c.data.section}}
+           &lt;/h2&gt; 
+	      &lt;/div&gt;
+	      
+	    &lt;/div&gt;
+      
+	  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;div class="col-md-12"&gt;
+          
+         
+	      &lt;h3&gt;
+        {{c.data.unit.name}}  
+      &lt;/h3&gt; 
+	      &lt;/div&gt;
+  &lt;/div&gt;
+	  
+&lt;div class="panel-body"&gt;
+ 
+   &lt;div ng-repeat="cmp in c.data.all_components   "&gt;
+     &lt;div  ng-if="cmp.c_type=='activity'" &gt;
+      
+  
+ 
+ &lt;div class="panel panel-default" &gt;
+									&lt;div class="panel-heading" role="tab" id="headingOne"&gt;
+									  &lt;h4 class="panel-title asd"&gt;
+										&lt;a class="pa_italic" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"&gt;
+										  &lt;span class="lnr lnr-chevron-down"&gt;&lt;/span&gt;&lt;i class="lnr lnr-chevron-up"&gt;&lt;/i&gt;&lt;label&gt;{{cmp.title}}&lt;/label&gt;&lt;i class="fa fa-angle-down" &gt;&lt;/i&gt;
+										&lt;/a&gt;
+									  &lt;/h4&gt;
+									&lt;/div&gt;
+									&lt;div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne"&gt;
+									  &lt;div class="panel-body panel_text"&gt;
+									{{cmp.description}}
+									  &lt;/div&gt;
+									&lt;/div&gt;
+   
+  
+ &lt;/div&gt;
+
+    &lt;div class="att-group"&gt;
+     &lt;input type='hidden' id="dodo" value={{cmp.sys_id}} /&gt;
+  
+  &lt;label  class="btn btn-info btn-sm"&gt; &lt;span&gt;&lt;i class="fas fa-cloud-upload-alt mr-2" aria-hidden="true"&gt;&lt;/i&gt;Choose files&lt;/span&gt; 
+   
+         
+         
+       &lt;input  id={{cmp.sys_id}}  style='opacity:0; width:0px; height:0px;'  type="file" multiple onchange="angular.element(this).scope().setFiles(this,this.id)"/&gt;
+  
+  &lt;/label&gt;
+   
+                     
+
+
+            &lt;br/&gt;  &lt;div ng-show="files.length"&gt;
+      
+              &lt;div ng-repeat="file in files"&gt;
+             
+
+                  &lt;span ng-switch="file.size &gt; 1024*1024"&gt;
+                      &lt;span ng-switch-when="true"&gt;{{file.size / 1024 / 1024 | number:2}} MB&lt;/span&gt;
+                      &lt;span ng-switch-default&gt;{{file.size / 1024 | number:2}} kB&lt;/span&gt;
+                  &lt;/span&gt;&lt;span class="glyphicon glyphicon-remove-circle" id="removeicon" ng-click="removeFiles(file)"&gt;&lt;/span&gt;
+               		 &lt;button  ng-click="submit_record(cmp.sys_id)"&gt;
+                     Add 
+								&lt;/button&gt;
+   
+            &lt;/div&gt;
+            &lt;/div&gt;
+  
+  &lt;/div&gt;
+     &lt;/div&gt;
+   
+     &lt;videocomponent videoclass="cmp" ng-if="cmp.c_type=='video'"&gt;
+      &lt;/videocomponent&gt;
+     &lt;textcomponent textclass="cmp" ng-if="cmp.c_type=='text'"&gt;
+      &lt;/textcomponent&gt;
+     &lt;imagecomponent imageclass="cmp"  ng-if="cmp.c_type=='image'"&gt;
+      &lt;/imagecomponent&gt;
+     &lt;articlecomponent articleclass="cmp" ng-if="cmp.c_type=='article'"&gt;
+  		&lt;/articlecomponent&gt;
+     
+      
+
+  &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;/div&gt;
+   
+
+  
+
+
+
+
+	
+
+
+	
+	]]&gt;&lt;/template&gt;
+    &lt;/sp_widget&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>-1095256046</payload_hash>
+        <record_name>UnitBody</record_name>
+        <reverted_from/>
+        <source>52acf146078d1010288ff16c7c1ed025</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-05-29 14:25:58</sys_created_on>
+        <sys_id>42ec7586078d1010288ff16c7c1ed0c9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17260d345dc0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-05-29 14:25:58</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>02ec7586628d10107e671a55c39120c9</update_guid>
+        <update_guid_history>02ec7586628d10107e671a55c39120c9:-1095256046</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="UnitBody">57abb5ba074a1010288ff16c7c1ed03c</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-20 15:18:50</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>05aecc45d9864766aa36cc2a8b011264</sys_id>
+        <sys_metadata>f606f882db18b300c1e8f53a29961968</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>UnitBody</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sp_widget_f606f882db18b300c1e8f53a29961968</sys_update_name>
+        <sys_update_version display_value="sp_widget_f606f882db18b300c1e8f53a29961968">42ec7586078d1010288ff16c7c1ed0c9</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-20 15:18:50</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
