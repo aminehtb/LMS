@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope,$timeout,spUtil) {
+  /* widget controller */
+  var c = this;
+	c.show = true;
+	c.quizOptions  ={instance_id:"1413155a07751410288ff16c7c1ed012",id:"take_survey"};
+	if(c.show){
+		spUtil.get("fm_quiz",{instance_id:"1413155a07751410288ff16c7c1ed012",id:"take_survey"}).then(function(response) {
+            c.widg = response;
+			//c.widg.options = c.quizOptions;
+			console.log(c.widg.data.title);
+    });
+	}
+	$scope.changeQuiz = function(){
+		$timeout(function(){
+		spUtil.get("fm_quiz",{instance_id:"8bd7777207719410288ff16c7c1ed0eb",id:"take_survey"}).then(function(response) {
+      
+				c.widg = response;
+			$scope.$emit('fm_quiz');
+			   
+			
+			//c.widg.options = c.quizOptions;
+    });},500)   
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>fm_quiz_test</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>fm_quiz_test</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-08 08:52:40</sys_created_on>
+        <sys_id>bd30ba7e077d5410288ff16c7c1ed08c</sys_id>
+        <sys_mod_count>29</sys_mod_count>
+        <sys_name>fm_quiz_test</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_bd30ba7e077d5410288ff16c7c1ed08c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-08 15:34:11</sys_updated_on>
+        <template><![CDATA[<div>
+<!-- your widget template -->
+  <h1 ng-click="changeQuiz()">
+    test fm_quiz
+  </h1>
+  <!--<widget ng-if="c.show" id="fm_quiz" options="{{c.quizOptions}}"></widget>-->
+  <sp-widget ng-if="c.show" widget="c.widg"></sp-widget>
+</div>]]></template>
+    </sp_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>sp_widget_bd30ba7e077d5410288ff16c7c1ed08c</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function($scope,$timeout,spUtil) {
+  /* widget controller */
+  var c = this;
+	c.show = true;
+	c.quizOptions  ={instance_id:"1413155a07751410288ff16c7c1ed012",id:"take_survey"};
+	if(c.show){
+		spUtil.get("fm_quiz",{instance_id:"1413155a07751410288ff16c7c1ed012",id:"take_survey"}).then(function(response) {
+            c.widg = response;
+			//c.widg.options = c.quizOptions;
+			console.log(c.widg.data.title);
+    });
+	}
+	$scope.changeQuiz = function(){
+		$timeout(function(){
+		spUtil.get("fm_quiz",{instance_id:"8bd7777207719410288ff16c7c1ed0eb",id:"take_survey"}).then(function(response) {
+      
+				c.widg = response;
+			$scope.$emit('fm_quiz');
+			   
+			
+			//c.widg.options = c.quizOptions;
+    });},500)   
+	}
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css/&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;fm_quiz_test&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;fm_quiz_test&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2020-07-08 08:52:40&lt;/sys_created_on&gt;&lt;sys_id&gt;bd30ba7e077d5410288ff16c7c1ed08c&lt;/sys_id&gt;&lt;sys_mod_count&gt;29&lt;/sys_mod_count&gt;&lt;sys_name&gt;fm_quiz_test&lt;/sys_name&gt;&lt;sys_package display_value="LMS" source="x_315700_lms"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="LMS"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_bd30ba7e077d5410288ff16c7c1ed08c&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2020-07-08 15:34:11&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div&gt;
+&lt;!-- your widget template --&gt;
+  &lt;h1 ng-click="changeQuiz()"&gt;
+    test fm_quiz
+  &lt;/h1&gt;
+  &lt;!--&lt;widget ng-if="c.show" id="fm_quiz" options="{{c.quizOptions}}"&gt;&lt;/widget&gt;--&gt;
+  &lt;sp-widget ng-if="c.show" widget="c.widg"&gt;&lt;/sp-widget&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-501288937</payload_hash>
+        <record_name>fm_quiz_test</record_name>
+        <reverted_from/>
+        <source>ec8ff54a078d1010288ff16c7c1ed09f</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-08 15:34:11</sys_created_on>
+        <sys_id>4f1c484f07719410288ff16c7c1ed08e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1732f1019920000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-08 15:34:11</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>471c484f4b7194105775e570419c888e</update_guid>
+        <update_guid_history>471c484f4b7194105775e570419c888e:-501288937,ee8ac40fbd719410b49483fff204c863:1159267956,cf59c08b13719410efacf6999550b6a1:-1292714421,4955c08b39719410bdfffe4bb91f250d:-765927186,be93cc479271941024f32d9fc908498f:1627866563,22d2440b31719410b557ee16c8fed0cc:-1615639946,8282440bfa7194104f46629fc7dc46c4:489919687,b612c8c7d471941091b8bc431c9fd867:51492431,4802ccc7d37194106de1b8c14651b181:-1078676665,fdbdf3762071941042b6ae7208aaad61:-356129410,8e8c33b229719410572e13eab3c9544d:-1078676665,073e7e3ac6bd5410914634a117a7197d:1828873457,1e5dbeb6ebbd54109c6649721285e781:1603131601,823cba3a2bbd5410430045eed3d29f74:-1715614094,dc5a76f62cbd54104de4b1f5b04fafd0:-2124152777,39793eb695bd54100ba4196fa29659ed:1981084507,a1397e7601bd54101abcba55423cb90f:451810136,c9373e3634bd541017b38b45cb8d0b40:-1527977507,32a63e3649bd541068de07a3b0e2ac00:1101643218,27967e36d0bd5410e7f308edd68bc2c6:959454549,7c763a368ebd5410ac88022a1845ed2d:-1701642931,5146ba3625bd5410301e1eafbba9542e:-986989599,dc263a36b8bd54103e4c42eec04a9c25:-1351330527,d4b5f2361bbd5410d2fd6d02bfbe9fb9:-943486817,51a576b2b0bd54108121559d6ad5c3b9:54563728,b6d472f218bd54106ef7d1e8c3eb0c9d:1116949316,51027a72c4bd54100829d0ec90fc49be:1517605537,cbd0be7e0f7d5410338ea73d5406158c:-677678358,1a703632eebd54101ce1a353d90535e9:-2094603260,fd30ba7efb7d54102d3e0333b9d6f48f:1017604210</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="fm_quiz_test">f75275f2074a1010288ff16c7c1ed056</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-20 14:38:10</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>1f594eba997945ce89547d58f43f7464</sys_id>
+        <sys_metadata>bd30ba7e077d5410288ff16c7c1ed08c</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>fm_quiz_test</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sp_widget_bd30ba7e077d5410288ff16c7c1ed08c</sys_update_name>
+        <sys_update_version display_value="sp_widget_bd30ba7e077d5410288ff16c7c1ed08c">4f1c484f07719410288ff16c7c1ed08e</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-20 14:38:10</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_angular_provider">
+    <sp_angular_provider action="DELETE">
+        <name>fmSurveyField</name>
+        <script><![CDATA[function(i18n) {
+	return {
+		template: '<div ng-switch="field.type">' +
+                        '<sp-survey-date-picker ng-switch-when="date" field="field" sn-disabled="false" ng-model="field.value"></sp-survey-date-picker>' +
+                        '<sp-survey-date-picker ng-switch-when="datetime" field="field" sn-disabled="false" ng-model="field.value" sn-include-time="true"></sp-survey-date-picker>' +
+                       '<div ng-switch-when="choice" class="row">' +
+                            '<div class="col-xs-12 col-sm-6" ng-class="{col_centered : data.isKioskSurvey}">' +
+                                '<sp-survey-choice-list field="field" mobile-prefix="mobilePrefix" data="data" c="c" options="field.choices" is-mobile="false" class="hidden-xs"></sp-survey-choice-list>' +
+								'<sp-survey-choice-list field="field" mobile-prefix="mobilePrefix" data="data" c="c" options="field.choices" is-mobile="true" class="visible-xs"></sp-survey-choice-list>' +
+                            '</div>' +
+							'<sp-survey-add-info ng-if="field.allow_add_info" field="field"></sp-survey-add-info>' +
+							'<sp-survey-end-notes data="data"></sp-survey-end-notes>' +
+						'</div>' +
+                        '<div ng-switch-when="boolean">' +
+                            '<sp-survey-scale field="field" mobile-prefix="mobilePrefix" data="data" c="c"></sp-survey-scale>' +
+                        '</div>' +
+                        '<div ng-switch-when="numericscale">' +
+                            '<sp-survey-numeric-scale field="field" mobile-prefix="mobilePrefix" data="data" c="c" class="hidden-xs"></sp-survey-numeric-scale>' +
+                            '<sp-survey-scale field="field" class="visible-xs" mobile-prefix="mobilePrefix"></sp-survey-scale>' +
+                        '</div>' +
+                        '<div class="row" ng-switch-when="string">' +
+                            '<div class="col-xs-12 col-sm-8 col-md-6">' +
+                                '<textarea ng-if="field.multiLine" rows="4" name="{{field.name}}" class="form-control" aria-label="{{field.label}}" ng-readonly="field.readOnly" ng-model="field.value" autocomplete="off">' +
+                                '</textarea>' +
+                                '<input ng-if="!field.multiLine" name="{{field.name}}" type="text" class="form-control" aria-label="{{field.label}}" ng-readonly="field.readOnly" ng-model="field.value" autocomplete="off" />' +
+                            '</div>' +
+                        '</div>' +
+                        '<sp-survey-checkbox ng-switch-when="checkbox" field="field" mobile-prefix="mobilePrefix"></sp-survey-checkbox>' +
+                        '<sp-survey-multiple-checkbox ng-switch-when="multiplecheckbox" field="field"></sp-survey-multiple-checkbox>' +
+                        '<sp-survey-number-field ng-switch-when="long" field="field"></sp-survey-number-field>' +
+                        '<sp-survey-number-field ng-switch-when="percentage" show-percentage="true" field="field"></sp-survey-number-field>' +
+                        '<sp-survey-scale ng-switch-when="scale" field="field" mobile-prefix="mobilePrefix" data="data" c="c"></sp-survey-scale>' +
+                        '<div ng-switch-when="reference" class="row">' +
+                            '<div class="col-xs-12 col-sm-6">' +
+                                '<sp-survey-reference-field field="field" ng-class="{\'field-has-reference\': field.value != \'\', \'field-empty-reference\': field.value == \'\'}"></sp-survey-reference-field>' +
+                            '</div>' +
+							'<sp-survey-add-info ng-if="field.allow_add_info" field="field"></sp-survey-add-info>' +
+                        '</div>' +
+                        '<sp-survey-image-scale ng-switch-when="imagescale" field="field" c="c" data="data" is-mobile="false" class="hidden-xs"></sp-survey-image-scale>' +
+						'<sp-survey-image-scale ng-switch-when="imagescale" field="field" c="c" data="data" is-mobile="true" class="visible-xs"></sp-survey-image-scale>' + 
+                        '<sp-survey-ranking-select-box ng-switch-when="ranking" field="field"></sp-survey-ranking-select-box>' +
+                        '<div ng-switch-when="attachment" ng-init="c.setupAttachmentHandler(field)">' +
+                            '<div class="hidden-xs">' +
+                                '<h4 class="question-label" style="display:inline-block;" ng-if="field.type == \'attachment\'">' +
+                                    '<span class="field-decorations">' +
+                                        '<span ng-show="field.mandatory" class="fa fa-asterisk mandatory" ng-class="{\'mandatory-filled\': c.isMandatoryFilled(field)}"' +
+                                        'title="{{data.parameterizedMsgsMap.mandatory}}" style="padding-right: .25em" ></span>' +
+                                        '<span ng-repeat="decoration in field.decorations track by $index" class="decoration {{ decoration.icon }}" title="{{ decoration.text }}"></span>' +
+                                    '</span>' +
+                                    '{{field.label}}' +
+                                    '<sp-survey-attachment-button field="field" attachment-handler="field.attachmentHandler" style="margin-left:20px"></sp-survey-attachment-button>' +
+                                '</h4>' +
+                                '<div class="details-text" ng-if="field.details" ng-bind-html="field.details"></div>' +
+                            '</div>' +
+                            '<div class="visible-xs row">' +
+                                '<div class="col-xs-11">' +
+                                    '<h4 class="question-label" style="display:inline-block;" ng-if="field.type == \'attachment\'">' +
+                                        '<span class="field-decorations">' +
+                                            '<span ng-show="field.mandatory" class="fa fa-asterisk mandatory" ng-class="{\'mandatory-filled\': c.isMandatoryFilled(field)}"' +
+                                            'title="{{data.parameterizedMsgsMap.mandatory}}" style="padding-right: .25em" ></span>' +
+                                            '<span ng-repeat="decoration in field.decorations track by $index" class="decoration {{ decoration.icon }}" title="{{ decoration.text }}"></span>' +
+                                        '</span>' +
+                                        '{{field.label}}' +
+                                    '</h4>' +
+                                    '<div class="details-text" ng-if="field.details" ng-bind-html="field.details"></div>' +
+                                '</div>' +
+                                '<div class="col-xs-1">' +
+                                    '<h4><sp-survey-attachment-button field="field" attachment-handler="field.attachmentHandler"></sp-survey-attachment-button></h4>' +
+                                '</div>' +
+                            '</div>' +
+                            '<sp-survey-attachment-list></sp-survey-attachment-list>' +
+                            '<sp-survey-add-info ng-if="field.allow_add_info" field="field"></sp-survey-add-info>' +
+                        '</div>' +
+                        '<div ng-switch-when="template">' +
+                            '<div class="visible-xs">' +
+                                '<h4 class="question-label">' +
+                                    '<span class="field-decorations">' +
+                                        '<span ng-show="field.mandatory" class="fa fa-asterisk mandatory" ng-class="{\'mandatory-filled\': (field.value != null && field.value != undefined && field.value != \'\')}" title="{{data.parameterizedMsgsMap.mandatory}}" style="padding-right: .25em" ></span>' +
+                                        '<span ng-repeat="decoration in field.decorations track by $index" class="decoration {{ decoration.icon }}" title="{{ decoration.text }}"></span>' +
+                                    '</span>' +
+                                    '{{field.label}}' +
+                                '</h4>' +
+                                '<div class="details-text" ng-if="field.details" ng-bind-html="field.details"></div>' +
+                                '<sp-survey-scale ng-if="!field.template.allow_image" field="field" mobile-prefix="mobilePrefix"></sp-survey-scale>' +
+                                '<sp-survey-image-scale ng-if="field.template.allow_image" field="field" c="c" data="data" is-mobile="true"></sp-survey-image-scale>' +
+                            '</div>' +
+                            '<div class="hidden-xs">' +
+                                '<sp-survey-template template-group="data.templateGroups[field.templateGroup]" questions-map="data.questions.idMap" c="c" data="data"></sp-survey-template>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div ng-switch-when="signature">' +
+                            '<div ng-if="field.signType != \'checkbox\'" ng-bind-html="field.label"></div>' +
+                            '<div class="row" ng-switch="field.signType">' +
+                                '<sp-survey-checkbox ng-switch-when="checkbox" html-label="true" field="field" mobile-prefix="mobilePrefix"></sp-survey-checkbox>' +
+                                '<div class="col-xs-12 col-sm-4" ng-switch-when="full_name">' +
+                                    '<input ng-if="field.value != \'\'" class="form-control" type="text" ng-model="field.value" disabled />' +
+                                    '<input ng-if="field.value == \'\'" class="form-control" type="text" ng-model="field.value" />' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div ng-switch-default></div>' +
+                    '</div>',
+
+        scope: {
+            field: '=', 
+            data: '=',
+			c: '=',
+            mobilePrefix: '=',
+			isMobile: '='
+		}
+    }
+}]]></script>
+        <sys_class_name>sp_angular_provider</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-09 08:37:51</sys_created_on>
+        <sys_id>52663b8b07311010288ff16c7c1ed0ef</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>fmSurveyField</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_angular_provider_52663b8b07311010288ff16c7c1ed0ef</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-09 08:37:51</sys_updated_on>
+        <type>directive</type>
+    </sp_angular_provider>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>sp_angular_provider_52663b8b07311010288ff16c7c1ed0ef</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_angular_provider"&gt;&lt;sp_angular_provider action="INSERT_OR_UPDATE"&gt;&lt;name&gt;fmSurveyField&lt;/name&gt;&lt;script&gt;&lt;![CDATA[function(i18n) {
+	return {
+		template: '&lt;div ng-switch="field.type"&gt;' +
+                        '&lt;sp-survey-date-picker ng-switch-when="date" field="field" sn-disabled="false" ng-model="field.value"&gt;&lt;/sp-survey-date-picker&gt;' +
+                        '&lt;sp-survey-date-picker ng-switch-when="datetime" field="field" sn-disabled="false" ng-model="field.value" sn-include-time="true"&gt;&lt;/sp-survey-date-picker&gt;' +
+                       '&lt;div ng-switch-when="choice" class="row"&gt;' +
+                            '&lt;div class="col-xs-12 col-sm-6" ng-class="{col_centered : data.isKioskSurvey}"&gt;' +
+                                '&lt;sp-survey-choice-list field="field" mobile-prefix="mobilePrefix" data="data" c="c" options="field.choices" is-mobile="false" class="hidden-xs"&gt;&lt;/sp-survey-choice-list&gt;' +
+								'&lt;sp-survey-choice-list field="field" mobile-prefix="mobilePrefix" data="data" c="c" options="field.choices" is-mobile="true" class="visible-xs"&gt;&lt;/sp-survey-choice-list&gt;' +
+                            '&lt;/div&gt;' +
+							'&lt;sp-survey-add-info ng-if="field.allow_add_info" field="field"&gt;&lt;/sp-survey-add-info&gt;' +
+							'&lt;sp-survey-end-notes data="data"&gt;&lt;/sp-survey-end-notes&gt;' +
+						'&lt;/div&gt;' +
+                        '&lt;div ng-switch-when="boolean"&gt;' +
+                            '&lt;sp-survey-scale field="field" mobile-prefix="mobilePrefix" data="data" c="c"&gt;&lt;/sp-survey-scale&gt;' +
+                        '&lt;/div&gt;' +
+                        '&lt;div ng-switch-when="numericscale"&gt;' +
+                            '&lt;sp-survey-numeric-scale field="field" mobile-prefix="mobilePrefix" data="data" c="c" class="hidden-xs"&gt;&lt;/sp-survey-numeric-scale&gt;' +
+                            '&lt;sp-survey-scale field="field" class="visible-xs" mobile-prefix="mobilePrefix"&gt;&lt;/sp-survey-scale&gt;' +
+                        '&lt;/div&gt;' +
+                        '&lt;div class="row" ng-switch-when="string"&gt;' +
+                            '&lt;div class="col-xs-12 col-sm-8 col-md-6"&gt;' +
+                                '&lt;textarea ng-if="field.multiLine" rows="4" name="{{field.name}}" class="form-control" aria-label="{{field.label}}" ng-readonly="field.readOnly" ng-model="field.value" autocomplete="off"&gt;' +
+                                '&lt;/textarea&gt;' +
+                                '&lt;input ng-if="!field.multiLine" name="{{field.name}}" type="text" class="form-control" aria-label="{{field.label}}" ng-readonly="field.readOnly" ng-model="field.value" autocomplete="off" /&gt;' +
+                            '&lt;/div&gt;' +
+                        '&lt;/div&gt;' +
+                        '&lt;sp-survey-checkbox ng-switch-when="checkbox" field="field" mobile-prefix="mobilePrefix"&gt;&lt;/sp-survey-checkbox&gt;' +
+                        '&lt;sp-survey-multiple-checkbox ng-switch-when="multiplecheckbox" field="field"&gt;&lt;/sp-survey-multiple-checkbox&gt;' +
+                        '&lt;sp-survey-number-field ng-switch-when="long" field="field"&gt;&lt;/sp-survey-number-field&gt;' +
+                        '&lt;sp-survey-number-field ng-switch-when="percentage" show-percentage="true" field="field"&gt;&lt;/sp-survey-number-field&gt;' +
+                        '&lt;sp-survey-scale ng-switch-when="scale" field="field" mobile-prefix="mobilePrefix" data="data" c="c"&gt;&lt;/sp-survey-scale&gt;' +
+                        '&lt;div ng-switch-when="reference" class="row"&gt;' +
+                            '&lt;div class="col-xs-12 col-sm-6"&gt;' +
+                                '&lt;sp-survey-reference-field field="field" ng-class="{\'field-has-reference\': field.value != \'\', \'field-empty-reference\': field.value == \'\'}"&gt;&lt;/sp-survey-reference-field&gt;' +
+                            '&lt;/div&gt;' +
+							'&lt;sp-survey-add-info ng-if="field.allow_add_info" field="field"&gt;&lt;/sp-survey-add-info&gt;' +
+                        '&lt;/div&gt;' +
+                        '&lt;sp-survey-image-scale ng-switch-when="imagescale" field="field" c="c" data="data" is-mobile="false" class="hidden-xs"&gt;&lt;/sp-survey-image-scale&gt;' +
+						'&lt;sp-survey-image-scale ng-switch-when="imagescale" field="field" c="c" data="data" is-mobile="true" class="visible-xs"&gt;&lt;/sp-survey-image-scale&gt;' + 
+                        '&lt;sp-survey-ranking-select-box ng-switch-when="ranking" field="field"&gt;&lt;/sp-survey-ranking-select-box&gt;' +
+                        '&lt;div ng-switch-when="attachment" ng-init="c.setupAttachmentHandler(field)"&gt;' +
+                            '&lt;div class="hidden-xs"&gt;' +
+                                '&lt;h4 class="question-label" style="display:inline-block;" ng-if="field.type == \'attachment\'"&gt;' +
+                                    '&lt;span class="field-decorations"&gt;' +
+                                        '&lt;span ng-show="field.mandatory" class="fa fa-asterisk mandatory" ng-class="{\'mandatory-filled\': c.isMandatoryFilled(field)}"' +
+                                        'title="{{data.parameterizedMsgsMap.mandatory}}" style="padding-right: .25em" &gt;&lt;/span&gt;' +
+                                        '&lt;span ng-repeat="decoration in field.decorations track by $index" class="decoration {{ decoration.icon }}" title="{{ decoration.text }}"&gt;&lt;/span&gt;' +
+                                    '&lt;/span&gt;' +
+                                    '{{field.label}}' +
+                                    '&lt;sp-survey-attachment-button field="field" attachment-handler="field.attachmentHandler" style="margin-left:20px"&gt;&lt;/sp-survey-attachment-button&gt;' +
+                                '&lt;/h4&gt;' +
+                                '&lt;div class="details-text" ng-if="field.details" ng-bind-html="field.details"&gt;&lt;/div&gt;' +
+                            '&lt;/div&gt;' +
+                            '&lt;div class="visible-xs row"&gt;' +
+                                '&lt;div class="col-xs-11"&gt;' +
+                                    '&lt;h4 class="question-label" style="display:inline-block;" ng-if="field.type == \'attachment\'"&gt;' +
+                                        '&lt;span class="field-decorations"&gt;' +
+                                            '&lt;span ng-show="field.mandatory" class="fa fa-asterisk mandatory" ng-class="{\'mandatory-filled\': c.isMandatoryFilled(field)}"' +
+                                            'title="{{data.parameterizedMsgsMap.mandatory}}" style="padding-right: .25em" &gt;&lt;/span&gt;' +
+                                            '&lt;span ng-repeat="decoration in field.decorations track by $index" class="decoration {{ decoration.icon }}" title="{{ decoration.text }}"&gt;&lt;/span&gt;' +
+                                        '&lt;/span&gt;' +
+                                        '{{field.label}}' +
+                                    '&lt;/h4&gt;' +
+                                    '&lt;div class="details-text" ng-if="field.details" ng-bind-html="field.details"&gt;&lt;/div&gt;' +
+                                '&lt;/div&gt;' +
+                                '&lt;div class="col-xs-1"&gt;' +
+                                    '&lt;h4&gt;&lt;sp-survey-attachment-button field="field" attachment-handler="field.attachmentHandler"&gt;&lt;/sp-survey-attachment-button&gt;&lt;/h4&gt;' +
+                                '&lt;/div&gt;' +
+                            '&lt;/div&gt;' +
+                            '&lt;sp-survey-attachment-list&gt;&lt;/sp-survey-attachment-list&gt;' +
+                            '&lt;sp-survey-add-info ng-if="field.allow_add_info" field="field"&gt;&lt;/sp-survey-add-info&gt;' +
+                        '&lt;/div&gt;' +
+                        '&lt;div ng-switch-when="template"&gt;' +
+                            '&lt;div class="visible-xs"&gt;' +
+                                '&lt;h4 class="question-label"&gt;' +
+                                    '&lt;span class="field-decorations"&gt;' +
+                                        '&lt;span ng-show="field.mandatory" class="fa fa-asterisk mandatory" ng-class="{\'mandatory-filled\': (field.value != null &amp;&amp; field.value != undefined &amp;&amp; field.value != \'\')}" title="{{data.parameterizedMsgsMap.mandatory}}" style="padding-right: .25em" &gt;&lt;/span&gt;' +
+                                        '&lt;span ng-repeat="decoration in field.decorations track by $index" class="decoration {{ decoration.icon }}" title="{{ decoration.text }}"&gt;&lt;/span&gt;' +
+                                    '&lt;/span&gt;' +
+                                    '{{field.label}}' +
+                                '&lt;/h4&gt;' +
+                                '&lt;div class="details-text" ng-if="field.details" ng-bind-html="field.details"&gt;&lt;/div&gt;' +
+                                '&lt;sp-survey-scale ng-if="!field.template.allow_image" field="field" mobile-prefix="mobilePrefix"&gt;&lt;/sp-survey-scale&gt;' +
+                                '&lt;sp-survey-image-scale ng-if="field.template.allow_image" field="field" c="c" data="data" is-mobile="true"&gt;&lt;/sp-survey-image-scale&gt;' +
+                            '&lt;/div&gt;' +
+                            '&lt;div class="hidden-xs"&gt;' +
+                                '&lt;sp-survey-template template-group="data.templateGroups[field.templateGroup]" questions-map="data.questions.idMap" c="c" data="data"&gt;&lt;/sp-survey-template&gt;' +
+                            '&lt;/div&gt;' +
+                        '&lt;/div&gt;' +
+                        '&lt;div ng-switch-when="signature"&gt;' +
+                            '&lt;div ng-if="field.signType != \'checkbox\'" ng-bind-html="field.label"&gt;&lt;/div&gt;' +
+                            '&lt;div class="row" ng-switch="field.signType"&gt;' +
+                                '&lt;sp-survey-checkbox ng-switch-when="checkbox" html-label="true" field="field" mobile-prefix="mobilePrefix"&gt;&lt;/sp-survey-checkbox&gt;' +
+                                '&lt;div class="col-xs-12 col-sm-4" ng-switch-when="full_name"&gt;' +
+                                    '&lt;input ng-if="field.value != \'\'" class="form-control" type="text" ng-model="field.value" disabled /&gt;' +
+                                    '&lt;input ng-if="field.value == \'\'" class="form-control" type="text" ng-model="field.value" /&gt;' +
+                                '&lt;/div&gt;' +
+                            '&lt;/div&gt;' +
+                        '&lt;/div&gt;' +
+                        '&lt;div ng-switch-default&gt;&lt;/div&gt;' +
+                    '&lt;/div&gt;',
+
+        scope: {
+            field: '=', 
+            data: '=',
+			c: '=',
+            mobilePrefix: '=',
+			isMobile: '='
+		}
+    }
+}]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sp_angular_provider&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2020-07-09 08:37:51&lt;/sys_created_on&gt;&lt;sys_id&gt;52663b8b07311010288ff16c7c1ed0ef&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;fmSurveyField&lt;/sys_name&gt;&lt;sys_package display_value="LMS" source="x_315700_lms"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="LMS"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_angular_provider_52663b8b07311010288ff16c7c1ed0ef&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2020-07-09 08:37:51&lt;/sys_updated_on&gt;&lt;type&gt;directive&lt;/type&gt;&lt;/sp_angular_provider&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-219994075</payload_hash>
+        <record_name>fmSurveyField</record_name>
+        <reverted_from/>
+        <source>ec8ff54a078d1010288ff16c7c1ed09f</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-09 08:37:51</sys_created_on>
+        <sys_id>1e663b8b07311010288ff16c7c1ed0f0</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17332b94c190000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-09 08:37:51</sys_updated_on>
+        <type>Widget Angular Provider</type>
+        <update_guid>56663b8b4e31101083fd2eff092150f0</update_guid>
+        <update_guid_history>56663b8b4e31101083fd2eff092150f0:-219994075</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="fmSurveyField">78e23df2074a1010288ff16c7c1ed0f9</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-07-20 14:40:26</sys_created_on>
+        <sys_db_object display_value="" name="sp_angular_provider">sp_angular_provider</sys_db_object>
+        <sys_id>64e2ce6b1b324eacb46d37e4c9d86d90</sys_id>
+        <sys_metadata>52663b8b07311010288ff16c7c1ed0ef</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>fmSurveyField</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sp_angular_provider_52663b8b07311010288ff16c7c1ed0ef</sys_update_name>
+        <sys_update_version display_value="sp_angular_provider_52663b8b07311010288ff16c7c1ed0ef">1e663b8b07311010288ff16c7c1ed0f0</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-07-20 14:40:26</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

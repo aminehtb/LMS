@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[function($scope, $location, $timeout, $window, $document, $rootScope, spUtil, spAriaUtil) {
+        <client_script><![CDATA[function($scope, $location, $timeout, $window, $document, $rootScope,$http, spUtil, spAriaUtil) {
     var c = this;
     $scope.category_selected = null;
     $scope.category_nav_title = "All";
@@ -123,69 +123,131 @@
     //add course code
     //static cat query for now ( alla formation ctalog ctegories )
     c.data.cat_query = 'sc_catalog=5107e2762f723300a4a2c886f699b6c1';
-	$scope.cat = { displayValue: "", value: "", name: 'cat' };
-	$scope.$on("field.change", function (evt, parms) {
-		if (parms.field.name == 'cat' && parms.field.value !=""){
+    $scope.cat = { displayValue: $scope.category_nav_title, value: c.data.categoryId, name: 'cat' };
+    $scope.instructor = { displayValue: "", value: "", name: 'instructor' };
+    $scope.$on("field.change", function (evt, parms) {
+        if (parms.field.name == 'cat' && parms.field.value != "") {
             $scope.cat = parms.field;
             c.data.course_category_error = null
+        } else if (parms.field.name == 'instructor' && parms.field.value != "") {
+            $scope.instructor = parms.field;
+            c.data.instructor_error = null;
         }
-	});
-    $scope.inputChange = function(){
-        switch(event.target.id){
-            case'type': if(!c.data.type) c.data.type_error = "Course type should be provided" ;else c.data.type_error = null; break;
-            case'name': if(!c.data.name) c.data.name_error = "Course name should be provided" ;else c.data.name_error = null; break;
-            case'price': if(!c.data.price) c.data.price_error = "Course price should be provided"; else c.data.price_error = null; break;
-            case'level': if(!c.data.level) c.data.level_error = "Course level should be provided"; else c.data.level_error = null; break;
-            case'duration': if(!c.data.duration) c.data.duration_error = "Course duration should be provided"; else c.data.duration_error = null; break;
+    });
+    $scope.inputChange = function () {
+        switch (event.target.id) {
+            case 'type': if (!c.data.type) c.data.type_error = "Course type should be provided"; else c.data.type_error = null; break;
+            case 'name': if (!c.data.name) c.data.name_error = "Course name should be provided"; else c.data.name_error = null; break;
+            case 'price': if (!c.data.price) c.data.price_error = "Course price should be provided"; else c.data.price_error = null; break;
+            case 'level': if (!c.data.level) c.data.level_error = "Course level should be provided"; else c.data.level_error = null; break;
+            case 'duration': if (!c.data.duration) c.data.duration_error = "Course duration should be provided"; else c.data.duration_error = null; break;
+            case 'objective': if (!c.data.objective) c.data.objective_error = "Course objective should be provided"; else c.data.objective_error = null; break;
         }
     }
+    $scope.$watch(function () { return c.data.pic; }, function (new_val) {
+        if (c.data.pic != null) {
+            c.data.file_name = c.data.pic.name;
+            c.data.file_error = null;
+        }
+    });
 
-    $scope.add = function(){
-        if(checkInput()){
+    $scope.add = function () {
+        if (checkInput()) {
             c.data.action = 'add_course';
             c.data.cat = $scope.cat.value;
-            c.server.update().then(function(r){
-                //sweet alert new course added
-                if (r.inserted)
-					$('#myModal').modal('hide');
-				$("#myModal").on("hidden.bs.modal", function () {
-					$('form')[0].reset();
-				});
+            c.data.instructor = $scope.instructor.value;
+            c.server.update().then(function () {
+                //upload the course picture 
+                $scope.fd = new FormData();
+                $scope.fd.set('files', c.data.pic);
+            
+                var request = {
+                    method: 'POST',
+                    url: 'https://' + c.data.instanceName + '.service-now.com/api/now/attachment/file?table_name=ZZ_YY' + c.data.table_name + '&table_sys_id=' + c.data.inserted_id + '&file_name=picture',
+                    data: $scope.fd.get('files'),
+                    headers: {
+                        'Content-Type': c.data.pic.type,
+                        'Accept': 'application/json'
+                    }
+                };
+                $http(request).success(function (d) {
+                    var json_data = JSON.stringify(d);
+                    json_data = JSON.parse(json_data);
+                    // attach the picture to the 
+                    c.data.action = 'append_picture';
+                    c.data.rec_id = c.data.inserted_id;
+                    c.data.attachment_id = json_data.result.sys_id;
+                    c.server.update().then(function (r) {
+                        if (r.attached)
+                            $('#myModal').modal('hide');
+                        $("#myModal").on("hidden.bs.modal", function () {
+                            $('form')[0].reset();
+                        });
 
-				Swal.fire({
-					position: 'top-end',
-					icon: 'success',
-					title: 'New course has been created',
-					showConfirmButton: false,
-					timer: 1500
-				});
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'New course has been created',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    });
+                }).error(function (err) {
+                    // On error remove the record
+                    c.data.action = 'remove_course';
+                    c.data.rec_id = c.data.inserted_id
+                    c.server.update().then(function(){
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: 'Something went wrong, please try again',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    });
+                    
+                });
+
+
             });
         }
     }
-    function checkInput(){
+    function checkInput() {
         var check_pass = true;
-        if(!c.data.type){
+        if (!c.data.type) {
             c.data.type_error = "Course type should be provided";
             check_pass = false;
         }
-        if(!c.data.name){
+        if (!c.data.name) {
             c.data.name_error = "Course name should be provided";
             check_pass = false;
         }
-        if(!$scope.cat.value){
+        if (!$scope.cat.value) {
             c.data.course_category_error = "Course category should be provided";
             check_pass = false;
         }
-        if(!c.data.price){
+        if (!c.data.price) {
             c.data.price_error = "Course price should be provided";
             check_pass = false;
         }
-        if(!c.data.level){
+        if (!c.data.level) {
             c.data.level_error = "Course level should be provided";
             check_pass = false;
         }
-        if(!c.data.duration){
+        if (!c.data.duration) {
             c.data.duration_error = "Course duration should be provided";
+            check_pass = false;
+        }
+        if (!c.data.objective) {
+            c.data.objective_error = "Course objective should be provided";
+            check_pass = false;
+        }
+        if (!c.data.pic) {
+            c.data.file_error = "Course picture should be provided";
+            check_pass = false;
+        }
+        if (!$scope.instructor.value) {
+            c.data.instructor_error = "Course instructor should be provided";
             check_pass = false;
         }
 
@@ -587,8 +649,9 @@ color:#16dec7;
         return categoryDetails;
     }
     //add course
+    data.instanceName = gs.getProperty('instance_name');
     if (input && input.action == "add_course") {
-        if(!input.type || !input.name || !input.level ||!input.price || !input.duration || !input.cat){
+        if(!input.type || !input.name || !input.level ||!input.price || !input.duration || !input.cat || !input.instructor || !input.objective){
             data.inserted = false;
         }else{
             var table_name = "";
@@ -604,25 +667,44 @@ color:#16dec7;
             gr.duration = input.duration;
             gr.level = input.level;
             gr.price = input.price;
+            gr.instructor = input.instructor;
+            gr.objective = input.objective;
             var id = gr.insert();
-            if(id)
+            if(id){
                 data.inserted = true;
+                data.table_name = table_name;
+                data.inserted_id = id;
+            }
+                
         }
-    }
+    }else if(input && input.action == "append_picture" && input.rec_id && input.attachment_id && input.table_name){
+        var gr = new GlideRecord(input.table_name);
+        gr.get(input.rec_id);
+        gr.picture = input.attachment_id;
+        var id = gr.update();
+        if(id){
+            data.attached = true;
+        }else
+            data.attached = false;
+    }else if(input && input.action == "remove_course" && input.rec_id && input.table_name){
+        var gr = new GlideRecord(input.table_name);
+        gr.get(input.rec_id);
+        gr.deleteRecord();            
+    }   
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-01-21 15:45:22</sys_created_on>
         <sys_id>2bf9b16cdba6001016939b81ca9619b5</sys_id>
-        <sys_mod_count>85</sys_mod_count>
+        <sys_mod_count>107</sys_mod_count>
         <sys_name>category_list</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sp_widget_2bf9b16cdba6001016939b81ca9619b5</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2020-07-17 21:40:10</sys_updated_on>
+        <sys_updated_on>2020-07-20 11:11:50</sys_updated_on>
         <template><![CDATA[<link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel='stylesheet'>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <div class="vertical-menu">
@@ -655,7 +737,7 @@ color:#16dec7;
                 <h4 class="modal-title">Add</h4>
             </div>
             <div class="modal-body">
-                <form>
+                <form enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6">
                             <div ng-class="{true:'has-error',false:''}[c.data.type_error && c.data.type_error !='']"
@@ -717,9 +799,9 @@ color:#16dec7;
                                 <select class="form-control" id="level" ng-model="c.data.level"
                                     ng-change="inputChange()">
                                     <option value="" disabled selected>Select the level</option>
-                                    <option value="0">Beginner</option>
-                                    <option value="1">Intermediate</option>
-                                    <option value="2">Advanced</option>
+                                    <option value="beginner">Beginner</option>
+                                    <option value="intermediate">Intermediate</option>
+                                    <option value="advanced">Advanced</option>
                                 </select>
                                 <small ng-if="c.data.level_error" class="text-danger">
                                     {{c.data.level_error}}
@@ -735,6 +817,50 @@ color:#16dec7;
                                 <small ng-if="c.data.duration_error" id="duration-error" class="text-danger">
                                     {{c.data.duration_error}}
                                 </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div ng-class="{true:'has-error',false:''}[c.data.file_error && c.data.file_error !='']"
+                                class="form-group">
+                                <label>Picture</label>
+                                <div class="input-group">
+                                    <input class="form-control" ng-model="c.data.file_name" type="text" />
+                                    <div class="input-group-btn">
+                                        <label for="files" class="btn btn-default">browse</label>
+                                        <input id="files" accept="image/*" file-model="c.data.pic" type="file" class="btn btn-default"
+                                            style="width: 0;height: 0;margin: 0;padding: 0;visibility: hidden;" />
+                                    </div>
+                                </div>
+                                <small ng-if="c.data.file_error" id="file-error" class="text-danger">
+                                    {{c.data.file_error}}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div ng-class="{true:'has-error',false:''}[c.data.instructor_error && c.data.instructor_error !='']"
+                                class="form-group">
+                                <label>instructor</label>
+                                <sn-record-picker field="instructor" table="'sys_user'" display-field="'name'"
+                                    value-field="'sys_id'" search-fields="'name'" page-size="100"></sn-record-picker>
+                                <small ng-if="c.data.instructor_error" class="text-danger">
+                                    {{c.data.instructor_error}}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div ng-class="{true:'has-error',false:''}[c.data.objective_error && c.data.objective_error !='']" class="form-group">
+                                <label for="objective">Objective:</label>
+                                <textarea class="form-control" ng-model="c.data.objective" rows="3" id="objective"
+                                    ng-change="inputChange()"></textarea>
+                                    <small ng-if="c.data.objective_error" class="text-danger">
+                                        {{c.data.objective_error}}
+                                    </small>
                             </div>
                         </div>
                     </div>
