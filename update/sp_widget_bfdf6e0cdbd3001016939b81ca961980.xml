@@ -258,7 +258,6 @@ label {&#13;
   min-height:120px;&#13;
   margin-bottom:10px;&#13;
   background-color: #e3e3e3;&#13;
-  overflow-x: hidden;&#13;
   position:relative;&#13;
 }&#13;
 &#13;
@@ -341,254 +340,254 @@ background:#f1f1f1 !important;&#13;
         <roles/>
         <script><![CDATA[(function () {
 
-  data.unitlist = [];
-  data.sectionlist = [];
-  data.cours_name = "";
-  data.course_id = $sp.getParameter("sys_id");
-  data.current_state = $sp.getParameter("current");
-  data.mode = $sp.getParameter("mode");
-  data.move_next = $sp.getParameter("next");
-  if (data.move_next && data.move_next == 1) {
-    data.move_next = true;
-  } else
-    data.move_next = false;
-  data.can_edit = gs.hasRole('x_315700_lms.admin') || gs.hasRole('x_315700_lms.instructor');
-
-  var gr = new GlideRecord('x_315700_lms_course');
-  gr.get(data.course_id);
-  data.cours_name = gr.getDisplayValue('name');
-  load();
-  //if no current make first item of first section current
-  if (!data.current_state)
-    data.current_state = data.sectionlist[0].list_obj[0].sys_id;
-  if (data.can_edit && data.mode && data.mode == 'edit') {
-    data.reading_mode = false;
-  } else {
-    data.reading_mode = true;
-  }
-
-  if (input && input.action == 'add') {
-    var order = input.order;
-    var strict = null;
-    switch (input.position) {
-      case 'before': strict = false; break;
-      case 'after': strict = true; break;
-    }
-    var parent = input.parent ? input.parent : null;
-    shift(input.type, order, strict, parent);
-    if (input.type == 'unt') {
-
-      var gr = new GlideRecord("x_315700_lms_unit");
-      gr.name = input.name;
-      gr.order = strict ? parseInt(order) + 100 : order;
-      gr.section = input.parent;
-      var id = gr.insert();
-      if (id)
-        data.added = 'unit';
-    } else if (input.type == 'sub') {
-      var gr = new GlideRecord('x_315700_lms_section');
-      gr.order = strict ? parseInt(order) + 100 : order;
-      gr.name = input.name;
-      if (parent)
-        gr.parent_section = parent;
-      var id = gr.insert();
-      if (id)
-        data.added = 'sub section';
-    } else if (input.type == 'sec') {
-      var gr = new GlideRecord('x_315700_lms_section');
-      gr.order = strict ? parseInt(order) + 100 : order;
-      gr.name = input.name;
-      if (parent)
-        gr.course = parent;
-      var id = gr.insert();
-      if (id)
-        data.added = 'section';
-    } else if (input.type == 'quiz' && input.quiz && input.min_to_pass) {
-      var gr = new GlideRecord("x_315700_lms_quiz_ref");
-      gr.order = strict ? parseInt(order) + 100 : order;
-      gr.section = input.parent;
-      gr.min_to_pass = parseInt(input.min_to_pass);
-      gr.quiz = input.quiz;
-      var id = gr.insert();
-      if (id)
-        data.added = 'quiz';
-    }
-    load();
-  } else if (input && input.action == 'reload') {
-    load();
-  }
-
-  function load() {
-    var section_list = [];
-    var sec = new GlideRecord('x_315700_lms_section');
-    sec.addQuery("course", data.course_id);
-    sec.orderBy("order");
-    sec.addNullQuery("parent_section");
-    sec.query();
-    while (sec.next()) {
-      var sec_obj = {
-        'sys_id': sec.getDisplayValue('sys_id'),
-        'name': sec.getDisplayValue('name'),
-        'order': parseInt(sec.getValue('order')),
-        'checked': false,
-        'list_obj': []
-      };
-      //loop to all unit of this section
-      var list_units = [];
-      var unit = new GlideRecord("x_315700_lms_unit");
-      unit.addQuery("section", sec.sys_id);
-      unit.orderBy('order');
-      unit.query();
-      while (unit.next()) {
-        var unit_obj = {
-          'name': unit.getDisplayValue('name'),
-          'sys_id': unit.getDisplayValue('sys_id'),
-          'order': parseInt(unit.getValue('order')),
-          'checked': false,
-          'type': 'unit'
-        };
-        list_units.push(unit_obj);
-      }
-
-      //loop on the section quizes
-      var list_quizs = [];
-      var quiz = new GlideRecord("x_315700_lms_quiz_ref");
-      quiz.addQuery("section", sec.sys_id);
-      quiz.orderBy('order');
-      quiz.query();
-      while (quiz.next()) {
-        var quiz_obj = {
-          'name': quiz.quiz.name + '',
-          'sys_id': quiz.getDisplayValue('sys_id'),
-          'quiz_id': quiz.getValue('quiz'),
-          'quiz_name': quiz.getDisplayValue('quiz'),
-          'order': parseInt(quiz.getValue('order')),
-          'min_to_pass': parseInt(quiz.getValue('min_to_pass')),
-          'checked': false,
-          'type': 'quiz'
-        };
-        list_quizs.push(quiz_obj);
-      }
-
-      //get the sub sections
-      var list_sub_sections = [];
-      var sub_section = new GlideRecord("x_315700_lms_section");
-      sub_section.addQuery("parent_section", sec.sys_id);
-      sub_section.query();
-      while (sub_section.next()) {
-        var sub_sec_obj = {
-          'sys_id': sub_section.getDisplayValue('sys_id'),
-          'name': sub_section.getDisplayValue('name'),
-          'order': parseInt(sub_section.getValue('order')),
-          'type': 'subsection',
-          'checked': false,
-          'list_obj': []
-        };
-
-        //get all quizes of the sub section
-        var list_sub_quizs = [];
-        var quiz1 = new GlideRecord("x_315700_lms_quiz_ref");
-        quiz1.addQuery("section", sub_section.sys_id);
-        quiz1.orderBy('order');
-        quiz1.query();
-        while (quiz1.next()) {
-          var quiz1_obj = {
-            'name': quiz1.quiz.name + '',
-            'sys_id': quiz1.getDisplayValue('sys_id'),
-            'quiz_id': quiz.getValue('quiz'),
-            'quiz_name': quiz.getDisplayValue('quiz'),
-            'order': parseInt(quiz1.getValue('order')),
-            'min_to_pass': parseInt(quiz1.getValue('min_to_pass')),
-            'checked': false,
-            'type': 'quiz'
-          };
-          list_sub_quizs.push(quiz1_obj);
-        }
-
-        //get all unit of the sub section
-        var list_sub_units = [];
-        var unit = new GlideRecord("x_315700_lms_unit");
-        unit.addQuery("section", sub_section.sys_id);
-        unit.orderBy('order');
-        unit.query();
-        while (unit.next()) {
-          var unit_obj = {
-            'name': unit.getDisplayValue('name'),
-            'sys_id': unit.getDisplayValue('sys_id'),
-            'order': parseInt(unit.getValue('order')),
-            'checked': false,
-            'type': 'unit'
-          };
-          list_sub_units.push(unit_obj);
-        }
-
-        //put the units and quizes in the sub section object
-        sub_sec_obj.list_obj = list_sub_units.concat(list_sub_quizs);
-        list_sub_sections.push(sub_sec_obj);
-      }
-
-      var list_obj = list_sub_sections.concat(list_units).concat(list_quizs);
-      sec_obj.list_obj = list_obj;
-      section_list.push(sec_obj);
-    }
-    data.sectionlist = section_list;
-  }
-
-  function shift(type, order, strict, parent) {
-    if (type == 'unt' || type == 'sub' || type == 'quiz') {
-      //shift all unit
-      var q = strict ? '>' : '>=';
-      var gr = new GlideRecord('x_315700_lms_unit');
-      gr.addQuery('order', q, order);
-      if (parent) {
-        gr.addQuery('section', parent);
-      }
-      gr.query();
-      while (gr.next()) {
-        gr.order = parseInt(gr.order) + 100;
-        gr.update();
-      }
-      //shit all sub section
-      var sub = new GlideRecord('x_315700_lms_section');
-      sub.addQuery('order', q, order);
-      if (parent) {
-        sub.addQuery('parent_section', parent)
-      }
-      sub.query();
-      while (sub.next()) {
-        sub.order = parseInt(sub.order) + 100;
-        sub.update();
-      }
-    } else if (type == 'sec') {
-      //shit all  section
-      var q = strict ? '>' : '>=';
-      var sec = new GlideRecord('x_315700_lms_section');
-      sec.addQuery('order', q, order);
-      if (parent) {
-        sec.addQuery('course', parent)
-      }
-      sec.query();
-      while (sec.next()) {
-        sec.order = parseInt(sec.order) + 100;
-        sec.update();
-      }
-    }
-
-  }
-})();]]></script>
+	data.unitlist = [];
+	data.sectionlist = [];
+	data.cours_name = "";
+	data.course_id = $sp.getParameter("sys_id");
+	data.current_state = $sp.getParameter("current");
+	data.mode = $sp.getParameter("mode");
+	data.move_next = $sp.getParameter("next");
+	if (data.move_next && data.move_next == 1) {
+	  data.move_next = true;
+	} else
+	  data.move_next = false;
+	data.can_edit = gs.hasRole('x_315700_lms.admin') || gs.hasRole('x_315700_lms.instructor');
+  
+	var gr = new GlideRecord('x_315700_lms_course');
+	gr.get(data.course_id);
+	data.cours_name = gr.getDisplayValue('name');
+	load();
+	//if no current make first item of first section current
+	if (!data.current_state && data.sectionlist.length>0 && data.sectionlist[0].list_obj.length>0)
+	  data.current_state = data.sectionlist[0].list_obj[0].sys_id;
+	if (data.can_edit && data.mode && data.mode == 'edit') {
+	  data.reading_mode = false;
+	} else {
+	  data.reading_mode = true;
+	}
+  
+	if (input && input.action == 'add') {
+	  var order = input.order;
+	  var strict = null;
+	  switch (input.position) {
+		case 'before': strict = false; break;
+		case 'after': strict = true; break;
+	  }
+	  var parent = input.parent ? input.parent : null;
+	  shift(input.type, order, strict, parent);
+	  if (input.type == 'unt') {
+  
+		var gr = new GlideRecord("x_315700_lms_unit");
+		gr.name = input.name;
+		gr.order = strict ? parseInt(order) + 100 : order;
+		gr.section = input.parent;
+		var id = gr.insert();
+		if (id)
+		  data.added = 'unit';
+	  } else if (input.type == 'sub') {
+		var gr = new GlideRecord('x_315700_lms_section');
+		gr.order = strict ? parseInt(order) + 100 : order;
+		gr.name = input.name;
+		if (parent)
+		  gr.parent_section = parent;
+		var id = gr.insert();
+		if (id)
+		  data.added = 'sub section';
+	  } else if (input.type == 'sec') {
+		var gr = new GlideRecord('x_315700_lms_section');
+		gr.order = strict ? parseInt(order) + 100 : order;
+		gr.name = input.name;
+		if (parent)
+		  gr.course = parent;
+		var id = gr.insert();
+		if (id)
+		  data.added = 'section';
+	  } else if (input.type == 'quiz' && input.quiz && input.min_to_pass) {
+		var gr = new GlideRecord("x_315700_lms_quiz_ref");
+		gr.order = strict ? parseInt(order) + 100 : order;
+		gr.section = input.parent;
+		gr.min_to_pass = parseInt(input.min_to_pass);
+		gr.quiz = input.quiz;
+		var id = gr.insert();
+		if (id)
+		  data.added = 'quiz';
+	  }
+	  load();
+	} else if (input && input.action == 'reload') {
+	  load();
+	}
+  
+	function load() {
+	  var section_list = [];
+	  var sec = new GlideRecord('x_315700_lms_section');
+	  sec.addQuery("course", data.course_id);
+	  sec.orderBy("order");
+	  sec.addNullQuery("parent_section");
+	  sec.query();
+	  while (sec.next()) {
+		var sec_obj = {
+		  'sys_id': sec.getDisplayValue('sys_id'),
+		  'name': sec.getDisplayValue('name'),
+		  'order': parseInt(sec.getValue('order')),
+		  'checked': false,
+		  'list_obj': []
+		};
+		//loop to all unit of this section
+		var list_units = [];
+		var unit = new GlideRecord("x_315700_lms_unit");
+		unit.addQuery("section", sec.sys_id);
+		unit.orderBy('order');
+		unit.query();
+		while (unit.next()) {
+		  var unit_obj = {
+			'name': unit.getDisplayValue('name'),
+			'sys_id': unit.getDisplayValue('sys_id'),
+			'order': parseInt(unit.getValue('order')),
+			'checked': false,
+			'type': 'unit'
+		  };
+		  list_units.push(unit_obj);
+		}
+  
+		//loop on the section quizes
+		var list_quizs = [];
+		var quiz = new GlideRecord("x_315700_lms_quiz_ref");
+		quiz.addQuery("section", sec.sys_id);
+		quiz.orderBy('order');
+		quiz.query();
+		while (quiz.next()) {
+		  var quiz_obj = {
+			'name': quiz.quiz.name + '',
+			'sys_id': quiz.getDisplayValue('sys_id'),
+			'quiz_id': quiz.getValue('quiz'),
+			'quiz_name': quiz.getDisplayValue('quiz'),
+			'order': parseInt(quiz.getValue('order')),
+			'min_to_pass': parseInt(quiz.getValue('min_to_pass')),
+			'checked': false,
+			'type': 'quiz'
+		  };
+		  list_quizs.push(quiz_obj);
+		}
+  
+		//get the sub sections
+		var list_sub_sections = [];
+		var sub_section = new GlideRecord("x_315700_lms_section");
+		sub_section.addQuery("parent_section", sec.sys_id);
+		sub_section.query();
+		while (sub_section.next()) {
+		  var sub_sec_obj = {
+			'sys_id': sub_section.getDisplayValue('sys_id'),
+			'name': sub_section.getDisplayValue('name'),
+			'order': parseInt(sub_section.getValue('order')),
+			'type': 'subsection',
+			'checked': false,
+			'list_obj': []
+		  };
+  
+		  //get all quizes of the sub section
+		  var list_sub_quizs = [];
+		  var quiz1 = new GlideRecord("x_315700_lms_quiz_ref");
+		  quiz1.addQuery("section", sub_section.sys_id);
+		  quiz1.orderBy('order');
+		  quiz1.query();
+		  while (quiz1.next()) {
+			var quiz1_obj = {
+			  'name': quiz1.quiz.name + '',
+			  'sys_id': quiz1.getDisplayValue('sys_id'),
+			  'quiz_id': quiz.getValue('quiz'),
+			  'quiz_name': quiz.getDisplayValue('quiz'),
+			  'order': parseInt(quiz1.getValue('order')),
+			  'min_to_pass': parseInt(quiz1.getValue('min_to_pass')),
+			  'checked': false,
+			  'type': 'quiz'
+			};
+			list_sub_quizs.push(quiz1_obj);
+		  }
+  
+		  //get all unit of the sub section
+		  var list_sub_units = [];
+		  var unit = new GlideRecord("x_315700_lms_unit");
+		  unit.addQuery("section", sub_section.sys_id);
+		  unit.orderBy('order');
+		  unit.query();
+		  while (unit.next()) {
+			var unit_obj = {
+			  'name': unit.getDisplayValue('name'),
+			  'sys_id': unit.getDisplayValue('sys_id'),
+			  'order': parseInt(unit.getValue('order')),
+			  'checked': false,
+			  'type': 'unit'
+			};
+			list_sub_units.push(unit_obj);
+		  }
+  
+		  //put the units and quizes in the sub section object
+		  sub_sec_obj.list_obj = list_sub_units.concat(list_sub_quizs);
+		  list_sub_sections.push(sub_sec_obj);
+		}
+  
+		var list_obj = list_sub_sections.concat(list_units).concat(list_quizs);
+		sec_obj.list_obj = list_obj.sort(function(a, b){return parseInt(a.order)-parseInt(b.order)});;
+		section_list.push(sec_obj);
+	  }
+	  data.sectionlist = section_list;
+	}
+  
+	function shift(type, order, strict, parent) {
+	  if (type == 'unt' || type == 'sub' || type == 'quiz') {
+		//shift all unit
+		var q = strict ? '>' : '>=';
+		var gr = new GlideRecord('x_315700_lms_unit');
+		gr.addQuery('order', q, order);
+		if (parent) {
+		  gr.addQuery('section', parent);
+		}
+		gr.query();
+		while (gr.next()) {
+		  gr.order = parseInt(gr.order) + 100;
+		  gr.update();
+		}
+		//shit all sub section
+		var sub = new GlideRecord('x_315700_lms_section');
+		sub.addQuery('order', q, order);
+		if (parent) {
+		  sub.addQuery('parent_section', parent)
+		}
+		sub.query();
+		while (sub.next()) {
+		  sub.order = parseInt(sub.order) + 100;
+		  sub.update();
+		}
+	  } else if (type == 'sec') {
+		//shit all  section
+		var q = strict ? '>' : '>=';
+		var sec = new GlideRecord('x_315700_lms_section');
+		sec.addQuery('order', q, order);
+		if (parent) {
+		  sec.addQuery('course', parent)
+		}
+		sec.query();
+		while (sec.next()) {
+		  sec.order = parseInt(sec.order) + 100;
+		  sec.update();
+		}
+	  }
+  
+	}
+  })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-02-26 13:10:55</sys_created_on>
         <sys_id>bfdf6e0cdbd3001016939b81ca961980</sys_id>
-        <sys_mod_count>437</sys_mod_count>
+        <sys_mod_count>439</sys_mod_count>
         <sys_name>fm_cours_structure</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sp_widget_bfdf6e0cdbd3001016939b81ca961980</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2020-07-13 15:52:07</sys_updated_on>
+        <sys_updated_on>2020-07-21 08:54:39</sys_updated_on>
         <template><![CDATA[<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <div class="nav">
