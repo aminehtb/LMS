@@ -629,7 +629,7 @@ div.introduction img, div.end-note img{&#13;
 
     //get result
     if (input && input.action =="get_result"){
-		var gr = new GlideRecord('x_315700_lms_quiz_ref');
+		var gr = new GlideRecord(lms_constants.QUIZ_REF_TABLE);
 		gr.get(elem_id);
 		var min_to_pass = gr.getValue('min_to_pass');
         var res = new quizUtil().getResult(res,min_to_pass);
@@ -641,14 +641,14 @@ div.introduction img, div.end-note img{&#13;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-07-06 08:34:59</sys_created_on>
         <sys_id>17f8d0de07b11410288ff16c7c1ed087</sys_id>
-        <sys_mod_count>45</sys_mod_count>
+        <sys_mod_count>46</sys_mod_count>
         <sys_name>fm_quiz</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sp_widget_17f8d0de07b11410288ff16c7c1ed087</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2020-07-13 15:26:17</sys_updated_on>
+        <sys_updated_on>2020-09-21 15:33:36</sys_updated_on>
         <template><![CDATA[<script language="javascript" ng-if="data.redirectTarget" ng-init="c.redirect(data.redirectTarget)"></script>
 <now-message key="Choose" value="${Choose}"/>
 <now-message key="Invalid URL" value="${Invalid URL}"/>

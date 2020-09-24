@@ -70,7 +70,7 @@ quizUtil.prototype = {
     },
     getOrCreateInstance: function (quiz_ref_id) {
         var quiz_instance_id = "";
-        var gr = new GlideRecord('x_315700_lms_quiz_ref');
+        var gr = new GlideRecord(lms_constants.QUIZ_REF_TABLE);
         gr.get(quiz_ref_id);
         if (gr && gr.getValue('quiz') != "") {
             //find a quiz instance
@@ -116,13 +116,13 @@ quizUtil.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-07-13 07:55:34</sys_created_on>
         <sys_id>ad4054e007021010288ff16c7c1ed02a</sys_id>
-        <sys_mod_count>11</sys_mod_count>
+        <sys_mod_count>12</sys_mod_count>
         <sys_name>quizUtil</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sys_script_include_ad4054e007021010288ff16c7c1ed02a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2020-07-13 15:19:05</sys_updated_on>
+        <sys_updated_on>2020-09-21 14:37:35</sys_updated_on>
     </sys_script_include>
 </record_update>

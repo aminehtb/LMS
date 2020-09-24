@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_script">
+    <sys_ui_script action="DELETE">
+        <active>true</active>
+        <description/>
+        <global>false</global>
+        <name>x_315700_lms.contextmenutest</name>
+        <script><![CDATA[var app = angular.module('testApp', []);
+
+
+
+app.directive('ngContextMenu', function ($parse) {
+    var renderContextMenu = function ($scope, event, options) {
+        if (!$) { var $ = angular.element; }
+        $(event.currentTarget).addClass('context');
+        var $contextMenu = $('<div>');
+        $contextMenu.addClass('dropdown clearfix');
+        var $ul = $('<ul>');
+        $ul.addClass('dropdown-menu');
+        $ul.attr({ 'role': 'menu' });
+        $ul.css({
+            display: 'block',
+            position: 'absolute',
+            left: event.pageX + 'px',
+            top: event.pageY + 'px'
+        });
+        angular.forEach(options, function (item, i) {
+            var $li = $('<li>');
+            if (item === null) {
+                $li.addClass('divider');
+            } else {
+                $a = $('<a>');
+                $a.attr({ tabindex: '-1', href: '#' });
+                $a.text(item[0]);
+                $li.append($a);
+                $li.on('click', function () {
+                    $scope.$apply(function() {
+                        item[1].call($scope, $scope);
+                    });
+                });
+            }
+            $ul.append($li);
+        });
+        $contextMenu.append($ul);
+        $contextMenu.css({
+            width: '100%',
+            height: '100%',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            zIndex: 9999
+        });
+        $(document).find('body').append($contextMenu);
+        $contextMenu.on("click", function (e) {
+            $(event.currentTarget).removeClass('context');
+            $contextMenu.remove();
+        }).on('contextmenu', function (event) {
+            $(event.currentTarget).removeClass('context');
+            event.preventDefault();
+            $contextMenu.remove();
+        });
+    };
+    return function ($scope, element, attrs) {
+        element.on('contextmenu', function (event) {
+            $scope.$apply(function () {
+                event.preventDefault();
+                var options = $scope.$eval(attrs.ngContextMenu);
+                if (options instanceof Array) {
+                    renderContextMenu($scope, event, options);
+                } else {
+                    throw '"' + attrs.ngContextMenu + '" not an array';                    
+                }
+            });
+		    });
+    };
+});
+								  ]]></script>
+        <script_name>contextmenutest</script_name>
+        <sys_class_name>sys_ui_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-07-10 07:49:29</sys_created_on>
+        <sys_id>6e2dfbe52f6e3300a4a2c886f699b69f</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>x_315700_lms.contextmenutest</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sys_ui_script_6e2dfbe52f6e3300a4a2c886f699b69f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-07-12 09:27:35</sys_updated_on>
+        <ui_type>0</ui_type>
+        <use_scoped_format>false</use_scoped_format>
+    </sys_ui_script>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>sys_ui_script_6e2dfbe52f6e3300a4a2c886f699b69f</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ui_script"&gt;
+    &lt;sys_ui_script action="INSERT_OR_UPDATE"&gt;
+        &lt;active&gt;true&lt;/active&gt;
+        &lt;description/&gt;
+        &lt;global&gt;false&lt;/global&gt;
+        &lt;name&gt;x_315700_lms.contextmenutest&lt;/name&gt;
+        &lt;script&gt;&lt;![CDATA[var app = angular.module('testApp', []);
+
+
+
+app.directive('ngContextMenu', function ($parse) {
+    var renderContextMenu = function ($scope, event, options) {
+        if (!$) { var $ = angular.element; }
+        $(event.currentTarget).addClass('context');
+        var $contextMenu = $('&lt;div&gt;');
+        $contextMenu.addClass('dropdown clearfix');
+        var $ul = $('&lt;ul&gt;');
+        $ul.addClass('dropdown-menu');
+        $ul.attr({ 'role': 'menu' });
+        $ul.css({
+            display: 'block',
+            position: 'absolute',
+            left: event.pageX + 'px',
+            top: event.pageY + 'px'
+        });
+        angular.forEach(options, function (item, i) {
+            var $li = $('&lt;li&gt;');
+            if (item === null) {
+                $li.addClass('divider');
+            } else {
+                $a = $('&lt;a&gt;');
+                $a.attr({ tabindex: '-1', href: '#' });
+                $a.text(item[0]);
+                $li.append($a);
+                $li.on('click', function () {
+                    $scope.$apply(function() {
+                        item[1].call($scope, $scope);
+                    });
+                });
+            }
+            $ul.append($li);
+        });
+        $contextMenu.append($ul);
+        $contextMenu.css({
+            width: '100%',
+            height: '100%',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            zIndex: 9999
+        });
+        $(document).find('body').append($contextMenu);
+        $contextMenu.on("click", function (e) {
+            $(event.currentTarget).removeClass('context');
+            $contextMenu.remove();
+        }).on('contextmenu', function (event) {
+            $(event.currentTarget).removeClass('context');
+            event.preventDefault();
+            $contextMenu.remove();
+        });
+    };
+    return function ($scope, element, attrs) {
+        element.on('contextmenu', function (event) {
+            $scope.$apply(function () {
+                event.preventDefault();
+                var options = $scope.$eval(attrs.ngContextMenu);
+                if (options instanceof Array) {
+                    renderContextMenu($scope, event, options);
+                } else {
+                    throw '"' + attrs.ngContextMenu + '" not an array';                    
+                }
+            });
+		    });
+    };
+});
+								  ]]&gt;&lt;/script&gt;
+        &lt;script_name&gt;contextmenutest&lt;/script_name&gt;
+        &lt;sys_class_name&gt;sys_ui_script&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2019-07-10 07:49:29&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;6e2dfbe52f6e3300a4a2c886f699b69f&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;2&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;x_315700_lms.contextmenutest&lt;/sys_name&gt;
+        &lt;sys_package display_value="LMS" source="x_315700_lms"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="LMS"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sys_ui_script_6e2dfbe52f6e3300a4a2c886f699b69f&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2019-07-12 09:27:35&lt;/sys_updated_on&gt;
+        &lt;ui_type&gt;0&lt;/ui_type&gt;
+        &lt;use_scoped_format&gt;false&lt;/use_scoped_format&gt;
+    &lt;/sys_ui_script&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>-1564909386</payload_hash>
+        <record_name>x_315700_lms.contextmenutest</record_name>
+        <reverted_from/>
+        <source>52acf146078d1010288ff16c7c1ed025</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-05-29 14:26:10</sys_created_on>
+        <sys_id>01fc7d86078d1010288ff16c7c1ed0a1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17260d375800000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-05-29 14:26:10</sys_updated_on>
+        <type>UI Script</type>
+        <update_guid>cdfc7d863c8d1010e73930cf68e826a0</update_guid>
+        <update_guid_history>cdfc7d863c8d1010e73930cf68e826a0:-1564909386</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-09-24 15:18:00</sys_created_on>
+        <sys_db_object display_value="" name="sys_ui_script">sys_ui_script</sys_db_object>
+        <sys_id>6a6dd02442f04f30b1e24bad14e50e40</sys_id>
+        <sys_metadata>6e2dfbe52f6e3300a4a2c886f699b69f</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_315700_lms.contextmenutest</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sys_ui_script_6e2dfbe52f6e3300a4a2c886f699b69f</sys_update_name>
+        <sys_update_version display_value="sys_ui_script_6e2dfbe52f6e3300a4a2c886f699b69f">01fc7d86078d1010288ff16c7c1ed0a1</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-09-24 15:18:00</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

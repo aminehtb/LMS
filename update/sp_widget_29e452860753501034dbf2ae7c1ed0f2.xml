@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($http) {
+    /* widget controller */
+    var c = this;
+
+    setTimeout(function () {
+        if (c.data.current_screen && c.data.current_screen != "") {
+					//var k = c.data.attachment_id + '.cmi.suspend_data'
+            //localStorage[k]= c.data.current_screen; 
+					//console.log(k);
+					//console.log('f5dfe4310713101034dbf2ae7c1ed0b7.cmi.suspend_data');
+            //localStorage.setItem('5dk3IwLq10X', c.data.current_screen+""); 
+					//var kk = 'f5dfe4310713101034dbf2ae7c1ed0b7.cmi.suspend_data';
+            //console.log(k == 'f5dfe4310713101034dbf2ae7c1ed0b7.cmi.suspend_data');
+        
+            localStorage.setItem(c.data.k, String(c.data.current_screen));
+            localStorage.setItem('5dk3IwLq10X', "1D6405060on1001211f0101101111012110040000");
+            console.log('storage set.')
+        }
+    }, 100);
+
+    function watchProgress() {
+        setInterval(function () {
+            if ('' + localStorage.getItem(c.data.attachment_id + '.cmi.suspend_data') != c.data.current_screen_id + '') {
+                c.data.current_screen_id = localStorage.getItem(c.data.attachment_id + '.cmi.suspend_data');
+                c.data.action = "update_progress";
+                c.server.update();
+            } else
+                return;
+        }, 800)
+    }
+
+    watchProgress();
+
+    function progress(comment, new_progress) {
+        document.getElementById('progress').style.width = new_progress + '%'
+        document.getElementById('progress').innerText = comment
+    }
+
+    function supports_html5_storage() {
+        try {
+            return 'localStorage' in window && window['localStorage'] !== null;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function errorHandler(e) {
+        //console.log( e)
+    }
+
+    function mkdir(fs, dir_path) {
+        fs.root.getDirectory(dir_path, { create: true }, function () { });
+    }
+    function touch(fs, file_path_name_with_ext, content, type) {
+
+        fs.root.getFile(file_path_name_with_ext, { create: true }, function (fileEntry) {
+            fileEntry.createWriter(function (fileWriter) {
+                fileWriter.onwriteend = function (e) {
+
+                    window.webkitRequestFileSystem(window.TEMPORARY, requestedBytes, readFile, errorHandler);
+                };
+                fileWriter.onerror = errorHandler;
+                var blob = new Blob([content], { type: type });
+                fileWriter.write(blob);
+            }, errorHandler);
+        }, errorHandler);
+    }
+    function readFile(fs, file_path_name_with_ext) {
+        fs.root.getFile(file_path_name_with_ext, {}, function (fileEntry) {
+            fileEntry.file(function (file) {
+                var reader = new FileReader();
+                reader.onloadend = function (e) {
+                    console.log(e.target.result)
+                };
+                reader.readAsText(file);
+            }, errorHandler);
+        }, errorHandler);
+    }
+
+    function getFileFromSN(attachment_id) {
+
+        $http.get(c.data.instance_url + "/api/now/attachment/" + attachment_id + "/file", { responseType: "arraybuffer" }).then(function (response) {
+            progress('extracting course files ...', 70)
+            loadAndCreateStructure(attachment_id + '/', response.data)
+
+        }, function (err) {
+            document.getElementById('pg-container').style.display = 'none';
+            Swal.fire({
+                title: 'Error ' + err.statuscode,
+                text: err.statusText,
+                timer: 2000,
+                position: 'top-end',
+                icon: 'error',
+                showConfirmButton: false
+            });
+        });
+    }
+
+    function getFirstResource(dir_prefix, xmlObj) {
+        var organizations = xmlObj.manifest.organizations.organization;
+        var resources = xmlObj.manifest.resources.resource;
+        var defaultEntry = '';
+        if (Array.isArray(organizations) && Array.isArray(resources)) {
+
+            var default_org = organizations.filter(function (item) {
+                return item['@attributes'].identifier == xmlObj.manifest.organizations['@attributes']['default'];
+            });
+            var default_res = resources.filter(function (item) {
+                return item['@attributes'].identifier == default_org[0].item['@attributes'].identifierref
+            });
+            defaultEntry = "filesystem:" + c.data.instance_url + "temporary/" + dir_prefix + default_res[0]["@attributes"].href;
+            return defaultEntry;
+        } else if (resources) {
+            return "filesystem:" + c.data.instance_url + "temporary/" + dir_prefix + resources["@attributes"].href;
+        }
+    }
+
+    var entryPoint = ""
+    function prepareFrame() {
+        var ifrm = document.createElement("iframe");
+        ifrm.setAttribute("src", entryPoint);
+        document.getElementById('scorm-player').appendChild(ifrm);
+        ifrm.style.width = document.getElementById('scorm-player').offsetWidth + 'px';
+        document.getElementById('pg-container').style.display = 'none';
+    }
+
+    var files_to_create = [];
+    var files_created = [];
+    function loadAndCreateStructure(dir_prefix, data) {
+        // var file_url = "scorm.zip";
+        // var dir_prefix = file_url.split('.')[0] + '/';
+        JSZip.loadAsync(data).then(async function (res) {
+            mkdir(g_fs, dir_prefix)
+            var ff = Object.keys(res.files);
+            files_to_create = ff;
+            for (var i = 0; i < ff.length; i++) {
+                var key = ff[i];
+                is_dir = key.split('/').length > 1 ? true : false;
+
+                var extention = key.split('.')[1];
+                var type = mime.getType(extention);
+                if (is_dir) {
+                    var dir_file_name = key.split('/');
+                    dir_file_name = dir_file_name.slice(0, dir_file_name.length - 1)
+
+                    mkdir(g_fs, dir_prefix + dir_file_name.join('/'))
+                    if (type && (type.split('/')[0] == 'video' || type.split('/')[0] == 'image' || type.split('/')[0] == 'audio')) {
+                        await res.file(key).async('Uint8Array').then(function (r) {
+                            touch(g_fs, dir_prefix + key, r, type);
+                            files_created.push(key);
+                        })
+                    } else if (type)
+                        await res.file(key).async("string").then(function (r) {
+                            touch(g_fs, dir_prefix + key, r, type);
+                            files_created.push(key);
+                        })
+                } else {
+                    await res.file(key).async("string").then(function (r) {
+                        touch(g_fs, dir_prefix + key, r, type);
+                        files_created.push(key);
+                        if (key == 'imsmanifest.xml') {
+                            var XmlNode = new DOMParser().parseFromString(r, 'text/xml');
+                            var xml = xmlToJson(XmlNode);
+                            entryPoint = getFirstResource(dir_prefix, xml);
+                        }
+                    });
+                }
+
+            }
+
+
+        }).then(function () {
+            progress('preparing your course ...', 100)
+            prepareFrame();
+
+
+        });
+    }
+    /////main\\\\\\\
+
+    if (!supports_html5_storage()) {
+        window.localStorage = {};
+    }
+    var g_fs = null;
+    var requestedBytes = 1024 * 1024 * 900;
+    window.webkitRequestFileSystem(window.TEMPORARY, requestedBytes, function (fs) { g_fs = fs; }, errorHandler);
+
+
+    tspInit(
+        window,
+        window.localStorage,
+        c.data.attachment_id + '.',
+        function (progress) {
+            //this will be called whenever student makes a progress in test.
+            console.log(progress);
+
+        });
+
+    getFileFromSN(c.data.attachment_id);
+
+}
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>iframe {
+			display: block;
+			background: #000;
+			border: none;
+			height: 100vh;
+			width: 100vw;
+		}
+.w3-light-grey{color:#000!important;background-color:#f1f1f1!important}
+.w3-round-xlarge{border-radius:16px}
+.w3-blue, .w3-hover-blue:hover {
+    color: #fff!important;
+    background-color: #2196F3!important;
+}
+.w3-container, .w3-panel {
+    padding: 0.01em 16px;
+}
+.w3-round-xlarge {
+    border-radius: 16px;
+}
+
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>scorm_reader</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Scorm reader</name>
+        <option_schema>[{"displayValue":"Attachment","name":"attachment_sys_id","section":"other","label":"attachment sys_id","type":"reference","value":"sys_attachment","ed":{"reference":"sys_attachment"}}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function () {
+
+    data.course_id = $sp.getParameter('sys_id');
+
+    data.instance_url = gs.getProperty('glide.servlet.uri');
+    data.attachment_id = options.attachment_sys_id;
+		data.k = data.attachment_id + '.cmi.suspend_data';
+		var gr = new GlideRecord(lms_constants.USER_ACTIVITY_TABLE);
+    gr.addQuery('course', data.course_id);
+    gr.addQuery('user_id', gs.getUserID());
+    gr.addNotNullQuery('scorm_current_screen');
+    gr.query();
+    if (gr.next()) {
+			data.current_screen = gr.getDisplayValue("scorm_current_screen");
+		}
+
+    if (input && input.action == "update_progress" && input.current_screen_id && input.current_screen_id != "") {
+        var gr = new GlideRecord(lms_constants.USER_ACTIVITY_TABLE);
+        gr.addQuery('course', data.course_id);
+        gr.addQuery('user_id', gs.getUserID());
+        gr.query();
+        if (gr.next()) {
+            gr.setValue('scorm_current_screen', input.current_screen_id);
+            gr.update();
+        } else {
+            gr.initialize();
+            gr.setValue('user_id', gs.getUserID());
+            gr.setValue('course', data.course_id);
+            gr.setValue('scorm_current_screen', input.current_screen_id);
+            gr.insert();
+        }
+
+    }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-09-18 12:32:05</sys_created_on>
+        <sys_id>29e452860753501034dbf2ae7c1ed0f2</sys_id>
+        <sys_mod_count>104</sys_mod_count>
+        <sys_name>Scorm reader</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_widget_29e452860753501034dbf2ae7c1ed0f2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-09-23 11:25:29</sys_updated_on>
+        <template><![CDATA[<div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="https://wzrd.in/standalone/mime@latest"></script>
+<div id="pg-container" class="progress-container">
+		<div class="w3-light-grey w3-round-xlarge item">
+			<div id="progress" class="w3-container w3-blue w3-round-xlarge" style="width:25%">Getting file from
+				ServiceNow ...</div>
+		</div>
+	</div>
+  <div id="scorm-player">
+    
+  </div>
+
+</div>]]></template>
+    </sp_widget>
+</record_update>

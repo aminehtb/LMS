@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="DELETE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_315700_lms.LMS_CONSTANTS</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>LMS_CONSTANTS</name>
+        <script><![CDATA[var Constants = Class.create();
+
+Constants.SCOPE = 'x_315700_lms';
+Constants.USER_ACTIVITY_TABLE = Constants.SCOPE + '_unit_user';]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-09-21 14:14:44</sys_created_on>
+        <sys_id>ef58860b075b101034dbf2ae7c1ed0e2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>LMS_CONSTANTS</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sys_script_include_ef58860b075b101034dbf2ae7c1ed0e2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-09-21 14:14:44</sys_updated_on>
+    </sys_script_include>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>b75b8992db7f83c0bdabf0e5bf96196b</instance_id>
+        <instance_name>dev48293</instance_name>
+        <name>sys_script_include_ef58860b075b101034dbf2ae7c1ed0e2</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_include"&gt;&lt;sys_script_include action="INSERT_OR_UPDATE"&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;active&gt;true&lt;/active&gt;&lt;api_name&gt;x_315700_lms.LMS_CONSTANTS&lt;/api_name&gt;&lt;caller_access/&gt;&lt;client_callable&gt;false&lt;/client_callable&gt;&lt;description/&gt;&lt;name&gt;LMS_CONSTANTS&lt;/name&gt;&lt;script&gt;&lt;![CDATA[var Constants = Class.create();
+
+Constants.SCOPE = 'x_315700_lms';
+Constants.USER_ACTIVITY_TABLE = Constants.SCOPE + '_unit_user';]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_include&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2020-09-21 14:14:44&lt;/sys_created_on&gt;&lt;sys_id&gt;ef58860b075b101034dbf2ae7c1ed0e2&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;LMS_CONSTANTS&lt;/sys_name&gt;&lt;sys_package display_value="LMS" source="x_315700_lms"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_package&gt;&lt;sys_policy&gt;read&lt;/sys_policy&gt;&lt;sys_scope display_value="LMS"&gt;03ba89b6db003300c1e8f53a299619df&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_include_ef58860b075b101034dbf2ae7c1ed0e2&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2020-09-21 14:14:44&lt;/sys_updated_on&gt;&lt;/sys_script_include&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-1129264813</payload_hash>
+        <record_name>LMS_CONSTANTS</record_name>
+        <reverted_from/>
+        <source>ec8ff54a078d1010288ff16c7c1ed09f</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-09-21 14:14:44</sys_created_on>
+        <sys_id>22294a4b075b101034dbf2ae7c1ed028</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>174b10450be0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-09-21 14:14:44</sys_updated_on>
+        <type>Script Include</type>
+        <update_guid>2a294a4bb85b10106827b37ecddc3027</update_guid>
+        <update_guid_history>2a294a4bb85b10106827b37ecddc3027:-1129264813</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-09-21 14:15:55</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_include">sys_script_include</sys_db_object>
+        <sys_id>19c7689e4ad74bd486d0ac4cccaf8e10</sys_id>
+        <sys_metadata>ef58860b075b101034dbf2ae7c1ed0e2</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>LMS_CONSTANTS</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sys_script_include_ef58860b075b101034dbf2ae7c1ed0e2</sys_update_name>
+        <sys_update_version display_value="sys_script_include_ef58860b075b101034dbf2ae7c1ed0e2">22294a4b075b101034dbf2ae7c1ed028</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-09-21 14:15:55</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

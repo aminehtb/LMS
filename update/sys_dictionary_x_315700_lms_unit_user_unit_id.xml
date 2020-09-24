@@ -33,7 +33,7 @@
         <function_definition/>
         <function_field>false</function_field>
         <internal_type display_value="Reference">reference</internal_type>
-        <mandatory>true</mandatory>
+        <mandatory>false</mandatory>
         <max_length>32</max_length>
         <name>x_315700_lms_unit_user</name>
         <next_element/>
@@ -41,7 +41,7 @@
         <read_only>false</read_only>
         <read_roles/>
         <reference display_value="" name="x_315700_lms_unit">x_315700_lms_unit</reference>
-        <reference_cascade_rule/>
+        <reference_cascade_rule>cascade</reference_cascade_rule>
         <reference_floats>false</reference_floats>
         <reference_key/>
         <reference_qual/>
@@ -54,14 +54,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-03-11 15:37:28</sys_created_on>
         <sys_id>74bcb546078d1010288ff16c7c1ed0d9</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>Unit</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sys_dictionary_x_315700_lms_unit_user_unit_id</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2020-05-29 14:25:21</sys_updated_on>
+        <sys_updated_on>2020-09-21 15:58:26</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element label="Section" max_length="40" name="x_315700_lms_section" sizeclass="6" type="collection">
-        <element label="Course" mandatory="true" max_length="32" name="course" reference="x_315700_lms_asynchronous_course" type="reference"/>
+    <element label="Section" max_length="40" name="x_315700_lms_section" sizeclass="4" type="collection">
+        <element label="Course" mandatory="true" max_length="32" name="course" reference="x_315700_lms_asynchronous_course" reference_cascade_rule="cascade" type="reference"/>
         <element label="Name" mandatory="true" max_length="50" name="name" type="string"/>
         <element label="Onpage" max_length="40" name="onpage" type="boolean"/>
         <element label="Order" max_length="40" name="order" type="integer"/>

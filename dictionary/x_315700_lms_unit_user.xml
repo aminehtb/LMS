@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element label="Unit user" max_length="40" name="x_315700_lms_unit_user" sizeclass="7" type="collection">
-        <element label="Course" mandatory="true" max_length="32" name="course" reference="x_315700_lms_asynchronous_course" type="reference"/>
-        <element label="Unit" mandatory="true" max_length="32" name="unit_id" reference="x_315700_lms_unit" type="reference"/>
+    <element label="Unit user" max_length="40" name="x_315700_lms_unit_user" sizeclass="3" type="collection">
+        <element label="Course" mandatory="true" max_length="32" name="course" reference="x_315700_lms_asynchronous_course" reference_cascade_rule="cascade" type="reference"/>
+        <element label="Scorm current screen" max_length="40" name="scorm_current_screen" type="string"/>
+        <element label="Unit" max_length="32" name="unit_id" reference="x_315700_lms_unit" reference_cascade_rule="cascade" type="reference"/>
         <element label="User ID" mandatory="true" max_length="32" name="user_id" reference="sys_user" type="reference"/>
         <index name="index">
             <element name="user_id"/>

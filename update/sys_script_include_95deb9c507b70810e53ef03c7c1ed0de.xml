@@ -13,7 +13,7 @@ CourseOrganizer.prototype = {
   },
   shift: function (type, start_order, end_order, factor, parent) {
     if (type == 'sec') {
-      var gr = new GlideRecord('x_315700_lms_section');
+      var gr = new GlideRecord(lms_constants.SECTION_TABLE);
       gr.addQuery('course', parent);
       gr.addQuery('order', '>', start_order);
       gr.addQuery('order', '<', end_order);
@@ -25,7 +25,7 @@ CourseOrganizer.prototype = {
       }
     } else if (type == 'sub' || type == 'unt' || type == 'quiz') {
       //loop over all subsection in the parent
-      var sub = new GlideRecord('x_315700_lms_section');
+      var sub = new GlideRecord(lms_constants.SECTION_TABLE);
       sub.addQuery('parent_section', parent);
       sub.addQuery('order', '>', start_order);
       sub.query();
@@ -34,7 +34,7 @@ CourseOrganizer.prototype = {
         sub.update();
       }
       //loop over all direct unit in the section
-      var unt = new GlideRecord('x_315700_lms_unit');
+      var unt = new GlideRecord(lms_constants.UNIT_TABLE);
       unt.addQuery('section', parent);
       unt.addQuery('order', '>', start_order);
       unt.query();
@@ -43,7 +43,7 @@ CourseOrganizer.prototype = {
         unt.update();
       }
       // loop over all direct quiz in the section
-      var quiz = new GlideRecord('x_315700_lms_quiz_ref');
+      var quiz = new GlideRecord(lms_constants.QUIZ_REF_TABLE);
       quiz.addQuery('section', parent);
       quiz.addQuery('order', '>', start_order);
       quiz.query();
@@ -55,7 +55,7 @@ CourseOrganizer.prototype = {
   },
   //update at the begining
   updateSectionAtBegin: function (type, parent, order) {
-    var gr = new GlideRecord('x_315700_lms_section');
+    var gr = new GlideRecord(lms_constants.SECTION_TABLE);
     gr.addQuery('course', parent);
     gr.addQuery('order', '>=', 0);
     gr.addQuery('order', '<', order);
@@ -68,7 +68,7 @@ CourseOrganizer.prototype = {
   },
   //update at the end
   updateSectionAtEnd: function (type, parent, order) {
-    var gr = new GlideRecord('x_315700_lms_section');
+    var gr = new GlideRecord(lms_constants.SECTION_TABLE);
     gr.addQuery('course', parent);
     gr.addQuery('order', '>', order);
     gr.query();
@@ -81,7 +81,7 @@ CourseOrganizer.prototype = {
   //shift all object back after deleting an object
   shiftAfterDelete: function (type, order, parent) {
     if (type == 'sec') {
-      var gr = new GlideRecord('x_315700_lms_section');
+      var gr = new GlideRecord(lms_constants.SECTION_TABLE);
       gr.addQuery('course', parent);
       gr.addQuery('order', '>', order);
       gr.query();
@@ -91,7 +91,7 @@ CourseOrganizer.prototype = {
       }
     } else if (type == 'sub' || type == 'unt' || type == 'quiz') {
       // shift back all sub section
-      var sub = new GlideRecord('x_315700_lms_section');
+      var sub = new GlideRecord(lms_constants.SECTION_TABLE);
       sub.addQuery('parent_section', parent);
       sub.addQuery('order', '>', order);
       sub.query();
@@ -101,7 +101,7 @@ CourseOrganizer.prototype = {
       }
 
       // shift back all unit 
-      var unt = new GlideRecord('x_315700_lms_unit');
+      var unt = new GlideRecord(lms_constants.UNIT_TABLE);
       unt.addQuery('section', parent);
       unt.addQuery('order', '>', order);
       unt.query();
@@ -111,7 +111,7 @@ CourseOrganizer.prototype = {
       }
 
       // shift back all quiz 
-      var quiz = new GlideRecord('x_315700_lms_quiz_ref');
+      var quiz = new GlideRecord(lms_constants.QUIZ_REF_TABLE);
       quiz.addQuery('section', parent);
       quiz.addQuery('order', '>', order);
       quiz.query();
@@ -135,13 +135,13 @@ CourseOrganizer.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-03-25 08:47:45</sys_created_on>
         <sys_id>95deb9c507b70810e53ef03c7c1ed0de</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>5</sys_mod_count>
         <sys_name>CourseOrganizer</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sys_script_include_95deb9c507b70810e53ef03c7c1ed0de</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2020-07-10 15:05:18</sys_updated_on>
+        <sys_updated_on>2020-09-21 14:36:07</sys_updated_on>
     </sys_script_include>
 </record_update>

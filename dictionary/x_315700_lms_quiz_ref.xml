@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element label="quiz_ref" max_length="40" name="x_315700_lms_quiz_ref" sizeclass="4" type="collection">
+    <element label="quiz_ref" max_length="40" name="x_315700_lms_quiz_ref" sizeclass="5" type="collection">
         <element label="Min to pass" mandatory="true" max_length="40" name="min_to_pass" type="integer"/>
         <element label="order" max_length="40" name="order" type="integer"/>
         <element label="Quiz" max_length="32" name="quiz" reference="asmt_metric_type" reference_qual="evaluation_method=quiz^EQ" reference_qual_condition="evaluation_method=quiz^EQ" type="reference"/>

@@ -26,7 +26,7 @@
     //save unit 
     var gr = new GlideRecord("x_315700_lms_unit");
     gr.get(unit_id);
-    gr.content = content;
+    gr.content = JSON.stringify(content);
     gr.unitbody = html;
     gr.update();
     response.setBody({'status':'success'});
@@ -45,14 +45,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-03-25 15:11:52</sys_created_on>
         <sys_id>11f71b41073f0810e53ef03c7c1ed08c</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>saveUnit</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sys_ws_operation_11f71b41073f0810e53ef03c7c1ed08c</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2020-03-25 15:19:55</sys_updated_on>
+        <sys_updated_on>2020-09-11 13:46:47</sys_updated_on>
         <web_service_definition display_value="quill_unit">483b470507fb0810e53ef03c7c1ed008</web_service_definition>
         <web_service_version/>
     </sys_ws_operation>

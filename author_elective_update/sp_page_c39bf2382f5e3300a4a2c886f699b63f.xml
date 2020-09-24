@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page">
+    <sp_page action="DELETE">
+        <category>custom</category>
+        <css/>
+        <draft>false</draft>
+        <dynamic_title_structure/>
+        <id>course_test</id>
+        <internal>false</internal>
+        <public>false</public>
+        <roles/>
+        <short_description/>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-06-25 08:43:43</sys_created_on>
+        <sys_id>c39bf2382f5e3300a4a2c886f699b63f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>course_test</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_page_c39bf2382f5e3300a4a2c886f699b63f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-06-25 08:43:43</sys_updated_on>
+        <title>course_test</title>
+    </sp_page>
+    <sys_translated_text action="DELETE" query="documentkey=c39bf2382f5e3300a4a2c886f699b63f"/>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>sp_page_c39bf2382f5e3300a4a2c886f699b63f</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page">
+    <sp_page action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <css/>
+        <draft>false</draft>
+        <dynamic_title_structure/>
+        <id>course_test</id>
+        <internal>false</internal>
+        <public>false</public>
+        <roles/>
+        <short_description/>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-06-25 08:43:43</sys_created_on>
+        <sys_id>c39bf2382f5e3300a4a2c886f699b63f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>course_test</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sp_page_c39bf2382f5e3300a4a2c886f699b63f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-06-25 08:43:43</sys_updated_on>
+        <title>course_test</title>
+    </sp_page>
+    <sys_translated_text action="delete_multiple" query="documentkey=c39bf2382f5e3300a4a2c886f699b63f"/>
+</record_update>]]></payload>
+        <payload_hash>-1217571101</payload_hash>
+        <record_name>course_test</record_name>
+        <reverted_from/>
+        <source>52acf146078d1010288ff16c7c1ed025</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-05-29 14:25:53</sys_created_on>
+        <sys_id>f8ec3586078d1010288ff16c7c1ed0af</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17260d333a00000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-05-29 14:25:53</sys_updated_on>
+        <type>Page</type>
+        <update_guid>b8ec3586168d1010fb1921fce62f20af</update_guid>
+        <update_guid_history>b8ec3586168d1010fb1921fce62f20af:-1217571101</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="course_test">08fccd88076b941034dbf2ae7c1ed0e7</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-09-24 12:25:31</sys_created_on>
+        <sys_db_object display_value="" name="sp_page">sp_page</sys_db_object>
+        <sys_id>2d1ce45f6ba94989933df341c7e3eb41</sys_id>
+        <sys_metadata>c39bf2382f5e3300a4a2c886f699b63f</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>course_test</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sp_page_c39bf2382f5e3300a4a2c886f699b63f</sys_update_name>
+        <sys_update_version display_value="sp_page_c39bf2382f5e3300a4a2c886f699b63f">f8ec3586078d1010288ff16c7c1ed0af</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-09-24 12:25:31</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

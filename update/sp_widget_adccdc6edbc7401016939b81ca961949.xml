@@ -27,180 +27,152 @@
         <option_schema/>
         <public>false</public>
         <roles/>
-        <script><![CDATA[(function() {
-  data.course=[];
-	data.courseid=$sp.getParameter("course_id");
-	
-	data.unitlength=$sp.getParameter("unit_length");
+        <script><![CDATA[(function () {
+    data.course = [];
+    data.courseid = $sp.getParameter("course_id");
 
-	 	
-	function af (courseid){
-		data.list_course=[];
-		data.subunit=[];
-		gs.warn("courseid"+courseid);
-	 var section = new GlideRecord("x_315700_lms_section");
- section.addQuery("course",courseid);
-		
- section.orderBy("order");
- section.addNullQuery("parent_section");
- section.query();
-
- while (section.next()) {
-	
- 
-   var obj = {
-     'name': section.getDisplayValue("name"),
-     'sys_id': section.getDisplayValue("sys_id"),
-     'arrayunit': [],
-     'subsection': []
-   };
-	 
-   var subsection = new GlideRecord("x_315700_lms_section");
-   gs.warn("section " + section.getDisplayValue("name"));
-   subsection.addQuery("parent_section", obj.sys_id);
-   subsection.query();
-   
-   while (subsection.next()) {
-     gs.warn("section " + section.getDisplayValue("name") + " subsection " + subsection.getDisplayValue("name"));
-     var subobj = {
-       'name': subsection.getDisplayValue("name"),
-       'sys_id': subsection.getDisplayValue("sys_id"),
-       'arraysubunit': []
-     };
-     obj.subsection.push(subobj);
+    data.unitlength = $sp.getParameter("unit_length");
 
 
-		 
-      var unitsubsection = new GlideRecord("x_315700_lms_unit");
-           unitsubsection.addQuery("section", subobj.sys_id);
-		       unitsubsection.orderBy('order');
-           unitsubsection.query();
+    function af(courseid) {
+        data.list_course = [];
+        data.subunit = [];
+        var section = new GlideRecord(lms_constants.SECTION_TABLE);
+        section.addQuery("course", courseid);
 
-           while (unitsubsection.next()) {
-               var unitsubobj = {
-                   'name': unitsubsection.getDisplayValue("name"),
-                   'sys_id': unitsubsection.getDisplayValue("sys_id"),
-								    'order': unitsubsection.getDisplayValue("order")
-               };
-               subobj.arraysubunit.push(unitsubobj);
-						 data.subunit.push(unitsubobj);
-           }
+        section.orderBy("order");
+        section.addNullQuery("parent_section");
+        section.query();
 
-       }
-	 	
-       var unit = new GlideRecord("x_315700_lms_unit");
-       unit.addQuery("section", section.sys_id);
-	     unit.orderBy('order');
-       unit.query();
-	       
-       while (unit.next()) {
-				 
-	
-		
-		 
-					 
-           gs.warn("inside unit : " + unit.name);
-           var unitobj = { 'name': unit.getDisplayValue("name"), 'sys_id': unit.getDisplayValue("sys_id"),'order':unit.getDisplayValue("order") };
-           obj.arrayunit.push(unitobj);
-				 data.list_course.push(unitobj);
-       }
- }
+        while (section.next()) {
 
-	
-	
-	var length = data.list_course.length+data.subunit.length;
-	gs.warn("length"+length);
-	data.listunit=[];
-	var listunit = new GlideRecord("x_315700_lms_unit_user");
-	listunit.addQuery("course",courseid);
 
-	listunit.query();
-	while(listunit.next()){
-		var unitobj={};
-		$sp.getRecordValues(unitobj,listunit,"course,unit_id");
-		
-			data.listunit.push(unitobj);
-			gs.warn("2nd length "+data.listunit.length);
-		  gs.warn("list"+JSON.stringify(data.listunit));
-	
-	}
-		data.lastunit=[];
-var lastunit = new GlideRecord("x_315700_lms_unit_user");
-	lastunit.addQuery("course",courseid);
-  lastunit.orderByDesc("sys_updated_on");
-		lastunit.setLimit(1);
-	lastunit.query();
-	while(lastunit.next()){
-		var unitobj={};
-		$sp.getRecordValues(unitobj,lastunit,"course,unit_id");
-		
-			data.lastunit.push(unitobj);
-			gs.warn("2nd length "+data.listunit.length);
-		  gs.warn("list"+JSON.stringify(data.listunit));
-	
-	}
-			var percentage =Math.round((100*data.listunit.length)/length);
-		
-	
-		
-		return [percentage,data.listunit,length,data.lastunit[data.lastunit.length-1].unit_id];
-	}
-var course = new GlideRecord("x_315700_lms_asynchronous_course");
+            var obj = {
+                'name': section.getDisplayValue("name"),
+                'sys_id': section.getDisplayValue("sys_id"),
+                'arrayunit': [],
+                'subsection': []
+            };
 
-course.query();
-	while(course.next()){
-		
-			var unituserGR=new GlideRecord("x_315700_lms_unit_user");
-	unituserGR.query();
-		while(unituserGR.next()){
-			if (unituserGR.course==course.sys_id){
-				var val = af(course.sys_id);
-				var perc = val[0];
-				var unit=val[1];
-				var length = val[2];
-				var value = val[3];
-				gs.warn("value"+val[3]);
-				var link ="";
-				if(unit.length==length){
-					link="?id=sc_cat_item_course&sys_id="+course.sys_id;
-				}
-				else 	link="?id=unit_body&unit_id="+value+"&sys_id="+course.sys_id; 
-				gs.warn("unit"+unit);
-			
-				var courseobj={"name":course.getDisplayValue("name"),"percentage":perc,"unit":link,"id":course.getValue("sys_id")};
-		
-						data.course.push(courseobj);
-				break;
-			}
-		}
-		
+            var subsection = new GlideRecord(lms_constants.SECTION_TABLE);
+            subsection.addQuery("parent_section", obj.sys_id);
+            subsection.query();
 
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	gs.warn("formations"+JSON.stringify(data.course));
+            while (subsection.next()) {
+                var subobj = {
+                    'name': subsection.getDisplayValue("name"),
+                    'sys_id': subsection.getDisplayValue("sys_id"),
+                    'arraysubunit': []
+                };
+                obj.subsection.push(subobj);
+
+
+
+                var unitsubsection = new GlideRecord(lms_constants.UNIT_TABLE);
+                unitsubsection.addQuery("section", subobj.sys_id);
+                unitsubsection.orderBy('order');
+                unitsubsection.query();
+
+                while (unitsubsection.next()) {
+                    var unitsubobj = {
+                        'name': unitsubsection.getDisplayValue("name"),
+                        'sys_id': unitsubsection.getDisplayValue("sys_id"),
+                        'order': unitsubsection.getDisplayValue("order")
+                    };
+                    subobj.arraysubunit.push(unitsubobj);
+                    data.subunit.push(unitsubobj);
+                }
+
+            }
+
+            var unit = new GlideRecord(lms_constants.UNIT_TABLE);
+            unit.addQuery("section", section.sys_id);
+            unit.orderBy('order');
+            unit.query();
+
+            while (unit.next()) {
+
+                var unitobj = { 'name': unit.getDisplayValue("name"), 'sys_id': unit.getDisplayValue("sys_id"), 'order': unit.getDisplayValue("order") };
+                obj.arrayunit.push(unitobj);
+                data.list_course.push(unitobj);
+            }
+        }
+
+
+
+        var length = data.list_course.length + data.subunit.length;
+        data.listunit = [];
+        var listunit = new GlideRecord(lms_constants.USER_ACTIVITY_TABLE);
+        listunit.addQuery("course", courseid);
+
+        listunit.query();
+        while (listunit.next()) {
+            var unitobj = {};
+            $sp.getRecordValues(unitobj, listunit, "course,unit_id");
+
+            data.listunit.push(unitobj);
+
+        }
+        data.lastunit = [];
+        var lastunit = new GlideRecord(lms_constants.USER_ACTIVITY_TABLE);
+        lastunit.addQuery("course", courseid);
+        lastunit.orderByDesc("sys_updated_on");
+        lastunit.setLimit(1);
+        lastunit.query();
+        while (lastunit.next()) {
+            var unitobj = {};
+            $sp.getRecordValues(unitobj, lastunit, "course,unit_id");
+
+            data.lastunit.push(unitobj);
+
+        }
+        var percentage = Math.round((100 * data.listunit.length) / length);
+
+        return [percentage, data.listunit, length, data.lastunit[data.lastunit.length - 1].unit_id];
+    }
+    var course = new GlideRecord(lms_constants.ASYNC_COURSE_TABLE);
+
+    course.query();
+    while (course.next()) {
+
+        var unituserGR = new GlideRecord(lms_constants.USER_ACTIVITY_TABLE);
+        unituserGR.query();
+        while (unituserGR.next()) {
+            if (unituserGR.course == course.sys_id) {
+                var val = af(course.sys_id);
+                var perc = val[0];
+                var unit = val[1];
+                var length = val[2];
+                var value = val[3];
+                var link = "";
+                if (unit.length == length) {
+                    link = "?id=sc_cat_item_course&sys_id=" + course.sys_id;
+                }
+                else link = "?id=unit_body&unit_id=" + value + "&sys_id=" + course.sys_id;
+
+                var courseobj = { "name": course.getDisplayValue("name"), "percentage": perc, "unit": link, "id": course.getValue("sys_id") };
+
+                data.course.push(courseobj);
+                break;
+            }
+        }
+
+    }
+
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2020-02-21 10:37:21</sys_created_on>
         <sys_id>adccdc6edbc7401016939b81ca961949</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name>fm_dashboard</sys_name>
         <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
         <sys_policy/>
         <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
         <sys_update_name>sp_widget_adccdc6edbc7401016939b81ca961949</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2020-02-21 10:37:21</sys_updated_on>
+        <sys_updated_on>2020-09-21 15:28:18</sys_updated_on>
         <template><![CDATA[<table class="table table-bordered">
   <thead>
     <tr class="success ">

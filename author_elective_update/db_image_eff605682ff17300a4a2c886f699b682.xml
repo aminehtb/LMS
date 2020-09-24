@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="db_image">
+    <db_image action="DELETE">
+        <active>true</active>
+        <category>Service Portal</category>
+        <format/>
+        <height/>
+        <image>9d6705682ff17300a4a2c886f699b639</image>
+        <name>unit_pic.svg</name>
+        <size_bytes>666</size_bytes>
+        <sys_class_name>db_image</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-30 09:04:57</sys_created_on>
+        <sys_id>eff605682ff17300a4a2c886f699b682</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>unit_pic.svg</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>db_image_eff605682ff17300a4a2c886f699b682</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-05-30 09:06:05</sys_updated_on>
+        <thumbnail/>
+        <width/>
+    </db_image>
+    <sys_attachment action="DELETE">
+        <average_image_color/>
+        <chunk_size_bytes>734003</chunk_size_bytes>
+        <compressed>true</compressed>
+        <content_type>image/svg+xml</content_type>
+        <file_name>image</file_name>
+        <hash/>
+        <image_height/>
+        <image_width/>
+        <size_bytes>666</size_bytes>
+        <size_compressed>387</size_compressed>
+        <state/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-30 09:06:04</sys_created_on>
+        <sys_id>9d6705682ff17300a4a2c886f699b639</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-05-30 09:06:04</sys_updated_on>
+        <table_name>ZZ_YYdb_image</table_name>
+        <table_sys_id>eff605682ff17300a4a2c886f699b682</table_sys_id>
+    </sys_attachment>
+    <sys_attachment_doc action="DELETE">
+        <data>H4sIAAAAAAAAAA==</data>
+        <length>16</length>
+        <position>0</position>
+        <sys_attachment display_value="image" sys_id="9d6705682ff17300a4a2c886f699b639">9d6705682ff17300a4a2c886f699b639</sys_attachment>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-30 09:06:04</sys_created_on>
+        <sys_id>dd6705682ff17300a4a2c886f699b639</sys_id>
+    </sys_attachment_doc>
+    <sys_attachment_doc action="DELETE">
+        <data>tZHPcoQgDMZfJcM9yD9Z7dQe2ksvvfZOXV2ZurKjrnb26ZtgX6EzSOAjvy8RnpftAmGOAYd4PndTI9b53gnoU3tfwtfYNaIP40LKOawBb3PXxx/Wlj8ltomgr5S+BbRjWJZGkCXGaYxTh9gH6APyMccdtRMwJ7aN14uAn+s4ETGs6+2pKPZ9l7uVab4URilVkJGALXb7a6KaChQ4V0GpjXh5voV1gD6OYyPa+zx30/qWxjRTV4344DTr1adxrUJtpUWt5AmNO8Z77d+chWzIofabNapVUFoWan+MwZqqZZpSiGMLyPyG2pPxSZZo6dOOClSyRl1REScN6lK6vChrpvHkCD00CzlTSw1/iH98aFOBttwsVzPk4sGjH4w27VHfs0qz33Kj/EtZ4MR3RjOp0GOm0W9o1ONK4D+4mtJKB6ZUdJEt6hMhVMMcF0HRGtqT7IEUx9ssDqaiOyBA1kCnOi+cp4nbfNCjFvyqFOjhX34Bkxvoc5oCAAA=</data>
+        <length>504</length>
+        <position>1</position>
+        <sys_attachment display_value="image" sys_id="9d6705682ff17300a4a2c886f699b639">9d6705682ff17300a4a2c886f699b639</sys_attachment>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-30 09:06:04</sys_created_on>
+        <sys_id>516705682ff17300a4a2c886f699b63a</sys_id>
+    </sys_attachment_doc>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>db_image_eff605682ff17300a4a2c886f699b682</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="db_image">
+    <db_image action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category>Service Portal</category>
+        <format/>
+        <height/>
+        <image>9d6705682ff17300a4a2c886f699b639</image>
+        <name>unit_pic.svg</name>
+        <size_bytes>666</size_bytes>
+        <sys_class_name>db_image</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-30 09:04:57</sys_created_on>
+        <sys_id>eff605682ff17300a4a2c886f699b682</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>unit_pic.svg</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>db_image_eff605682ff17300a4a2c886f699b682</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-05-30 09:06:05</sys_updated_on>
+        <thumbnail/>
+        <width/>
+    </db_image>
+    <sys_attachment action="INSERT_OR_UPDATE">
+        <average_image_color/>
+        <chunk_size_bytes>734003</chunk_size_bytes>
+        <compressed>true</compressed>
+        <content_type>image/svg+xml</content_type>
+        <file_name>image</file_name>
+        <hash/>
+        <image_height/>
+        <image_width/>
+        <size_bytes>666</size_bytes>
+        <size_compressed>387</size_compressed>
+        <state/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-30 09:06:04</sys_created_on>
+        <sys_id>9d6705682ff17300a4a2c886f699b639</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-05-30 09:06:04</sys_updated_on>
+        <table_name>ZZ_YYdb_image</table_name>
+        <table_sys_id>eff605682ff17300a4a2c886f699b682</table_sys_id>
+    </sys_attachment>
+    <sys_attachment_doc action="INSERT_OR_UPDATE">
+        <data>H4sIAAAAAAAAAA==</data>
+        <length>16</length>
+        <position>0</position>
+        <sys_attachment display_value="image" sys_id="9d6705682ff17300a4a2c886f699b639">9d6705682ff17300a4a2c886f699b639</sys_attachment>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-30 09:06:04</sys_created_on>
+        <sys_id>dd6705682ff17300a4a2c886f699b639</sys_id>
+    </sys_attachment_doc>
+    <sys_attachment_doc action="INSERT_OR_UPDATE">
+        <data>tZHPcoQgDMZfJcM9yD9Z7dQe2ksvvfZOXV2ZurKjrnb26ZtgX6EzSOAjvy8RnpftAmGOAYd4PndTI9b53gnoU3tfwtfYNaIP40LKOawBb3PXxx/Wlj8ltomgr5S+BbRjWJZGkCXGaYxTh9gH6APyMccdtRMwJ7aN14uAn+s4ETGs6+2pKPZ9l7uVab4URilVkJGALXb7a6KaChQ4V0GpjXh5voV1gD6OYyPa+zx30/qWxjRTV4344DTr1adxrUJtpUWt5AmNO8Z77d+chWzIofabNapVUFoWan+MwZqqZZpSiGMLyPyG2pPxSZZo6dOOClSyRl1REScN6lK6vChrpvHkCD00CzlTSw1/iH98aFOBttwsVzPk4sGjH4w27VHfs0qz33Kj/EtZ4MR3RjOp0GOm0W9o1ONK4D+4mtJKB6ZUdJEt6hMhVMMcF0HRGtqT7IEUx9ssDqaiOyBA1kCnOi+cp4nbfNCjFvyqFOjhX34Bkxvoc5oCAAA=</data>
+        <length>504</length>
+        <position>1</position>
+        <sys_attachment display_value="image" sys_id="9d6705682ff17300a4a2c886f699b639">9d6705682ff17300a4a2c886f699b639</sys_attachment>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-30 09:06:04</sys_created_on>
+        <sys_id>516705682ff17300a4a2c886f699b63a</sys_id>
+    </sys_attachment_doc>
+</record_update>]]></payload>
+        <payload_hash>0</payload_hash>
+        <record_name>unit_pic.svg</record_name>
+        <reverted_from/>
+        <source>52acf146078d1010288ff16c7c1ed025</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-05-29 14:25:24</sys_created_on>
+        <sys_id>adcc7d46078d1010288ff16c7c1ed08a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17260d2c0ef0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-05-29 14:25:24</sys_updated_on>
+        <type>Images</type>
+        <update_guid>2dcc7d46098d1010351c232c17d3438a</update_guid>
+        <update_guid_history>2dcc7d46098d1010351c232c17d3438a:0,61cc7d46798d10103b31d708952dcd8a:0</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="unit_pic.svg">796b798407af941034dbf2ae7c1ed008</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-09-24 15:48:31</sys_created_on>
+        <sys_db_object display_value="" name="db_image">db_image</sys_db_object>
+        <sys_id>0da7b0a2770c4d90ab00b8469abbe840</sys_id>
+        <sys_metadata>eff605682ff17300a4a2c886f699b682</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>unit_pic.svg</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>db_image_eff605682ff17300a4a2c886f699b682</sys_update_name>
+        <sys_update_version display_value="db_image_eff605682ff17300a4a2c886f699b682">adcc7d46078d1010288ff16c7c1ed08a</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-09-24 15:48:31</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

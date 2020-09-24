@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_315700_lms.lms_constants</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>lms_constants</name>
+        <script><![CDATA[var lms_constants = Class.create();
+
+lms_constants.SCOPE = 'x_315700_lms';
+
+//TABLES
+lms_constants.USER_ACTIVITY_TABLE = lms_constants.SCOPE + '_unit_user';
+lms_constants.COURSE_TABLE = lms_constants.SCOPE + '_course';
+lms_constants.SECTION_TABLE = lms_constants.SCOPE + '_section';
+lms_constants.UNIT_TABLE = lms_constants.SCOPE + '_unit';
+lms_constants.QUIZ_REF_TABLE = lms_constants.SCOPE + '_quiz_ref';
+lms_constants.SHORT_TERM_COURSE_TABLE = lms_constants.SCOPE + '_short_term_course';
+lms_constants.LONG_TERM_COURSE_TABLE = lms_constants.SCOPE + '_long_term_course';
+lms_constants.ASYNC_COURSE_TABLE = lms_constants.SCOPE + '_synchronous_course';
+
+//ROLES
+lms_constants.ADMIN_ROLE = lms_constants.SCOPE + '.admin';
+lms_constants.INSTRUCTOR_ROLE = lms_constants.SCOPE + '.instructor';]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-09-21 14:16:44</sys_created_on>
+        <sys_id>5489ce87075b101034dbf2ae7c1ed077</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>lms_constants</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sys_script_include_5489ce87075b101034dbf2ae7c1ed077</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-09-21 15:22:42</sys_updated_on>
+    </sys_script_include>
+</record_update>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_module">
+    <sys_app_module action="DELETE">
+        <active>true</active>
+        <application display_value="LMS">5fba41fadb003300c1e8f53a2996193e</application>
+        <assessment/>
+        <device_type/>
+        <filter/>
+        <hint/>
+        <homepage/>
+        <image/>
+        <link_type>SEPARATOR</link_type>
+        <map_page/>
+        <mobile_title>components</mobile_title>
+        <mobile_view_name>Mobile</mobile_view_name>
+        <name>x_315700_lms_component</name>
+        <order>450</order>
+        <override_menu_roles>false</override_menu_roles>
+        <query/>
+        <report/>
+        <roles>x_315700_lms.user</roles>
+        <sys_class_name>sys_app_module</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-03-11 12:11:04</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>db82b536db803300c1e8f53a2996191f</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>Components</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sys_app_module_db82b536db803300c1e8f53a2996191f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-03-14 14:53:36</sys_updated_on>
+        <timeline_page/>
+        <title>Components</title>
+        <uncancelable>false</uncancelable>
+        <view_name/>
+        <window_name/>
+    </sys_app_module>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="LMS">03ba89b6db003300c1e8f53a299619df</application>
+        <file_path/>
+        <instance_id>ce1e2e54db7ec0544d2bac44d49619c4</instance_id>
+        <instance_name>dev98968</instance_name>
+        <name>sys_app_module_db82b536db803300c1e8f53a2996191f</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_module">
+    <sys_app_module action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <application display_value="LMS">5fba41fadb003300c1e8f53a2996193e</application>
+        <assessment/>
+        <device_type/>
+        <filter/>
+        <hint/>
+        <homepage/>
+        <image/>
+        <link_type>SEPARATOR</link_type>
+        <map_page/>
+        <mobile_title>components</mobile_title>
+        <mobile_view_name>Mobile</mobile_view_name>
+        <name>x_315700_lms_component</name>
+        <order>450</order>
+        <override_menu_roles>false</override_menu_roles>
+        <query/>
+        <report/>
+        <roles>x_315700_lms.user</roles>
+        <sys_class_name>sys_app_module</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-03-11 12:11:04</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>db82b536db803300c1e8f53a2996191f</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>Components</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_update_name>sys_app_module_db82b536db803300c1e8f53a2996191f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-03-14 14:53:36</sys_updated_on>
+        <timeline_page/>
+        <title>Components</title>
+        <uncancelable>false</uncancelable>
+        <view_name/>
+        <window_name/>
+    </sys_app_module>
+</record_update>]]></payload>
+        <payload_hash>525049232</payload_hash>
+        <record_name>Components</record_name>
+        <reverted_from/>
+        <source>52acf146078d1010288ff16c7c1ed025</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-05-29 14:25:58</sys_created_on>
+        <sys_id>4eec7586078d1010288ff16c7c1ed0f0</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17260d3484d0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-05-29 14:25:58</sys_updated_on>
+        <type>Module</type>
+        <update_guid>0eec7586368d1010a47c813b79e815f0</update_guid>
+        <update_guid_history>0eec7586368d1010a47c813b79e815f0:525049232</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Components">d893158407ab941034dbf2ae7c1ed025</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-09-24 12:54:29</sys_created_on>
+        <sys_db_object display_value="" name="sys_app_module">sys_app_module</sys_db_object>
+        <sys_id>34f6052f74ec44d08d009aae8518eb24</sys_id>
+        <sys_metadata>db82b536db803300c1e8f53a2996191f</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Components</sys_name>
+        <sys_package display_value="LMS" source="x_315700_lms">03ba89b6db003300c1e8f53a299619df</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="LMS">03ba89b6db003300c1e8f53a299619df</sys_scope>
+        <sys_scope_delete display_value="">1b77cb96281c4768a079ae9292f582b1</sys_scope_delete>
+        <sys_update_name>sys_app_module_db82b536db803300c1e8f53a2996191f</sys_update_name>
+        <sys_update_version display_value="sys_app_module_db82b536db803300c1e8f53a2996191f">4eec7586078d1010288ff16c7c1ed0f0</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-09-24 12:54:29</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
